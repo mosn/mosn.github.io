@@ -1,0 +1,37 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MOSN – “新闻&#34;</title>
+    <link>https://mosn.io/zh/blog/news/</link>
+    <description>Recent content in “新闻&#34; on MOSN</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="https://mosn.io/zh/blog/news/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Blog: MOSN 社区成立</title>
+      <link>https://mosn.io/zh/blog/2019/announcing-mosn-communtiy/</link>
+      <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/blog/2019/announcing-mosn-communtiy/</guid>
+      <description>
+        
+        
+        &lt;p&gt;&lt;img src=&#34;meetup-hangzhou-mosn.png&#34; alt=&#34;MOSN社区成立&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2019 年 12 月 28 日，杭州，在第 9 届 Service Mesh Meetup 上，MOSN 开源负责人肖涵（涵畅）宣布，MOSN 从 SOFAStack 社区中迁移出来，成立独立的 Github 组织 &lt;a href=&#34;https://github.com/mosn&#34; target=&#34;_blank&#34;&gt;https://github.com/mosn&lt;/a&gt;，并作为独立项目运营，并开启 MOSN 开源社区。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;mosn-roadmap.png&#34; alt=&#34;MOSN roadmap&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;同时公布了 MOSN 的 Roadmap，开启新的域名 &lt;a href=&#34;https://mosn.io&#34; target=&#34;_blank&#34;&gt;mosn.io&lt;/a&gt;。&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

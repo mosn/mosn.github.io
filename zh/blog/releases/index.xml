@@ -1,0 +1,927 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MOSN – 发布</title>
+    <link>https://mosn.io/zh/blog/releases/</link>
+    <description>Recent content in 发布 on MOSN</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="https://mosn.io/zh/blog/releases/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Blog: MOSN 0.1.0 性能报告</title>
+      <link>https://mosn.io/zh/blog/2019/mosn-0.1.0-perfermence-report/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/blog/2019/mosn-0.1.0-perfermence-report/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;以下的的性能报告为 MOSN 0.1.0 在做 Bolt 与 HTTP1.x 协议的纯 TCP 转发上与 envoy 的一些性能对比数据，主要表现在 QPS、RTT、失败率/成功率等。&lt;/p&gt;
+
+&lt;p&gt;这里需要强调的是，为了提高 MOSN 的转发性能，在 0.1.0 版本中，我们做了如下的一些优化手段：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在线程模型优化上，使用 worker 协程池处理 stream 事件，使用两个独立的协程分别处理读写 IO&lt;/li&gt;
+&lt;li&gt;在单核转发优化上，在指定 &lt;code&gt;P=1&lt;/code&gt; 的情况下，我们通过使用 CPU 绑核的形式来提高系统调用的执行效率以及 cache 的 locality affinity&lt;/li&gt;
+&lt;li&gt;在内存优化上，同样是在单核绑核的情况下，我们通过使用 SLAB-style 的回收机制来提高复用，减少内存 copy&lt;/li&gt;
+&lt;li&gt;在 IO 优化上，主要是通过读写 buffer 大小以及读写时机和频率等参数的控制上进行调优&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以下为具体的性能测试数据。&lt;/p&gt;
+
+&lt;h2 id=&#34;tcp-代理性能数据&#34;&gt;TCP 代理性能数据&lt;/h2&gt;
+
+&lt;p&gt;这里，针对相同的部署模式，我们分别针对上层协议为 &lt;code&gt;&amp;quot;Bolt(SofaRpc相关协议)&amp;quot;&lt;/code&gt; 与 &lt;code&gt;&amp;quot;HTTP1.1&amp;quot;&lt;/code&gt; 来进行对比。&lt;/p&gt;
+
+&lt;h3 id=&#34;部署模式&#34;&gt;部署模式&lt;/h3&gt;
+
+&lt;p&gt;压测采用纯代理模式部署，client 进程通过 MOSN 进程作为转发代理访问server进程。其中，client 进程，MOSN 进程，server 进程分别运行在属于不同网段的机器中。client 直连访问 server 网络延时为 2.5ms 左右。&lt;/p&gt;
+
+&lt;h2 id=&#34;客户端&#34;&gt;客户端&lt;/h2&gt;
+
+&lt;h3 id=&#34;bolt-协议-发送-1k-字符串&#34;&gt;Bolt 协议（发送 1K 字符串）&lt;/h3&gt;
+
+&lt;p&gt;发送 Bolt 协议数据的客户端使用 &amp;ldquo;蚂蚁金服&amp;rdquo;内部开发的线上压力机，并部署 sofa rpc client。 通过压力机的性能页面，可反映压测过程中的QPS、成功/失败次数，以及RT等参数。&lt;/p&gt;
+
+&lt;h3 id=&#34;http1-1-协议-发送-1k-字符串&#34;&gt;HTTP1.1 协议（发送 1K 字符串）&lt;/h3&gt;
+
+&lt;p&gt;使用 ApacheBench/2.3, 测试指令:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ab -n &lt;span style=&#34;color:#000&#34;&gt;$RPC&lt;/span&gt; -c &lt;span style=&#34;color:#000&#34;&gt;$CPC&lt;/span&gt; -p 1k.txt -T &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;text/plain&amp;#34;&lt;/span&gt; -k http://11.166.161.136:12200/tcp_bench &amp;gt; ab.log.&lt;span style=&#34;color:#000&#34;&gt;$CPU_IDX&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;&amp;amp;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;service-mesh-运行机器规格&#34;&gt;Service mesh 运行机器规格&lt;/h2&gt;
+
+&lt;p&gt;Service mesh 运行在容器中，其中 CPU 为独占的一个逻辑核，具体规格如下：&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;类别&lt;/th&gt;
+&lt;th&gt;信息&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;OS&lt;/td&gt;
+&lt;td&gt;3.10.0-327.ali2008.alios7.x86_64&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;CPU&lt;/td&gt;
+&lt;td&gt;Intel&amp;reg; Xeon&amp;reg; CPU E5-2650 v2 @ 2.60GHz X 1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;upstream-运行机器规格&#34;&gt;Upstream 运行机器规格&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;类别&lt;/th&gt;
+&lt;th&gt;信息&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;OS&lt;/td&gt;
+&lt;td&gt;2.6.32-431.17.1.el6.FASTSOCKET&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;CPU&lt;/td&gt;
+&lt;td&gt;Intel&amp;reg; Xeon&amp;reg; CPU E5620  @ 2.40GHz X 16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;bolt-协议测试结果&#34;&gt;Bolt 协议测试结果&lt;/h2&gt;
+
+&lt;h3 id=&#34;性能数据&#34;&gt;性能数据&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;指标&lt;/th&gt;
+&lt;th&gt;MOSN&lt;/th&gt;
+&lt;th&gt;Envoy&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;QPS&lt;/td&gt;
+&lt;td&gt;103500&lt;/td&gt;
+&lt;td&gt;104000&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT&lt;/td&gt;
+&lt;td&gt;16.23ms&lt;/td&gt;
+&lt;td&gt;15.88ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;MEM&lt;/td&gt;
+&lt;td&gt;31m&lt;/td&gt;
+&lt;td&gt;18m&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;CPU&lt;/td&gt;
+&lt;td&gt;100%&lt;/td&gt;
+&lt;td&gt;100%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;结论&#34;&gt;结论&lt;/h3&gt;
+
+&lt;p&gt;可以看到，在单核 TCP 转发场景下，MOSN 0.1.0 版本和 Envoy 1.7版本，在满负载情况下的 QPS、RTT、成功数/失败数等性能数据上相差不大，后续版本我们会继续优化。&lt;/p&gt;
+
+&lt;h2 id=&#34;http-1-1-测试结果&#34;&gt;HTTP/1.1 测试结果&lt;/h2&gt;
+
+&lt;p&gt;由于 HTTP/1.1 的请求响应模型为 PING-PONG，因此 QPS 与并发数会呈现正相关。下面分别进行不同并发数的测试。&lt;/p&gt;
+
+&lt;h3 id=&#34;并发20&#34;&gt;并发20&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;指标&lt;/th&gt;
+&lt;th&gt;MOSN&lt;/th&gt;
+&lt;th&gt;Envoy&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;QPS&lt;/td&gt;
+&lt;td&gt;5600&lt;/td&gt;
+&lt;td&gt;5600&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(mean)&lt;/td&gt;
+&lt;td&gt;3.549ms&lt;/td&gt;
+&lt;td&gt;3.545ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P99)&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P98)&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P95)&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;MEM&lt;/td&gt;
+&lt;td&gt;24m&lt;/td&gt;
+&lt;td&gt;23m&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;CPU&lt;/td&gt;
+&lt;td&gt;40%&lt;/td&gt;
+&lt;td&gt;20%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;并发40&#34;&gt;并发40&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;指标&lt;/th&gt;
+&lt;th&gt;MOSN&lt;/th&gt;
+&lt;th&gt;Envoy&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;QPS&lt;/td&gt;
+&lt;td&gt;11150&lt;/td&gt;
+&lt;td&gt;11200&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(mean)&lt;/td&gt;
+&lt;td&gt;3.583ms&lt;/td&gt;
+&lt;td&gt;3.565ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P99)&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P98)&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P95)&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;td&gt;4ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;MEM&lt;/td&gt;
+&lt;td&gt;34m&lt;/td&gt;
+&lt;td&gt;24m&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;CPU&lt;/td&gt;
+&lt;td&gt;70%&lt;/td&gt;
+&lt;td&gt;40%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;并发200&#34;&gt;并发200&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;指标&lt;/th&gt;
+&lt;th&gt;MOSN&lt;/th&gt;
+&lt;th&gt;Envoy&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;QPS&lt;/td&gt;
+&lt;td&gt;29670&lt;/td&gt;
+&lt;td&gt;38800&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(mean)&lt;/td&gt;
+&lt;td&gt;5.715ms&lt;/td&gt;
+&lt;td&gt;5.068ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P99)&lt;/td&gt;
+&lt;td&gt;16ms&lt;/td&gt;
+&lt;td&gt;7ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P98)&lt;/td&gt;
+&lt;td&gt;13ms&lt;/td&gt;
+&lt;td&gt;7ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P95)&lt;/td&gt;
+&lt;td&gt;11ms&lt;/td&gt;
+&lt;td&gt;6ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;MEM&lt;/td&gt;
+&lt;td&gt;96m&lt;/td&gt;
+&lt;td&gt;24m&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;CPU&lt;/td&gt;
+&lt;td&gt;100%&lt;/td&gt;
+&lt;td&gt;95%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;并发220&#34;&gt;并发220&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;指标&lt;/th&gt;
+&lt;th&gt;MOSN&lt;/th&gt;
+&lt;th&gt;Envoy&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;QPS&lt;/td&gt;
+&lt;td&gt;30367&lt;/td&gt;
+&lt;td&gt;41070&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(mean)&lt;/td&gt;
+&lt;td&gt;8.201ms&lt;/td&gt;
+&lt;td&gt;5.369ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P99)&lt;/td&gt;
+&lt;td&gt;20ms&lt;/td&gt;
+&lt;td&gt;9ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P98)&lt;/td&gt;
+&lt;td&gt;19ms&lt;/td&gt;
+&lt;td&gt;8ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RT(P95)&lt;/td&gt;
+&lt;td&gt;16ms&lt;/td&gt;
+&lt;td&gt;8ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;MEM&lt;/td&gt;
+&lt;td&gt;100m&lt;/td&gt;
+&lt;td&gt;24m&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;CPU&lt;/td&gt;
+&lt;td&gt;100%&lt;/td&gt;
+&lt;td&gt;100%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;结论-1&#34;&gt;结论&lt;/h3&gt;
+
+&lt;p&gt;可以看到，在上层协议为 HTTP/1.X 时，MOSN 的性能和 Envoy 的性能存在一定差距，对于这种现象我们的初步结论为：在 PING-PONG 的发包模型下，MOSN 无法进行 read/write 系统调用合并，相比 SOFARPC 可以合并的场景，syscall 数量大幅上升，因此导致相比 SOFARPC 的场景，HTTP 性能上相比 Envoy 会存在差距。针对这个问题，在 0.2.0 版本中，我们会进行相应的优化。&lt;/p&gt;
+
+&lt;h2 id=&#34;附录&#34;&gt;附录&lt;/h2&gt;
+
+&lt;h2 id=&#34;envoy-版本信息&#34;&gt;Envoy 版本信息&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;version：1.7&lt;/li&gt;
+&lt;li&gt;tag：1ef23d481a4701ad4a414d1ef98036bd2ed322e7&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;envoy-tcp-测试配置&#34;&gt;Envoy TCP 测试配置&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;static_resources&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;  &lt;/span&gt;listeners&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;  &lt;/span&gt;-&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;      &lt;/span&gt;socket_address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0.0&lt;/span&gt;.&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0.0&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;port_value&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;12200&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;filter_chains&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;-&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;filters&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;      &lt;/span&gt;-&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;name&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;envoy.tcp_proxy&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;config&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;          &lt;/span&gt;stat_prefix&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;ingress_tcp&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;          &lt;/span&gt;cluster&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;sofa_server&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;  &lt;/span&gt;clusters&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;  &lt;/span&gt;-&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;name&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;sofa_server&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;connect_timeout&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0.&lt;/span&gt;25s&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;type&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;static&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;lb_policy&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;round_robin&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;hosts&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;-&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;socket_address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;10.210&lt;/span&gt;.&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;168.5&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;port_value&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;12222&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;-&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;socket_address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;10.210&lt;/span&gt;.&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;168.5&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;port_value&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;12223&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;-&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;socket_address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;10.210&lt;/span&gt;.&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;168.5&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;port_value&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;12224&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;-&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;socket_address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;10.210&lt;/span&gt;.&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;168.5&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;        &lt;/span&gt;port_value&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;12225&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;&lt;/span&gt;admin&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;  &lt;/span&gt;access_log_path&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;/dev/null&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;  &lt;/span&gt;address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;    &lt;/span&gt;socket_address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;      &lt;/span&gt;address&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0.0&lt;/span&gt;.&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0.0&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt;      &lt;/span&gt;port_value&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#f8f8f8;text-decoration:underline&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;8001&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Blog: MOSN 0.2.1 性能报告</title>
+      <link>https://mosn.io/zh/blog/2019/mosn-0.2.1-performance-report/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/blog/2019/mosn-0.2.1-performance-report/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;在 0.2.1 版本中，我们进行了如下一些优化手段：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;添加内存复用框架，涵盖 io/protocol/stream/proxy 层级，减少对象分配、内存使用和 GC 压力。&lt;/li&gt;
+&lt;li&gt;针对大量链接场景，新增 Raw Epoll 模式，该模式使用了事件回调机制 + IO 协程池，规避了海量协程带来的堆栈内存消耗以及调度开销。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;需要注意的是，由于目前 SOFARPC 和 H2 的压测工具还没有 pxx 指标的展示，我们在性能报告中选取的数据都为&lt;strong&gt;均值&lt;/strong&gt;。后续需要我们自行进行相关压测环境工具的建设来完善相关指标（P99，P95……）&lt;/p&gt;
+
+&lt;h2 id=&#34;总览&#34;&gt;总览&lt;/h2&gt;
+
+&lt;p&gt;本次性能报告在&lt;code&gt;0.1.0 性能报告&lt;/code&gt;的基础上，新增了若干场景的覆盖，总体包含以下几部分：
+- 单核性能（sidecar场景）
+  - 7层代理
+    - Bolt（串联）
+    - Http/1.1（串联）
+    - Http/2（串联）
+- 多核性能（gateway场景）
+  - 7层代理
+    - Bolt（直连）
+    - Http/1.1（直连）
+    - Http/2（直连）
+- 长连接网关
+    - Bolt（read/write loop with goroutine/raw epoll）&lt;/p&gt;
+
+&lt;h2 id=&#34;单核性能-sidecar-场景&#34;&gt;单核性能（sidecar 场景）&lt;/h2&gt;
+
+&lt;h3 id=&#34;测试环境&#34;&gt;测试环境&lt;/h3&gt;
+
+&lt;h4 id=&#34;机器信息&#34;&gt;机器信息&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;机器&lt;/th&gt;
+&lt;th&gt;OS&lt;/th&gt;
+&lt;th&gt;CPU&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;11.166.190.224&lt;/td&gt;
+&lt;td&gt;3.10.0-327.ali2010.rc7.alios7.x86_64&lt;/td&gt;
+&lt;td&gt;Intel（R） Xeon（R） CPU E5-2640 v3 @ 2.60GHz&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;11.166.136.110&lt;/td&gt;
+&lt;td&gt;3.10.0-327.ali2010.rc7.alios7.x86_64&lt;/td&gt;
+&lt;td&gt;Intel（R） Xeon（R） CPU E5-2430 0 @ 2.20GHz&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;bolt client&lt;/td&gt;
+&lt;td&gt;client 为压力平台，有 5 台压力机，共计与client MOSN 之间会建立 500 条链接&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;http1 client（10.210.168.5）&lt;/td&gt;
+&lt;td&gt;ApacheBench/2.3&lt;/td&gt;
+&lt;td&gt;-n 2000000 -c 500 -k&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;http2 client（10.210.168.5）&lt;/td&gt;
+&lt;td&gt;nghttp.h2load&lt;/td&gt;
+&lt;td&gt;-n1000000 -c5 -m100 -t4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;部署结构&#34;&gt;部署结构&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;压测模式&lt;/th&gt;
+&lt;th&gt;部署结构&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;串联&lt;/td&gt;
+&lt;td&gt;client &amp;ndash;&amp;gt; MOSN（11.166.190.224） &amp;ndash;&amp;gt; MOSN（11.166.136.110） &amp;ndash;&amp;gt; server（11.166.136.110）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;网络时延&#34;&gt;网络时延&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;节点&lt;/th&gt;
+&lt;th&gt;PING&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;client &amp;ndash;&amp;gt; MOSN（11.166.190.224）&lt;/td&gt;
+&lt;td&gt;1.356ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;MOSN（11.166.190.224） &amp;ndash;&amp;gt; MOSN（11.166.136.110）&lt;/td&gt;
+&lt;td&gt;0.097 ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;请求模式&#34;&gt;请求模式&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;请求内容&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1K req/resp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;7层代理&#34;&gt;7层代理&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;场景&lt;/th&gt;
+&lt;th&gt;QPS&lt;/th&gt;
+&lt;th&gt;RT(ms)&lt;/th&gt;
+&lt;th&gt;MEM(K)&lt;/th&gt;
+&lt;th&gt;CPU(%)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Bolt&lt;/td&gt;
+&lt;td&gt;16000&lt;/td&gt;
+&lt;td&gt;15.8&lt;/td&gt;
+&lt;td&gt;77184&lt;/td&gt;
+&lt;td&gt;98&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Http/1.1&lt;/td&gt;
+&lt;td&gt;4610&lt;/td&gt;
+&lt;td&gt;67&lt;/td&gt;
+&lt;td&gt;47336&lt;/td&gt;
+&lt;td&gt;90&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Http/2&lt;/td&gt;
+&lt;td&gt;5219&lt;/td&gt;
+&lt;td&gt;81&lt;/td&gt;
+&lt;td&gt;31244&lt;/td&gt;
+&lt;td&gt;74&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;多核性能-gateway-场景&#34;&gt;多核性能（gateway 场景）&lt;/h2&gt;
+
+&lt;h3 id=&#34;测试环境-1&#34;&gt;测试环境&lt;/h3&gt;
+
+&lt;h4 id=&#34;机器信息-1&#34;&gt;机器信息&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;机器&lt;/th&gt;
+&lt;th&gt;OS&lt;/th&gt;
+&lt;th&gt;CPU&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;11.166.190.224&lt;/td&gt;
+&lt;td&gt;3.10.0-327.ali2010.rc7.alios7.x86_64&lt;/td&gt;
+&lt;td&gt;Intel（R） Xeon（R） CPU E5-2640 v3 @ 2.60GHz&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;11.166.136.110&lt;/td&gt;
+&lt;td&gt;3.10.0-327.ali2010.rc7.alios7.x86_64&lt;/td&gt;
+&lt;td&gt;Intel（R） Xeon（R） CPU E5-2430 0 @ 2.20GHz&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;bolt client&lt;/td&gt;
+&lt;td&gt;client为压力平台，有5台压力机，共计与client MOSN之间会建立500条链接&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;http1 client（10.210.168.5）&lt;/td&gt;
+&lt;td&gt;ApacheBench/2.3&lt;/td&gt;
+&lt;td&gt;-n 2000000 -c 500 -k&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;http2 client（10.210.168.5）&lt;/td&gt;
+&lt;td&gt;nghttp.h2load&lt;/td&gt;
+&lt;td&gt;-n1000000 -c5 -m100 -t4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;部署结构-1&#34;&gt;部署结构&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;压测模式&lt;/th&gt;
+&lt;th&gt;部署结构&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;直连&lt;/td&gt;
+&lt;td&gt;client &amp;ndash;&amp;gt; MOSN（11.166.190.224） &amp;ndash;&amp;gt; server（11.166.136.110）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;网络时延-1&#34;&gt;网络时延&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;节点&lt;/th&gt;
+&lt;th&gt;PING&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;client &amp;ndash;&amp;gt; MOSN（11.166.190.224）&lt;/td&gt;
+&lt;td&gt;1.356ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;MOSN（11.166.190.224） &amp;ndash;&amp;gt; MOSN（11.166.136.110）&lt;/td&gt;
+&lt;td&gt;0.097 ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;请求模式-1&#34;&gt;请求模式&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;请求内容&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1K req/resp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;7层代理-1&#34;&gt;7层代理&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;场景&lt;/th&gt;
+&lt;th&gt;QPS&lt;/th&gt;
+&lt;th&gt;RT(ms)&lt;/th&gt;
+&lt;th&gt;MEM(K)&lt;/th&gt;
+&lt;th&gt;CPU(%)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Bolt&lt;/td&gt;
+&lt;td&gt;45000&lt;/td&gt;
+&lt;td&gt;23.4&lt;/td&gt;
+&lt;td&gt;544732&lt;/td&gt;
+&lt;td&gt;380&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Http/1.1&lt;/td&gt;
+&lt;td&gt;21584&lt;/td&gt;
+&lt;td&gt;23&lt;/td&gt;
+&lt;td&gt;42768&lt;/td&gt;
+&lt;td&gt;380&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Http/2&lt;/td&gt;
+&lt;td&gt;8180&lt;/td&gt;
+&lt;td&gt;51.7&lt;/td&gt;
+&lt;td&gt;173180&lt;/td&gt;
+&lt;td&gt;300&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;长连接网关&#34;&gt;长连接网关&lt;/h2&gt;
+
+&lt;h3 id=&#34;测试环境-2&#34;&gt;测试环境&lt;/h3&gt;
+
+&lt;h4 id=&#34;机器信息-2&#34;&gt;机器信息&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;机器&lt;/th&gt;
+&lt;th&gt;OS&lt;/th&gt;
+&lt;th&gt;CPU&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;11.166.190.224&lt;/td&gt;
+&lt;td&gt;3.10.0-327.ali2010.rc7.alios7.x86_64&lt;/td&gt;
+&lt;td&gt;Intel&amp;reg; Xeon&amp;reg; CPU E5-2640 v3 @ 2.60GHz&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;11.166.136.110&lt;/td&gt;
+&lt;td&gt;3.10.0-327.ali2010.rc7.alios7.x86_64&lt;/td&gt;
+&lt;td&gt;Intel&amp;reg; Xeon&amp;reg; CPU E5-2430 0 @ 2.20GHz&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;部署结构-2&#34;&gt;部署结构&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;压测模式&lt;/th&gt;
+&lt;th&gt;部署结构&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;直连&lt;/td&gt;
+&lt;td&gt;client &amp;ndash;&amp;gt; MOSN（11.166.190.224） &amp;ndash;&amp;gt; server（11.166.136.110）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;网络时延-2&#34;&gt;网络时延&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;节点&lt;/th&gt;
+&lt;th&gt;PING&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;client &amp;ndash;&amp;gt; MOSN（11.166.190.224）&lt;/td&gt;
+&lt;td&gt;1.356ms&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;MOSN（11.166.190.224） &amp;ndash;&amp;gt; MOSN（11.166.136.110）&lt;/td&gt;
+&lt;td&gt;0.097 ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;请求模式-2&#34;&gt;请求模式&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;链接数&lt;/th&gt;
+&lt;th&gt;请求内容&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;2 台压力机，每台 5w 链接 + 500 QPS，共计10W链接 + 1000 QPS&lt;/td&gt;
+&lt;td&gt;1K req/resp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;长连接网关-1&#34;&gt;长连接网关&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;场景&lt;/th&gt;
+&lt;th&gt;QPS&lt;/th&gt;
+&lt;th&gt;MEM(g)&lt;/th&gt;
+&lt;th&gt;CPU(%)&lt;/th&gt;
+&lt;th&gt;goroutine&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;RWLoop + goroutine&lt;/td&gt;
+&lt;td&gt;1000&lt;/td&gt;
+&lt;td&gt;3.3&lt;/td&gt;
+&lt;td&gt;60&lt;/td&gt;
+&lt;td&gt;200028&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Raw epoll&lt;/td&gt;
+&lt;td&gt;1000&lt;/td&gt;
+&lt;td&gt;2.5&lt;/td&gt;
+&lt;td&gt;18&lt;/td&gt;
+&lt;td&gt;28&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+
+&lt;p&gt;MOSN &lt;code&gt;0.2.1&lt;/code&gt;引入了&lt;code&gt;内存复用框架&lt;/code&gt;，相比&lt;code&gt;0.1.0&lt;/code&gt;，在 &lt;code&gt;bolt 协议转发&lt;/code&gt;场景性能表现得到了大幅优化。在提升了&lt;strong&gt;20&lt;/strong&gt;% 的 QPS 的同时，还优化了 &lt;strong&gt;30&lt;/strong&gt;% 的内存占用。&lt;/p&gt;
+
+&lt;p&gt;与此同时，我们对 HTTP/1.1 及 HTTP/2 的场景也进行了初步的性能测试，目前来看性能表现比较一般。这主要是由于目前 HTTP 协议族的 IO、Stream 都由三方库进行处理，与 MOSN 现有的处理框架整合度较差。我们会在后续迭代进行专项优化，提升 MOSN 处理 HTTP 协议族的表现。&lt;/p&gt;
+
+&lt;p&gt;此外，针对大量链接场景（例如长连接网关），我们引入了 Raw Epoll + 协程池的模式来应对协程暴增的问题，从而大幅优化了该场景下的 QPS 和内存表现。&lt;/p&gt;
+
+&lt;h2 id=&#34;附录&#34;&gt;附录&lt;/h2&gt;
+
+&lt;h3 id=&#34;版本对比&#34;&gt;版本对比&lt;/h3&gt;
+
+&lt;p&gt;对比条件：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;页面大小 0~10k，平均5k&lt;/li&gt;
+&lt;li&gt;downstream 链接 1000&lt;/li&gt;
+&lt;li&gt;upstream链接 6&lt;/li&gt;
+&lt;li&gt;单核压测&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;strong&gt;版本&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;QPS&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;内存&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0.1.0&lt;/td&gt;
+&lt;td&gt;10500&lt;/td&gt;
+&lt;td&gt;175M&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;0.2.1&lt;/td&gt;
+&lt;td&gt;13000&lt;/td&gt;
+&lt;td&gt;122M&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
