@@ -611,6 +611,93 @@
     </item>
     
     <item>
+      <title>Blog: mosn 的reconfig 机制</title>
+      <link>https://mosn.io/zh/blog/2019/mosn-reconfig-mechanism/</link>
+      <pubDate>Sun, 24 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/blog/2019/mosn-reconfig-mechanism/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;本文记录了对 mosn 的源码研究，研究 mosn 是如何做到平滑重启的。&lt;/p&gt;
+
+&lt;p&gt;本文的内容基于 mosn v0.8.1。&lt;/p&gt;
+
+&lt;p&gt;我们先将被重启的 mosn 进程称为 &lt;code&gt;旧 mosn&lt;/code&gt;，将重启并接管流量的进程成为 &lt;code&gt;新 mosn&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;1-机制&#34;&gt;1. 机制&lt;/h2&gt;
+
+&lt;p&gt;mosn 没有使用重新读取 config 文件的方法来实现 reconfig，而是通过 &lt;code&gt;unix socket&lt;/code&gt; 作为进程间通信，并将旧进程的监听 fd 通过 socket 传过去，新 mosn 接管 fd 并且重新读取 config，旧 mosn 进行 gracefully shutdown，以达到 reconfig 和平滑重启的功能。&lt;/p&gt;
+
+&lt;h2 id=&#34;2-旧mosn&#34;&gt;2. 旧mosn&lt;/h2&gt;
+
+&lt;p&gt;我们先从一个启动着的 mosn 进程看起，看看它是如何被重启的。&lt;/p&gt;
+
+&lt;p&gt;mosn 的 reconfig 逻辑在 &lt;code&gt;server&lt;/code&gt; 包的 &lt;code&gt;reconfigure.go&lt;/code&gt; 内。&lt;/p&gt;
+
+&lt;p&gt;mosn 进程启动后，会创建一个叫 &lt;code&gt;reconfig.sock&lt;/code&gt; 的 unix socket，创建一个协程，开始监听并往里面写入一个字节的内容，这时会出现写阻塞。一旦有另一个进程从 reconfig.sock 读取到这一个字节，旧 mosn 便开始 &lt;code&gt;reconfig 逻辑&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;reconfig-逻辑&#34;&gt;reconfig 逻辑:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;当写阻塞结束，协程会尝试链接另一个 unix socket ：&lt;code&gt;listen.sock&lt;/code&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;一旦链接上，负责 reconfig 的协程会将已经存在的 fd 从 &lt;code&gt;listen.sock&lt;/code&gt; 发送，发送是通过 &lt;code&gt;out-of-band&lt;/code&gt; 数据进行的。 很显然，这个 &lt;code&gt;listen.sock&lt;/code&gt; 是新的 mosn 进程创建的，用来接收正在服务的 fd，接管并用以继续服务。&lt;/p&gt;
+
+&lt;p&gt;这里的 &lt;code&gt;已经存在的 fd&lt;/code&gt; 包括两种:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;server listener fd&lt;/code&gt;， 负责监听业务的 tcp 连接，对应 &lt;code&gt;config.json&lt;/code&gt; 里的 &lt;code&gt;servers&lt;/code&gt; 数组里的 &lt;code&gt;listeners&lt;/code&gt; 数组里的 ip +端口&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;service listener fd&lt;/code&gt;，控制相关的端口，比如 pprof、prometheus metrics export、admin 端口&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;发送完fd之后，旧 mosn 会接收 listen.sock 的数据（由新 mosn 写入的数据，代表 fd 已接管完毕），并进入 gracefully shutdown 状态，不再接收新的链接，等已有请求处理完再关闭&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;旧 mosn 有30秒时间处理完现存请求&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;30秒后，旧 mosn 关闭，链接由新 mosn 接管&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;3-新mosn&#34;&gt;3. 新mosn&lt;/h2&gt;
+
+&lt;p&gt;接下来是新 mosn 的启动。有两个问题:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;新 mosn 是如何将旧mosn的fd据为己有，并且接受数据的呢？&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;新 mosn 通过 &lt;code&gt;net.FileListener&lt;/code&gt; 方法对接受到的 fd 进行处理，该函数会返回 fd 的一个 network listener 副本，改副本可以用来接收数据，新 mosn 就是通过这个操作来从旧 mosn 做 fd 的接管&lt;/li&gt;
+&lt;li&gt;新 mosn 会重新解析一遍 config.json 进行解析，而在上一部处理过的 network listener 副本也能查找到对应的地址和端口。通过比对两者相同之处，就能在创建新的 server listener 和 service listener 时，接管旧 mosn 的 fd，用来初始化新的 listener。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;新 mosn接收到 fd 信息后，会做些什么呢？&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;接管 server listener fd&lt;/li&gt;
+&lt;li&gt;接管 service listener fd&lt;/li&gt;
+&lt;li&gt;给 listen.sock 发送一个字节数据，通知旧 mosn：可以关闭了&lt;/li&gt;
+&lt;li&gt;至此，mosn reconfig 结束&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;4-后续疑问&#34;&gt;4. 后续疑问&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;新 mosn 通过 &lt;code&gt;net.FileListener&lt;/code&gt; 方法处理完 fd 并初始化了 listener，由于处理后的 fd 是一个副本，如果这个时候来了一个连接，那这个连接是会被旧 mosn 处理到，还是新 mosn，还是两者都会通知到呢? 关于这方面，可以做一个实验验证一下。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;参考资料:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/mosn/mosn&#34; target=&#34;_blank&#34;&gt;mosn 源码&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN 源码浅析</title>
       <link>https://mosn.io/zh/blog/2020/mosn-source-code-brief/</link>
       <pubDate>Sun, 02 Feb 2020 00:00:00 +0000</pubDate>
@@ -627,13 +714,13 @@
 
 &lt;h2 id=&#34;手感&#34;&gt;手感&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/mosn/mosn/tree/master/examples/cn_readme/http-sample&#34; target=&#34;_blank&#34;&gt;使用 MOSN 作为 HTTP 代理&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/mosn/mosn/tree/master/examples/cn_readme/http-sample&#34; target=&#34;_blank&#34;&gt;使用 MOSN 作为 HTTP 代理&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;通过设置 log level 为debug， 代码中加更多日志 来辅助分析代码。&lt;strong&gt;本文主要以http-example 为例来分析&lt;/strong&gt;。&lt;/p&gt;
 
 &lt;h3 id=&#34;基本使用&#34;&gt;基本使用&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://juejin.im/post/5c62344f6fb9a049c232e821&#34; target=&#34;_blank&#34;&gt;MOSN源码解析—配置详解&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://juejin.im/post/5c62344f6fb9a049c232e821&#34; target=&#34;_blank&#34;&gt;MOSN源码解析—配置详解&lt;/a&gt;。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mosn
     examples
         codes
@@ -644,13 +731,13 @@
                 server.go     &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img src=&#34;mosn_http_example.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;使用&lt;code&gt;http://localhost:8080&lt;/code&gt; 和 &lt;code&gt;http://localhost:2345&lt;/code&gt; 都可以拿到数据&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;http://localhost:8080&lt;/code&gt; 和 &lt;code&gt;http://localhost:2345&lt;/code&gt; 都可以拿到数据。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;mosn_http_example_diff.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;配置理解&#34;&gt;配置理解&lt;/h3&gt;
 
-&lt;p&gt;对应config.json 的内容如下&lt;/p&gt;
+&lt;p&gt;对应config.json 的内容如下。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
     &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;servers&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;
         &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
@@ -680,7 +767,7 @@
     &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;cluster_manager&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{},&lt;/span&gt; 
     &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;admin&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{}&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;单拎出来 admin 部分， envoy 监听34901 端口&lt;/p&gt;
+&lt;p&gt;单拎出来 admin 部分， envoy 监听34901 端口。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;quot;admin&amp;quot;: {
   &amp;quot;address&amp;quot;: {
@@ -692,7 +779,7 @@
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;访问&lt;code&gt;http://localhost:34901/&lt;/code&gt;的返回结果&lt;/p&gt;
+&lt;p&gt;访问&lt;code&gt;http://localhost:34901/&lt;/code&gt;的返回结果。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;support apis:
 /api/v1/update_loglevel
 /api/v1/enable_log
@@ -710,14 +797,14 @@
 
 &lt;p&gt;&lt;img src=&#34;mosn_layer_process.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;一般的服务端编程，二级制数据经过协议解析为 协议对应的model（比如HttpServletRequest） 进而交给上层业务方处理，对于 MOSN&lt;/p&gt;
+&lt;p&gt;一般的服务端编程，二级制数据经过协议解析为 协议对应的model（比如HttpServletRequest） 进而交给上层业务方处理，对于 MOSN 。&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;协议上数据统一划分为 &lt;code&gt;header/data/Trailers&lt;/code&gt; 三个部分，转发也是以这三个子部分为基本单位&lt;/li&gt;
 &lt;li&gt;借鉴了http2 的stream 的理念（所以Stream interface 上有一个方法是&lt;code&gt;ID()&lt;/code&gt;），Stream 可以理解为一个子Connection，Stream 之间可以并行请求和响应，通过StreamId关联，用来实现在一个Connection 之上的“多路复用”。PS：为了连接数量与请求数量解耦。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;代码的组织（&lt;code&gt;pkg/stream&lt;/code&gt;，&lt;code&gt;pkg/protocol&lt;/code&gt;，&lt;code&gt;pkg/proxy&lt;/code&gt;）  跟上述架构是一致的&lt;/p&gt;
+&lt;p&gt;代码的组织（&lt;code&gt;pkg/stream&lt;/code&gt;，&lt;code&gt;pkg/protocol&lt;/code&gt;，&lt;code&gt;pkg/proxy&lt;/code&gt;）  跟上述架构是一致的。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;mosn_layer.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
@@ -730,35 +817,35 @@
 &lt;li&gt;跨层次调用/数据传输通过跨层次struct 的“组合”来实现。也有一些特别的，比如http net/io 和 stream 分别启动goroutine read/write loop，通过共享数据来 变相的实现跨层调用&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://mosn.io/zh/docs/concept/core-concept/&#34; alt=&#34;MOSN的核心概念解析&#34; /&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mosn.io/zh/docs/concept/core-concept/&#34; target=&#34;_blank&#34;&gt;MOSN的核心概念解析&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;mosn_io_process.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;MOSN 在 IO 层读取数据，通过 read filter 将数据发送到 Protocol 层进行 Decode&lt;/li&gt;
-&lt;li&gt;Decode 出来的数据，根据不同的协议，&lt;strong&gt;回调到 stream 层&lt;/strong&gt;，进行 stream 的创建和封装&lt;/li&gt;
-&lt;li&gt;stream 创建完毕后，会回调到 Proxy 层做路由和转发，Proxy 层会关联上下游（upstream,downstream）间的转发关系&lt;/li&gt;
-&lt;li&gt;Proxy 挑选到后端后，会根据后端使用的协议，将数据发送到对应协议的 Protocol 层，对数据重新做 Encode&lt;/li&gt;
-&lt;li&gt;Encode 后的数据会发经过 write filter 并最终使用 IO 的 write 发送出去&lt;/li&gt;
+&lt;li&gt;MOSN 在 IO 层读取数据，通过 read filter 将数据发送到 Protocol 层进行 Decode。&lt;/li&gt;
+&lt;li&gt;Decode 出来的数据，根据不同的协议，&lt;strong&gt;回调到 stream 层&lt;/strong&gt;，进行 stream 的创建和封装。&lt;/li&gt;
+&lt;li&gt;stream 创建完毕后，会回调到 Proxy 层做路由和转发，Proxy 层会关联上下游（upstream,downstream）间的转发关系。&lt;/li&gt;
+&lt;li&gt;Proxy 挑选到后端后，会根据后端使用的协议，将数据发送到对应协议的 Protocol 层，对数据重新做 Encode。&lt;/li&gt;
+&lt;li&gt;Encode 后的数据会发经过 write filter 并最终使用 IO 的 write 发送出去。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;一个请求可能会触发多次 读取操作，因此单个请求可能会多次调用插件的onData 函数。&lt;/p&gt;
 
 &lt;h2 id=&#34;连接管理&#34;&gt;连接管理&lt;/h2&gt;
 
-&lt;p&gt;该图主要说的连接管理部分&lt;/p&gt;
+&lt;p&gt;该图主要说的连接管理部分。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;mosn_object.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;不同颜色 表示所处的 package 不同&lt;/li&gt;
-&lt;li&gt;因为mosn主要是的用途是“代理”， 所以笔者一开始一直在找代理如何实现，但其实呢，mosn 首先是一个tcp server，像tomcat一样，mosn 主要分为连接管理和业务处理两个部分&lt;/li&gt;
-&lt;li&gt;业务处理的入口 就是filterManager， 主要由&lt;code&gt;filterManager.onRead&lt;/code&gt; 和 &lt;code&gt;filterManager.onWrite&lt;/code&gt; 来实现。 filterManager 聚合ReadFilter 链和WriterFilter链，构成对数据的处理&lt;/li&gt;
+&lt;li&gt;不同颜色 表示所处的 package 不同。&lt;/li&gt;
+&lt;li&gt;因为mosn主要是的用途是“代理”， 所以笔者一开始一直在找代理如何实现，但其实呢，mosn 首先是一个tcp server，像tomcat一样，mosn 主要分为连接管理和业务处理两个部分。&lt;/li&gt;
+&lt;li&gt;业务处理的入口 就是filterManager， 主要由&lt;code&gt;filterManager.onRead&lt;/code&gt; 和 &lt;code&gt;filterManager.onWrite&lt;/code&gt; 来实现。 filterManager 聚合ReadFilter 链和WriterFilter链，构成对数据的处理。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;img src=&#34;mosn_start.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;envoy 对应逻辑 &lt;a href=&#34;https://sq.163yun.com/blog/article/213361303062011904&#34; target=&#34;_blank&#34;&gt;深入解读Service Mesh的数据面Envoy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Envoy 对应逻辑 &lt;a href=&#34;https://sq.163yun.com/blog/article/213361303062011904&#34; target=&#34;_blank&#34;&gt;深入解读Service Mesh的数据面Envoy&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;envoy_new_connection.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
@@ -767,7 +854,9 @@
 &lt;p&gt;一些细节：&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://skyao.io/post/201809-xprotocol-common-address-solution/&#34; target=&#34;_blank&#34;&gt;SOFAMesh中的多协议通用解决方案x-protocol介绍系列(1)-DNS通用寻址方案&lt;/a&gt;iptables在劫持流量时，除了将请求转发到localhost的Sidecar处外，还额外的在请求报文的TCP options 中将 ClusterIP 保存为 original dest。在 Sidecar （Istio默认是Envoy）中，从请求报文 TCP options 的 original dest 处获取 ClusterIP&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://skyao.io/post/201809-xprotocol-common-address-solution/&#34; target=&#34;_blank&#34;&gt;SOFAMesh中的多协议通用解决方案x-protocol介绍系列(1)-DNS通用寻址方案&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;iptables在劫持流量时，除了将请求转发到localhost的Sidecar处外，还额外的在请求报文的TCP options 中将 ClusterIP 保存为 original dest。在 Sidecar （Istio默认是Envoy）中，从请求报文 TCP options 的 original dest 处获取 ClusterIP。&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://skyao.io/post/201809-xprotocol-rapid-decode-forward/&#34; target=&#34;_blank&#34;&gt;SOFAMesh中的多协议通用解决方案x-protocol介绍系列(2)-快速解码转发&lt;/a&gt;&lt;/p&gt;
 
@@ -780,9 +869,9 @@
 &lt;p&gt;我们可以总结到，对于Sidecar，要正确转发请求：&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;必须获取到destination信息，得到转发的目的地，才能进行服务发现类的寻址&lt;/li&gt;
-&lt;li&gt;必须要能够正确的拆包，然后以请求为单位进行转发，这是负载均衡的基础&lt;/li&gt;
-&lt;li&gt;可选的RequestId，这是开启多路复用的基础&lt;/li&gt;
+&lt;li&gt;必须获取到destination信息，得到转发的目的地，才能进行服务发现类的寻址。&lt;/li&gt;
+&lt;li&gt;必须要能够正确的拆包，然后以请求为单位进行转发，这是负载均衡的基础。&lt;/li&gt;
+&lt;li&gt;可选的RequestId，这是开启多路复用的基础。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://sq.163yun.com/blog/article/213361303062011904&#34; target=&#34;_blank&#34;&gt;深入解读Service Mesh的数据面Envoy&lt;/a&gt;下文以envoy 实现做一下类比 用来辅助理解mosn 相关代码的理念：&lt;/p&gt;
@@ -795,15 +884,15 @@
 
 &lt;h3 id=&#34;数据-上传&#34;&gt;数据“上传”&lt;/h3&gt;
 
-&lt;p&gt;一次http1协议请求的处理过程&lt;/p&gt;
+&lt;p&gt;一次http1协议请求的处理过程。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;mosn_http_read.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;绿色部分表示另起一个协程&lt;/p&gt;
+&lt;p&gt;绿色部分表示另起一个协程。&lt;/p&gt;
 
 &lt;h3 id=&#34;转发流程&#34;&gt;转发流程&lt;/h3&gt;
 
-&lt;p&gt;Downstream stream, as a controller to handle downstream and upstream proxy flow &lt;code&gt;downStream.OnReceive&lt;/code&gt; 逻辑&lt;/p&gt;
+&lt;p&gt;Downstream stream, as a controller to handle downstream and upstream proxy flow &lt;code&gt;downStream.OnReceive&lt;/code&gt; 逻辑。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;downStream&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;OnReceive&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ctx&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;context&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Context&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;...&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;data&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;types&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;IoBuffer&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;...&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
     &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;...&lt;/span&gt;
     &lt;span style=&#34;color:#000&#34;&gt;pool&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ScheduleAuto&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
@@ -825,7 +914,7 @@
         &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
     &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;downStream.receive&lt;/code&gt; 会根据当前所处的phase 进行对应的处理&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;downStream.receive&lt;/code&gt; 会根据当前所处的phase 进行对应的处理。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;downStream&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;receive&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ctx&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;context&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Context&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;id&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;uint32&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;phase&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;types&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Phase&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;types&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Phase&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
     &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#204a87&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;types&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;End&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;types&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;InitPhase&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;);&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;++&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
         &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;switch&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;phase&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
@@ -896,7 +985,7 @@
     &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
     &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;types&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;End&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;pkg/types/proxy.go&lt;/code&gt; 有phase 的定义&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pkg/types/proxy.go&lt;/code&gt; 有phase 的定义。&lt;/p&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -988,7 +1077,7 @@
 &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;上述流程才像是一个 proxy 层的活儿，请求转发到 upstream，从upstream 拿到响应， 再转回给downStream&lt;/p&gt;
+&lt;p&gt;上述流程才像是一个 proxy 层的活儿，请求转发到 upstream，从upstream 拿到响应， 再转回给downStream。&lt;/p&gt;
 
 &lt;h2 id=&#34;与control-plan-的交互&#34;&gt;与control plan 的交互&lt;/h2&gt;
 
@@ -1002,7 +1091,7 @@
         &lt;span style=&#34;color:#000&#34;&gt;adsClient&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;receiveThread&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt;
     &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;},&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;nil&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;定时发送请求&lt;/p&gt;
+&lt;p&gt;定时发送请求。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;adsClient&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ADSClient&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;sendThread&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
     &lt;span style=&#34;color:#000&#34;&gt;refreshDelay&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;adsClient&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;AdsConfig&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;RefreshDelay&lt;/span&gt;
     &lt;span style=&#34;color:#000&#34;&gt;t1&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;time&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;NewTimer&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;refreshDelay&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
@@ -1019,7 +1108,7 @@
         &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
     &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;接收响应&lt;/p&gt;
+&lt;p&gt;接收响应。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;adsClient&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ADSClient&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;receiveThread&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
     &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
         &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;select&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
@@ -1036,7 +1125,7 @@
         &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
     &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;处理逻辑是事先注册好的函数&lt;/p&gt;
+&lt;p&gt;处理逻辑是事先注册好的函数。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;HandleTypeURL&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;url&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;string&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;client&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ADSClient&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;resp&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;envoy_api_v2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;DiscoveryResponse&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
     &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ok&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;typeURLHandleFuncs&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;url&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;];&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ok&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
         &lt;span style=&#34;color:#000&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;client&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;resp&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
@@ -1048,7 +1137,7 @@
     &lt;span style=&#34;color:#000&#34;&gt;RegisterTypeURLHandleFunc&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;EnvoyClusterLoadAssignment&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;HandleEnvoyClusterLoadAssignment&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
     &lt;span style=&#34;color:#000&#34;&gt;RegisterTypeURLHandleFunc&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;EnvoyRouteConfiguration&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;HandleEnvoyRouteConfiguration&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;以cluster 信息为例 HandleEnvoyCluster&lt;/p&gt;
+&lt;p&gt;以cluster 信息为例 HandleEnvoyCluster。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;HandleEnvoyCluster&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;client&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ADSClient&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;resp&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;envoy_api_v2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;DiscoveryResponse&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
     &lt;span style=&#34;color:#000&#34;&gt;clusters&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;client&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;handleClustersResp&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;resp&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
     &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;...&lt;/span&gt;
@@ -1062,7 +1151,7 @@
     &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
     &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;...&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;会触发ClusterManager 更新cluster&lt;/p&gt;
+&lt;p&gt;会触发ClusterManager 更新cluster。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ConvertUpdateEndpoints&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;loadAssignments&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[]&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;envoy_api_v2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ClusterLoadAssignment&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
     &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;_&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;loadAssignment&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;range&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;loadAssignments&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
         &lt;span style=&#34;color:#000&#34;&gt;clusterName&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;loadAssignment&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ClusterName&lt;/span&gt;
@@ -1079,12 +1168,12 @@
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id=&#34;学到的&#34;&gt;学到的&lt;/h2&gt;
 
-&lt;p&gt;不要硬看代码，尤其对于多协程程序&lt;/p&gt;
+&lt;p&gt;不要硬看代码，尤其对于多协程程序。&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;打印日志&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;debug.printStack&lt;/code&gt; 来查看某一个方法之前的调用栈&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;fmt.Printf(&amp;quot;==&amp;gt; %T\n&amp;quot;,xx)&lt;/code&gt;  如果一个interface 有多个“实现类” 可以通过&lt;code&gt;%T&lt;/code&gt; 查看struct 的类型&lt;/li&gt;
+&lt;li&gt;打印日志。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;debug.printStack&lt;/code&gt; 来查看某一个方法之前的调用栈。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fmt.Printf(&amp;quot;==&amp;gt; %T\n&amp;quot;,xx)&lt;/code&gt;  如果一个interface 有多个“实现类” 可以通过&lt;code&gt;%T&lt;/code&gt; 查看struct 的类型。&lt;/li&gt;
 &lt;/ol&gt;
 
       </description>

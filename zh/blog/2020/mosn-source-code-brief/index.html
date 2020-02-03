@@ -26,7 +26,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/blog/2020/mosn-source-code-brief/" />
 <meta property="article:published_time" content="2020-02-02T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-02-03T20:48:25&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-02-03T23:11:09&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="MOSN 源码浅析">
 <meta itemprop="description" content="本文主要以http-example 为例来分析。
@@ -34,8 +34,8 @@
 
 
 <meta itemprop="datePublished" content="2020-02-02T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-02-03T20:48:25&#43;08:00" />
-<meta itemprop="wordCount" content="865">
+<meta itemprop="dateModified" content="2020-02-03T23:11:09&#43;08:00" />
+<meta itemprop="wordCount" content="867">
 
 
 
@@ -290,6 +290,12 @@ if (!doNotTrack) {
       
       
       
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-2019-mosn-reconfig-mechanism" href="/zh/blog/2019/mosn-reconfig-mechanism/">mosn 的reconfig 机制</a>
+      
+      
+      
+      
+      
       <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-2020-mosn-source-code-brief" href="/zh/blog/2020/mosn-source-code-brief/">MOSN 源码浅析</a>
       
       
@@ -382,13 +388,13 @@ if (!doNotTrack) {
 
 <h2 id="手感">手感</h2>
 
-<p><a href="https://github.com/mosn/mosn/tree/master/examples/cn_readme/http-sample" target="_blank">使用 MOSN 作为 HTTP 代理</a></p>
+<p><a href="https://github.com/mosn/mosn/tree/master/examples/cn_readme/http-sample" target="_blank">使用 MOSN 作为 HTTP 代理</a>。</p>
 
 <p>通过设置 log level 为debug， 代码中加更多日志 来辅助分析代码。<strong>本文主要以http-example 为例来分析</strong>。</p>
 
 <h3 id="基本使用">基本使用</h3>
 
-<p><a href="https://juejin.im/post/5c62344f6fb9a049c232e821" target="_blank">MOSN源码解析—配置详解</a></p>
+<p><a href="https://juejin.im/post/5c62344f6fb9a049c232e821" target="_blank">MOSN源码解析—配置详解</a>。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mosn
     examples
         codes
@@ -399,13 +405,13 @@ if (!doNotTrack) {
                 server.go     </code></pre></div>
 <p><img src="mosn_http_example.png" alt="" /></p>
 
-<p>使用<code>http://localhost:8080</code> 和 <code>http://localhost:2345</code> 都可以拿到数据</p>
+<p>使用<code>http://localhost:8080</code> 和 <code>http://localhost:2345</code> 都可以拿到数据。</p>
 
 <p><img src="mosn_http_example_diff.png" alt="" /></p>
 
 <h3 id="配置理解">配置理解</h3>
 
-<p>对应config.json 的内容如下</p>
+<p>对应config.json 的内容如下。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
     <span style="color:#204a87;font-weight:bold">&#34;servers&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
         <span style="color:#000;font-weight:bold">{</span>
@@ -435,7 +441,7 @@ if (!doNotTrack) {
     <span style="color:#204a87;font-weight:bold">&#34;cluster_manager&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{},</span> 
     <span style="color:#204a87;font-weight:bold">&#34;admin&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>单拎出来 admin 部分， envoy 监听34901 端口</p>
+<p>单拎出来 admin 部分， envoy 监听34901 端口。</p>
 
 <pre><code>&quot;admin&quot;: {
   &quot;address&quot;: {
@@ -447,7 +453,7 @@ if (!doNotTrack) {
 }
 </code></pre>
 
-<p>访问<code>http://localhost:34901/</code>的返回结果</p>
+<p>访问<code>http://localhost:34901/</code>的返回结果。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">support apis:
 /api/v1/update_loglevel
 /api/v1/enable_log
@@ -465,14 +471,14 @@ if (!doNotTrack) {
 
 <p><img src="mosn_layer_process.png" alt="" /></p>
 
-<p>一般的服务端编程，二级制数据经过协议解析为 协议对应的model（比如HttpServletRequest） 进而交给上层业务方处理，对于 MOSN</p>
+<p>一般的服务端编程，二级制数据经过协议解析为 协议对应的model（比如HttpServletRequest） 进而交给上层业务方处理，对于 MOSN 。</p>
 
 <ol>
 <li>协议上数据统一划分为 <code>header/data/Trailers</code> 三个部分，转发也是以这三个子部分为基本单位</li>
 <li>借鉴了http2 的stream 的理念（所以Stream interface 上有一个方法是<code>ID()</code>），Stream 可以理解为一个子Connection，Stream 之间可以并行请求和响应，通过StreamId关联，用来实现在一个Connection 之上的“多路复用”。PS：为了连接数量与请求数量解耦。</li>
 </ol>
 
-<p>代码的组织（<code>pkg/stream</code>，<code>pkg/protocol</code>，<code>pkg/proxy</code>）  跟上述架构是一致的</p>
+<p>代码的组织（<code>pkg/stream</code>，<code>pkg/protocol</code>，<code>pkg/proxy</code>）  跟上述架构是一致的。</p>
 
 <p><img src="mosn_layer.png" alt="" /></p>
 
@@ -485,35 +491,35 @@ if (!doNotTrack) {
 <li>跨层次调用/数据传输通过跨层次struct 的“组合”来实现。也有一些特别的，比如http net/io 和 stream 分别启动goroutine read/write loop，通过共享数据来 变相的实现跨层调用</li>
 </ol>
 
-<p><img src="https://mosn.io/zh/docs/concept/core-concept/" alt="MOSN的核心概念解析" />。</p>
+<p><a href="https://mosn.io/zh/docs/concept/core-concept/" target="_blank">MOSN的核心概念解析</a>。</p>
 
 <p><img src="mosn_io_process.png" alt="" /></p>
 
 <ol>
-<li>MOSN 在 IO 层读取数据，通过 read filter 将数据发送到 Protocol 层进行 Decode</li>
-<li>Decode 出来的数据，根据不同的协议，<strong>回调到 stream 层</strong>，进行 stream 的创建和封装</li>
-<li>stream 创建完毕后，会回调到 Proxy 层做路由和转发，Proxy 层会关联上下游（upstream,downstream）间的转发关系</li>
-<li>Proxy 挑选到后端后，会根据后端使用的协议，将数据发送到对应协议的 Protocol 层，对数据重新做 Encode</li>
-<li>Encode 后的数据会发经过 write filter 并最终使用 IO 的 write 发送出去</li>
+<li>MOSN 在 IO 层读取数据，通过 read filter 将数据发送到 Protocol 层进行 Decode。</li>
+<li>Decode 出来的数据，根据不同的协议，<strong>回调到 stream 层</strong>，进行 stream 的创建和封装。</li>
+<li>stream 创建完毕后，会回调到 Proxy 层做路由和转发，Proxy 层会关联上下游（upstream,downstream）间的转发关系。</li>
+<li>Proxy 挑选到后端后，会根据后端使用的协议，将数据发送到对应协议的 Protocol 层，对数据重新做 Encode。</li>
+<li>Encode 后的数据会发经过 write filter 并最终使用 IO 的 write 发送出去。</li>
 </ol>
 
 <p>一个请求可能会触发多次 读取操作，因此单个请求可能会多次调用插件的onData 函数。</p>
 
 <h2 id="连接管理">连接管理</h2>
 
-<p>该图主要说的连接管理部分</p>
+<p>该图主要说的连接管理部分。</p>
 
 <p><img src="mosn_object.png" alt="" /></p>
 
 <ol>
-<li>不同颜色 表示所处的 package 不同</li>
-<li>因为mosn主要是的用途是“代理”， 所以笔者一开始一直在找代理如何实现，但其实呢，mosn 首先是一个tcp server，像tomcat一样，mosn 主要分为连接管理和业务处理两个部分</li>
-<li>业务处理的入口 就是filterManager， 主要由<code>filterManager.onRead</code> 和 <code>filterManager.onWrite</code> 来实现。 filterManager 聚合ReadFilter 链和WriterFilter链，构成对数据的处理</li>
+<li>不同颜色 表示所处的 package 不同。</li>
+<li>因为mosn主要是的用途是“代理”， 所以笔者一开始一直在找代理如何实现，但其实呢，mosn 首先是一个tcp server，像tomcat一样，mosn 主要分为连接管理和业务处理两个部分。</li>
+<li>业务处理的入口 就是filterManager， 主要由<code>filterManager.onRead</code> 和 <code>filterManager.onWrite</code> 来实现。 filterManager 聚合ReadFilter 链和WriterFilter链，构成对数据的处理。</li>
 </ol>
 
 <p><img src="mosn_start.png" alt="" /></p>
 
-<p>envoy 对应逻辑 <a href="https://sq.163yun.com/blog/article/213361303062011904" target="_blank">深入解读Service Mesh的数据面Envoy</a></p>
+<p>Envoy 对应逻辑 <a href="https://sq.163yun.com/blog/article/213361303062011904" target="_blank">深入解读Service Mesh的数据面Envoy</a>。</p>
 
 <p><img src="envoy_new_connection.jpg" alt="" /></p>
 
@@ -522,7 +528,9 @@ if (!doNotTrack) {
 <p>一些细节：</p>
 
 <ol>
-<li><a href="https://skyao.io/post/201809-xprotocol-common-address-solution/" target="_blank">SOFAMesh中的多协议通用解决方案x-protocol介绍系列(1)-DNS通用寻址方案</a>iptables在劫持流量时，除了将请求转发到localhost的Sidecar处外，还额外的在请求报文的TCP options 中将 ClusterIP 保存为 original dest。在 Sidecar （Istio默认是Envoy）中，从请求报文 TCP options 的 original dest 处获取 ClusterIP</li>
+<li><p><a href="https://skyao.io/post/201809-xprotocol-common-address-solution/" target="_blank">SOFAMesh中的多协议通用解决方案x-protocol介绍系列(1)-DNS通用寻址方案</a></p>
+
+<p>iptables在劫持流量时，除了将请求转发到localhost的Sidecar处外，还额外的在请求报文的TCP options 中将 ClusterIP 保存为 original dest。在 Sidecar （Istio默认是Envoy）中，从请求报文 TCP options 的 original dest 处获取 ClusterIP。</p></li>
 
 <li><p><a href="https://skyao.io/post/201809-xprotocol-rapid-decode-forward/" target="_blank">SOFAMesh中的多协议通用解决方案x-protocol介绍系列(2)-快速解码转发</a></p>
 
@@ -535,9 +543,9 @@ if (!doNotTrack) {
 <p>我们可以总结到，对于Sidecar，要正确转发请求：</p>
 
 <ol>
-<li>必须获取到destination信息，得到转发的目的地，才能进行服务发现类的寻址</li>
-<li>必须要能够正确的拆包，然后以请求为单位进行转发，这是负载均衡的基础</li>
-<li>可选的RequestId，这是开启多路复用的基础</li>
+<li>必须获取到destination信息，得到转发的目的地，才能进行服务发现类的寻址。</li>
+<li>必须要能够正确的拆包，然后以请求为单位进行转发，这是负载均衡的基础。</li>
+<li>可选的RequestId，这是开启多路复用的基础。</li>
 </ol>
 
 <p><a href="https://sq.163yun.com/blog/article/213361303062011904" target="_blank">深入解读Service Mesh的数据面Envoy</a>下文以envoy 实现做一下类比 用来辅助理解mosn 相关代码的理念：</p>
@@ -550,15 +558,15 @@ if (!doNotTrack) {
 
 <h3 id="数据-上传">数据“上传”</h3>
 
-<p>一次http1协议请求的处理过程</p>
+<p>一次http1协议请求的处理过程。</p>
 
 <p><img src="mosn_http_read.png" alt="" /></p>
 
-<p>绿色部分表示另起一个协程</p>
+<p>绿色部分表示另起一个协程。</p>
 
 <h3 id="转发流程">转发流程</h3>
 
-<p>Downstream stream, as a controller to handle downstream and upstream proxy flow <code>downStream.OnReceive</code> 逻辑</p>
+<p>Downstream stream, as a controller to handle downstream and upstream proxy flow <code>downStream.OnReceive</code> 逻辑。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">downStream</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">OnReceive</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span><span style="color:#ce5c00;font-weight:bold">...</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">data</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IoBuffer</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#ce5c00;font-weight:bold">...</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#ce5c00;font-weight:bold">...</span>
     <span style="color:#000">pool</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ScheduleAuto</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
@@ -580,7 +588,7 @@ if (!doNotTrack) {
         <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p><code>downStream.receive</code> 会根据当前所处的phase 进行对应的处理</p>
+<p><code>downStream.receive</code> 会根据当前所处的phase 进行对应的处理。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">downStream</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">receive</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">id</span> <span style="color:#204a87;font-weight:bold">uint32</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">phase</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Phase</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Phase</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">&lt;=</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitPhase</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
         <span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">phase</span> <span style="color:#000;font-weight:bold">{</span>
@@ -651,7 +659,7 @@ if (!doNotTrack) {
     <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p><code>pkg/types/proxy.go</code> 有phase 的定义</p>
+<p><code>pkg/types/proxy.go</code> 有phase 的定义。</p>
 
 <table>
 <thead>
@@ -743,7 +751,7 @@ if (!doNotTrack) {
 </tbody>
 </table>
 
-<p>上述流程才像是一个 proxy 层的活儿，请求转发到 upstream，从upstream 拿到响应， 再转回给downStream</p>
+<p>上述流程才像是一个 proxy 层的活儿，请求转发到 upstream，从upstream 拿到响应， 再转回给downStream。</p>
 
 <h2 id="与control-plan-的交互">与control plan 的交互</h2>
 
@@ -757,7 +765,7 @@ if (!doNotTrack) {
         <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">receiveThread</span><span style="color:#000;font-weight:bold">()</span>
     <span style="color:#000;font-weight:bold">},</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>定时发送请求</p>
+<p>定时发送请求。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">adsClient</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ADSClient</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">sendThread</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">refreshDelay</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AdsConfig</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RefreshDelay</span>
     <span style="color:#000">t1</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NewTimer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">refreshDelay</span><span style="color:#000;font-weight:bold">)</span>
@@ -774,7 +782,7 @@ if (!doNotTrack) {
         <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>接收响应</p>
+<p>接收响应。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">adsClient</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ADSClient</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">receiveThread</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">{</span>
         <span style="color:#204a87;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">{</span>
@@ -791,7 +799,7 @@ if (!doNotTrack) {
         <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>处理逻辑是事先注册好的函数</p>
+<p>处理逻辑是事先注册好的函数。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">HandleTypeURL</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">url</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">client</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ADSClient</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">resp</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">envoy_api_v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DiscoveryResponse</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">f</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">typeURLHandleFuncs</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">url</span><span style="color:#000;font-weight:bold">];</span> <span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
         <span style="color:#000">f</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">client</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">resp</span><span style="color:#000;font-weight:bold">)</span>
@@ -803,7 +811,7 @@ if (!doNotTrack) {
     <span style="color:#000">RegisterTypeURLHandleFunc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">EnvoyClusterLoadAssignment</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">HandleEnvoyClusterLoadAssignment</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#000">RegisterTypeURLHandleFunc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">EnvoyRouteConfiguration</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">HandleEnvoyRouteConfiguration</span><span style="color:#000;font-weight:bold">)</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>以cluster 信息为例 HandleEnvoyCluster</p>
+<p>以cluster 信息为例 HandleEnvoyCluster。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">HandleEnvoyCluster</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">client</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ADSClient</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">resp</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">envoy_api_v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DiscoveryResponse</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">clusters</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">client</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">handleClustersResp</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">resp</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#ce5c00;font-weight:bold">...</span>
@@ -817,7 +825,7 @@ if (!doNotTrack) {
     <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#ce5c00;font-weight:bold">...</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>会触发ClusterManager 更新cluster</p>
+<p>会触发ClusterManager 更新cluster。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">ConvertUpdateEndpoints</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">loadAssignments</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">envoy_api_v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ClusterLoadAssignment</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">loadAssignment</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">loadAssignments</span> <span style="color:#000;font-weight:bold">{</span>
         <span style="color:#000">clusterName</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">loadAssignment</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ClusterName</span>
@@ -834,12 +842,12 @@ if (!doNotTrack) {
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <h2 id="学到的">学到的</h2>
 
-<p>不要硬看代码，尤其对于多协程程序</p>
+<p>不要硬看代码，尤其对于多协程程序。</p>
 
 <ol>
-<li>打印日志</li>
-<li><code>debug.printStack</code> 来查看某一个方法之前的调用栈</li>
-<li><code>fmt.Printf(&quot;==&gt; %T\n&quot;,xx)</code>  如果一个interface 有多个“实现类” 可以通过<code>%T</code> 查看struct 的类型</li>
+<li>打印日志。</li>
+<li><code>debug.printStack</code> 来查看某一个方法之前的调用栈。</li>
+<li><code>fmt.Printf(&quot;==&gt; %T\n&quot;,xx)</code>  如果一个interface 有多个“实现类” 可以通过<code>%T</code> 查看struct 的类型。</li>
 </ol>
 
 	
@@ -848,7 +856,7 @@ if (!doNotTrack) {
   <li>
     <a  class="btn btn-primary  disabled"><span class="mr-1">←</span> 上一页</a>
   </li>
-    <a href="/zh/blog/2019/nginx-envoy-mosn-hot-upgrade/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+    <a href="/zh/blog/2019/mosn-reconfig-mechanism/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
   </li>
 </ul>
 
