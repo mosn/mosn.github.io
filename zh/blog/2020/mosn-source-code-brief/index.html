@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.5" />
+
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>MOSN 源码浅析 | MOSN</title><meta property="og:title" content="MOSN 源码浅析" />
+<meta property="og:description" content="本文主要以http-example 为例来分析。
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/zh/blog/2020/mosn-source-code-brief/" />
+<meta property="article:published_time" content="2020-02-02T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2020-02-03T20:48:25&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+
+<meta itemprop="name" content="MOSN 源码浅析">
+<meta itemprop="description" content="本文主要以http-example 为例来分析。
+">
+
+
+<meta itemprop="datePublished" content="2020-02-02T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-02-03T20:48:25&#43;08:00" />
+<meta itemprop="wordCount" content="865">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MOSN 源码浅析"/>
+<meta name="twitter:description" content="本文主要以http-example 为例来分析。
+"/>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+<link rel="preload" href="/scss/main.min.10fa65f46b1b52407fa7528f7581babf6b3222b14bb13f15c756fd3a1d59b579.css" as="style">
+<link href="/scss/main.min.10fa65f46b1b52407fa7528f7581babf6b3222b14bb13f15c756fd3a1d59b579.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+
+
+    <title>MOSN 源码浅析 | MOSN</title>
+  </head>
+  <body class="td-page td-blog">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/zh/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">MOSN</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/zh/about/" ><span>关于</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/zh/docs/" ><span>文档</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/zh/blog/" ><span class="active">博客</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/zh/community/" ><span>社区</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/">English</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/">English</a>
+	
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">博客</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="zh-blog">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/releases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">发布</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-blog-releases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-2019-mosn-0-1-0-perfermence-report" href="/zh/blog/2019/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-2019-mosn-0-2-1-performance-report" href="/zh/blog/2019/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-blog-news">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-2019-announcing-mosn-communtiy" href="/zh/blog/2019/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/posts/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">分享</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="zh-blog-posts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-2019-nginx-envoy-mosn-hot-upgrade" href="/zh/blog/2019/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-2020-mosn-source-code-brief" href="/zh/blog/2020/mosn-source-code-brief/">MOSN 源码浅析</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/posts/mosn-source-code-brief/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e6%ba%90%e7%a0%81%e6%b5%85%e6%9e%90" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+
+
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#手感">手感</a>
+<ul>
+<li><a href="#基本使用">基本使用</a></li>
+<li><a href="#配置理解">配置理解</a></li>
+</ul></li>
+<li><a href="#代码结构">代码结构</a></li>
+<li><a href="#分层架构">分层架构</a></li>
+<li><a href="#连接管理">连接管理</a></li>
+<li><a href="#数据处理">数据处理</a>
+<ul>
+<li><a href="#数据-上传">数据“上传”</a></li>
+<li><a href="#转发流程">转发流程</a></li>
+</ul></li>
+<li><a href="#与control-plan-的交互">与control plan 的交互</a></li>
+<li><a href="#学到的">学到的</a></li>
+</ul></li>
+</ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/zh/blog/posts/index.xml" target="_blank">
+              RSS <i class="fa fa-rss ml-2 "></i>
+            </a>
+            
+<div class="td-content">
+	<h1>MOSN 源码浅析</h1>
+	<div class="lead">本文主要以http-example 为例来分析。</div>
+	<div class="td-byline mb-4">
+		作者 <b>李乾坤 <a href="http://qiankunli.github.io" target="_blank">qiankunli</a></b> |
+		<time datetime="2020-02-02" class="text-muted">2020年2月2日</time>
+	</div>
+	
+
+<h2 id="前言">前言</h2>
+
+<p>MOSN是基于Go开发的sidecar，用于service mesh中的数据面代理，建议先看下<a href="http://qiankunli.github.io/2020/01/14/self_cultivation_of_sidecar.html" target="_blank">一个sidecar的自我修养</a> 对sidecar 的基本概念、原理有所了解。</p>
+
+<h2 id="手感">手感</h2>
+
+<p><a href="https://github.com/mosn/mosn/tree/master/examples/cn_readme/http-sample" target="_blank">使用 MOSN 作为 HTTP 代理</a></p>
+
+<p>通过设置 log level 为debug， 代码中加更多日志 来辅助分析代码。<strong>本文主要以http-example 为例来分析</strong>。</p>
+
+<h3 id="基本使用">基本使用</h3>
+
+<p><a href="https://juejin.im/post/5c62344f6fb9a049c232e821" target="_blank">MOSN源码解析—配置详解</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mosn
+    examples
+        codes
+            http-example
+                // mosn start -c config.json 即可启动mosn
+                config.json
+                // golang 实现的一个简单的http server，直接go run server.go 即可启动
+                server.go     </code></pre></div>
+<p><img src="mosn_http_example.png" alt="" /></p>
+
+<p>使用<code>http://localhost:8080</code> 和 <code>http://localhost:2345</code> 都可以拿到数据</p>
+
+<p><img src="mosn_http_example_diff.png" alt="" /></p>
+
+<h3 id="配置理解">配置理解</h3>
+
+<p>对应config.json 的内容如下</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">&#34;servers&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
+        <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">&#34;default_log_path&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;stdout&#34;</span><span style="color:#000;font-weight:bold">,</span> 
+            <span style="color:#204a87;font-weight:bold">&#34;listeners&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
+                <span style="color:#000;font-weight:bold">{</span>
+                    <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;serverListener&#34;</span><span style="color:#000;font-weight:bold">,</span> 
+                    <span style="color:#204a87;font-weight:bold">&#34;address&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;127.0.0.1:2046&#34;</span><span style="color:#000;font-weight:bold">,</span> 
+                    <span style="color:#204a87;font-weight:bold">&#34;bind_port&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">,</span> 
+                    <span style="color:#204a87;font-weight:bold">&#34;log_path&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;stdout&#34;</span><span style="color:#000;font-weight:bold">,</span> 
+                    <span style="color:#204a87;font-weight:bold">&#34;filter_chains&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
+                        <span style="color:#000;font-weight:bold">{}</span>
+                    <span style="color:#000;font-weight:bold">]</span>
+                <span style="color:#000;font-weight:bold">},</span> 
+                <span style="color:#000;font-weight:bold">{</span>
+                    <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;clientListener&#34;</span><span style="color:#000;font-weight:bold">,</span> 
+                    <span style="color:#204a87;font-weight:bold">&#34;address&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;127.0.0.1:2045&#34;</span><span style="color:#000;font-weight:bold">,</span> 
+                    <span style="color:#204a87;font-weight:bold">&#34;bind_port&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">,</span> 
+                    <span style="color:#204a87;font-weight:bold">&#34;log_path&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;stdout&#34;</span><span style="color:#000;font-weight:bold">,</span> 
+                    <span style="color:#204a87;font-weight:bold">&#34;filter_chains&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
+                        <span style="color:#000;font-weight:bold">{}</span>
+                    <span style="color:#000;font-weight:bold">]</span>
+                <span style="color:#000;font-weight:bold">}</span>
+            <span style="color:#000;font-weight:bold">]</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">],</span> 
+    <span style="color:#204a87;font-weight:bold">&#34;cluster_manager&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{},</span> 
+    <span style="color:#204a87;font-weight:bold">&#34;admin&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>单拎出来 admin 部分， envoy 监听34901 端口</p>
+
+<pre><code>&quot;admin&quot;: {
+  &quot;address&quot;: {
+    &quot;socket_address&quot;: {
+      &quot;address&quot;: &quot;0.0.0.0&quot;,
+      &quot;port_value&quot;: 34901
+    }
+  }
+}
+</code></pre>
+
+<p>访问<code>http://localhost:34901/</code>的返回结果</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">support apis:
+/api/v1/update_loglevel
+/api/v1/enable_log
+/api/v1/disbale_log
+/api/v1/states
+/api/v1/config_dump
+/api/v1/stats</code></pre></div>
+<h2 id="代码结构">代码结构</h2>
+
+<p><img src="mosn_package.png" alt="" /></p>
+
+<p>几乎所有的interface 定义在 <code>pkg/types</code> 中，mosn 基于四层 架构实现（见下文），每一个layer 在types 中有一个go 文件，在<code>pkg</code> 下有一个专门的文件夹。</p>
+
+<h2 id="分层架构">分层架构</h2>
+
+<p><img src="mosn_layer_process.png" alt="" /></p>
+
+<p>一般的服务端编程，二级制数据经过协议解析为 协议对应的model（比如HttpServletRequest） 进而交给上层业务方处理，对于 MOSN</p>
+
+<ol>
+<li>协议上数据统一划分为 <code>header/data/Trailers</code> 三个部分，转发也是以这三个子部分为基本单位</li>
+<li>借鉴了http2 的stream 的理念（所以Stream interface 上有一个方法是<code>ID()</code>），Stream 可以理解为一个子Connection，Stream 之间可以并行请求和响应，通过StreamId关联，用来实现在一个Connection 之上的“多路复用”。PS：为了连接数量与请求数量解耦。</li>
+</ol>
+
+<p>代码的组织（<code>pkg/stream</code>，<code>pkg/protocol</code>，<code>pkg/proxy</code>）  跟上述架构是一致的</p>
+
+<p><img src="mosn_layer.png" alt="" /></p>
+
+<ol>
+<li><code>pkg/types/connection.go</code> Connection</li>
+<li><code>pkg/types/stream.go</code> StreamConnection is a connection runs multiple streams</li>
+<li><code>pkg/types/stream.go</code> Stream is a generic protocol stream</li>
+<li>一堆listener 和filter 比较好理解：Method in listener will be called on event occur, but not effect the control flow.Filters are called on event occurs, it also returns a status to effect control flow. Currently 2 states are used: Continue to let it go, Stop to stop the control flow.</li>
+<li>protocol 和 stream 两个layer 因和协议有关，不同协议之间实现差异很大，层次不是很清晰</li>
+<li>跨层次调用/数据传输通过跨层次struct 的“组合”来实现。也有一些特别的，比如http net/io 和 stream 分别启动goroutine read/write loop，通过共享数据来 变相的实现跨层调用</li>
+</ol>
+
+<p><img src="https://mosn.io/zh/docs/concept/core-concept/" alt="MOSN的核心概念解析" />。</p>
+
+<p><img src="mosn_io_process.png" alt="" /></p>
+
+<ol>
+<li>MOSN 在 IO 层读取数据，通过 read filter 将数据发送到 Protocol 层进行 Decode</li>
+<li>Decode 出来的数据，根据不同的协议，<strong>回调到 stream 层</strong>，进行 stream 的创建和封装</li>
+<li>stream 创建完毕后，会回调到 Proxy 层做路由和转发，Proxy 层会关联上下游（upstream,downstream）间的转发关系</li>
+<li>Proxy 挑选到后端后，会根据后端使用的协议，将数据发送到对应协议的 Protocol 层，对数据重新做 Encode</li>
+<li>Encode 后的数据会发经过 write filter 并最终使用 IO 的 write 发送出去</li>
+</ol>
+
+<p>一个请求可能会触发多次 读取操作，因此单个请求可能会多次调用插件的onData 函数。</p>
+
+<h2 id="连接管理">连接管理</h2>
+
+<p>该图主要说的连接管理部分</p>
+
+<p><img src="mosn_object.png" alt="" /></p>
+
+<ol>
+<li>不同颜色 表示所处的 package 不同</li>
+<li>因为mosn主要是的用途是“代理”， 所以笔者一开始一直在找代理如何实现，但其实呢，mosn 首先是一个tcp server，像tomcat一样，mosn 主要分为连接管理和业务处理两个部分</li>
+<li>业务处理的入口 就是filterManager， 主要由<code>filterManager.onRead</code> 和 <code>filterManager.onWrite</code> 来实现。 filterManager 聚合ReadFilter 链和WriterFilter链，构成对数据的处理</li>
+</ol>
+
+<p><img src="mosn_start.png" alt="" /></p>
+
+<p>envoy 对应逻辑 <a href="https://sq.163yun.com/blog/article/213361303062011904" target="_blank">深入解读Service Mesh的数据面Envoy</a></p>
+
+<p><img src="envoy_new_connection.jpg" alt="" /></p>
+
+<h2 id="数据处理">数据处理</h2>
+
+<p>一些细节：</p>
+
+<ol>
+<li><a href="https://skyao.io/post/201809-xprotocol-common-address-solution/" target="_blank">SOFAMesh中的多协议通用解决方案x-protocol介绍系列(1)-DNS通用寻址方案</a>iptables在劫持流量时，除了将请求转发到localhost的Sidecar处外，还额外的在请求报文的TCP options 中将 ClusterIP 保存为 original dest。在 Sidecar （Istio默认是Envoy）中，从请求报文 TCP options 的 original dest 处获取 ClusterIP</li>
+
+<li><p><a href="https://skyao.io/post/201809-xprotocol-rapid-decode-forward/" target="_blank">SOFAMesh中的多协议通用解决方案x-protocol介绍系列(2)-快速解码转发</a></p>
+
+<ol>
+<li>转发请求时，由于涉及到负载均衡，我们需要将请求发送给多个服务器端实例。因此，有一个非常明确的要求：就是必须以单个请求为单位进行转发。即单个请求必须完整的转发给某台服务器端实例，负载均衡需要以请求为单位，不能将一个请求的多个报文包分别转发到不同的服务器端实例。所以，拆包是请求转发的必备基础。</li>
+<li>多路复用的关键参数：RequestId。RequestId用来关联request和对应的response，请求报文中携带一个唯一的id值，应答报文中原值返回，以便在处理response时可以找到对应的request。当然在不同协议中，这个参数的名字可能不同（如streamid等）。严格说，RequestId对于请求转发是可选的，也有很多通讯协议不提供支持，比如经典的HTTP1.1就没有支持。但是如果有这个参数，则可以实现多路复用，从而可以大幅度提高TCP连接的使用效率，避免出现大量连接。稍微新一点的通讯协议，基本都会原生支持这个特性，比如SOFARPC，Dubbo，HSF，还有HTTP/2就直接內建了多路复用的支持。</li>
+</ol></li>
+</ol>
+
+<p>我们可以总结到，对于Sidecar，要正确转发请求：</p>
+
+<ol>
+<li>必须获取到destination信息，得到转发的目的地，才能进行服务发现类的寻址</li>
+<li>必须要能够正确的拆包，然后以请求为单位进行转发，这是负载均衡的基础</li>
+<li>可选的RequestId，这是开启多路复用的基础</li>
+</ol>
+
+<p><a href="https://sq.163yun.com/blog/article/213361303062011904" target="_blank">深入解读Service Mesh的数据面Envoy</a>下文以envoy 实现做一下类比 用来辅助理解mosn 相关代码的理念：</p>
+
+<p><img src="envoy_on_data.jpg" alt="" /></p>
+
+<p>对于每一个Filter，都调用onData函数，咱们上面解析过，其中HTTP对应的ReadFilter是ConnectionManagerImpl，因而调用ConnectionManagerImpl::onData函数。ConnectionManager 是协议插件的处理入口，<strong>同时也负责对整个处理过程的流程编排</strong>。</p>
+
+<p><img src="envoy_data_parse.jpg" alt="" /></p>
+
+<h3 id="数据-上传">数据“上传”</h3>
+
+<p>一次http1协议请求的处理过程</p>
+
+<p><img src="mosn_http_read.png" alt="" /></p>
+
+<p>绿色部分表示另起一个协程</p>
+
+<h3 id="转发流程">转发流程</h3>
+
+<p>Downstream stream, as a controller to handle downstream and upstream proxy flow <code>downStream.OnReceive</code> 逻辑</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">downStream</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">OnReceive</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span><span style="color:#ce5c00;font-weight:bold">...</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">data</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IoBuffer</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#ce5c00;font-weight:bold">...</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+    <span style="color:#000">pool</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ScheduleAuto</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">phase</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitPhase</span>
+        <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span> <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#0000cf;font-weight:bold">10</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">cleanNotify</span><span style="color:#000;font-weight:bold">()</span>
+
+            <span style="color:#000">phase</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">receive</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">id</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">phase</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">phase</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span><span style="color:#000;font-weight:bold">:</span>
+                <span style="color:#204a87;font-weight:bold">return</span>
+            <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MatchRoute</span><span style="color:#000;font-weight:bold">:</span>
+                <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Proxy</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Debugf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;[proxy] [downstream] redo match route %+v&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Retry</span><span style="color:#000;font-weight:bold">:</span>
+                <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Proxy</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Debugf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;[proxy] [downstream] retry %+v&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UpFilter</span><span style="color:#000;font-weight:bold">:</span>
+                <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Proxy</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Debugf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;[proxy] [downstream] directResponse %+v&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p><code>downStream.receive</code> 会根据当前所处的phase 进行对应的处理</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">downStream</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">receive</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">id</span> <span style="color:#204a87;font-weight:bold">uint32</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">phase</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Phase</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Phase</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">&lt;=</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitPhase</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">phase</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#8f5902;font-style:italic">// init phase
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitPhase</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// downstream filter before route
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DownFilter</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">runReceiveFilters</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">phase</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqHeaders</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqDataBuf</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqTrailers</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// match route
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MatchRoute</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">matchRoute</span><span style="color:#000;font-weight:bold">()</span>
+            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// downstream filter after route
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DownFilterAfterRoute</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">runReceiveFilters</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">phase</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqHeaders</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqDataBuf</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqTrailers</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// downstream receive header
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DownRecvHeader</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#8f5902;font-style:italic">//check not null
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">receiveHeaders</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqDataBuf</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqTrailers</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// downstream receive data
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DownRecvData</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#8f5902;font-style:italic">//check not null
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">receiveData</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqTrailers</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// downstream receive trailer
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DownRecvTrailer</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#8f5902;font-style:italic">// check not null
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">receiveTrailers</span><span style="color:#000;font-weight:bold">()</span>
+            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// downstream oneway
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Oneway</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#ce5c00;font-weight:bold">...</span>
+        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Retry</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#ce5c00;font-weight:bold">...</span>
+        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WaitNofity</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#ce5c00;font-weight:bold">...</span>
+        <span style="color:#8f5902;font-style:italic">// upstream filter
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UpFilter</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">runAppendFilters</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">phase</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamRespHeaders</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamRespDataBuf</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamRespTrailers</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#8f5902;font-style:italic">// maybe direct response
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// upstream receive header
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UpRecvHeader</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#8f5902;font-style:italic">// send downstream response
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#8f5902;font-style:italic">// check not null
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">upstreamRequest</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">receiveHeaders</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamRespDataBuf</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamRespTrailers</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// upstream receive data
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UpRecvData</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#8f5902;font-style:italic">// check not null
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">upstreamRequest</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">receiveData</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamRespTrailers</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// upstream receive triler
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UpRecvTrailer</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#8f5902;font-style:italic">//check not null
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">upstreamRequest</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">receiveTrailers</span><span style="color:#000;font-weight:bold">()</span>
+            <span style="color:#000">phase</span><span style="color:#ce5c00;font-weight:bold">++</span>
+        <span style="color:#8f5902;font-style:italic">// process end
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span>
+        <span style="color:#204a87;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p><code>pkg/types/proxy.go</code> 有phase 的定义</p>
+
+<table>
+<thead>
+<tr>
+<th>phase</th>
+<th>对应方法</th>
+<th>执行逻辑（部分）</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>InitPhase</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>DownFilter</td>
+<td>runReceiveFilters</td>
+<td></td>
+</tr>
+
+<tr>
+<td>MatchRoute</td>
+<td>matchRoute</td>
+<td></td>
+</tr>
+
+<tr>
+<td>DownFilterAfterRoute</td>
+<td>runReceiveFilters</td>
+<td></td>
+</tr>
+
+<tr>
+<td>DownRecvHeader</td>
+<td>receiveHeaders</td>
+<td>==&gt; upstreamRequest.appendHeaders</td>
+</tr>
+
+<tr>
+<td>DownRecvData</td>
+<td>receiveData</td>
+<td>==&gt; upstreamRequest.appendData</td>
+</tr>
+
+<tr>
+<td>DownRecvTrailer</td>
+<td>receiveTrailers</td>
+<td>==&gt; upstreamRequest.appendTrailers()</td>
+</tr>
+
+<tr>
+<td>Oneway/Retry/WaitNofity</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>UpFilter</td>
+<td>runAppendFilters</td>
+<td></td>
+</tr>
+
+<tr>
+<td>UpRecvHeader</td>
+<td>upstreamRequest.receiveHeaders</td>
+<td>==&gt; downStream.onUpstreamData</td>
+</tr>
+
+<tr>
+<td>UpRecvData</td>
+<td>upstreamRequest.receiveData</td>
+<td>==&gt; downStream.onUpstreamData</td>
+</tr>
+
+<tr>
+<td>UpRecvTrailer</td>
+<td>upstreamRequest.receiveTrailers</td>
+<td>==&gt; downStream.onUpstreamTrailers</td>
+</tr>
+
+<tr>
+<td>End</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>上述流程才像是一个 proxy 层的活儿，请求转发到 upstream，从upstream 拿到响应， 再转回给downStream</p>
+
+<h2 id="与control-plan-的交互">与control plan 的交互</h2>
+
+<p><code>pkg/xds/v2/adssubscriber.go</code> 启动发送线程和接收线程</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">adsClient</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ADSClient</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Start</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StreamClient</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AdsConfig</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetStreamClient</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#000">utils</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GoWithRecover</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sendThread</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#000;font-weight:bold">},</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">utils</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GoWithRecover</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">receiveThread</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#000;font-weight:bold">},</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>定时发送请求</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">adsClient</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ADSClient</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">sendThread</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">refreshDelay</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AdsConfig</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RefreshDelay</span>
+    <span style="color:#000">t1</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NewTimer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">refreshDelay</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#ce5c00;font-weight:bold">...</span>
+        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#ce5c00;font-weight:bold">&lt;-</span><span style="color:#000">t1</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">C</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">reqClusters</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StreamClient</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+                <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Infof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;[xds] [ads client] send thread request cds fail!auto retry next period&#34;</span><span style="color:#000;font-weight:bold">)</span>
+                <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">reconnect</span><span style="color:#000;font-weight:bold">()</span>
+            <span style="color:#000;font-weight:bold">}</span>
+            <span style="color:#000">t1</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Reset</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">refreshDelay</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>接收响应</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">adsClient</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ADSClient</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">receiveThread</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">{</span>
+    
+        <span style="color:#204a87;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StreamClientMutex</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RLock</span><span style="color:#000;font-weight:bold">()</span>
+            <span style="color:#000">sc</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StreamClient</span>
+            <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StreamClientMutex</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RUnlock</span><span style="color:#000;font-weight:bold">()</span>
+            <span style="color:#ce5c00;font-weight:bold">...</span>
+            <span style="color:#000">resp</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">sc</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Recv</span><span style="color:#000;font-weight:bold">()</span>
+            <span style="color:#ce5c00;font-weight:bold">...</span>
+            <span style="color:#000">typeURL</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">resp</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypeUrl</span>
+            <span style="color:#000">HandleTypeURL</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">typeURL</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">adsClient</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">resp</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>处理逻辑是事先注册好的函数</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">HandleTypeURL</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">url</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">client</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ADSClient</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">resp</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">envoy_api_v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DiscoveryResponse</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">f</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">typeURLHandleFuncs</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">url</span><span style="color:#000;font-weight:bold">];</span> <span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">f</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">client</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">resp</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">init</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">RegisterTypeURLHandleFunc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">EnvoyListener</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">HandleEnvoyListener</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">RegisterTypeURLHandleFunc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">EnvoyCluster</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">HandleEnvoyCluster</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">RegisterTypeURLHandleFunc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">EnvoyClusterLoadAssignment</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">HandleEnvoyClusterLoadAssignment</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">RegisterTypeURLHandleFunc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">EnvoyRouteConfiguration</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">HandleEnvoyRouteConfiguration</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>以cluster 信息为例 HandleEnvoyCluster</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">HandleEnvoyCluster</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">client</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ADSClient</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">resp</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">envoy_api_v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DiscoveryResponse</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">clusters</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">client</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">handleClustersResp</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">resp</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+    <span style="color:#000">conv</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ConvertUpdateClusters</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">clusters</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">clusterNames</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87">make</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">cluster</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">clusters</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">cluster</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetType</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">envoy_api_v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Cluster_EDS</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">clusterNames</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">clusterNames</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">cluster</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Name</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>会触发ClusterManager 更新cluster</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">ConvertUpdateEndpoints</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">loadAssignments</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">envoy_api_v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ClusterLoadAssignment</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">loadAssignment</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">loadAssignments</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">clusterName</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">loadAssignment</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ClusterName</span>
+        <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">endpoints</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">loadAssignment</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Endpoints</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">hosts</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">ConvertEndpointsConfig</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">endpoints</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000">clusterMngAdapter</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">clusterAdapter</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetClusterMngAdapterInstance</span><span style="color:#000;font-weight:bold">()</span>
+            <span style="color:#ce5c00;font-weight:bold">...</span>
+            <span style="color:#000">clusterAdapter</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetClusterMngAdapterInstance</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">TriggerClusterHostUpdate</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">clusterName</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">hosts</span><span style="color:#000;font-weight:bold">);</span> 
+            <span style="color:#ce5c00;font-weight:bold">...</span>
+            
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">errGlobal</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<h2 id="学到的">学到的</h2>
+
+<p>不要硬看代码，尤其对于多协程程序</p>
+
+<ol>
+<li>打印日志</li>
+<li><code>debug.printStack</code> 来查看某一个方法之前的调用栈</li>
+<li><code>fmt.Printf(&quot;==&gt; %T\n&quot;,xx)</code>  如果一个interface 有多个“实现类” 可以通过<code>%T</code> 查看struct 的类型</li>
+</ol>
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a  class="btn btn-primary  disabled"><span class="mr-1">←</span> 上一页</a>
+  </li>
+    <a href="/zh/blog/2019/nginx-envoy-mosn-hot-upgrade/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+  </li>
+</ul>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://twitter.com/MosnProxy">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/mosn/mosn">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>

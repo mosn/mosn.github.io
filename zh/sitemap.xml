@@ -59,6 +59,13 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/2020/mosn-source-code-brief/</loc>
+    <lastmod>2020-02-03T20:48:25+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/configuration/listener/</loc>
     <lastmod>2020-01-21T17:47:59+08:00</lastmod>
     <changefreq>daily</changefreq>
