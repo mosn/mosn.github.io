@@ -716,7 +716,7 @@
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/mosn/mosn/tree/master/examples/cn_readme/http-sample&#34; target=&#34;_blank&#34;&gt;使用 MOSN 作为 HTTP 代理&lt;/a&gt;。&lt;/p&gt;
 
-&lt;p&gt;通过设置 log level 为debug， 代码中加更多日志 来辅助分析代码。&lt;strong&gt;本文主要以http-example 为例来分析&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;通过设置 log level 为debug，代码中加更多日志来辅助分析代码。&lt;strong&gt;本文主要以http-example 为例来分析&lt;/strong&gt;。&lt;/p&gt;
 
 &lt;h3 id=&#34;基本使用&#34;&gt;基本使用&lt;/h3&gt;
 
@@ -791,13 +791,13 @@
 
 &lt;p&gt;&lt;img src=&#34;mosn_package.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;几乎所有的interface 定义在 &lt;code&gt;pkg/types&lt;/code&gt; 中，mosn 基于四层 架构实现（见下文），每一个layer 在types 中有一个go 文件，在&lt;code&gt;pkg&lt;/code&gt; 下有一个专门的文件夹。&lt;/p&gt;
+&lt;p&gt;几乎所有的interface 定义在 &lt;code&gt;pkg/types&lt;/code&gt; 中，MOSN 基于四层 架构实现（见下文），每一个layer 在types 中有一个go 文件，在&lt;code&gt;pkg&lt;/code&gt; 下有一个专门的文件夹。&lt;/p&gt;
 
 &lt;h2 id=&#34;分层架构&#34;&gt;分层架构&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&#34;mosn_layer_process.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;一般的服务端编程，二级制数据经过协议解析为 协议对应的model（比如HttpServletRequest） 进而交给上层业务方处理，对于 MOSN 。&lt;/p&gt;
+&lt;p&gt;一般的服务端编程，二级制数据经过协议解析为协议对应的model（比如HttpServletRequest） 进而交给上层业务方处理，对于 MOSN 。&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;协议上数据统一划分为 &lt;code&gt;header/data/Trailers&lt;/code&gt; 三个部分，转发也是以这三个子部分为基本单位&lt;/li&gt;
@@ -809,12 +809,12 @@
 &lt;p&gt;&lt;img src=&#34;mosn_layer.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;code&gt;pkg/types/connection.go&lt;/code&gt; Connection&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;pkg/types/stream.go&lt;/code&gt; StreamConnection is a connection runs multiple streams&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pkg/types/connection.go&lt;/code&gt; Connection.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pkg/types/stream.go&lt;/code&gt; StreamConnection is a connection runs multiple streams.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;pkg/types/stream.go&lt;/code&gt; Stream is a generic protocol stream&lt;/li&gt;
 &lt;li&gt;一堆listener 和filter 比较好理解：Method in listener will be called on event occur, but not effect the control flow.Filters are called on event occurs, it also returns a status to effect control flow. Currently 2 states are used: Continue to let it go, Stop to stop the control flow.&lt;/li&gt;
-&lt;li&gt;protocol 和 stream 两个layer 因和协议有关，不同协议之间实现差异很大，层次不是很清晰&lt;/li&gt;
-&lt;li&gt;跨层次调用/数据传输通过跨层次struct 的“组合”来实现。也有一些特别的，比如http net/io 和 stream 分别启动goroutine read/write loop，通过共享数据来 变相的实现跨层调用&lt;/li&gt;
+&lt;li&gt;protocol 和 stream 两个layer 因和协议有关，不同协议之间实现差异很大，层次不是很清晰。&lt;/li&gt;
+&lt;li&gt;跨层次调用/数据传输通过跨层次struct 的“组合”来实现。也有一些特别的，比如http net/io 和 stream 分别启动goroutine read/write loop，通过共享数据来 变相的实现跨层调用。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://mosn.io/zh/docs/concept/core-concept/&#34; target=&#34;_blank&#34;&gt;MOSN的核心概念解析&lt;/a&gt;。&lt;/p&gt;
@@ -829,7 +829,7 @@
 &lt;li&gt;Encode 后的数据会发经过 write filter 并最终使用 IO 的 write 发送出去。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;一个请求可能会触发多次 读取操作，因此单个请求可能会多次调用插件的onData 函数。&lt;/p&gt;
+&lt;p&gt;一个请求可能会触发多次读取操作，因此单个请求可能会多次调用插件的onData 函数。&lt;/p&gt;
 
 &lt;h2 id=&#34;连接管理&#34;&gt;连接管理&lt;/h2&gt;
 
@@ -838,8 +838,8 @@
 &lt;p&gt;&lt;img src=&#34;mosn_object.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;不同颜色 表示所处的 package 不同。&lt;/li&gt;
-&lt;li&gt;因为mosn主要是的用途是“代理”， 所以笔者一开始一直在找代理如何实现，但其实呢，mosn 首先是一个tcp server，像tomcat一样，mosn 主要分为连接管理和业务处理两个部分。&lt;/li&gt;
+&lt;li&gt;不同颜色表示所处的 package 不同。&lt;/li&gt;
+&lt;li&gt;因为MOSN主要是的用途是“代理”， 所以笔者一开始一直在找代理如何实现，但其实呢，MOSN 首先是一个tcp server，像tomcat一样，MOSN 主要分为连接管理和业务处理两个部分。&lt;/li&gt;
 &lt;li&gt;业务处理的入口 就是filterManager， 主要由&lt;code&gt;filterManager.onRead&lt;/code&gt; 和 &lt;code&gt;filterManager.onWrite&lt;/code&gt; 来实现。 filterManager 聚合ReadFilter 链和WriterFilter链，构成对数据的处理。&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -874,7 +874,7 @@
 &lt;li&gt;可选的RequestId，这是开启多路复用的基础。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://sq.163yun.com/blog/article/213361303062011904&#34; target=&#34;_blank&#34;&gt;深入解读Service Mesh的数据面Envoy&lt;/a&gt;下文以envoy 实现做一下类比 用来辅助理解mosn 相关代码的理念：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://sq.163yun.com/blog/article/213361303062011904&#34; target=&#34;_blank&#34;&gt;深入解读Service Mesh的数据面Envoy&lt;/a&gt;下文以envoy 实现做一下类比 用来辅助理解MOSN 相关代码的理念：&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;envoy_on_data.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
@@ -899,7 +899,6 @@
         &lt;span style=&#34;color:#000&#34;&gt;phase&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;types&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;InitPhase&lt;/span&gt;
         &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;++&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
             &lt;span style=&#34;color:#000&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;cleanNotify&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt;
-
             &lt;span style=&#34;color:#000&#34;&gt;phase&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;receive&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ctx&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;phase&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
             &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;switch&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;phase&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
             &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;types&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;End&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;

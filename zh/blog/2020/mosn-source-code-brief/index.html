@@ -26,7 +26,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/blog/2020/mosn-source-code-brief/" />
 <meta property="article:published_time" content="2020-02-02T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-02-03T23:11:09&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-02-04T11:31:22&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="MOSN 源码浅析">
 <meta itemprop="description" content="本文主要以http-example 为例来分析。
@@ -34,8 +34,8 @@
 
 
 <meta itemprop="datePublished" content="2020-02-02T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-02-03T23:11:09&#43;08:00" />
-<meta itemprop="wordCount" content="867">
+<meta itemprop="dateModified" content="2020-02-04T11:31:22&#43;08:00" />
+<meta itemprop="wordCount" content="862">
 
 
 
@@ -390,7 +390,7 @@ if (!doNotTrack) {
 
 <p><a href="https://github.com/mosn/mosn/tree/master/examples/cn_readme/http-sample" target="_blank">使用 MOSN 作为 HTTP 代理</a>。</p>
 
-<p>通过设置 log level 为debug， 代码中加更多日志 来辅助分析代码。<strong>本文主要以http-example 为例来分析</strong>。</p>
+<p>通过设置 log level 为debug，代码中加更多日志来辅助分析代码。<strong>本文主要以http-example 为例来分析</strong>。</p>
 
 <h3 id="基本使用">基本使用</h3>
 
@@ -465,13 +465,13 @@ if (!doNotTrack) {
 
 <p><img src="mosn_package.png" alt="" /></p>
 
-<p>几乎所有的interface 定义在 <code>pkg/types</code> 中，mosn 基于四层 架构实现（见下文），每一个layer 在types 中有一个go 文件，在<code>pkg</code> 下有一个专门的文件夹。</p>
+<p>几乎所有的interface 定义在 <code>pkg/types</code> 中，MOSN 基于四层 架构实现（见下文），每一个layer 在types 中有一个go 文件，在<code>pkg</code> 下有一个专门的文件夹。</p>
 
 <h2 id="分层架构">分层架构</h2>
 
 <p><img src="mosn_layer_process.png" alt="" /></p>
 
-<p>一般的服务端编程，二级制数据经过协议解析为 协议对应的model（比如HttpServletRequest） 进而交给上层业务方处理，对于 MOSN 。</p>
+<p>一般的服务端编程，二级制数据经过协议解析为协议对应的model（比如HttpServletRequest） 进而交给上层业务方处理，对于 MOSN 。</p>
 
 <ol>
 <li>协议上数据统一划分为 <code>header/data/Trailers</code> 三个部分，转发也是以这三个子部分为基本单位</li>
@@ -483,12 +483,12 @@ if (!doNotTrack) {
 <p><img src="mosn_layer.png" alt="" /></p>
 
 <ol>
-<li><code>pkg/types/connection.go</code> Connection</li>
-<li><code>pkg/types/stream.go</code> StreamConnection is a connection runs multiple streams</li>
+<li><code>pkg/types/connection.go</code> Connection.</li>
+<li><code>pkg/types/stream.go</code> StreamConnection is a connection runs multiple streams.</li>
 <li><code>pkg/types/stream.go</code> Stream is a generic protocol stream</li>
 <li>一堆listener 和filter 比较好理解：Method in listener will be called on event occur, but not effect the control flow.Filters are called on event occurs, it also returns a status to effect control flow. Currently 2 states are used: Continue to let it go, Stop to stop the control flow.</li>
-<li>protocol 和 stream 两个layer 因和协议有关，不同协议之间实现差异很大，层次不是很清晰</li>
-<li>跨层次调用/数据传输通过跨层次struct 的“组合”来实现。也有一些特别的，比如http net/io 和 stream 分别启动goroutine read/write loop，通过共享数据来 变相的实现跨层调用</li>
+<li>protocol 和 stream 两个layer 因和协议有关，不同协议之间实现差异很大，层次不是很清晰。</li>
+<li>跨层次调用/数据传输通过跨层次struct 的“组合”来实现。也有一些特别的，比如http net/io 和 stream 分别启动goroutine read/write loop，通过共享数据来 变相的实现跨层调用。</li>
 </ol>
 
 <p><a href="https://mosn.io/zh/docs/concept/core-concept/" target="_blank">MOSN的核心概念解析</a>。</p>
@@ -503,7 +503,7 @@ if (!doNotTrack) {
 <li>Encode 后的数据会发经过 write filter 并最终使用 IO 的 write 发送出去。</li>
 </ol>
 
-<p>一个请求可能会触发多次 读取操作，因此单个请求可能会多次调用插件的onData 函数。</p>
+<p>一个请求可能会触发多次读取操作，因此单个请求可能会多次调用插件的onData 函数。</p>
 
 <h2 id="连接管理">连接管理</h2>
 
@@ -512,8 +512,8 @@ if (!doNotTrack) {
 <p><img src="mosn_object.png" alt="" /></p>
 
 <ol>
-<li>不同颜色 表示所处的 package 不同。</li>
-<li>因为mosn主要是的用途是“代理”， 所以笔者一开始一直在找代理如何实现，但其实呢，mosn 首先是一个tcp server，像tomcat一样，mosn 主要分为连接管理和业务处理两个部分。</li>
+<li>不同颜色表示所处的 package 不同。</li>
+<li>因为MOSN主要是的用途是“代理”， 所以笔者一开始一直在找代理如何实现，但其实呢，MOSN 首先是一个tcp server，像tomcat一样，MOSN 主要分为连接管理和业务处理两个部分。</li>
 <li>业务处理的入口 就是filterManager， 主要由<code>filterManager.onRead</code> 和 <code>filterManager.onWrite</code> 来实现。 filterManager 聚合ReadFilter 链和WriterFilter链，构成对数据的处理。</li>
 </ol>
 
@@ -548,7 +548,7 @@ if (!doNotTrack) {
 <li>可选的RequestId，这是开启多路复用的基础。</li>
 </ol>
 
-<p><a href="https://sq.163yun.com/blog/article/213361303062011904" target="_blank">深入解读Service Mesh的数据面Envoy</a>下文以envoy 实现做一下类比 用来辅助理解mosn 相关代码的理念：</p>
+<p><a href="https://sq.163yun.com/blog/article/213361303062011904" target="_blank">深入解读Service Mesh的数据面Envoy</a>下文以envoy 实现做一下类比 用来辅助理解MOSN 相关代码的理念：</p>
 
 <p><img src="envoy_on_data.jpg" alt="" /></p>
 
@@ -573,7 +573,6 @@ if (!doNotTrack) {
         <span style="color:#000">phase</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitPhase</span>
         <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span> <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#0000cf;font-weight:bold">10</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
             <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">cleanNotify</span><span style="color:#000;font-weight:bold">()</span>
-
             <span style="color:#000">phase</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">receive</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">id</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">phase</span><span style="color:#000;font-weight:bold">)</span>
             <span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">phase</span> <span style="color:#000;font-weight:bold">{</span>
             <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span><span style="color:#000;font-weight:bold">:</span>
