@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.55.5" />
 
-<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
 
@@ -29,7 +29,7 @@ MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/blog/2020/mosn-filters/" />
 <meta property="article:published_time" content="2020-02-09T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-02-10T15:43:26&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-02-11T17:50:18&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="MOSN 源码分析 - 插件机制">
 <meta itemprop="description" content="本文记录了对 MOSN 的源码研究 - MOSN 的插件机制, 以及如何创建自己的插件来扩展 MOSN。
@@ -40,7 +40,7 @@ MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
 
 
 <meta itemprop="datePublished" content="2020-02-09T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-02-10T15:43:26&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-11T17:50:18&#43;08:00" />
 <meta itemprop="wordCount" content="879">
 
 
@@ -55,24 +55,11 @@ MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
 ➜ mosn git:(2c6f58c5) ✗ ll pkg/filter total 24 drwxr-xr-x 8 mac staff 256 Feb 5 08:52 . drwxr-xr-x 30 mac staff 960 Feb 5 08:52 .. drwxr-xr-x 3 mac staff 96 Aug 28 22:37 accept -rw-r--r-- 1 mac staff 2556 Feb 5 08:52 factory.go -rw-r--r-- 1 mac staff 2813 Feb 5 08:52 factory_test."/>
 
 
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-93485976-3', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
-
-
-
-<link rel="preload" href="/scss/main.min.10fa65f46b1b52407fa7528f7581babf6b3222b14bb13f15c756fd3a1d59b579.css" as="style">
-<link href="/scss/main.min.10fa65f46b1b52407fa7528f7581babf6b3222b14bb13f15c756fd3a1d59b579.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/" as="style">
+<link href="/" rel="stylesheet" integrity="">
 
 
 <script
@@ -385,7 +372,7 @@ if (!doNotTrack) {
 	<h1>MOSN 源码分析 - 插件机制</h1>
 	
 	<div class="td-byline mb-4">
-		作者 <b>trainyao <a href="https://trainyao.github.io" target="_blank">@trainyao</a></b> |
+		作者 <b><a href="https://trainyao.github.io" target="_blank">@trainyao</a></b> |
 		<time datetime="2020-02-09" class="text-muted">2020年2月9日</time>
 	</div>
 	
