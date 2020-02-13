@@ -706,15 +706,15 @@
 <li><a href="#安装-docker">安装 docker</a></li>
 <li><a href="#安装驱动">安装驱动</a></li>
 </ul></li>
-<li><a href="#安装-minikube-也可以购买商业-k8s-集群">安装 Minikube(也可以购买商业 k8s 集群)</a></li>
+<li><a href="#安装-minikube-也可以购买商业-k8s-集群">安装 Minikube（也可以购买商业 k8s 集群）</a></li>
 <li><a href="#启动-minikube">启动 Minikube</a></li>
 <li><a href="#安装-kubectl-命令行工具">安装 kubectl 命令行工具</a></li>
 <li><a href="#安装-helm">安装 Helm</a></li>
 </ul></li>
 <li><a href="#源码方式部署-istio">源码方式部署 Istio</a>
 <ul>
-<li><a href="#下载-istio-源码">下载 Istio 源码</a></li>
-<li><a href="#通过-helm-安装-istio">通过 Helm 安装 Istio</a></li>
+<li><a href="#下载-sofamesh-源码">下载 SOFAMesh 源码</a></li>
+<li><a href="#通过-helm-安装-sofamesh">通过 Helm 安装 SOFAMesh</a></li>
 <li><a href="#验证安装">验证安装</a></li>
 <li><a href="#卸载安装">卸载安装</a></li>
 </ul></li>
@@ -817,7 +817,7 @@
 </span><span style="color:#4e9a06"></span><span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> sudo mv docker-machine-driver-hyperkit /usr/local/bin/ <span style="color:#4e9a06">\
 </span><span style="color:#4e9a06"></span><span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> sudo chown root:wheel /usr/local/bin/docker-machine-driver-hyperkit <span style="color:#4e9a06">\
 </span><span style="color:#4e9a06"></span><span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> sudo chmod u+s /usr/local/bin/docker-machine-driver-hyperkit</code></pre></div>
-<h3 id="安装-minikube-也可以购买商业-k8s-集群">安装 Minikube(也可以购买商业 k8s 集群)</h3>
+<h3 id="安装-minikube-也可以购买商业-k8s-集群">安装 Minikube（也可以购买商业 k8s 集群）</h3>
 
 <p>推荐使用 Minikube v0.28 以上来体验，请参考 <a href="https://github.com/kubernetes/minikube" target="_blank">https://github.com/kubernetes/minikube</a></p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew cask install minikube</code></pre></div>
@@ -840,9 +840,17 @@
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install kubernetes-helm</code></pre></div>
 <h2 id="源码方式部署-istio">源码方式部署 Istio</h2>
 
-<h3 id="下载-istio-源码">下载 Istio 源码</h3>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/istio/istio.git</code></pre></div>
-<h3 id="通过-helm-安装-istio">通过 Helm 安装 Istio</h3>
+
+
+<div class="pageinfo pageinfo-primary">
+<p>当前 SOFAMesh 已停止 fork 的方式开发，而是转为直接基于 Istio 开发，向 Istio 社区贡献，未来将可以通过 Istio 直接支持。MOSN 已通过 Istio 1.1.4 的 bookinfo 测试，关于最新版 Istio 的支持请参考 <a href="https://github.com/mosn/mosn/issues/933" target="_blank">Issue #933</a>。</p>
+
+</div>
+
+
+<h3 id="下载-sofamesh-源码">下载 SOFAMesh 源码</h3>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/sofastack/sofa-mesh.git</code></pre></div>
+<h3 id="通过-helm-安装-sofamesh">通过 Helm 安装 SOFAMesh</h3>
 
 <p><strong>使用 <code>helm template</code> 安装</strong></p>
 
@@ -853,7 +861,7 @@ $ helm template install/kubernetes/helm/istio --name istio --namespace istio-sys
 <h3 id="验证安装">验证安装</h3>
 
 <p><code>istio-system</code> 命名空间下的 pod 状态都是 Running 时，说明已经部署成功。
-如果仅仅是为了运行bookinfo，只需要pilot,injector,citadel这三个pods运行成功就可以满足最低要求</p>
+如果仅仅是为了运行bookinfo，只需要pilot、injector、citadel这三个pod运行成功就可以满足最低要求</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pods -n istio-system
 NAME                                       READY    STATUS   RESTARTS    AGE
 istio-citadel-6579c78cd9-w57lr              <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m
@@ -868,7 +876,7 @@ istio-telemetry-55ff8c77f4-q8d8q            <span style="color:#0000cf;font-weig
 prometheus-84bd4b9796-nq8lg                 <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m</code></pre></div>
 <h3 id="卸载安装">卸载安装</h3>
 
-<p>卸载Istio</p>
+<p>卸载 SOFAMesh。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm template install/kubernetes/helm/istio --name istio --namespace istio-system <span style="color:#000;font-weight:bold">|</span> kubectl delete -f -
 $ kubectl delete namespace istio-system</code></pre></div>
 <h2 id="bookinfo-实验">BookInfo 实验</h2>
@@ -902,7 +910,7 @@ kubernetes                 <span style="color:#0000cf;font-weight:bold">10</span
 productpage                <span style="color:#0000cf;font-weight:bold">10</span>.0.0.120   &lt;none&gt;        <span style="color:#0000cf;font-weight:bold">9080</span>/TCP             6m
 ratings                    <span style="color:#0000cf;font-weight:bold">10</span>.0.0.15    &lt;none&gt;        <span style="color:#0000cf;font-weight:bold">9080</span>/TCP             6m
 reviews                    <span style="color:#0000cf;font-weight:bold">10</span>.0.0.170   &lt;none&gt;        <span style="color:#0000cf;font-weight:bold">9080</span>/TCP             6m</code></pre></div>
-<p>等待所有的 pods 等成功运行起来。</p>
+<p>等待所有的 pod 等成功运行起来。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pods
 NAME                                        READY     STATUS    RESTARTS   AGE
 details-v1-1520924117-48z17                 <span style="color:#0000cf;font-weight:bold">2</span>/2       Running   <span style="color:#0000cf;font-weight:bold">0</span>          6m
@@ -1093,7 +1101,7 @@ $ <span style="color:#204a87">export</span> <span style="color:#000">GATEWAY_URL
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年1月21日: <a  href="https://github.com/mosn/mosn.io/commit/f7c1b503cfa7773c3a2f073ad9f5ffb76cbc8621">fix broken links (f7c1b50)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年2月13日: <a  href="https://github.com/mosn/mosn.io/commit/5cb6cbd39baa43655cadda1ec44dfeeaa5e6fa35">Update MOSN with SOFAMesh (5cb6cbd)</a>
 </div>
 </div>
 
