@@ -20,8 +20,8 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>MOSN 源码分析 - 插件机制 | MOSN</title><meta property="og:title" content="MOSN 源码分析 - 插件机制" />
-<meta property="og:description" content="本文记录了对 MOSN 的源码研究 - MOSN 的插件机制, 以及如何创建自己的插件来扩展 MOSN。
+<title>MOSN 源码解析 - filter扩展机制 | MOSN</title><meta property="og:title" content="MOSN 源码解析 - filter扩展机制" />
+<meta property="og:description" content="本文记录了对 MOSN 的源码研究 - MOSN 的filter扩展机制, 以及如何创建自己的filter来扩展 MOSN。
 本文的内容基于 MOSN v0.9.0。
 机制 使用过滤器模式来实现扩展是常见的设计模式，MOSN 也是使用了这种方式来构建可扩展性。
 MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
@@ -29,10 +29,10 @@ MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/blog/2020/mosn-filters/" />
 <meta property="article:published_time" content="2020-02-09T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-02-11T17:50:18&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-02-14T15:02:16&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="MOSN 源码分析 - 插件机制">
-<meta itemprop="description" content="本文记录了对 MOSN 的源码研究 - MOSN 的插件机制, 以及如何创建自己的插件来扩展 MOSN。
+<meta itemprop="name" content="MOSN 源码解析 - filter扩展机制">
+<meta itemprop="description" content="本文记录了对 MOSN 的源码研究 - MOSN 的filter扩展机制, 以及如何创建自己的filter来扩展 MOSN。
 本文的内容基于 MOSN v0.9.0。
 机制 使用过滤器模式来实现扩展是常见的设计模式，MOSN 也是使用了这种方式来构建可扩展性。
 MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
@@ -40,15 +40,15 @@ MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
 
 
 <meta itemprop="datePublished" content="2020-02-09T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-02-11T17:50:18&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-14T15:02:16&#43;08:00" />
 <meta itemprop="wordCount" content="879">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MOSN 源码分析 - 插件机制"/>
-<meta name="twitter:description" content="本文记录了对 MOSN 的源码研究 - MOSN 的插件机制, 以及如何创建自己的插件来扩展 MOSN。
+<meta name="twitter:title" content="MOSN 源码解析 - filter扩展机制"/>
+<meta name="twitter:description" content="本文记录了对 MOSN 的源码研究 - MOSN 的filter扩展机制, 以及如何创建自己的filter来扩展 MOSN。
 本文的内容基于 MOSN v0.9.0。
 机制 使用过滤器模式来实现扩展是常见的设计模式，MOSN 也是使用了这种方式来构建可扩展性。
 MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
@@ -70,7 +70,7 @@ MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
 
 
 
-    <title>MOSN 源码分析 - 插件机制 | MOSN</title>
+    <title>MOSN 源码解析 - filter扩展机制 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -280,7 +280,13 @@ MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-2020-mosn-filters" href="/zh/blog/2020/mosn-filters/">MOSN 源码分析 - 插件机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-2020-mosn-plugin" href="/zh/blog/2020/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-2020-mosn-filters" href="/zh/blog/2020/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
       
       
       
@@ -331,7 +337,7 @@ MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
 
 
 <a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/posts/mosn-filters/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e6%ba%90%e7%a0%81%e5%88%86%e6%9e%90%20-%20%e6%8f%92%e4%bb%b6%e6%9c%ba%e5%88%b6" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e6%ba%90%e7%a0%81%e8%a7%a3%e6%9e%90%20-%20filter%e6%89%a9%e5%b1%95%e6%9c%ba%e5%88%b6" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -369,7 +375,7 @@ MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
             </a>
             
 <div class="td-content">
-	<h1>MOSN 源码分析 - 插件机制</h1>
+	<h1>MOSN 源码解析 - filter扩展机制</h1>
 	
 	<div class="td-byline mb-4">
 		作者 <b><a href="https://trainyao.github.io" target="_blank">@trainyao</a></b> |
@@ -377,7 +383,7 @@ MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
 	</div>
 	
 
-<p>本文记录了对 MOSN 的源码研究 - MOSN 的插件机制, 以及如何创建自己的插件来扩展 MOSN。</p>
+<p>本文记录了对 MOSN 的源码研究 - MOSN 的filter扩展机制, 以及如何创建自己的filter来扩展 MOSN。</p>
 
 <p>本文的内容基于 MOSN v0.9.0。</p>
 
@@ -593,7 +599,7 @@ drwxr-xr-x   4 mac  staff  128 Feb  5 08:52 payloadlimit // 限流相关</code><
 
 <h2 id="总结">总结</h2>
 
-<p>本文通过分析 MOSN 源码，简述了 MOSN 的插件扩展机制，并简述了实现自己的 filter 需要做的东西。大家可以通过该机制，使用 MONS 轻松 cover 自己具体的使用场景。</p>
+<p>本文通过分析 MOSN 源码，简述了 MOSN 的filter扩展机制，并简述了实现自己的 filter 需要做的东西。大家可以通过该机制，使用 MONS 轻松 cover 自己具体的使用场景。</p>
 
 <hr />
 
@@ -609,7 +615,7 @@ drwxr-xr-x   4 mac  staff  128 Feb  5 08:52 payloadlimit // 限流相关</code><
   <li>
     <a href="/zh/blog/2019/nginx-envoy-mosn-hot-upgrade/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
   </li>
-    <a  class="btn btn-primary  disabled">下一页 <span class="ml-1">→</span></a>
+    <a href="/zh/blog/2020/mosn-plugin/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
   </li>
 </ul>
 

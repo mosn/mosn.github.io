@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mosn.io/zh/blog/2020/mosn-plugin/</loc>
+    <lastmod>2020-02-14T15:47:06+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/contribute/github/</loc>
     <lastmod>2020-02-11T17:50:18+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -11,7 +18,7 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/2020/mosn-filters/</loc>
-    <lastmod>2020-02-11T17:50:18+08:00</lastmod>
+    <lastmod>2020-02-14T15:02:16+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
