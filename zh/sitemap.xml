@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mosn.io/zh/blog/2020/mosn-variable/</loc>
+    <lastmod>2020-02-19T22:08:59+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/2020/mosn-plugin/</loc>
     <lastmod>2020-02-19T14:35:22+08:00</lastmod>
     <changefreq>daily</changefreq>
