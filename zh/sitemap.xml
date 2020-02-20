@@ -17,6 +17,13 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/2020/mosn-xds/</loc>
+    <lastmod>2020-02-14T18:08:35+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/contribute/github/</loc>
     <lastmod>2020-02-11T17:50:18+08:00</lastmod>
     <changefreq>daily</changefreq>
