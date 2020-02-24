@@ -25,15 +25,15 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/blog/2020/mosn-variable/" />
 <meta property="article:published_time" content="2020-02-16T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-02-19T22:08:59&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-02-24T00:35:12&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="MOSN 源码解析 - 变量机制">
 <meta itemprop="description" content="对 MOSN 变量机制的源码解析。">
 
 
 <meta itemprop="datePublished" content="2020-02-16T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-02-19T22:08:59&#43;08:00" />
-<meta itemprop="wordCount" content="877">
+<meta itemprop="dateModified" content="2020-02-24T00:35:12&#43;08:00" />
+<meta itemprop="wordCount" content="934">
 
 
 
@@ -354,6 +354,12 @@
 <li>
 <ul>
 <li><a href="#什么是变量机制">什么是变量机制</a></li>
+<li><a href="#变量机制的原理">变量机制的原理</a>
+<ul>
+<li><a href="#variable-缓存">Variable 缓存</a></li>
+<li><a href="#初始化阶段">初始化阶段</a></li>
+<li><a href="#对变量的使用">对变量的使用</a></li>
+</ul></li>
 <li><a href="#注册变量">注册变量</a></li>
 <li><a href="#获取变量">获取变量</a></li>
 <li><a href="#变量生效">变量生效</a></li>
@@ -408,7 +414,32 @@ cat /tmp/mosn_bench/benchmark_access.log
 <span style="color:#0000cf;font-weight:bold">2020</span>/02/16 <span style="color:#0000cf;font-weight:bold">21</span>:26:26.078 <span style="color:#0000cf;font-weight:bold">2</span>.543µs <span style="color:#0000cf;font-weight:bold">2</span>.000004307s <span style="color:#0000cf;font-weight:bold">2048</span> <span style="color:#0000cf;font-weight:bold">2048</span>  <span style="color:#0000cf;font-weight:bold">0</span> <span style="color:#0000cf;font-weight:bold">24</span>.471µs <span style="color:#204a87">false</span> <span style="color:#0000cf;font-weight:bold">0</span> <span style="color:#0000cf;font-weight:bold">127</span>.0.0.1:23456 <span style="color:#ce5c00;font-weight:bold">[</span><span style="color:#0000cf;font-weight:bold">2001</span>:db8::68<span style="color:#ce5c00;font-weight:bold">]</span>:12200 <span style="color:#0000cf;font-weight:bold">127</span>.0.0.1:53242 -</code></pre></div>
 <p>请留意 <code>accessLog.Log</code> 打印出来的日志，可以发现 <code>DefaultAccessLogFormat</code> 中的变量, 都被替换成了实际的值。比如：<code>%start_time%</code> 被替换成 <code>2020/02/16 21:26:26.078</code>, <code>%request_received_duration%</code> 被替换成 <code>2.543µs</code>。</p>
 
-<p><code>变量机制</code>允许用户在配置中使用预定义的变量，而非确定值；变量将在请求处理过程中被替换成其对应的实际值。接下来继续围绕上面的单元测试一起深入探讨它背后的实现逻辑。</p>
+<p><code>变量机制</code>允许用户在配置中使用预定义的变量，而非确定值；变量将在请求处理过程中被替换成其对应的实际值。</p>
+
+<h2 id="变量机制的原理">变量机制的原理</h2>
+
+<p><div align="center">
+    <img src="variable.png"/>
+</div>
+<br/></p>
+
+<p>请留意上面的<code>变量机制原理图</code>，它分为 3 部分；最上边的是<code>Variable 缓存</code>，左边虚线框的是<code>初始化阶段</code>，而右边虚线是<code>对变量的使用</code>。</p>
+
+<h3 id="variable-缓存">Variable 缓存</h3>
+
+<p><code>Variable 缓存</code> 是一组 Variable 的 key-value 对，key 是变量的名字，value 是 <code>Variable 接口</code>；以 map 的形式存在于内存中。Variable 接口含有<code>变量的名字</code>，<code>变量值得获取方式</code>, <code>变量值得设置方式</code> 等属性。</p>
+
+<h3 id="初始化阶段">初始化阶段</h3>
+
+<p>在初始化阶段中，首先定义好各变量的 <code>Variable</code>（预定义变量）；然后注册到 <code>Variable 缓存中</code>。另外，还需初始化 <code>mosn ctx</code>，<code>mosn ctx</code> 是一个 <code>context.Context</code>，里面含有变量实际值的相关信息；在后续获取变量的实际值时会用到它。</p>
+
+<h3 id="对变量的使用">对变量的使用</h3>
+
+<p>在请求处理的过程中，根据<code>变量名</code>去缓存中获取相应的 <code>Variable</code>。然后调用 Variable 的 <code>Getter</code> 方法，得到<code>变量的获取方式 getter</code>。最后调用 <code>getter</code> 函数，<code>getter</code> 函数会根据 <code>mosn ctx</code> 生成变量的实际值。</p>
+
+<p>可以看出，<code>变量机制</code> 用到了 <code>生产者-消费者模式</code>。<code>生产者</code> 负责定义变量对应的 <code>Variable</code>，并注册到 <code>Variable 缓存</code>中。而这些 <code>Variable</code> 会在请求处理过程中被消费，生成变量的实际值。</p>
+
+<p>了解完变量机制的原理后，我们继续围绕<a href="#什么是变量机制">什么是变量机制</a>中的单元测试，深入探讨它背后的实现逻辑。</p>
 
 <h2 id="注册变量">注册变量</h2>
 

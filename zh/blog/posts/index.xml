@@ -53,7 +53,32 @@ cat /tmp/mosn_bench/benchmark_access.log
 &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2020&lt;/span&gt;/02/16 &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;21&lt;/span&gt;:26:26.078 &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt;.543µs &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt;.000004307s &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2048&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2048&lt;/span&gt;  &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;24&lt;/span&gt;.471µs &lt;span style=&#34;color:#204a87&#34;&gt;false&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;127&lt;/span&gt;.0.0.1:23456 &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2001&lt;/span&gt;:db8::68&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;]&lt;/span&gt;:12200 &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;127&lt;/span&gt;.0.0.1:53242 -&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;请留意 &lt;code&gt;accessLog.Log&lt;/code&gt; 打印出来的日志，可以发现 &lt;code&gt;DefaultAccessLogFormat&lt;/code&gt; 中的变量, 都被替换成了实际的值。比如：&lt;code&gt;%start_time%&lt;/code&gt; 被替换成 &lt;code&gt;2020/02/16 21:26:26.078&lt;/code&gt;, &lt;code&gt;%request_received_duration%&lt;/code&gt; 被替换成 &lt;code&gt;2.543µs&lt;/code&gt;。&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;变量机制&lt;/code&gt;允许用户在配置中使用预定义的变量，而非确定值；变量将在请求处理过程中被替换成其对应的实际值。接下来继续围绕上面的单元测试一起深入探讨它背后的实现逻辑。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;变量机制&lt;/code&gt;允许用户在配置中使用预定义的变量，而非确定值；变量将在请求处理过程中被替换成其对应的实际值。&lt;/p&gt;
+
+&lt;h2 id=&#34;变量机制的原理&#34;&gt;变量机制的原理&lt;/h2&gt;
+
+&lt;p&gt;&lt;div align=&#34;center&#34;&gt;
+    &lt;img src=&#34;variable.png&#34;/&gt;
+&lt;/div&gt;
+&lt;br/&gt;&lt;/p&gt;
+
+&lt;p&gt;请留意上面的&lt;code&gt;变量机制原理图&lt;/code&gt;，它分为 3 部分；最上边的是&lt;code&gt;Variable 缓存&lt;/code&gt;，左边虚线框的是&lt;code&gt;初始化阶段&lt;/code&gt;，而右边虚线是&lt;code&gt;对变量的使用&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&#34;variable-缓存&#34;&gt;Variable 缓存&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Variable 缓存&lt;/code&gt; 是一组 Variable 的 key-value 对，key 是变量的名字，value 是 &lt;code&gt;Variable 接口&lt;/code&gt;；以 map 的形式存在于内存中。Variable 接口含有&lt;code&gt;变量的名字&lt;/code&gt;，&lt;code&gt;变量值得获取方式&lt;/code&gt;, &lt;code&gt;变量值得设置方式&lt;/code&gt; 等属性。&lt;/p&gt;
+
+&lt;h3 id=&#34;初始化阶段&#34;&gt;初始化阶段&lt;/h3&gt;
+
+&lt;p&gt;在初始化阶段中，首先定义好各变量的 &lt;code&gt;Variable&lt;/code&gt;（预定义变量）；然后注册到 &lt;code&gt;Variable 缓存中&lt;/code&gt;。另外，还需初始化 &lt;code&gt;mosn ctx&lt;/code&gt;，&lt;code&gt;mosn ctx&lt;/code&gt; 是一个 &lt;code&gt;context.Context&lt;/code&gt;，里面含有变量实际值的相关信息；在后续获取变量的实际值时会用到它。&lt;/p&gt;
+
+&lt;h3 id=&#34;对变量的使用&#34;&gt;对变量的使用&lt;/h3&gt;
+
+&lt;p&gt;在请求处理的过程中，根据&lt;code&gt;变量名&lt;/code&gt;去缓存中获取相应的 &lt;code&gt;Variable&lt;/code&gt;。然后调用 Variable 的 &lt;code&gt;Getter&lt;/code&gt; 方法，得到&lt;code&gt;变量的获取方式 getter&lt;/code&gt;。最后调用 &lt;code&gt;getter&lt;/code&gt; 函数，&lt;code&gt;getter&lt;/code&gt; 函数会根据 &lt;code&gt;mosn ctx&lt;/code&gt; 生成变量的实际值。&lt;/p&gt;
+
+&lt;p&gt;可以看出，&lt;code&gt;变量机制&lt;/code&gt; 用到了 &lt;code&gt;生产者-消费者模式&lt;/code&gt;。&lt;code&gt;生产者&lt;/code&gt; 负责定义变量对应的 &lt;code&gt;Variable&lt;/code&gt;，并注册到 &lt;code&gt;Variable 缓存&lt;/code&gt;中。而这些 &lt;code&gt;Variable&lt;/code&gt; 会在请求处理过程中被消费，生成变量的实际值。&lt;/p&gt;
+
+&lt;p&gt;了解完变量机制的原理后，我们继续围绕&lt;a href=&#34;#什么是变量机制&#34;&gt;什么是变量机制&lt;/a&gt;中的单元测试，深入探讨它背后的实现逻辑。&lt;/p&gt;
 
 &lt;h2 id=&#34;注册变量&#34;&gt;注册变量&lt;/h2&gt;
 
