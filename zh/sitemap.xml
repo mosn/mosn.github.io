@@ -3,28 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://mosn.io/zh/blog/2020/mosn-variable/</loc>
+    <loc>https://mosn.io/zh/blog/posts/mosn-variable/</loc>
     <lastmod>2020-02-24T00:35:12+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/2020/mosn-buffer/</loc>
+    <loc>https://mosn.io/zh/blog/posts/mosn-buffer/</loc>
     <lastmod>2020-02-22T12:42:18+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/2020/mosn-plugin/</loc>
+    <loc>https://mosn.io/zh/blog/posts/mosn-plugin/</loc>
     <lastmod>2020-02-19T14:35:22+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/2020/mosn-xds/</loc>
+    <loc>https://mosn.io/zh/blog/posts/mosn-xds/</loc>
     <lastmod>2020-02-14T18:08:35+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/2020/mosn-filters/</loc>
+    <loc>https://mosn.io/zh/blog/posts/mosn-filters/</loc>
     <lastmod>2020-02-14T15:02:16+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -73,28 +73,21 @@
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/2019/announcing-mosn-communtiy/</loc>
+    <loc>https://mosn.io/zh/blog/news/announcing-mosn-communtiy/</loc>
     <lastmod>2020-02-11T17:50:18+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/2019/nginx-envoy-mosn-hot-upgrade/</loc>
+    <loc>https://mosn.io/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/</loc>
     <lastmod>2020-02-11T17:50:18+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/2019/mosn-0.1.0-perfermence-report/</loc>
-    <lastmod>2020-01-21T16:25:20+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/blog/2019/mosn-reconfig-mechanism/</loc>
+    <loc>https://mosn.io/zh/blog/posts/mosn-reconfig-mechanism/</loc>
     <lastmod>2020-02-11T17:50:18+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -103,13 +96,6 @@
   <url>
     <loc>https://mosn.io/zh/docs/concept/core-concept/</loc>
     <lastmod>2020-01-21T17:47:59+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/blog/2020/v0.10.0/</loc>
-    <lastmod>2020-02-28T16:38:25+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -129,7 +115,7 @@
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/2020/mosn-source-code-brief/</loc>
+    <loc>https://mosn.io/zh/blog/posts/mosn-source-code-brief/</loc>
     <lastmod>2020-02-11T17:50:18+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -173,13 +159,6 @@
   <url>
     <loc>https://mosn.io/zh/docs/quick-start/istio/</loc>
     <lastmod>2020-02-13T15:43:33+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/blog/2019/mosn-0.2.1-performance-report/</loc>
-    <lastmod>2020-01-21T16:25:20+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -281,6 +260,27 @@
   <url>
     <loc>https://mosn.io/zh/blog/posts/</loc>
     <lastmod>2020-01-21T16:25:20+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/releases/v0.10.0/</loc>
+    <lastmod>2020-02-28T17:10:14+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/releases/mosn-0.1.0-perfermence-report/</loc>
+    <lastmod>2020-02-28T17:10:14+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/releases/mosn-0.2.1-performance-report/</loc>
+    <lastmod>2020-02-28T17:10:14+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>

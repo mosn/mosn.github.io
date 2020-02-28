@@ -15,10 +15,10 @@
     
     <item>
       <title>Blog: MOSN 源码解析 - 变量机制</title>
-      <link>https://mosn.io/zh/blog/2020/mosn-variable/</link>
+      <link>https://mosn.io/zh/blog/posts/mosn-variable/</link>
       <pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://mosn.io/zh/blog/2020/mosn-variable/</guid>
+      <guid>https://mosn.io/zh/blog/posts/mosn-variable/</guid>
       <description>
         
         
@@ -374,10 +374,10 @@ cat /tmp/mosn_bench/benchmark_access.log
     
     <item>
       <title>Blog: MOSN 源码分析 - 内存复用机制</title>
-      <link>https://mosn.io/zh/blog/2020/mosn-buffer/</link>
+      <link>https://mosn.io/zh/blog/posts/mosn-buffer/</link>
       <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://mosn.io/zh/blog/2020/mosn-buffer/</guid>
+      <guid>https://mosn.io/zh/blog/posts/mosn-buffer/</guid>
       <description>
         
         
@@ -735,10 +735,10 @@ goroutine 还不能知道对应的 downstream request 和其 context 的 bufferV
     
     <item>
       <title>Blog: MOSN 源码解析 - Plugin 机制</title>
-      <link>https://mosn.io/zh/blog/2020/mosn-plugin/</link>
+      <link>https://mosn.io/zh/blog/posts/mosn-plugin/</link>
       <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://mosn.io/zh/blog/2020/mosn-plugin/</guid>
+      <guid>https://mosn.io/zh/blog/posts/mosn-plugin/</guid>
       <description>
         
         
@@ -994,10 +994,10 @@ success! response body: world&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
     
     <item>
       <title>Blog: MOSN 源码分析</title>
-      <link>https://mosn.io/zh/blog/2020/mosn-xds/</link>
+      <link>https://mosn.io/zh/blog/posts/mosn-xds/</link>
       <pubDate>Thu, 13 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://mosn.io/zh/blog/2020/mosn-xds/</guid>
+      <guid>https://mosn.io/zh/blog/posts/mosn-xds/</guid>
       <description>
         
         
@@ -1168,10 +1168,10 @@ success! response body: world&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
     
     <item>
       <title>Blog: MOSN 源码解析 - filter扩展机制</title>
-      <link>https://mosn.io/zh/blog/2020/mosn-filters/</link>
+      <link>https://mosn.io/zh/blog/posts/mosn-filters/</link>
       <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://mosn.io/zh/blog/2020/mosn-filters/</guid>
+      <guid>https://mosn.io/zh/blog/posts/mosn-filters/</guid>
       <description>
         
         
@@ -1408,10 +1408,10 @@ drwxr-xr-x   4 mac  staff  128 Feb  5 08:52 payloadlimit // 限流相关&lt;/cod
     
     <item>
       <title>Blog: Nginx vs Envoy vs MOSN 平滑升级原理解析</title>
-      <link>https://mosn.io/zh/blog/2019/nginx-envoy-mosn-hot-upgrade/</link>
+      <link>https://mosn.io/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/</link>
       <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://mosn.io/zh/blog/2019/nginx-envoy-mosn-hot-upgrade/</guid>
+      <guid>https://mosn.io/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/</guid>
       <description>
         
         
@@ -1571,10 +1571,10 @@ drwxr-xr-x   4 mac  staff  128 Feb  5 08:52 payloadlimit // 限流相关&lt;/cod
     
     <item>
       <title>Blog: mosn 的reconfig 机制</title>
-      <link>https://mosn.io/zh/blog/2019/mosn-reconfig-mechanism/</link>
+      <link>https://mosn.io/zh/blog/posts/mosn-reconfig-mechanism/</link>
       <pubDate>Sun, 24 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://mosn.io/zh/blog/2019/mosn-reconfig-mechanism/</guid>
+      <guid>https://mosn.io/zh/blog/posts/mosn-reconfig-mechanism/</guid>
       <description>
         
         
@@ -1658,10 +1658,10 @@ drwxr-xr-x   4 mac  staff  128 Feb  5 08:52 payloadlimit // 限流相关&lt;/cod
     
     <item>
       <title>Blog: MOSN 源码浅析</title>
-      <link>https://mosn.io/zh/blog/2020/mosn-source-code-brief/</link>
+      <link>https://mosn.io/zh/blog/posts/mosn-source-code-brief/</link>
       <pubDate>Sun, 02 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://mosn.io/zh/blog/2020/mosn-source-code-brief/</guid>
+      <guid>https://mosn.io/zh/blog/posts/mosn-source-code-brief/</guid>
       <description>
         
         
