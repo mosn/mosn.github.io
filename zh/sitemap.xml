@@ -231,6 +231,16 @@
     <lastmod>2020-01-21T16:25:20+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/blog/releases/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/blog/releases/"
+                />
   </url>
   
   <url>
@@ -266,9 +276,19 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/releases/v0.10.0/</loc>
-    <lastmod>2020-02-28T17:18:17+08:00</lastmod>
+    <lastmod>2020-02-28T18:30:49+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/blog/releases/v0.10.0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/blog/releases/v0.10.0/"
+                />
   </url>
   
   <url>
@@ -341,6 +361,16 @@
     <lastmod>2020-01-21T16:25:20+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/blog/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/blog/"
+                />
   </url>
   
   <url>

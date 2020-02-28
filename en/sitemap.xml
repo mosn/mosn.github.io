@@ -20,6 +20,40 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/blog/releases/</loc>
+    <lastmod>2020-02-28T18:30:49+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/blog/releases/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/blog/releases/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/blog/releases/v0.10.0/</loc>
+    <lastmod>2020-02-28T18:41:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/blog/releases/v0.10.0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/blog/releases/v0.10.0/"
+                />
+  </url>
+  
+  <url>
     <loc>https://mosn.io/index.json</loc>
     <lastmod>2020-01-21T16:25:20+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -40,6 +74,23 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://mosn.io/about/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/blog/</loc>
+    <lastmod>2020-02-28T18:30:49+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/blog/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/blog/"
                 />
   </url>
   

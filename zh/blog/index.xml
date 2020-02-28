@@ -2158,7 +2158,7 @@ drwxr-xr-x   4 mac  staff  128 Feb  5 08:52 payloadlimit // 限流相关&lt;/cod
     </item>
     
     <item>
-      <title>Blog: MOSN v0.10.0 变更日志</title>
+      <title>Blog: MOSN v0.10.0 发布</title>
       <link>https://mosn.io/zh/blog/releases/v0.10.0/</link>
       <pubDate>Fri, 28 Feb 2020 00:00:00 +0000</pubDate>
       
@@ -2168,42 +2168,44 @@ drwxr-xr-x   4 mac  staff  128 Feb  5 08:52 payloadlimit // 限流相关&lt;/cod
         
         
 
+&lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.10.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.10.0&lt;/a&gt; 发布。以下是该版本的变更日志。&lt;/p&gt;
+
 &lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;支持多进程插件模式 ( &lt;a href=&#34;https://github.com/mosn/mosn/pull/979&#34; target=&#34;_blank&#34;&gt;#979&lt;/a&gt;, &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt; )&lt;/li&gt;
-&lt;li&gt;启动参数支持service-meta参数 ( &lt;a href=&#34;https://github.com/mosn/mosn/pull/952&#34; target=&#34;_blank&#34;&gt;#952&lt;/a&gt;,&lt;a href=&#34;https://github.com/trainyao&#34; target=&#34;_blank&#34;&gt;@trainyao&lt;/a&gt; )&lt;/li&gt;
-&lt;li&gt;支持abstract uds模式挂载sds socket&lt;/li&gt;
+&lt;li&gt;支持多进程插件模式（&lt;a href=&#34;https://github.com/mosn/mosn/pull/979&#34; target=&#34;_blank&#34;&gt;#979&lt;/a&gt;，&lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;启动参数支持 service-meta参数（&lt;a href=&#34;https://github.com/mosn/mosn/pull/952&#34; target=&#34;_blank&#34;&gt;#952&lt;/a&gt;，&lt;a href=&#34;https://github.com/trainyao&#34; target=&#34;_blank&#34;&gt;@trainyao&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;支持 abstract uds 模式挂载 sds socket&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;分离部分mosn基础库代码到&lt;a href=&#34;https://github.com/mosn/pkg&#34; target=&#34;_blank&#34;&gt;mosn.io/pkg&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;分离部分mosn接口定义到&lt;a href=&#34;https://github.com/mosn/api&#34; target=&#34;_blank&#34;&gt;mosn.io/api&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;分离部分 MOSN 基础库代码到 &lt;a href=&#34;https://github.com/mosn/pkg&#34; target=&#34;_blank&#34;&gt;mosn.io/pkg&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;分离部分 MOSN 接口定义到 &lt;a href=&#34;https://github.com/mosn/api&#34; target=&#34;_blank&#34;&gt;mosn.io/api&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;日志基础模块分离到mosn.io/pkg，mosn的日志实现优化&lt;/li&gt;
-&lt;li&gt;优化FeatureGate ( &lt;a href=&#34;https://github.com/mosn/mosn/pull/927&#34; target=&#34;_blank&#34;&gt;#927&lt;/a&gt;, &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt; )&lt;/li&gt;
-&lt;li&gt;新增处理获取SDS配置失败时的处理&lt;/li&gt;
-&lt;li&gt;CDS动态删除Cluster时，会同步停止对应Cluster的健康检查&lt;/li&gt;
-&lt;li&gt;sds触发证书更新时的回调函数新增证书配置作为参数&lt;/li&gt;
+&lt;li&gt;日志基础模块分离到 &lt;code&gt;mosn.io/pkg&lt;/code&gt;，MOSN 的日志实现优化&lt;/li&gt;
+&lt;li&gt;优化 FeatureGate（&lt;a href=&#34;https://github.com/mosn/mosn/pull/927&#34; target=&#34;_blank&#34;&gt;#927&lt;/a&gt;，&lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;新增处理获取 SDS 配置失败时的处理&lt;/li&gt;
+&lt;li&gt;CDS 动态删除 Cluster时，会同步停止对应 Cluster 的健康检查&lt;/li&gt;
+&lt;li&gt;SDS 触发证书更新时的回调函数新增证书配置作为参数&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;修复在SOFARPC Oneway请求失败时，导致的内存泄漏问题&lt;/li&gt;
-&lt;li&gt;修复在收到非标准的HTTP响应时，返回502错误的问题&lt;/li&gt;
-&lt;li&gt;修复DUMP配置时可能存在的并发冲突&lt;/li&gt;
-&lt;li&gt;修复TraceLog统计的Request和Response Size错误问题&lt;/li&gt;
+&lt;li&gt;修复在 SOFARPC Oneway 请求失败时，导致的内存泄漏问题&lt;/li&gt;
+&lt;li&gt;修复在收到非标准的 HTTP 响应时，返回 502 错误的问题&lt;/li&gt;
+&lt;li&gt;修复 DUMP 配置时可能存在的并发冲突&lt;/li&gt;
+&lt;li&gt;修复 TraceLog 统计的 Request 和 Response Size 错误问题&lt;/li&gt;
 &lt;li&gt;修复因为并发写连接导致写超时失效的问题&lt;/li&gt;
-&lt;li&gt;修复serialize序列化的bug&lt;/li&gt;
-&lt;li&gt;修复连接读取时内存复用保留buffer过大导致内存占用过高的问题&lt;/li&gt;
-&lt;li&gt;优化XProtocol中Dubbo相关实现&lt;/li&gt;
+&lt;li&gt;修复 serialize 序列化的 bug&lt;/li&gt;
+&lt;li&gt;修复连接读取时内存复用保留 buffer 过大导致内存占用过高的问题&lt;/li&gt;
+&lt;li&gt;优化 XProtocol 中 Dubbo 相关实现&lt;/li&gt;
 &lt;/ul&gt;
 
       </description>

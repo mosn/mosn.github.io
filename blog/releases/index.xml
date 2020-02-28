@@ -1,14 +1,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>MOSN – MOSN</title>
-    <link>https://mosn.io/</link>
-    <description>Recent content on MOSN</description>
+    <title>MOSN – Release</title>
+    <link>https://mosn.io/blog/releases/</link>
+    <description>Recent content in Release on MOSN</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	  <atom:link href="https://mosn.io/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://mosn.io/blog/releases/index.xml" rel="self" type="application/rss+xml" />
     
     
       
+        
       
     
     
