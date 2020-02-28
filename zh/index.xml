@@ -2091,6 +2091,58 @@ drwxr-xr-x   4 mac  staff  128 Feb  5 08:52 payloadlimit // 限流相关&lt;/cod
     </item>
     
     <item>
+      <title>Blog: MOSN v0.10.0 变更日志</title>
+      <link>https://mosn.io/zh/blog/2020/v0.10.0/</link>
+      <pubDate>Fri, 28 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/blog/2020/v0.10.0/</guid>
+      <description>
+        
+        
+        
+
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;支持多进程插件模式 ( &lt;a href=&#34;https://github.com/mosn/mosn/pull/979&#34; target=&#34;_blank&#34;&gt;#979&lt;/a&gt;, &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt; )&lt;/li&gt;
+&lt;li&gt;启动参数支持service-meta参数 ( &lt;a href=&#34;https://github.com/mosn/mosn/pull/952&#34; target=&#34;_blank&#34;&gt;#952&lt;/a&gt;,&lt;a href=&#34;https://github.com/trainyao&#34; target=&#34;_blank&#34;&gt;@trainyao&lt;/a&gt; )&lt;/li&gt;
+&lt;li&gt;支持abstract uds模式挂载sds socket&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;分离部分mosn基础库代码到&lt;a href=&#34;github.com/mosn/pkg&#34; target=&#34;_blank&#34;&gt;mosn.io/pkg&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;分离部分mosn接口定义到&lt;a href=&#34;github.com/mosn/api&#34; target=&#34;_blank&#34;&gt;mosn.io/api&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;日志基础模块分离到mosn.io/pkg，mosn的日志实现优化&lt;/li&gt;
+&lt;li&gt;优化FeatureGate ( &lt;a href=&#34;https://github.com/mosn/mosn/pull/927&#34; target=&#34;_blank&#34;&gt;#927&lt;/a&gt;, &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt; )&lt;/li&gt;
+&lt;li&gt;新增处理获取SDS配置失败时的处理&lt;/li&gt;
+&lt;li&gt;CDS动态删除Cluster时，会同步停止对应Cluster的健康检查&lt;/li&gt;
+&lt;li&gt;sds触发证书更新时的回调函数新增证书配置作为参数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;修复在SOFARPC Oneway请求失败时，导致的内存泄漏问题&lt;/li&gt;
+&lt;li&gt;修复在收到非标准的HTTP响应时，返回502错误的问题&lt;/li&gt;
+&lt;li&gt;修复DUMP配置时可能存在的并发冲突&lt;/li&gt;
+&lt;li&gt;修复TraceLog统计的Request和Response Size错误问题&lt;/li&gt;
+&lt;li&gt;修复因为并发写连接导致写超时失效的问题&lt;/li&gt;
+&lt;li&gt;修复serialize序列化的bug&lt;/li&gt;
+&lt;li&gt;修复连接读取时内存复用保留buffer过大导致内存占用过高的问题&lt;/li&gt;
+&lt;li&gt;优化XProtocol中Dubbo相关实现&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN 源码浅析</title>
       <link>https://mosn.io/zh/blog/2020/mosn-source-code-brief/</link>
       <pubDate>Sun, 02 Feb 2020 00:00:00 +0000</pubDate>

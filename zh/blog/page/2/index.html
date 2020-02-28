@@ -202,6 +202,12 @@
       
       
       
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-2020-v0-10-0" href="/zh/blog/2020/v0.10.0/">MOSN v0.10.0 变更日志</a>
+      
+      
+      
+      
+      
       <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-2019-mosn-0-2-1-performance-report" href="/zh/blog/2019/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
       
       
@@ -364,6 +370,23 @@
 		
 		<h2>发布于 2019 年</h2>
 		<ul class="list-unstyled mt-4">
+			
+			<li class="media mb-4">
+				<div class="media-body">
+					<h5 class="mt-0 mb-1"><a href="/zh/blog/2019/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a></h5>
+					<p class="mb-2 mb-md-3"><small class="text-muted">2019年12月4日 归档于 发布</small></p>
+					
+
+
+
+
+
+					<p class="pt-0 mt-0"> 以下的的性能报告为 MOSN 0.1.0 在做 Bolt 与 HTTP1.x 协议的纯 TCP 转发上与 envoy 的一些性能对比数据，主要表现在 QPS、RTT、失败率/成功率等。
+这里需要强调的是，为了提高 MOSN 的转发性能，在 0.1.0 版本中，我们做了如下的一些优化手段：
+ 在线程模型优化上，使用 worker 协程池处理 stream 事件，使用两个独立的协程分别处理读写 IO 在单核转发优化上，在指定 P=1 的情况下，我们通过使用 CPU 绑核的形式来提高系统调用的执行效 …</p>
+					<p class="pt-0"><a href="/zh/blog/2019/mosn-0.1.0-perfermence-report/">查看详情</a></p>
+				</div>
+			</li>
 			
 			<li class="media mb-4">
 				<div class="media-body">
