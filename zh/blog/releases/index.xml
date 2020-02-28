@@ -35,8 +35,8 @@
 &lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;分离部分mosn基础库代码到&lt;a href=&#34;github.com/mosn/pkg&#34; target=&#34;_blank&#34;&gt;mosn.io/pkg&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;分离部分mosn接口定义到&lt;a href=&#34;github.com/mosn/api&#34; target=&#34;_blank&#34;&gt;mosn.io/api&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;分离部分mosn基础库代码到&lt;a href=&#34;https://github.com/mosn/pkg&#34; target=&#34;_blank&#34;&gt;mosn.io/pkg&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;分离部分mosn接口定义到&lt;a href=&#34;https://github.com/mosn/api&#34; target=&#34;_blank&#34;&gt;mosn.io/api&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
