@@ -60,6 +60,16 @@ MOSN 在内存管理复用方面有 内存对象注册/管理 和 ByteBuffer/IOB
 MOSN 的 buffer 包提供了注册函数和统一的接口。将实现了接口的不同类型的 buffer 对象注册到 buffer 包， 在用到的时候通过 buffer 包导出的方法进行初始化和管理，增强了内存对象的管理。
 而易用性方面，MOSN 封装了 bufferValue 对象，管理上面初始化出来的对象，并且将 bufferValue 对象也进行了池化管理。在这之上，封装出方法 NewBufferPoolContext 和 PoolContext，使内部根据 context 传值的场景更加易用。MOSN 里面在不同协程协作（比如连接被协程1 accept 后， 交由 worker 协程2 进行 IO）的过程，会将必要参数使用内部实现的 context with value 机制进行传递， 其中 buffer 传递的方法就是通过上述封装的方法进行传递的。"/>
 
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
@@ -72,6 +82,7 @@ MOSN 的 buffer 包提供了注册函数和统一的接口。将实现了接口�
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+
 
 
 
