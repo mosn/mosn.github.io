@@ -275,6 +275,23 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/docs/faq/</loc>
+    <lastmod>2020-03-02T15:39:33+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/faq/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/faq/"
+                />
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/releases/v0.10.0/</loc>
     <lastmod>2020-02-28T18:30:49+08:00</lastmod>
     <changefreq>daily</changefreq>

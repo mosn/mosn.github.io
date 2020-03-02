@@ -7,7 +7,7 @@
 
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
-<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/docs/index.xml">
+<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/docs/faq/index.xml">
 
 
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
@@ -21,18 +21,22 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Documentation | MOSN</title><meta property="og:title" content="Documentation" />
-<meta property="og:description" content="An Open Source Cloud Native Proxy for Edge and Service Mesh" />
+<title>FAQ | MOSN</title><meta property="og:title" content="FAQ" />
+<meta property="og:description" content="MOSN frequently asked questions.
+" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://mosn.io/docs/" />
-<meta property="og:site_name" content="MOSN" />
+<meta property="og:url" content="https://mosn.io/docs/faq/" />
 
-<meta itemprop="name" content="Documentation">
-<meta itemprop="description" content="An Open Source Cloud Native Proxy for Edge and Service Mesh">
+<meta property="og:updated_time" content="2020-03-02T00:00:00&#43;00:00"/><meta property="og:site_name" content="MOSN" />
+
+<meta itemprop="name" content="FAQ">
+<meta itemprop="description" content="MOSN frequently asked questions.
+">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Documentation"/>
-<meta name="twitter:description" content="An Open Source Cloud Native Proxy for Edge and Service Mesh"/>
+<meta name="twitter:title" content="FAQ"/>
+<meta name="twitter:description" content="MOSN frequently asked questions.
+"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -61,7 +65,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Documentation | MOSN</title>
+    <title>FAQ | MOSN</title>
   </head>
   <body class="td-section">
     <header>
@@ -121,7 +125,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/docs/faq/" ><span>FAQ</span></a>
+				<a class="nav-link active" href="/docs/faq/" ><span class="active">FAQ</span></a>
 			</li>
 			
 			
@@ -134,7 +138,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/">中文</a>
+	<a class="dropdown-item" href="/zh/docs/faq/">中文</a>
 	
 </div>
 			</li>
@@ -176,7 +180,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/">中文</a>
+	<a class="dropdown-item" href="/zh/docs/faq/">中文</a>
 	
 </div>
     </div>
@@ -190,7 +194,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Documentation</a>
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
   </li>
   <ul>
     <li class="collapse show" id="docs">
@@ -207,10 +211,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/faq/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">FAQ</a>
+    <a  href="/docs/faq/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">FAQ</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-faq">
+    <li class="collapse show" id="docs-faq">
       
       
       
@@ -243,8 +247,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Documentation" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/faq/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=FAQ" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
@@ -255,6 +259,27 @@ if (!doNotTrack) {
 
 
 
+
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#why-use-mosn-instead-of-istio-s-default-data-plane">Why use MOSN instead of Istio&rsquo;s default data plane?</a></li>
+<li><a href="#what-is-the-difference-between-mosn-and-envoy-what-are-the-advantages-of-mosn">What is the difference between MOSN and Envoy? What are the advantages of MOSN?</a></li>
+<li><a href="#is-the-open-source-mosn-the-same-version-as-the-mosn-used-internally-by-ant-financial">Is the open source MOSN the same version as the MOSN used internally by Ant Financial?</a></li>
+<li><a href="#what-is-the-difference-between-the-open-source-and-commercial-versions-of-mosn">What is the difference between the open source and commercial versions of MOSN?</a></li>
+<li><a href="#what-is-mosn-s-open-source-plan">What is MOSN&rsquo;s open source plan?</a></li>
+<li><a href="#what-version-of-istio-does-mosn-support-when-will-it-be-available-in-istio">What version of Istio does MOSN support? When will it be available in Istio?</a></li>
+<li><a href="#will-mosn-contribute-to-an-open-source-foundation">Will MOSN contribute to an Open Source Foundation?</a></li>
+<li><a href="#what-service-registration-and-discovery-mechanisms-does-mosn-support">What service registration and discovery mechanisms does MOSN support?</a></li>
+<li><a href="#how-does-mosn-compare-to-envoy">How does MOSN compare to Envoy?</a></li>
+<li><a href="#how-to-participate-in-the-mosn-open-source-community">How to participate in the MOSN open source community?</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
 
 
 
@@ -267,8 +292,18 @@ if (!doNotTrack) {
 
 
 
-<li class="breadcrumb-item active" aria-current="page">
+
+
+
+<li class="breadcrumb-item" >
 	<a href="https://mosn.io/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://mosn.io/docs/faq/">FAQ</a>
 </li>
 
 	</ol>
@@ -276,75 +311,61 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>Documentation</h1>
+	<h1>FAQ</h1>
+	<div class="lead">MOSN frequently asked questions.</div>
 	
-	
 
+<h3 id="why-use-mosn-instead-of-istio-s-default-data-plane">Why use MOSN instead of Istio&rsquo;s default data plane?</h3>
 
+<p>Before the Service Mesh transformation, we have expected that as the next generation of Ant Financial&rsquo;s infrastructure, Meshization will inevitably bring revolutionary changes and evolution costs. We have a very ambitious blueprint: ready to integrate the original network and middleware various capabilities have been re-precipitated and polished to create a low-level platform for the next-generation architecture of the future, which will carry the responsibility of various service communications.</p>
 
-<div class="pageinfo pageinfo-primary">
-<p>当前只提供<a href="/zh/docs">中文版文档</a>。The English documentation is under construction.</p>
+<p>This is a long-term planning project that takes many years to build and meets the needs of the next five or even ten years. The team will cooperate to build a cross-business, SRE, middleware, infrastructure and other departments. We must have a network proxy forwarding plane with flexible expansion, high performance, and long-term evolution. Nginx and Envoy are unsatisfactory in terms of R &amp; D efficiency and flexible expansion. At the same time, the entire Mesh transformation involves a large number of departments and R &amp; D personnel. The landing costs of cross-team cooperation must be considered. Therefore, we based our own research on Golang. New network proxy MOSN in cloud native scenario. For the performance of Golang, we also did a full investigation and test in the early stage to meet the performance requirements of Ant Financial Services.</p>
 
-</div>
+<h3 id="what-is-the-difference-between-mosn-and-envoy-what-are-the-advantages-of-mosn">What is the difference between MOSN and Envoy? What are the advantages of MOSN?</h3>
 
+<p><strong>Differences in language stacks</strong></p>
 
-<p>MOSN is a network proxy written in Golang. It can be used as a cloud-native network data plane, providing services with the following proxy functions: multi-protocol, modular, intelligent, and secure. MOSN is the short name of Modular Open Smart Network-proxy. MOSN can be integrated with any Service Mesh wich support xDS API. It can also be used as an independent Layer 4 or Layer 7 load balancer, API Gateway, cloud-native Ingress, etc.</p>
+<p>MOSN is written in Go. Go has strong guarantees in terms of production efficiency and memory security. At the same time, Go has an extensive library ecosystem in the cloud-native era. The performance is acceptable and usable in the Service Mesh scenario. Therefore, MOSN has a lower intellectual cost for companies and individuals using languages such as Go and Java.</p>
 
-<h2 id="core-competence">Core competence</h2>
-
-<ul>
-<li>Integrated with Istio
+<p><strong>Differentiation of core competence</strong></p>
 
 <ul>
-<li>Integrated with Istio 1.0 and V4 APIs to run based on full dynamic resource configuration</li>
-</ul></li>
-<li>Core forwarding
-
-<ul>
-<li>Self-contained Web server</li>
-<li>Support TCP proxy</li>
-<li>Support TProxy mode</li>
-</ul></li>
-<li>Multi-protocol
-
-<ul>
-<li>Support HTTP/1.1 and HTTP/2</li>
-<li>Support SOFARPC</li>
-<li>Support Dubbo protocol (under development)</li>
-</ul></li>
-<li>Core routing
-
-<ul>
-<li>Support Virtual Host routing</li>
-<li>Support Headers/URL/Prefix routing</li>
-<li>Support Host Metadata-based Subset routing</li>
-<li>Support retry</li>
-</ul></li>
-<li>Backend Management and load balancing
-
-<ul>
-<li>Support connection pool</li>
-<li>Support throttling</li>
-<li>Support active backend health check</li>
-<li>Support load balancing strategies, such as Random and RR</li>
-<li>Support Host Metadata-based Subset load balancing strategy</li>
-</ul></li>
-<li>Observability
-
-<ul>
-<li>Observe network data</li>
-<li>Observing protocol data</li>
-</ul></li>
-<li>TLS
-
-<ul>
-<li>Support HTTP/1.1 on TLS</li>
-<li>Support HTTP/2.0 on TLS</li>
-<li>Support SOFARPC on TLS</li>
-</ul></li>
-<li>Process management   + Support smooth reload   + Support smooth upgrade</li>
-<li>Extension capability   + Support custom private protocols   + Support adding custom extensions in protocol at the TCP IO layer</li>
+<li>MOSN supports a multi-protocol framework, and users can easily access private protocols with a unified routing framework;</li>
+<li>Multi-process plug-in mechanism, which can easily extend the plug-ins of independent MOSN processes through the plug-in framework, and do some other management, bypass and other functional module extensions;</li>
+<li>Transport layer national secret algorithm support with Chinese encryption compliance;</li>
 </ul>
+
+<h3 id="is-the-open-source-mosn-the-same-version-as-the-mosn-used-internally-by-ant-financial">Is the open source MOSN the same version as the MOSN used internally by Ant Financial?</h3>
+
+<p>First of all, there is no so-called independent MOSN version inside Ant Financial. Ant Financial has many modules developed based on MOSN, and the internal modules rely on the open source version of MOSN. The research and development of business-independent MOSN core capabilities are carried out directly on the open source version.</p>
+
+<h3 id="what-is-the-difference-between-the-open-source-and-commercial-versions-of-mosn">What is the difference between the open source and commercial versions of MOSN?</h3>
+
+<p>Ant Financial has commercial Mesh products. Commercial products mainly provide a complete solution from development to delivery runtime. At the same time, in order to meet the business needs of enterprise users, MOSN will be extended, so the so-called MOSN commercial version It mainly carries the version of the business user&rsquo;s own business module.</p>
+
+<h3 id="what-is-mosn-s-open-source-plan">What is MOSN&rsquo;s open source plan?</h3>
+
+<p>The release cycle of MOSN open source is one month. We are about to announce Roadmap for 2020, and we look forward to co-building with more enterprises.</p>
+
+<h3 id="what-version-of-istio-does-mosn-support-when-will-it-be-available-in-istio">What version of Istio does MOSN support? When will it be available in Istio?</h3>
+
+<p>Currently, MOSN can be based on Istio 1.1.4 and run through the bookinfo example. Due to the latest version of Istio that has upgraded the XDS protocol and some enhancements, MOSN is currently adapting. It is expected that in October 2020, it will fully support HTTP of high-level Istio. Department ability.</p>
+
+<h3 id="will-mosn-contribute-to-an-open-source-foundation">Will MOSN contribute to an Open Source Foundation?</h3>
+
+<p>Currently, MOSN has no clear plans to contribute to the foundation.</p>
+
+<h3 id="what-service-registration-and-discovery-mechanisms-does-mosn-support">What service registration and discovery mechanisms does MOSN support?</h3>
+
+<p>MOSN mainly supports two service registration and discovery mechanisms: one is to directly adapt to Istio, and the other is to integrate the SDK and use it with different registration centers and configuration centers.</p>
+
+<h3 id="how-does-mosn-compare-to-envoy">How does MOSN compare to Envoy?</h3>
+
+<p>Because Envoy is based on HTTP testing, currently MOSN does not have a large optimization for HTTP, so we expect that a benchmark will be released after this year&rsquo;s optimization.</p>
+
+<h3 id="how-to-participate-in-the-mosn-open-source-community">How to participate in the MOSN open source community?</h3>
+
+<p>Join the MOSN slack worksapce: <a href="https://mosnproxy.slack.com" target="_blank">https://mosnproxy.slack.com</a> to participate in the open source community. You can also visit the <a href="https://github.com/mosn/community" target="_blank">Community repository</a> to learn about the organizational structure of the MOSN open source community and to obtain community materials.</p>
 
         <div class="section-index">
     
@@ -355,13 +376,6 @@ if (!doNotTrack) {
         
             
         
-            
-                <div class="entry">
-                    <h5>
-                        <a href="/docs/faq/">FAQ</a>
-                    </h5>
-                    <p>MOSN frequently asked questions.</p>
-                </div>
             
         
     
@@ -429,7 +443,7 @@ if (!doNotTrack) {
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified January 21, 2020: <a  href="https://github.com/mosn/mosn.io/commit/2dbd2ae2cd0d55be1cb0626a56635d3e080c44e0">New website with docsy theme (2dbd2ae)</a>
+	<div class="text-muted mt-5 pt-3 border-top">Last modified March 2, 2020: <a  href="https://github.com/mosn/mosn.io/commit/2beafb3d87b24418f269b64af2f0d39dfa4c3700">Add MOSN FAQ (2beafb3)</a>
 </div>
 </div>
 
