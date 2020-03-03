@@ -185,8 +185,15 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/docs/dev/</loc>
+    <lastmod>2020-03-03T18:56:51+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/contribute/</loc>
-    <lastmod>2020-02-11T17:50:18+08:00</lastmod>
+    <lastmod>2020-03-03T18:56:51+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -437,19 +444,9 @@
   
   <url>
     <loc>https://mosn.io/zh/community/</loc>
-    <lastmod>2020-03-02T12:23:38+08:00</lastmod>
+    <lastmod>2020-03-03T18:56:51+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://mosn.io/community/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/community/"
-                />
   </url>
   
 </urlset>
