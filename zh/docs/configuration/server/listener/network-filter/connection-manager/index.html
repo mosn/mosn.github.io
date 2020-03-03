@@ -7,7 +7,7 @@
 
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
-<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/zh/docs/configuration/listener/filter-chain/index.xml">
+<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/zh/docs/configuration/server/listener/network-filter/connection-manager/index.xml">
 
 
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
@@ -21,21 +21,21 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>FilterChain | MOSN</title><meta property="og:title" content="FilterChain" />
-<meta property="og:description" content="MOSN 的 FilterChain 配置说明。
+<title>connection_manager | MOSN</title><meta property="og:title" content="connection_manager" />
+<meta property="og:description" content="Network Filter 中的 connection_manager  配置说明。
 " />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://mosn.io/zh/docs/configuration/listener/filter-chain/" />
+<meta property="og:url" content="https://mosn.io/zh/docs/configuration/server/listener/network-filter/connection-manager/" />
 
 <meta property="og:updated_time" content="2020-01-20T00:00:00&#43;00:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="FilterChain">
-<meta itemprop="description" content="MOSN 的 FilterChain 配置说明。
+<meta itemprop="name" content="connection_manager">
+<meta itemprop="description" content="Network Filter 中的 connection_manager  配置说明。
 ">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="FilterChain"/>
-<meta name="twitter:description" content="MOSN 的 FilterChain 配置说明。
+<meta name="twitter:title" content="connection_manager"/>
+<meta name="twitter:description" content="Network Filter 中的 connection_manager  配置说明。
 "/>
 
 <script type="application/javascript">
@@ -65,7 +65,7 @@ if (!doNotTrack) {
 
 
 
-    <title>FilterChain | MOSN</title>
+    <title>connection_manager | MOSN</title>
   </head>
   <body class="td-section">
     <header>
@@ -481,10 +481,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/listener/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Listener 配置</a>
+    <a  href="/zh/docs/configuration/server/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Server 配置</a>
   </li>
   <ul>
-    <li class="collapse show" id="zh-docs-configuration-listener">
+    <li class="collapse show" id="zh-docs-configuration-server">
       
       
       
@@ -498,10 +498,27 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/listener/filter-chain/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">FilterChain</a>
+    <a  href="/zh/docs/configuration/server/listener/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Listener 配置</a>
   </li>
   <ul>
-    <li class="collapse show" id="zh-docs-configuration-listener-filter-chain">
+    <li class="collapse show" id="zh-docs-configuration-server-listener">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/docs/configuration/server/listener/filter-chain/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">FilterChain</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-docs-configuration-server-listener-filter-chain">
       
       
       
@@ -521,10 +538,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
+    <a  href="/zh/docs/configuration/server/listener/network-filter/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Network Filter</a>
   </li>
   <ul>
-    <li class="collapse " id="zh-docs-configuration-listener-network-filter">
+    <li class="collapse show" id="zh-docs-configuration-server-listener-network-filter">
       
       
       
@@ -538,46 +555,11 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/listener/network-filter/proxy/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">proxy</a>
+    <a  href="/zh/docs/configuration/server/listener/network-filter/proxy/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">proxy</a>
   </li>
   <ul>
-    <li class="collapse " id="zh-docs-configuration-listener-network-filter-proxy">
+    <li class="collapse " id="zh-docs-configuration-server-listener-network-filter-proxy">
       
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-      
-      
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/listener/network-filter/connection-manager/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">connection_manager</a>
-  </li>
-  <ul>
-    <li class="collapse " id="zh-docs-configuration-listener-network-filter-connection-manager">
-      
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-    </li>
-  </ul>
-</ul>
-
       
       
     </li>
@@ -596,11 +578,29 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server 配置</a>
+    <a  href="/zh/docs/configuration/server/listener/network-filter/connection-manager/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">connection_manager</a>
   </li>
   <ul>
-    <li class="collapse " id="zh-docs-configuration-server">
+    <li class="collapse show" id="zh-docs-configuration-server-listener-network-filter-connection-manager">
       
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
     </li>
@@ -725,8 +725,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/configuration/listener/filter-chain/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=FilterChain" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/configuration/server/listener/network-filter/connection-manager/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=connection_manager" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -742,13 +742,12 @@ if (!doNotTrack) {
 <ul>
 <li>
 <ul>
-<li>
-<ul>
-<li><a href="#tls-context-set">tls_context_set</a></li>
-<li><a href="#tls-context">tls_context</a></li>
-<li><a href="#filters">filters</a></li>
-<li><a href="#network-filter">network filter</a></li>
-</ul></li>
+<li><a href="#virtualhost">VirtualHost</a></li>
+<li><a href="#router">Router</a></li>
+<li><a href="#match">match</a></li>
+<li><a href="#header">header</a></li>
+<li><a href="#route">route</a></li>
+<li><a href="#retry-policy">retry_policy</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -760,6 +759,12 @@ if (!doNotTrack) {
             <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
 	<ol class="breadcrumb spb-1">
 		
+
+
+
+
+
+
 
 
 
@@ -788,14 +793,28 @@ if (!doNotTrack) {
 
 
 <li class="breadcrumb-item" >
-	<a href="https://mosn.io/zh/docs/configuration/listener/">Listener 配置</a>
+	<a href="https://mosn.io/zh/docs/configuration/server/">Server 配置</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://mosn.io/zh/docs/configuration/server/listener/">Listener 配置</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://mosn.io/zh/docs/configuration/server/listener/network-filter/">Network Filter</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="https://mosn.io/zh/docs/configuration/listener/filter-chain/">FilterChain</a>
+	<a href="https://mosn.io/zh/docs/configuration/server/listener/network-filter/connection-manager/">connection_manager</a>
 </li>
 
 	</ol>
@@ -803,55 +822,121 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>FilterChain</h1>
-	<div class="lead">MOSN 的 FilterChain 配置说明。</div>
+	<h1>connection_manager</h1>
+	<div class="lead">Network Filter 中的 connection_manager  配置说明。</div>
 	
 
-<p>本文描述的是 MOSN 的 FilterChain 配置。</p>
+<p><code>connection_manager</code> 用于描述 MOSN 的路由配置，通常与 proxy 配合使用。</p>
 
-<p>FilterChain 是 MOSN Listener 配置中核心逻辑配置，不同的 FilterChain 配置描述了 Listener 会如何处理请求。</p>
-
-<p>目前 MOSN 一个 Listener 只支持一个 FilterChain。</p>
-
-<p>FilterChain 的配置结构如下所示。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
-  <span style="color:#204a87;font-weight:bold">&#34;tls_context&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{},</span>
-  <span style="color:#204a87;font-weight:bold">&#34;tls_context_set&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[],</span>
-  <span style="color:#204a87;font-weight:bold">&#34;filters&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[]</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h3 id="tls-context-set">tls_context_set</h3>
+<pre><code>{
+  &quot;router_config_name&quot;:&quot;&quot;,
+  &quot;virtual_hosts&quot;: [
+  ]
+}
+</code></pre>
 
 <ul>
-<li>一组 <code>tls_context</code> 配置，MOSN 默认使用 <code>tls_context_set</code> 来描述 listener 的 TLS 的证书信息。</li>
-<li>一个 listener 可同时支持配置多张 TLS 证书。</li>
+<li><code>router_config_name</code>，唯一的路由配置标识，与 <code>proxy</code> 中配置的字段对应。</li>
+<li><code>virtual_hosts</code>，描述具体的路由规则细节。</li>
 </ul>
 
-<h3 id="tls-context">tls_context</h3>
-
-<ul>
-<li>单独配置 <code>tls_context</code> 而不是使用 <code>tls_context_set</code> 是兼容 MOSN 历史配置（只支持一张证书配置时）的场景，这种配置方式后面会逐步废弃。</li>
-<li>tls_context 的详细配置说明，参考 <a href="../../custom#tls-context">tls_context</a>。</li>
-</ul>
-
-<h3 id="filters">filters</h3>
-
-<p>一组 network filter 配置。</p>
-
-<h3 id="network-filter">network filter</h3>
-
-<p>network filter 描述了 MOSN 在连接建立以后如何在 4 层处理连接数据。</p>
+<h2 id="virtualhost">VirtualHost</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
-  <span style="color:#204a87;font-weight:bold">&#34;type&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
-  <span style="color:#204a87;font-weight:bold">&#34;config&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{}</span>
+  <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;domains&#34;</span><span style="color:#000;font-weight:bold">:[],</span>
+  <span style="color:#204a87;font-weight:bold">&#34;routers&#34;</span><span style="color:#000;font-weight:bold">:[]</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <ul>
-<li>type 是一个字符串，描述了 filter 的类型。</li>
-<li>config 可以是任意 json 配置，描述不同 filter 的配置。</li>
-<li>network filter 可自定义扩展实现，默认支持的 type 包括 <code>proxy</code>、<code>tcp proxy</code>、<code>connection_manager</code>。
+<li><code>name</code>，字符串。用作 virtual host 的唯一标识。</li>
+<li><code>domains</code>，字符串数组。表示一组可以匹配到该 virtual host 的 domain，支持配置通配符。domain 的匹配优先级如下：
 
 <ul>
-<li><code>connection_manager</code> 是一个特殊的 network filter，它需要和 <code>proxy</code> 一起使用，用于描述 <code>proxy</code> 中路由相关的配置，是一个兼容性质的配置，后续可能有修改。</li>
+<li>首先匹配精确的，如 <code>www.foo.com</code>。</li>
+<li>其次匹配最长后缀的通配符，如 <code>*.foo.com</code>、<code>*-bar.foo.com</code>，其中如果一个 domain 是 <code>foo-bar.foo.com</code>，那么会优先匹配 <code>*-bar.foo.com</code>。</li>
+<li>最后匹配任意domain的通配符 <code>*</code> 。</li>
 </ul></li>
+<li><code>routers</code>，一组具体的路由匹配规则。</li>
+</ul>
+
+<h2 id="router">Router</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;match&#34;</span><span style="color:#000;font-weight:bold">:{},</span>
+  <span style="color:#204a87;font-weight:bold">&#34;route&#34;</span><span style="color:#000;font-weight:bold">:{},</span>
+  <span style="color:#204a87;font-weight:bold">&#34;per_filter_config&#34;</span><span style="color:#000;font-weight:bold">:{}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li><code>match</code>，路由的匹配参数。</li>
+<li><code>route</code>，路由行为，描述请求将被路由的 upstream 信息。</li>
+<li><code>per_filter_config</code>，是一个 <code>key: json</code> 格式的 json。</li>
+<li>其中 key 需要匹配一个 stream filter 的 type，key 对应的 json 是该 stream filter 的 config。
+
+<ul>
+<li>当配置了该字段时，对于某些 stream filter（依赖具体 filter 的实现），可以使用该字段表示的配置覆盖原有 stream filter 的配置，以此做到路由匹配级别的 stream filter 配置。</li>
+</ul></li>
+</ul>
+
+<h2 id="match">match</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;prefix&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;path&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;regex&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;headers&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[]</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>路径（path）匹配
+
+<ul>
+<li><code>prefix</code>，表示路由会匹配 path 的前缀，该配置的优先级高于 path 和 regex。 如果 prefix 被配置，那么请求首先要满足 path 的前缀与 prefix 配置相符合。</li>
+<li><code>path</code>，表示路由会匹配精确的 path，该配置的优先级高于 regex。如果 path被配置，那么请求首先要满足 path 与 path 配置相符合。</li>
+<li><code>regex</code>，表示路由会按照正则匹配的方式匹配 path。如果 regex 被配置，那么请求首先要满足 path 与 regex 配置相符合。</li>
+<li>路径匹配配置同时存在时，只有高优先级的配置会生效。</li>
+</ul></li>
+<li>Heaer 匹配
+
+<ul>
+<li>headers，表示一组请求需要匹配的 header。请求需要满足配置中所有的 Header 配置条件才算匹配成功。</li>
+</ul></li>
+</ul>
+
+<h2 id="header">header</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;value&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;regex&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li><code>name</code>，表示 header 的 key。</li>
+<li><code>value</code>，表示 header 对应 key 的 value。</li>
+<li><code>regex</code>，bool 类型，如果为 true，表示 value 支持按照正则表达式的方式进行匹配。</li>
+</ul>
+
+<h2 id="route">route</h2>
+
+<pre><code>{
+  &quot;cluster_name&quot;:&quot;&quot;,
+  &quot;metadata_match&quot;:&quot;&quot;,
+  &quot;timeout&quot;:&quot;&quot;,
+  &quot;retry_policy&quot;:{}
+}
+</code></pre>
+
+<ul>
+<li><code>cluster_name</code>，表示请求将路由到的 upstream cluster。</li>
+<li><code>metadata_match</code>，<a href="../../../../custom#metadata">metadata</a>，如果配置了该字段，表示该路由会基于该 metadata 去匹配 upstream cluster 的 subset 。</li>
+<li><code>timeout</code>，<a href="../../../../custom#duration-string">Duration String</a>，表示默认情况下请求转发的超时时间。如果请求中明确指定了超时时间，那么这个配置会被忽略。</li>
+<li><code>retry_policy</code>，重试配置，表示如果请求在遇到了特定的错误时采取的重试策略，默认没有配置的情况下，表示没有重试。</li>
+</ul>
+
+<h2 id="retry-policy">retry_policy</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;retry_on&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;retry_timeout&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;num_retries&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li><code>retry_on</code>，bool 类型，表示是否开启重试。</li>
+<li><code>retry_timeout</code>，<a href="../../../../custom#duration-string">Duration String</a>，表示每次重试的超时时间。当 <code>retry_timeout</code> 大于 route 配置的 timeout 或者请求明确指定的 timeout 时，属于无效配置。</li>
+<li><code>num_retries</code>，表示最大的重试次数。</li>
 </ul>
 
         <div class="section-index">
@@ -976,7 +1061,7 @@ if (!doNotTrack) {
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年1月21日: <a  href="https://github.com/mosn/mosn.io/commit/2dbd2ae2cd0d55be1cb0626a56635d3e080c44e0">New website with docsy theme (2dbd2ae)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年3月3日: <a  href="https://github.com/mosn/mosn.io/commit/3e2013cca40c1dc22b21978d8fec47a0081e4563">Update docs and blog structure (3e2013c)</a>
 </div>
 </div>
 

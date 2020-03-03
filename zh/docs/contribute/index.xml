@@ -144,7 +144,7 @@
 &lt;li&gt;title：即本文章的标题。&lt;/li&gt;
 &lt;li&gt;linkTitle：显示在侧边栏的文档标题，一般写成跟 &lt;code&gt;title&lt;/code&gt; 的内容一致即可。&lt;/li&gt;
 &lt;li&gt;date：该文档的创作日期，格式为 &lt;code&gt;YYYY-MM-dd&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;weight：在同一文档层级，weight 数字越小的文档在侧边栏中显示约靠前。&lt;/li&gt;
+&lt;li&gt;weight：在同一文档层级，weight 数字越小的文档在侧边栏中显示约靠前，对于非 &lt;code&gt;docs&lt;/code&gt; 目录下的文章不需要设置。&lt;/li&gt;
 &lt;li&gt;description：对本文档的简介。&lt;/li&gt;
 &lt;/ul&gt;
 

@@ -21,38 +21,29 @@
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
 <title>MOSN 源码解析 - filter扩展机制 | MOSN</title><meta property="og:title" content="MOSN 源码解析 - filter扩展机制" />
-<meta property="og:description" content="本文记录了对 MOSN 的源码研究 - MOSN 的filter扩展机制, 以及如何创建自己的filter来扩展 MOSN。
-本文的内容基于 MOSN v0.9.0。
-机制 使用过滤器模式来实现扩展是常见的设计模式，MOSN 也是使用了这种方式来构建可扩展性。
-MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
-➜ mosn git:(2c6f58c5) ✗ ll pkg/filter total 24 drwxr-xr-x 8 mac staff 256 Feb 5 08:52 . drwxr-xr-x 30 mac staff 960 Feb 5 08:52 .. drwxr-xr-x 3 mac staff 96 Aug 28 22:37 accept -rw-r--r-- 1 mac staff 2556 Feb 5 08:52 factory.go -rw-r--r-- 1 mac staff 2813 Feb 5 08:52 factory_test." />
+<meta property="og:description" content="MOSN 源码解析系列之 filter 扩展机制，如何创建自己的 filter 来扩展 MOSN。
+" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mosn.io/zh/blog/posts/mosn-filters/" />
+<meta property="og:url" content="https://mosn.io/zh/blog/code/mosn-filters/" />
 <meta property="article:published_time" content="2020-02-09T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-02-14T15:02:16&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-03-03T16:12:21&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="MOSN 源码解析 - filter扩展机制">
-<meta itemprop="description" content="本文记录了对 MOSN 的源码研究 - MOSN 的filter扩展机制, 以及如何创建自己的filter来扩展 MOSN。
-本文的内容基于 MOSN v0.9.0。
-机制 使用过滤器模式来实现扩展是常见的设计模式，MOSN 也是使用了这种方式来构建可扩展性。
-MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
-➜ mosn git:(2c6f58c5) ✗ ll pkg/filter total 24 drwxr-xr-x 8 mac staff 256 Feb 5 08:52 . drwxr-xr-x 30 mac staff 960 Feb 5 08:52 .. drwxr-xr-x 3 mac staff 96 Aug 28 22:37 accept -rw-r--r-- 1 mac staff 2556 Feb 5 08:52 factory.go -rw-r--r-- 1 mac staff 2813 Feb 5 08:52 factory_test.">
+<meta itemprop="description" content="MOSN 源码解析系列之 filter 扩展机制，如何创建自己的 filter 来扩展 MOSN。
+">
 
 
 <meta itemprop="datePublished" content="2020-02-09T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-02-14T15:02:16&#43;08:00" />
-<meta itemprop="wordCount" content="879">
+<meta itemprop="dateModified" content="2020-03-03T16:12:21&#43;08:00" />
+<meta itemprop="wordCount" content="871">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MOSN 源码解析 - filter扩展机制"/>
-<meta name="twitter:description" content="本文记录了对 MOSN 的源码研究 - MOSN 的filter扩展机制, 以及如何创建自己的filter来扩展 MOSN。
-本文的内容基于 MOSN v0.9.0。
-机制 使用过滤器模式来实现扩展是常见的设计模式，MOSN 也是使用了这种方式来构建可扩展性。
-MOSN 把过滤器相关的代码放在了 pkg/filter 目录下：
-➜ mosn git:(2c6f58c5) ✗ ll pkg/filter total 24 drwxr-xr-x 8 mac staff 256 Feb 5 08:52 . drwxr-xr-x 30 mac staff 960 Feb 5 08:52 .. drwxr-xr-x 3 mac staff 96 Aug 28 22:37 accept -rw-r--r-- 1 mac staff 2556 Feb 5 08:52 factory.go -rw-r--r-- 1 mac staff 2813 Feb 5 08:52 factory_test."/>
+<meta name="twitter:description" content="MOSN 源码解析系列之 filter 扩展机制，如何创建自己的 filter 来扩展 MOSN。
+"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -278,6 +269,12 @@ if (!doNotTrack) {
       
       
       
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-news-mosn-channel-1" href="/zh/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      
+      
+      
+      
+      
       <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-news-announcing-mosn-communtiy" href="/zh/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
       
       
@@ -297,47 +294,11 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/blog/posts/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">分享</a>
+    <a  href="/zh/blog/posts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">分享</a>
   </li>
   <ul>
-    <li class="collapse show" id="zh-blog-posts">
+    <li class="collapse " id="zh-blog-posts">
       
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-startup" href="/zh/blog/posts/mosn-startup/">MOSN 源码解析 - 启动流程</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-variable" href="/zh/blog/posts/mosn-variable/">MOSN 源码解析 - 变量机制</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-buffer" href="/zh/blog/posts/mosn-buffer/">MOSN 源码分析 - 内存复用机制</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-plugin" href="/zh/blog/posts/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-xds" href="/zh/blog/posts/mosn-xds/">MOSN 源码分析 - XDS</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-posts-mosn-filters" href="/zh/blog/posts/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
       
       
       
@@ -349,13 +310,78 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-reconfig-mechanism" href="/zh/blog/posts/mosn-reconfig-mechanism/">mosn 的reconfig 机制</a>
-      
-      
-      
-      
-      
       <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-source-code-brief" href="/zh/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-udpa-follow-up" href="/zh/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/code/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">源码解析</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="zh-blog-code">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-startup" href="/zh/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-variable" href="/zh/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-buffer" href="/zh/blog/code/mosn-buffer/">MOSN 源码分析 - 内存复用机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-plugin" href="/zh/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-xds" href="/zh/blog/code/mosn-xds/">MOSN 源码分析 - XDS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-code-mosn-filters" href="/zh/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-reconfig-mechanism" href="/zh/blog/code/mosn-reconfig-mechanism/">MOSN 的 reconfig 机制</a>
       
       
     </li>
@@ -387,7 +413,7 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/posts/mosn-filters/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/code/mosn-filters/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
 <a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e6%ba%90%e7%a0%81%e8%a7%a3%e6%9e%90%20-%20filter%e6%89%a9%e5%b1%95%e6%9c%ba%e5%88%b6" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
@@ -421,20 +447,18 @@ if (!doNotTrack) {
 
           </div>
           <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
-            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/zh/blog/posts/index.xml" target="_blank">
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/zh/blog/code/index.xml" target="_blank">
               RSS <i class="fa fa-rss ml-2 "></i>
             </a>
             
 <div class="td-content">
 	<h1>MOSN 源码解析 - filter扩展机制</h1>
-	
+	<div class="lead">MOSN 源码解析系列之 filter 扩展机制，如何创建自己的 filter 来扩展 MOSN。</div>
 	<div class="td-byline mb-4">
-		作者 <b><a href="https://trainyao.github.io" target="_blank">@trainyao</a></b> |
+		作者 <b><a href="https://trainyao.github.io" target="_blank">姚昌宇（有米科技）</a></b> |
 		<time datetime="2020-02-09" class="text-muted">2020年2月9日</time>
 	</div>
 	
-
-<p>本文记录了对 MOSN 的源码研究 - MOSN 的filter扩展机制, 以及如何创建自己的filter来扩展 MOSN。</p>
 
 <p>本文的内容基于 MOSN v0.9.0。</p>
 
@@ -664,9 +688,9 @@ drwxr-xr-x   4 mac  staff  128 Feb  5 08:52 payloadlimit // 限流相关</code><
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+    <a href="/zh/blog/code/mosn-reconfig-mechanism/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
   </li>
-    <a href="/zh/blog/posts/mosn-xds/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+    <a href="/zh/blog/code/mosn-xds/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
   </li>
 </ul>
 

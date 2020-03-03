@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.5" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>MOSN 源码解析 - 变量机制 | MOSN</title><meta property="og:title" content="MOSN 源码解析 - 变量机制" />
+<meta property="og:description" content="MOSN 源码解析系列之变量机制的源码解析。
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/zh/blog/code/mosn-variable/" />
+<meta property="article:published_time" content="2020-02-16T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2020-03-03T16:12:21&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+
+<meta itemprop="name" content="MOSN 源码解析 - 变量机制">
+<meta itemprop="description" content="MOSN 源码解析系列之变量机制的源码解析。
+">
+
+
+<meta itemprop="datePublished" content="2020-02-16T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-03-03T16:12:21&#43;08:00" />
+<meta itemprop="wordCount" content="934">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MOSN 源码解析 - 变量机制"/>
+<meta name="twitter:description" content="MOSN 源码解析系列之变量机制的源码解析。
+"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+<link rel="preload" href="/scss/main.min.aadb64e816d41d008d69a222c3ebfaf7f6e34da3722e7623f89236303d0b4312.css" as="style">
+<link href="/scss/main.min.aadb64e816d41d008d69a222c3ebfaf7f6e34da3722e7623f89236303d0b4312.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+    <title>MOSN 源码解析 - 变量机制 | MOSN</title>
+  </head>
+  <body class="td-page td-blog">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/zh/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">MOSN</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/zh/about/" ><span>关于</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/zh/docs/" ><span>文档</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/zh/blog/" ><span class="active">博客</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/zh/community/" ><span>社区</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/zh/docs/faq/" ><span>FAQ</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/">English</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/">English</a>
+	
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">博客</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="zh-blog">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/releases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">发布</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-blog-releases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-releases-v0-10-0" href="/zh/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-releases-mosn-0-1-0-perfermence-report" href="/zh/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-releases-mosn-0-2-1-performance-report" href="/zh/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-blog-news">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-news-mosn-channel-1" href="/zh/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-news-announcing-mosn-communtiy" href="/zh/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/posts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">分享</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-blog-posts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-nginx-envoy-mosn-hot-upgrade" href="/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-source-code-brief" href="/zh/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-udpa-follow-up" href="/zh/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/code/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">源码解析</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="zh-blog-code">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-startup" href="/zh/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-code-mosn-variable" href="/zh/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-buffer" href="/zh/blog/code/mosn-buffer/">MOSN 源码分析 - 内存复用机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-plugin" href="/zh/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-xds" href="/zh/blog/code/mosn-xds/">MOSN 源码分析 - XDS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-filters" href="/zh/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-reconfig-mechanism" href="/zh/blog/code/mosn-reconfig-mechanism/">MOSN 的 reconfig 机制</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/code/mosn-variable/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e6%ba%90%e7%a0%81%e8%a7%a3%e6%9e%90%20-%20%e5%8f%98%e9%87%8f%e6%9c%ba%e5%88%b6" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+
+
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#什么是变量机制">什么是变量机制</a></li>
+<li><a href="#变量机制的原理">变量机制的原理</a>
+<ul>
+<li><a href="#variable-缓存">Variable 缓存</a></li>
+<li><a href="#初始化阶段">初始化阶段</a></li>
+<li><a href="#对变量的使用">对变量的使用</a></li>
+</ul></li>
+<li><a href="#注册变量">注册变量</a></li>
+<li><a href="#获取变量">获取变量</a></li>
+<li><a href="#变量生效">变量生效</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/zh/blog/code/index.xml" target="_blank">
+              RSS <i class="fa fa-rss ml-2 "></i>
+            </a>
+            
+<div class="td-content">
+	<h1>MOSN 源码解析 - 变量机制</h1>
+	<div class="lead">MOSN 源码解析系列之变量机制的源码解析。</div>
+	<div class="td-byline mb-4">
+		作者 <b><a href="https://github.com/glyasai" target="_blank">黄润豪（好雨云）</a></b> |
+		<time datetime="2020-02-16" class="text-muted">2020年2月16日</time>
+	</div>
+	
+
+<p>本文的目的是分析 MOSN 源码中的<code>变量机制</code>。</p>
+
+<h2 id="什么是变量机制">什么是变量机制</h2>
+
+<p>我们通过一个单元测试来理解<code>什么是变量机制</code>，完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/log/accesslog_test.go#L69" target="_blank">这里</a>:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#8f5902;font-style:italic">// DefaultAccessLogFormat provides a pre-defined format
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">DefaultAccessLogFormat</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;%start_time% %request_received_duration% %response_received_duration% %bytes_sent%&#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34; &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span>
+    <span style="color:#4e9a06">&#34;%bytes_received% %protocol% %response_code% %duration% %response_flag% %response_code% %upstream_local_address%&#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34; &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span>
+    <span style="color:#4e9a06">&#34;%downstream_local_address% %downstream_remote_address% %upstream_host%&#34;</span>
+
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">TestAccessLog</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">t</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">testing</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">T</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">registerTestVarDefs</span><span style="color:#000;font-weight:bold">()</span>
+
+    <span style="color:#000">format</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultAccessLogFormat</span>
+    <span style="color:#000">logName</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#4e9a06">&#34;/tmp/mosn_bench/benchmark_access.log&#34;</span>
+    <span style="color:#000">os</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Remove</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">logName</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">accessLog</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">NewAccessLog</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">logName</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">format</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+    <span style="color:#000">ctx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">prepareLocalIpv6Ctx</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#000">accessLog</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>执行这个单元测试，并查看日志内容：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go <span style="color:#204a87">test</span> mosn.io/mosn/pkg/log -run ^TestAccessLog$
+ok      mosn.io/mosn/pkg/log    <span style="color:#0000cf;font-weight:bold">2</span>.867s
+cat /tmp/mosn_bench/benchmark_access.log
+<span style="color:#0000cf;font-weight:bold">2020</span>/02/16 <span style="color:#0000cf;font-weight:bold">21</span>:26:26.078 <span style="color:#0000cf;font-weight:bold">2</span>.543µs <span style="color:#0000cf;font-weight:bold">2</span>.000004307s <span style="color:#0000cf;font-weight:bold">2048</span> <span style="color:#0000cf;font-weight:bold">2048</span>  <span style="color:#0000cf;font-weight:bold">0</span> <span style="color:#0000cf;font-weight:bold">24</span>.471µs <span style="color:#204a87">false</span> <span style="color:#0000cf;font-weight:bold">0</span> <span style="color:#0000cf;font-weight:bold">127</span>.0.0.1:23456 <span style="color:#ce5c00;font-weight:bold">[</span><span style="color:#0000cf;font-weight:bold">2001</span>:db8::68<span style="color:#ce5c00;font-weight:bold">]</span>:12200 <span style="color:#0000cf;font-weight:bold">127</span>.0.0.1:53242 -</code></pre></div>
+<p>请留意 <code>accessLog.Log</code> 打印出来的日志，可以发现 <code>DefaultAccessLogFormat</code> 中的变量, 都被替换成了实际的值。比如：<code>%start_time%</code> 被替换成 <code>2020/02/16 21:26:26.078</code>, <code>%request_received_duration%</code> 被替换成 <code>2.543µs</code>。</p>
+
+<p><code>变量机制</code>允许用户在配置中使用预定义的变量，而非确定值；变量将在请求处理过程中被替换成其对应的实际值。</p>
+
+<h2 id="变量机制的原理">变量机制的原理</h2>
+
+<p><div align="center">
+    <img src="variable.png"/>
+</div>
+<br/></p>
+
+<p>请留意上面的<code>变量机制原理图</code>，它分为 3 部分；最上边的是<code>Variable 缓存</code>，左边虚线框的是<code>初始化阶段</code>，而右边虚线是<code>对变量的使用</code>。</p>
+
+<h3 id="variable-缓存">Variable 缓存</h3>
+
+<p><code>Variable 缓存</code> 是一组 Variable 的 key-value 对，key 是变量的名字，value 是 <code>Variable 接口</code>；以 map 的形式存在于内存中。Variable 接口含有<code>变量的名字</code>，<code>变量值得获取方式</code>, <code>变量值得设置方式</code> 等属性。</p>
+
+<h3 id="初始化阶段">初始化阶段</h3>
+
+<p>在初始化阶段中，首先定义好各变量的 <code>Variable</code>（预定义变量）；然后注册到 <code>Variable 缓存中</code>。另外，还需初始化 <code>mosn ctx</code>，<code>mosn ctx</code> 是一个 <code>context.Context</code>，里面含有变量实际值的相关信息；在后续获取变量的实际值时会用到它。</p>
+
+<h3 id="对变量的使用">对变量的使用</h3>
+
+<p>在请求处理的过程中，根据<code>变量名</code>去缓存中获取相应的 <code>Variable</code>。然后调用 Variable 的 <code>Getter</code> 方法，得到<code>变量的获取方式 getter</code>。最后调用 <code>getter</code> 函数，<code>getter</code> 函数会根据 <code>mosn ctx</code> 生成变量的实际值。</p>
+
+<p>可以看出，<code>变量机制</code> 用到了 <code>生产者-消费者模式</code>。<code>生产者</code> 负责定义变量对应的 <code>Variable</code>，并注册到 <code>Variable 缓存</code>中。而这些 <code>Variable</code> 会在请求处理过程中被消费，生成变量的实际值。</p>
+
+<p>了解完变量机制的原理后，我们继续围绕<a href="#什么是变量机制">什么是变量机制</a>中的单元测试，深入探讨它背后的实现逻辑。</p>
+
+<h2 id="注册变量">注册变量</h2>
+
+<p>该单元测试通过函数 <code>registerTestVarDefs</code> 进行变量的注册，代码片段如下，完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/log/accesslog_test.go#L509" target="_blank">这里</a>:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000;font-weight:bold">(</span>
+    <span style="color:#000">builtinVariables</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Variable</span><span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NewBasicVariable</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">varStartTime</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">startTimeGetter</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">),</span>
+        <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NewBasicVariable</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">varRequestReceivedDuration</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">receivedDurationGetter</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">),</span>
+        <span style="color:#ce5c00;font-weight:bold">...</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#000">prefixVariables</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Variable</span><span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NewBasicVariable</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">reqHeaderPrefix</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">requestHeaderMapGetter</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">),</span>
+        <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NewBasicVariable</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">respHeaderPrefix</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">responseHeaderMapGetter</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">),</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">)</span>
+
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">registerTestVarDefs</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#8f5902;font-style:italic">// register built-in variables
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">idx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">builtinVariables</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RegisterVariable</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">builtinVariables</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">])</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#8f5902;font-style:italic">// register prefix variables, like header_xxx/arg_xxx/cookie_xxx
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">idx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">prefixVariables</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RegisterPrefixVariable</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">prefixVariables</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">].</span><span style="color:#000">Name</span><span style="color:#000;font-weight:bold">(),</span> <span style="color:#000">prefixVariables</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">])</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>通过 <code>variable.NewBasicVariable</code> 初始化各种 <code>variable.Variable</code> 的定义，再利用 <code>variable.RegisterVariable</code> 或 <code>RegisterPrefixVariable</code> 函数进行注册</li>
+</ul>
+
+<p>接口 <code>variable.Variable</code> 的定义如下, 完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/variable/types.go#L43" target="_blank">这里</a>：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">Variable</span> <span style="color:#204a87;font-weight:bold">interface</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#8f5902;font-style:italic">// variable name
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">Name</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">string</span>
+	<span style="color:#8f5902;font-style:italic">// variable data, which is useful for getter/setter
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">Data</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">interface</span><span style="color:#000;font-weight:bold">{}</span>
+	<span style="color:#8f5902;font-style:italic">// variable flags
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">Flags</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">uint32</span>
+	<span style="color:#8f5902;font-style:italic">// value getter
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">Getter</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000">GetterFunc</span>
+	<span style="color:#8f5902;font-style:italic">// value setter
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">Setter</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000">SetterFunc</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>Name: 获取变量名</li>
+<li>Data: 获取变量的实际值</li>
+<li>Flags: 是否需要缓存的标志</li>
+<li>Getter: 获取变量值的函数</li>
+<li>Setter: 设置变量值的函数</li>
+</ul>
+
+<p>再来看函数 <code>variable.RegisterVariable</code>, 完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/variable/factory.go#L75" target="_blank">这里</a>：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000;font-weight:bold">(</span>
+    <span style="color:#8f5902;font-style:italic">// global scope
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">mux</span>              <span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RWMutex</span>
+    <span style="color:#000">variables</span>        <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87">make</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">map</span><span style="color:#000;font-weight:bold">[</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">]</span><span style="color:#000">Variable</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">32</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">// all built-in variable definitions
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">indexedVariables</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87">make</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#000">Variable</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">32</span><span style="color:#000;font-weight:bold">)</span>       <span style="color:#8f5902;font-style:italic">// indexed variables
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#ce5c00;font-weight:bold">...</span>
+<span style="color:#000;font-weight:bold">)</span>
+
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">RegisterVariable</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">variable</span> <span style="color:#000">Variable</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">mux</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Lock</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#204a87;font-weight:bold">defer</span> <span style="color:#000">mux</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Unlock</span><span style="color:#000;font-weight:bold">()</span>
+
+    <span style="color:#000">name</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Name</span><span style="color:#000;font-weight:bold">()</span>
+
+    <span style="color:#8f5902;font-style:italic">// check conflict
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">variables</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">];</span> <span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">errors</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">errVariableDuplicated</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#8f5902;font-style:italic">// register
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">variables</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">variable</span>
+
+    <span style="color:#8f5902;font-style:italic">// check index
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">indexer</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.(</span><span style="color:#000">Indexer</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">index</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87">len</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">indexedVariables</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000">indexer</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetIndex</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87">uint32</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">index</span><span style="color:#000;font-weight:bold">))</span>
+
+        <span style="color:#000">indexedVariables</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">indexedVariables</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>定义全局变量 <code>variables</code> 和 <code>indexedVariables</code></li>
+<li>由于使用了全局变量，为了防止竞态条件，使用了互斥锁</li>
+<li>检查变量是否已经存在，如果已存在，返回错误；否则，变量正常注册到缓存 <code>variables</code> 中</li>
+<li>将 <code>variables</code> 转化成 <code>Indexer</code>, 设置 index，并注册到缓存 <code>indexedVariables</code> 中</li>
+</ul>
+
+<blockquote>
+<p>RegisterPrefixVariable 函数的功能和 RegisterVariable 大同小异，RegisterVariable 根据变量名注册，而 RegisterPrefixVariable 通过变量名的前缀注册。</p>
+</blockquote>
+
+<p>变量注册大致的过程是：在代码初始化的时候，实例化所有定义好的变量（主要含有<code>变量名</code>，<code>变量的获取方式 getter</code>），并通过函数 <code>RegisterVariable</code> 或 <code>RegisterPrefixVariable</code> 注册到缓存（全局变量）中。</p>
+
+<h2 id="获取变量">获取变量</h2>
+
+<p>获取变量的原来则需要分析函数 <code>NewAccessLog</code>，完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/log/accesslog.go#L79" target="_blank">这里</a>：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">NewAccessLog</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">output</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">format</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AccessLog</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+    <span style="color:#000">entries</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">parseFormat</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">format</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#000">l</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">accesslog</span><span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">output</span><span style="color:#000;font-weight:bold">:</span>  <span style="color:#000">output</span><span style="color:#000;font-weight:bold">,</span>
+        <span style="color:#000">entries</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">entries</span><span style="color:#000;font-weight:bold">,</span>
+        <span style="color:#000">logger</span><span style="color:#000;font-weight:bold">:</span>  <span style="color:#000">lg</span><span style="color:#000;font-weight:bold">,</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>解析字符串 <code>format</code>, 创建想要的变量，记录到变量条目 <code>entries</code> 里</li>
+<li>将变量条目 <code>entries</code> 赋给结构体 <code>accesslog</code></li>
+</ul>
+
+<p>再来分析解析 <code>format</code> 的函数 <code>parseFormat</code>, 完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/log/accesslog.go#L129" target="_blank">这里</a>：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">parseFormat</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">format</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">([]</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">logEntry</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">pos</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ch</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">format</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">switch</span> <span style="color:#000">ch</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#4e9a06">&#39;%&#39;</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#8f5902;font-style:italic">// check previous character, &#39;\&#39; means it is escaped
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">pos</span> <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#0000cf;font-weight:bold">0</span> <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#000">format</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">pos</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#4e9a06">&#39;\\&#39;</span> <span style="color:#000;font-weight:bold">{</span>
+                <span style="color:#204a87;font-weight:bold">continue</span>
+            <span style="color:#000;font-weight:bold">}</span>
+            <span style="color:#8f5902;font-style:italic">// parse entry
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">pos</span> <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">lastMark</span> <span style="color:#000;font-weight:bold">{</span>
+                <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">varDef</span> <span style="color:#000;font-weight:bold">{</span>
+                    <span style="color:#8f5902;font-style:italic">// empty variable definition: %%
+</span><span style="color:#8f5902;font-style:italic"></span>                    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">pos</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">lastMark</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#000;font-weight:bold">{</span>
+                        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ErrEmptyVarDef</span>
+                    <span style="color:#000;font-weight:bold">}</span>
+                    <span style="color:#8f5902;font-style:italic">// var def ends, add variable
+</span><span style="color:#8f5902;font-style:italic"></span>                    <span style="color:#000">varEntry</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddVariable</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">format</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">lastMark</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#000;font-weight:bold">:</span> <span style="color:#000">pos</span><span style="color:#000;font-weight:bold">])</span>
+                    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+                        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span>
+                    <span style="color:#000;font-weight:bold">}</span>
+                    <span style="color:#000">entries</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">entries</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">logEntry</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">variable</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">varEntry</span><span style="color:#000;font-weight:bold">})</span>
+                <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+                    <span style="color:#8f5902;font-style:italic">// ignore empty text
+</span><span style="color:#8f5902;font-style:italic"></span>                    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">pos</span> <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">lastMark</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#000;font-weight:bold">{</span>
+                        <span style="color:#8f5902;font-style:italic">// var def begin, add text
+</span><span style="color:#8f5902;font-style:italic"></span>                        <span style="color:#000">textEntry</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">format</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">lastMark</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#000;font-weight:bold">:</span> <span style="color:#000">pos</span><span style="color:#000;font-weight:bold">]</span>
+                        <span style="color:#000">entries</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#204a87">append</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">entries</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">logEntry</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">text</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">textEntry</span><span style="color:#000;font-weight:bold">})</span>
+                    <span style="color:#000;font-weight:bold">}</span>
+                <span style="color:#000;font-weight:bold">}</span>
+                <span style="color:#000">lastMark</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">pos</span>
+            <span style="color:#000;font-weight:bold">}</span>
+            <span style="color:#ce5c00;font-weight:bold">...</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>根据标识符 <code>%</code> 截取变量名</li>
+<li>利用函数 <code>variable.AddVariable</code> 检查该变量名是否已经注册过了，并返回对应的变量</li>
+<li>所有变量记录到切片 entries 中，一并返回</li>
+</ul>
+
+<p>接下来分析函数 <code>variable.AddVariable</code>，完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/variable/factory.go#L47" target="_blank">这里</a>：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">AddVariable</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">Variable</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">mux</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Lock</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#204a87;font-weight:bold">defer</span> <span style="color:#000">mux</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Unlock</span><span style="color:#000;font-weight:bold">()</span>
+
+    <span style="color:#8f5902;font-style:italic">// find built-in variables
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">variables</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">];</span> <span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#8f5902;font-style:italic">// check prefix variables
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">prefix</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">variable</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">prefixVariables</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">strings</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">HasPrefix</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">prefix</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span>
+            <span style="color:#ce5c00;font-weight:bold">...</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">errors</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">errUndefinedVariable</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>如果能在注册了变量的缓存 <code>variables</code> 找到 name 对应的变量，则直接返回变量</li>
+<li>如果能在注册了变量的缓存 <code>prefixVariables</code> 找到变量名前缀是 name 的变量，则返回变量</li>
+<li>没有找到想要的变量，则返回错误，改错误可以在程序启动的时候被发现</li>
+</ul>
+
+<p>获取变量大致的流程是：<code>format</code> 解析中解析出变量名，然后去注册了变量的缓存 <code>variables</code> 或 <code>prefixVariables</code> 中获取相应的变量。</p>
+
+<h2 id="变量生效">变量生效</h2>
+
+<p>本小节将会分析方法 <code>accessLog.Log</code> 的逻辑，从而了解变量生效的过程，完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/log/accesslog.go#L105" target="_blank">这里</a>：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">l</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">accesslog</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">reqHeaders</span> <span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">HeaderMap</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">respHeaders</span> <span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">HeaderMap</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">requestInfo</span> <span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequestInfo</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#8f5902;font-style:italic">// return directly
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">l</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">logger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Disable</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">return</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#000">buf</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">buffer</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetIoBuffer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">AccessLogLen</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">idx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">l</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">entries</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">l</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">entries</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">idx</span><span style="color:#000;font-weight:bold">].</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">buf</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000">buf</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteString</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;\n&#34;</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">l</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">logger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Print</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buf</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>一些日志的处理逻辑</li>
+<li>遍历变量条目 <code>entries</code>，执行 <code>l.entries[idx].log</code>，获取变量对应的实际值</li>
+</ul>
+
+<p>再来分析方法 <code>l.entries[idx].log</code>, 完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/log/accesslog.go#L65" target="_blank">这里</a>：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">le</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">logEntry</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">buf</span> <span style="color:#000">buffer</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IoBuffer</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">le</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">text</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#4e9a06">&#34;&#34;</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">buf</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteString</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">le</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">text</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">value</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetVariableValue</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">le</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Name</span><span style="color:#000;font-weight:bold">())</span>
+        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">buf</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteString</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ValueNotFound</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">buf</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteString</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>主要是利用函数 <code>variable.GetVariableValue</code> 获取变量的实际值</li>
+<li>将获取到的实际值写到 <code>buf</code> 里</li>
+</ul>
+
+<p>接着分析函数 <code>variable.GetVariableValue</code>，完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/variable/api.go#L28" target="_blank">这里</a>：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">GetVariableValue</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#8f5902;font-style:italic">// 1. find built-in variables
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">variables</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">];</span> <span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#8f5902;font-style:italic">// 1.1 check indexed value
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">indexer</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.(</span><span style="color:#000">Indexer</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">getFlushedVariableValue</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">indexer</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetIndex</span><span style="color:#000;font-weight:bold">())</span>
+        <span style="color:#000;font-weight:bold">}</span>
+
+        <span style="color:#8f5902;font-style:italic">// 1.2 use variable.Getter() to get value
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">getter</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Getter</span><span style="color:#000;font-weight:bold">()</span>
+        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">getter</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">errors</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">errGetterNotFound</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">getter</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Data</span><span style="color:#000;font-weight:bold">())</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#8f5902;font-style:italic">// 2. find prefix variables
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">prefix</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">variable</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">prefixVariables</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">strings</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">HasPrefix</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">prefix</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">getter</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Getter</span><span style="color:#000;font-weight:bold">()</span>
+            <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">getter</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+                <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">errors</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">errGetterNotFound</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#000;font-weight:bold">}</span>
+            <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">getter</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">errors</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">errUndefinedVariable</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>根据变量名，重新从缓存 <code>variables</code> 中获取相应的变量 <code>variable</code></li>
+<li>调用变量的 <code>Getter</code> 方法，获取函数 <code>getter(GetterFunc)</code>，一个获取变量实际值的方法</li>
+<li>执行 getter 函数，得到变量的实际值</li>
+</ul>
+
+<p>接下来分析类型是 <code>GetterFunc</code> 的函数，以 <code>startTimeGetter</code> 为例，完整代码清参考<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/log/accesslog_test.go#L523" target="_blank">这里</a>：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#8f5902;font-style:italic">// StartTimeGetter
+</span><span style="color:#8f5902;font-style:italic">// get request&#39;s arriving time
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">startTimeGetter</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">variable</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IndexedValue</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">data</span> <span style="color:#204a87;font-weight:bold">interface</span><span style="color:#000;font-weight:bold">{})</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">info</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">requestInfoKey</span><span style="color:#000;font-weight:bold">).(</span><span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequestInfo</span><span style="color:#000;font-weight:bold">)</span>
+
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">info</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StartTime</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Format</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;2006/01/02 15:04:05.000&#34;</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#204a87;font-weight:bold">nil</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>调用 <code>ctx.Value</code>, 根据 <code>requestInfoKey</code> 从 <code>ctx</code> 中获取相应的对象</li>
+<li>该对象已经事先在<a href="https://github.com/mosn/mosn/blob/1609ae144136039508dda6d0c5d03c1f732cb107/pkg/log/accesslog_test.go#L64" target="_blank">这里</a>，通过 <code>ctx</code> 的 <code>WithValue</code> 设置到了 <code>ctx</code> 里</li>
+<li>转化成接口 <code>api.RequestInfo</code>，改接口有获取 <code>StartTime</code> 的能力</li>
+<li>获取 <code>StartTime</code> 并格式化</li>
+</ul>
+
+<p>变量生效大致的流程是：遍历已获取的变量条目 <code>entries</code>, 根据变量名获取缓存中的变量，调用变量中的 <code>getter</code> 方法, 获取相应的变量值。</p>
+
+<h2 id="总结">总结</h2>
+
+<p><code>变量机制</code> 的实现是比较面向对象的，首先定义了结构体 <code>Variable</code>, 主要记录了变量名和获取对应变量值的实现<code>GetterFunc</code>；<code>GetterFunc</code> 定义好了获取变量值得函数定义，每个变量都得实现自己的 <code>getter</code>（<code>面向接口编程</code>）。 然后在代码初始化的时候把所有变量都实例化，并注册到作为缓存的全局变量 <code>variables</code> 中 （<code>表驱动法</code>）; 最后，更加变量名去缓存 <code>variables</code> 获取相应的实现，获取变量的实际值。</p>
+
+<p>另外，很好地利用了 <code>golang</code> 特有的 <code>context</code> 贯穿了整个流程。</p>
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a href="/zh/blog/code/mosn-buffer/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+  </li>
+    <a href="/zh/blog/code/mosn-startup/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+  </li>
+</ul>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://twitter.com/MosnProxy">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Slack" aria-label="Slack">
+    <a class="text-white" target="_blank" href="https://mosnproxy.slack.com">
+      <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/mosn/mosn">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>

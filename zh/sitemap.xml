@@ -3,36 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-startup/</loc>
-    <lastmod>2020-03-02T21:51:15+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-variable/</loc>
-    <lastmod>2020-02-24T00:35:12+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-buffer/</loc>
-    <lastmod>2020-02-22T12:42:18+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-plugin/</loc>
-    <lastmod>2020-02-19T14:35:22+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-xds/</loc>
-    <lastmod>2020-02-14T18:08:35+08:00</lastmod>
+    <loc>https://mosn.io/zh/blog/news/mosn-channel-1/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -45,22 +17,15 @@
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-filters/</loc>
-    <lastmod>2020-02-14T15:02:16+08:00</lastmod>
+    <loc>https://mosn.io/zh/docs/configuration/server/listener/filter-chain/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/listener/filter-chain/</loc>
-    <lastmod>2020-01-21T16:25:20+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/docs/configuration/listener/network-filter/proxy/</loc>
-    <lastmod>2020-01-21T16:25:20+08:00</lastmod>
+    <loc>https://mosn.io/zh/docs/configuration/server/listener/network-filter/proxy/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -94,13 +59,6 @@
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-reconfig-mechanism/</loc>
-    <lastmod>2020-02-11T17:50:18+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://mosn.io/zh/docs/concept/core-concept/</loc>
     <lastmod>2020-01-21T17:47:59+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -109,7 +67,7 @@
   
   <url>
     <loc>https://mosn.io/zh/docs/contribute/creating-pages/</loc>
-    <lastmod>2020-02-11T17:50:18+08:00</lastmod>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -123,35 +81,35 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/posts/mosn-source-code-brief/</loc>
-    <lastmod>2020-02-11T17:50:18+08:00</lastmod>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/listener/</loc>
-    <lastmod>2020-01-21T17:47:59+08:00</lastmod>
+    <loc>https://mosn.io/zh/docs/configuration/server/listener/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/listener/network-filter/</loc>
-    <lastmod>2020-01-21T16:25:20+08:00</lastmod>
+    <loc>https://mosn.io/zh/docs/configuration/server/listener/network-filter/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/zh/docs/configuration/server/</loc>
-    <lastmod>2020-01-21T17:47:59+08:00</lastmod>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/listener/network-filter/connection-manager/</loc>
-    <lastmod>2020-01-21T16:25:20+08:00</lastmod>
+    <loc>https://mosn.io/zh/docs/configuration/server/listener/network-filter/connection-manager/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -269,7 +227,7 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/news/</loc>
-    <lastmod>2020-01-21T16:25:20+08:00</lastmod>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -277,6 +235,13 @@
   <url>
     <loc>https://mosn.io/zh/blog/posts/</loc>
     <lastmod>2020-01-21T16:25:20+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/code/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -316,6 +281,55 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-startup/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/posts/udpa-follow-up/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-variable/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-buffer/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-plugin/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-xds/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-filters/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/releases/mosn-0.1.0-perfermence-report/</loc>
     <lastmod>2020-02-28T17:10:14+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -327,6 +341,30 @@
     <lastmod>2020-02-28T17:10:14+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-reconfig-mechanism/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/index.json</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/index.json"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/index.json"
+                />
   </url>
   
   <url>
@@ -343,23 +381,6 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://mosn.io/zh/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/search/</loc>
-    <lastmod>2020-01-21T16:25:20+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://mosn.io/search/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/search/"
                 />
   </url>
   
@@ -394,6 +415,23 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://mosn.io/zh/blog/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/search/</loc>
+    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/search/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/search/"
                 />
   </url>
   
