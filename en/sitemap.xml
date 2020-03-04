@@ -88,23 +88,6 @@
   </url>
   
   <url>
-    <loc>https://mosn.io/about/</loc>
-    <lastmod>2020-01-23T09:06:05+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/about/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://mosn.io/about/"
-                />
-  </url>
-  
-  <url>
     <loc>https://mosn.io/blog/</loc>
     <lastmod>2020-02-28T18:30:49+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -122,15 +105,25 @@
   </url>
   
   <url>
-    <loc>https://mosn.io/community/</loc>
-    <lastmod>2020-03-02T12:23:38+08:00</lastmod>
+    <loc>https://mosn.io/docs/community/</loc>
+    <lastmod>2020-03-04T17:12:41+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/community/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/community/"
+                />
   </url>
   
   <url>
     <loc>https://mosn.io/</loc>
-    <lastmod>2020-03-02T12:23:38+08:00</lastmod>
+    <lastmod>2020-03-04T16:04:04+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
