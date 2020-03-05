@@ -890,10 +890,13 @@ if (!doNotTrack) {
 
 <h3 id="使用-iptables-做流量劫持时存在的问题">使用 iptables 做流量劫持时存在的问题</h3>
 
-<p>目前 Istio 使用 iptables 实现透明劫持，主要存在以下三个问题：
-1. 需要借助于 conntrack 模块实现连接跟踪，在连接数较多的情况下，会造成较大的消耗，同时可能会造成 track 表满的情况，为了避免这个问题，业内有关闭 conntrack 的做法，比如阿里巴巴就关闭了这个模块。
-1. iptables 属于常用模块，全局生效，不能显式的禁止相关联的修改，可管控性比较差。
-1. iptables 重定向流量本质上是通过 loopback 交换数据，outbond 流量将两次穿越协议栈，在大并发场景下会损失转发性能。</p>
+<p>目前 Istio 使用 iptables 实现透明劫持，主要存在以下三个问题：</p>
+
+<ol>
+<li>需要借助于 conntrack 模块实现连接跟踪，在连接数较多的情况下，会造成较大的消耗，同时可能会造成 track 表满的情况，为了避免这个问题，业内有关闭 conntrack 的做法。</li>
+<li>iptables 属于常用模块，全局生效，不能显式的禁止相关联的修改，可管控性比较差。</li>
+<li>iptables 重定向流量本质上是通过 loopback 交换数据，outbond 流量将两次穿越协议栈，在大并发场景下会损失转发性能。</li>
+</ol>
 
 <p>上述几个问题并非在所有场景中都存在，比方说某些场景下，连接数并不多，且 NAT 表未被使用到的情况下，iptables 是一个满足要求的简单方案。为了适配更加广泛的场景，透明劫持需要解决上述三个问题。</p>
 
@@ -1043,7 +1046,7 @@ if (!doNotTrack) {
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年1月21日: <a  href="https://github.com/mosn/mosn.io/commit/2dbd2ae2cd0d55be1cb0626a56635d3e080c44e0">New website with docsy theme (2dbd2ae)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年3月5日: <a  href="https://github.com/mosn/mosn.io/commit/8f158a1a2b1497be199a2c52415f90d2ff257185">Fix typos (8f158a1)</a>
 </div>
 </div>
 
