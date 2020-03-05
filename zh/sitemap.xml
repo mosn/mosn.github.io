@@ -302,6 +302,13 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-shm/</loc>
+    <lastmod>2020-03-04T23:05:22+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/code/mosn-variable/</loc>
     <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>

@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.5" />
+
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>MOSN 源码分析 - 共享内存模型 | MOSN</title><meta property="og:title" content="MOSN 源码分析 - 共享内存模型" />
+<meta property="og:description" content="MOSN 源码解析系列之共享内存模型。
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/zh/blog/code/mosn-shm/" />
+<meta property="article:published_time" content="2020-02-23T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2020-03-04T23:05:22&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+
+<meta itemprop="name" content="MOSN 源码分析 - 共享内存模型">
+<meta itemprop="description" content="MOSN 源码解析系列之共享内存模型。
+">
+
+
+<meta itemprop="datePublished" content="2020-02-23T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-03-04T23:05:22&#43;08:00" />
+<meta itemprop="wordCount" content="1123">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MOSN 源码分析 - 共享内存模型"/>
+<meta name="twitter:description" content="MOSN 源码解析系列之共享内存模型。
+"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
+<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+    <title>MOSN 源码分析 - 共享内存模型 | MOSN</title>
+  </head>
+  <body class="td-page td-blog">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/zh/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">MOSN</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/mosn/mosn/" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/zh/docs/" ><span>文档</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/zh/blog/" ><span class="active">博客</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/zh/docs/community/" ><span>社区</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/zh/docs/faq/" ><span>FAQ</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/">English</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/">English</a>
+	
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">博客</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="zh-blog">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/releases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">发布</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-blog-releases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-releases-v0-10-0" href="/zh/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-releases-mosn-0-1-0-perfermence-report" href="/zh/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-releases-mosn-0-2-1-performance-report" href="/zh/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-blog-news">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-news-mosn-channel-1" href="/zh/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-news-announcing-mosn-communtiy" href="/zh/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/posts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">分享</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-blog-posts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-nginx-envoy-mosn-hot-upgrade" href="/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-source-code-brief" href="/zh/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-udpa-follow-up" href="/zh/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/blog/code/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">源码解析</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="zh-blog-code">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-startup" href="/zh/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-code-mosn-shm" href="/zh/blog/code/mosn-shm/">MOSN 源码分析 - 共享内存模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-variable" href="/zh/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-buffer" href="/zh/blog/code/mosn-buffer/">MOSN 源码分析 - 内存复用机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-plugin" href="/zh/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-xds" href="/zh/blog/code/mosn-xds/">MOSN 源码分析 - XDS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-filters" href="/zh/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-reconfig-mechanism" href="/zh/blog/code/mosn-reconfig-mechanism/">MOSN 的 reconfig 机制</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/code/mosn-shm/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e6%ba%90%e7%a0%81%e5%88%86%e6%9e%90%20-%20%e5%85%b1%e4%ba%ab%e5%86%85%e5%ad%98%e6%a8%a1%e5%9e%8b" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+
+
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#机制">机制</a></li>
+<li><a href="#创建共享内存-mmap">创建共享内存：Mmap</a></li>
+<li><a href="#操作共享内存-配置">操作共享内存：配置</a></li>
+<li><a href="#操作共享内存-metrics">操作共享内存：metrics</a></li>
+<li><a href="#为什么使用共享内存保存-metrics">为什么使用共享内存保存 metrics</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/zh/blog/code/index.xml" target="_blank">
+              RSS <i class="fa fa-rss ml-2 "></i>
+            </a>
+            
+<div class="td-content">
+	<h1>MOSN 源码分析 - 共享内存模型</h1>
+	<div class="lead">MOSN 源码解析系列之共享内存模型。</div>
+	<div class="td-byline mb-4">
+		作者 <b><a href="https://trainyao.github.io" target="_blank">姚昌宇（有米科技）</a></b> |
+		<time datetime="2020-02-23" class="text-muted">2020年2月23日</time>
+	</div>
+	
+
+<p>本文记录了对 MOSN 的源码研究 - MOSN 的共享内存模型。</p>
+
+<p>本文的内容基于 MOSN v0.9.0，commit id <a href="https://github.com/mosn/mosn/tree/b2a239f5" target="_blank">b2a239f5</a>。</p>
+
+<h2 id="机制">机制</h2>
+
+<p>MOSN 用共享内存来存储 metrics 信息。MOSN 用 mmap 将文件映射到内存，在内存数组之上封装了一层关于 metrics 的存取逻辑，实现了 <a href="https://github.com/rcrowley/go-metrics" target="_blank">go-metrics</a>
+包的关于 metrics 的接口，通过这种方式组装出了一种基于共享内存的 metrics 实现供 MOSN 使用。</p>
+
+<h2 id="创建共享内存-mmap">创建共享内存：Mmap</h2>
+
+<p>操作共享内存的方法主要在 <code>pkg/shm/shm.go</code> 文件下：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">Alloc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">size</span> <span style="color:#204a87;font-weight:bold">int</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ShmSpan</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#ce5c00;font-weight:bold">...</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">NewShmSpan</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">data</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#204a87;font-weight:bold">nil</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">Free</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">span</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ShmSpan</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">Clear</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">span</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">syscall</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Munmap</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">span</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">origin</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">Clear</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">os</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Remove</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">path</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">))</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>都是围绕着 <code>ShmSpan</code> 结构体的几个操作方法。再来看 <code>ShmSpan</code> 结构体：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">ShmSpan</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">origin</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">byte</span> <span style="color:#8f5902;font-style:italic">// mmap 返回的数组
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">name</span>   <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#8f5902;font-style:italic">// span 名, 创建时指定
+</span><span style="color:#8f5902;font-style:italic"></span>
+	<span style="color:#000">data</span>   <span style="color:#204a87;font-weight:bold">uintptr</span> <span style="color:#8f5902;font-style:italic">// 保存 mmap 内存段的首指针
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">offset</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#8f5902;font-style:italic">// span 已经使用的字节长度
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">size</span>   <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#8f5902;font-style:italic">// span 大小
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p><code>Alloc</code> 方法按照给定的 <code>name</code> 参数，在配置文件的目录下创建文件，并执行 <code>sync.Mmap</code>，其文件尺寸即 <code>size</code> 参数大小。Mmap 过后，将信息保存在 ShmSpan结构内返回。</p>
+
+<p>代码逻辑比较简单，大家可以自行阅读：<a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/shm/shm.go#L28" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/shm/shm.go#L28</a></p>
+
+<p>由此看出，一个 ShmSpan 可以看做是一个共享内存块。</p>
+
+<p>下面我们将会分析共享内存块在 MOSN 里的使用场景：metrics。</p>
+
+<h2 id="操作共享内存-配置">操作共享内存：配置</h2>
+
+<p>在分析如何通过共享内存存取 metrics 之前，首先看这相关的功能是如何配置的。</p>
+
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/mosn/starter.go#L318" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/mosn/starter.go#L318</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">initializeMetrics</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">config</span> <span style="color:#000">v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MetricsConfig</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#8f5902;font-style:italic">// init shm zone
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">config</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShmZone</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#4e9a06">&#34;&#34;</span> <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#000">config</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShmSize</span> <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#0000cf;font-weight:bold">0</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">shm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitDefaultMetricsZone</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">config</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShmZone</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">config</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShmSize</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#000">store</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetMosnState</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#000">store</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Active_Reconfiguring</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#ce5c00;font-weight:bold">...</span></code></pre></div>
+<p>从这里看出，通过读取配置文件的 <code>ShmZone</code> 和 <code>ShmSize</code> 来初始化共享内存，即配置文件的以下两个字段是控制着共享内存的文件名和大小的：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#a40000">...</span>
+  <span style="color:#204a87;font-weight:bold">&#34;metrics&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#a40000">...</span>
+    <span style="color:#204a87;font-weight:bold">&#34;shm_zone&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;文件名&#34;</span><span style="color:#000;font-weight:bold">,</span>
+    <span style="color:#204a87;font-weight:bold">&#34;shm_size&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;共享内存文件大小&#34;</span>
+  <span style="color:#000;font-weight:bold">},</span>
+  <span style="color:#a40000">...</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<h2 id="操作共享内存-metrics">操作共享内存：metrics</h2>
+
+<p>metrics 相关的逻辑在 <code>pkg/metrics</code> 包下。</p>
+
+<p>上文说的 ShmSpan 是保存共享内存信息的结构体，而要理解 MOSN metrics 对共享内存的使用，还要先理解 MOSN 封装的几个结构体：<code>zone</code>、<code>hashSet</code> 和 <code>hashEntry</code>。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">zone</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">span</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">shm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShmSpan</span>
+
+	
+	<span style="color:#000">ref</span>   <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#204a87;font-weight:bold">uint32</span>
+
+	<span style="color:#000">set</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">hashSet</span> <span style="color:#8f5902;font-style:italic">// mutex + ref = 64bit, so atomic ops has no problem
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
+<span style="color:#ce5c00;font-weight:bold">...</span>
+<span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">hashSet</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">entry</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#000">hashEntry</span>
+	<span style="color:#000">meta</span>  <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">meta</span>
+	<span style="color:#000">slots</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">uint32</span>
+<span style="color:#000;font-weight:bold">}</span>
+<span style="color:#ce5c00;font-weight:bold">...</span>
+<span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">hashEntry</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">metricsEntry</span>
+	<span style="color:#000">next</span> <span style="color:#204a87;font-weight:bold">uint32</span>
+
+	<span style="color:#8f5902;font-style:italic">// Prevents false sharing on widespread platforms with
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// 128 mod (cache line size) = 0 .
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">pad</span> <span style="color:#000;font-weight:bold">[</span><span style="color:#0000cf;font-weight:bold">128</span> <span style="color:#ce5c00;font-weight:bold">-</span> <span style="color:#000">unsafe</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Sizeof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">metricsEntry</span><span style="color:#000;font-weight:bold">{})</span><span style="color:#ce5c00;font-weight:bold">%</span><span style="color:#0000cf;font-weight:bold">128</span> <span style="color:#ce5c00;font-weight:bold">-</span> <span style="color:#0000cf;font-weight:bold">4</span><span style="color:#000;font-weight:bold">]</span><span style="color:#204a87;font-weight:bold">byte</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>这几个结构体与 <code>ShmSpan</code> 的关系大致是这样的：</p>
+
+<p><img src="./shm.png" alt="" /></p>
+
+<p><code>ShmSpan</code> 是共享内存块，而 <code>zone</code>、<code>hashSet</code> 和 <code>hashEntry</code> 对 <code>ShmSpan</code> 进行了划分：</p>
+
+<ul>
+<li><code>hashSet</code> 封装出了 metrics name 映射到 metrics value 的哈希表</li>
+<li><code>hashEntry</code> 是哈希表的值，也是 metrics 值的保存的共享内存空间</li>
+<li><code>zone</code> 对 <code>ShmSpan</code> 进行了划分，划分出了一个 <code>int32</code> 值作为互斥锁；一个 <code>int32</code> 值作为 <code>zone</code> 的引用计数；也划分出了一片空间保存 <code>hashSet</code></li>
+</ul>
+
+<p>以上步骤做好后，创建一个 metrics 就可以通过创建对应的哈希 key value，拿到对应的共享内存地址，存取 metrics 信息。</p>
+
+<blockquote>
+<p><strong><em>实现小细节</em></strong></p>
+
+<ol>
+<li>hashEntry 内部有一个 <code>pad</code> 字段，其作用是保持 hashEntry 结构体大小是 128 的倍数，避免 false sharing</li>
+<li>结构体内的字段顺序和大小是调整过的，比如 <code>hashEntry.value</code>、<code>zone.set</code>，目的是满足原子操作的内存对齐</li>
+</ol>
+</blockquote>
+
+<p>下面是源码步骤，大家可以自行跟踪调试：</p>
+
+<p><strong><em>1) 创建 zone：</em></strong></p>
+
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/zone.go#L81" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/zone.go#L81</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">newSharedMetrics</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">size</span> <span style="color:#204a87;font-weight:bold">int</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">zone</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">alignedSize</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">align</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">size</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">pageSize</span><span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#8f5902;font-style:italic">// 申请 ShmSpan
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">span</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">shm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Alloc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">alignedSize</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#8f5902;font-style:italic">// 1. mutex and ref
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// 从 span 里取 4 个字节做互斥锁
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">mutex</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">span</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Alloc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">4</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span>
+	<span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#8f5902;font-style:italic">// 从 span 里取 4 个字节做引用计数
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">ref</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">span</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Alloc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">4</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span>
+	<span style="color:#000;font-weight:bold">}</span>
+
+	<span style="color:#000">zone</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">zone</span><span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">span</span><span style="color:#000;font-weight:bold">:</span>  <span style="color:#000">span</span><span style="color:#000;font-weight:bold">,</span>
+		<span style="color:#000">mutex</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#204a87;font-weight:bold">uint32</span><span style="color:#000;font-weight:bold">)(</span><span style="color:#000">unsafe</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Pointer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">mutex</span><span style="color:#000;font-weight:bold">)),</span>
+		<span style="color:#000">ref</span><span style="color:#000;font-weight:bold">:</span>   <span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#204a87;font-weight:bold">uint32</span><span style="color:#000;font-weight:bold">)(</span><span style="color:#000">unsafe</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Pointer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ref</span><span style="color:#000;font-weight:bold">)),</span>
+	<span style="color:#000;font-weight:bold">}</span>
+
+	<span style="color:#8f5902;font-style:italic">// 2. hashSet
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// 划分哈希表过程
+</span><span style="color:#8f5902;font-style:italic"></span>
+	<span style="color:#8f5902;font-style:italic">// assuming that 100 entries with 50 slots, so the ratio of occupied memory is
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// entries:slots  = 100 x 128 : 50 x 4 = 64 : 1
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// so assuming slots memory size is N, total allocated memory size is M, then we have:
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// M - 1024 &lt; 65N + 28 &lt;= M
+</span><span style="color:#8f5902;font-style:italic"></span>
+    <span style="color:#8f5902;font-style:italic">// 计算 slot 的数量和内存占用大小
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">slotsNum</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">alignedSize</span> <span style="color:#ce5c00;font-weight:bold">-</span> <span style="color:#0000cf;font-weight:bold">28</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">/</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">65</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#0000cf;font-weight:bold">4</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000">slotsSize</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">slotsNum</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#0000cf;font-weight:bold">4</span>
+	<span style="color:#8f5902;font-style:italic">// 计算 entry 数量和内存占用大小
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">entryNum</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">slotsNum</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#0000cf;font-weight:bold">2</span>
+	<span style="color:#000">entrySize</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">slotsSize</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#0000cf;font-weight:bold">64</span>
+	
+	<span style="color:#8f5902;font-style:italic">// 哈希表内存大小 = entry 内存占用 + 20 字节 + slot 内存占用大小
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">hashSegSize</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">entrySize</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#0000cf;font-weight:bold">20</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">slotsSize</span>
+	<span style="color:#000">hashSegment</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">span</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Alloc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">hashSegSize</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span>
+	<span style="color:#000;font-weight:bold">}</span>
+
+	<span style="color:#8f5902;font-style:italic">// if zones&#39;s ref &gt; 0, no need to initialize hashset&#39;s value
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// 初始化哈希表结构
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">set</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">newHashSet</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">hashSegment</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">hashSegSize</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">entryNum</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">slotsNum</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">atomic</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">LoadUint32</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">zone</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ref</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#000">zone</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">set</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">set</span>
+
+	<span style="color:#8f5902;font-style:italic">// add ref
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">atomic</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddUint32</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">zone</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ref</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">)</span>
+
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">zone</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>这里可以大致说一下哈希表初始化的算法：首先 <code>alignedSize</code> 表示 4k 对齐后的 <code>ShmSpan</code> 大小，前 8 个字节被分配为互斥锁和引用计数，
+另外 20 个字节被分配为哈希表的 <code>meta</code> 结构体，</p>
+
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/hashset.go#L54" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/hashset.go#L54</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">hashSet</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">entry</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#000">hashEntry</span>
+	<span style="color:#000">meta</span>  <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">meta</span>
+	<span style="color:#000">slots</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">uint32</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#ce5c00;font-weight:bold">...</span>
+
+
+<span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">meta</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">cap</span>       <span style="color:#204a87;font-weight:bold">uint32</span>
+	<span style="color:#000">size</span>      <span style="color:#204a87;font-weight:bold">uint32</span>
+	<span style="color:#000">freeIndex</span> <span style="color:#204a87;font-weight:bold">uint32</span>
+
+	<span style="color:#000">slotsNum</span> <span style="color:#204a87;font-weight:bold">uint32</span>
+	<span style="color:#000">bytesNum</span> <span style="color:#204a87;font-weight:bold">uint32</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>所以真正能被分配为哈希表信息储存的空间 = 总空间 - 8 字节 - 20 字节。那能分配多少个哈希表信息呢？要看看 MOSN 的哈希表组织形式：<code>entry</code> 最开始首尾相连，后面会被组织成一个一个的 slot 链表供哈希碰撞时遍历查询。
+所以 slot 和 entry 的比例控制着哈希表查找的性能：entry 比 slot 作为比例的话，比例<strong>越高</strong>意味着更容易碰撞，链表越长，查找性能下降；相反比例<strong>越低</strong>链表越短，查找性能越高，但是有越多 slot 闲置，空间会浪费。</p>
+
+<p>从注释看，MOSN 将比例写死为 <code>2：1</code>。假设 <code>100 个 entry + 50 个 slot</code>，其内存比等于 <code>100 * 128（entry 内存占用）：50 * 4</code> = <code>64：1</code>，即一份 <code>2：1</code> 的 entry+slot 需要用到<code>（64 + 1）* 4</code> 个字节。</p>
+
+<p>所以，如果按照 2：1 来分配的话，一共可以分配的份数 = <code>哈希表信息储存空间 / 每一份空间占用 = (总空间 - 8 - 20) / (64 + 1) * 4</code> 份。由此就可以算出 entry 和 slot 可以分配多少份了。</p>
+
+<p><strong><em>2) 创建指标：</em></strong></p>
+
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/counter.go#L56" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/counter.go#L56</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">NewShmCounterFunc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000">gometrics</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Counter</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000">gometrics</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Counter</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">defaultZone</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+			<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">entry</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">defaultZone</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">alloc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+			<span style="color:#ce5c00;font-weight:bold">...</span></code></pre></div>
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/zone.go#L166" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/zone.go#L166</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">z</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">zone</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">alloc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">hashEntry</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">z</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">lock</span><span style="color:#000;font-weight:bold">()</span>
+	<span style="color:#204a87;font-weight:bold">defer</span> <span style="color:#000">z</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">unlock</span><span style="color:#000;font-weight:bold">()</span>
+
+	<span style="color:#000">entry</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">create</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">z</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">set</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Alloc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#ce5c00;font-weight:bold">...</span></code></pre></div>
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/hashset.go#L135" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/hashset.go#L135</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">hashSet</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Alloc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">hashEntry</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#8f5902;font-style:italic">// 1. search existed slots and entries
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// 计算 hash 值作为 slot index
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">h</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">hash</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000">slot</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">h</span> <span style="color:#ce5c00;font-weight:bold">%</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">meta</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">slotsNum</span>
+
+	<span style="color:#8f5902;font-style:italic">// name convert if length exceeded
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#204a87">len</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000">maxNameLength</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#8f5902;font-style:italic">// if name is longer than max length, use hash_string as leading character
+</span><span style="color:#8f5902;font-style:italic"></span>		<span style="color:#8f5902;font-style:italic">// and the remaining maxNameLength - len(hash_string) bytes follows
+</span><span style="color:#8f5902;font-style:italic"></span>		<span style="color:#000">hStr</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">strconv</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Itoa</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">h</span><span style="color:#000;font-weight:bold">))</span>
+		<span style="color:#000">name</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">hStr</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">name</span><span style="color:#000;font-weight:bold">[</span><span style="color:#204a87">len</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">hStr</span><span style="color:#000;font-weight:bold">)</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#204a87">len</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#000">maxNameLength</span><span style="color:#000;font-weight:bold">:]</span>
+	<span style="color:#000;font-weight:bold">}</span>
+
+	<span style="color:#000">nameBytes</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87">byte</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#8f5902;font-style:italic">// 查找链表找到对应的 entry
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">entry</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">hashEntry</span>
+	<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">index</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">slots</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">slot</span><span style="color:#000;font-weight:bold">];</span> <span style="color:#000">index</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#000">sentinel</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">entry</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">entry</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">index</span><span style="color:#000;font-weight:bold">]</span>
+
+		<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">entry</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">equalName</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">nameBytes</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+			<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">entry</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">false</span>
+		<span style="color:#000;font-weight:bold">}</span>
+
+		<span style="color:#000">index</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">entry</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">next</span>
+	<span style="color:#000;font-weight:bold">}</span>
+
+	<span style="color:#8f5902;font-style:italic">// 2. create new entry
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// 如果找不到, 创建新的 entry
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">meta</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">size</span> <span style="color:#ce5c00;font-weight:bold">&gt;=</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">meta</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">cap</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">false</span>
+	<span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#8f5902;font-style:italic">// 创建新的 entry 从 hashset 的 meta 信息里拿 next free index
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">newIndex</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">meta</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">freeIndex</span>
+	<span style="color:#000">newEntry</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">entry</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">newIndex</span><span style="color:#000;font-weight:bold">]</span>
+	<span style="color:#000">newEntry</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">assignName</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">nameBytes</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000">newEntry</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ref</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0000cf;font-weight:bold">1</span>
+
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">entry</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#8f5902;font-style:italic">// 所以是链表头,保存 index 到 slot
+</span><span style="color:#8f5902;font-style:italic"></span>		<span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">slots</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">slot</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">newIndex</span>
+	<span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#8f5902;font-style:italic">// 否则保存在上一个 entry 的 next 字段内
+</span><span style="color:#8f5902;font-style:italic"></span>		<span style="color:#000">entry</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">next</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">newIndex</span>
+	<span style="color:#000;font-weight:bold">}</span>
+
+	<span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">meta</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">size</span><span style="color:#ce5c00;font-weight:bold">++</span>
+	<span style="color:#8f5902;font-style:italic">// 设置 next free index
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">meta</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">freeIndex</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">newEntry</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">next</span>
+	<span style="color:#8f5902;font-style:italic">// 设置队尾
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">newEntry</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">next</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">sentinel</span>
+
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">newEntry</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">true</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p><strong><em>3) 用 Entry 保存 metrics 值</em></strong></p>
+
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/counter.go#L56" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/counter.go#L56</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">NewShmCounterFunc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000">gometrics</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Counter</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000">gometrics</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Counter</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">defaultZone</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+			<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">entry</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">defaultZone</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">alloc</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+			    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">ShmCounter</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">unsafe</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Pointer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">entry</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">))</span>
+			<span style="color:#000;font-weight:bold">}</span>
+			<span style="color:#ce5c00;font-weight:bold">...</span></code></pre></div>
+<p>可以看出，entry 的 <code>value</code> 是真正被用作记录 metrics 值的地方，它是一个 64 位的空间。</p>
+
+<h2 id="为什么使用共享内存保存-metrics">为什么使用共享内存保存 metrics</h2>
+
+<p>看到这里你可能会问，为什么要这么辛苦封装共享内存来保存 metrics 值？为什么不直接使用堆空间来做呢？</p>
+
+<p>其实在源码里也有答案：</p>
+
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/mosn/starter.go#L318" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/mosn/starter.go#L318</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">initializeMetrics</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">config</span> <span style="color:#000">v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MetricsConfig</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#8f5902;font-style:italic">// init shm zone
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">config</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShmZone</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#4e9a06">&#34;&#34;</span> <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#000">config</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShmSize</span> <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#0000cf;font-weight:bold">0</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">shm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitDefaultMetricsZone</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">config</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShmZone</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">config</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ShmSize</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#000">store</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GetMosnState</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#000">store</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Active_Reconfiguring</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#ce5c00;font-weight:bold">...</span></code></pre></div>
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/zone.go#L58" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/zone.go#L58</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">createMetricsZone</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">size</span> <span style="color:#204a87;font-weight:bold">int</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">clear</span> <span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">zone</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">clear</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">shm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Clear</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span></code></pre></div>
+<p>如果 <code>clear</code> 为真，共享内存就会被清除，那么什么时候为假呢？当 <code>store.GetMosnState()</code> 方法返回 <code>store.Active_Reconfigureing</code> 的时候。即，当 MOSN reconfig 重启的时候，
+已经保存的 metrics 是会被保留的。</p>
+
+<p>而且从这里可以看出：</p>
+
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/zone.go#L124" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/zone.go#L124</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">newSharedMetrics</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">name</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">size</span> <span style="color:#204a87;font-weight:bold">int</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">zone</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#ce5c00;font-weight:bold">...</span>
+	<span style="color:#000">set</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">newHashSet</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">hashSegment</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">hashSegSize</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">entryNum</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">slotsNum</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">atomic</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">LoadUint32</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">zone</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ref</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#ce5c00;font-weight:bold">...</span></code></pre></div>
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/hashset.go#L78" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/hashset.go#L78</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">newHashSet</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">segment</span> <span style="color:#204a87;font-weight:bold">uintptr</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">bytesNum</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">cap</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">slotsNum</span> <span style="color:#204a87;font-weight:bold">int</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">init</span> <span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">hashSet</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">set</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">hashSet</span><span style="color:#000;font-weight:bold">{}</span>
+	<span style="color:#ce5c00;font-weight:bold">...</span></code></pre></div>
+<p>当 <code>zone.ref</code> 引用计数不为 0 的时候，哈希表里面的信息也是会被保留的。</p>
+
+<p>再来看 <code>zone.mutex</code> 互斥锁的使用：</p>
+
+<p><a href="https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/zone.go#L136" target="_blank">https://github.com/mosn/mosn/blob/b2a239f5/pkg/metrics/shm/zone.go#L136</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">z</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">zone</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">lock</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">times</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span>
+
+	<span style="color:#8f5902;font-style:italic">// 5ms spin interval, 5 times burst
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">atomic</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">CompareAndSwapUint32</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">z</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mutex</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">pid</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+			<span style="color:#204a87;font-weight:bold">return</span>
+		<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#ce5c00;font-weight:bold">...</span></code></pre></div>
+<p>是通过设置进程 ID 来获取锁的，由此能看出 MOSN 的用意：<strong>这个以文件作为 mmap 的共享内存是可以被多个 MOSN 进程共用的</strong>。</p>
+
+<p>例如 MOSN 支持跨容器热重启的场景，基于内存共享的 metrics 可以保证热重启过程中不出现指标抖动而造成监控异常。
+而且这个文件可以看作是一种文件格式，在任何时候都可以被持久化保存和提取分析使用的。</p>
+
+<p>当你不需要这个功能时，可以关闭内存共享 metrics 的配置即可，MOSN 会 fallback 到 go-metrics 的实现，该实现就是通过堆分配内存保存 metrics 信息。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>本文通过分析 MOSN 源码，简述了 MOSN 的共享内存模型，分析了 MOSN 创建共享内存、配置 metrics 和 metrics 对共享内存块的使用。</p>
+
+<p>最后，<strong>不鼓励在 Go 里面使用共享内存，除非你有明确的使用场景</strong>，例如 MOSN 热升级场景下的 metrics 共享。</p>
+
+<hr />
+
+<p>参考资料:</p>
+
+<ul>
+<li><a href="https://github.com/mosn/mosn" target="_blank">MOSN 源码</a></li>
+</ul>
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a href="/zh/blog/code/mosn-variable/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+  </li>
+    <a href="/zh/blog/code/mosn-startup/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+  </li>
+</ul>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://twitter.com/MosnProxy">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Slack" aria-label="Slack">
+    <a class="text-white" target="_blank" href="https://mosnproxy.slack.com">
+      <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/mosn/mosn">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>
