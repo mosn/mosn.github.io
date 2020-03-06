@@ -338,7 +338,9 @@ if (!doNotTrack) {
 
 <p>Before the Service Mesh transformation, we have expected that as the next generation of Ant Financial&rsquo;s infrastructure, Meshization will inevitably bring revolutionary changes and evolution costs. We have a very ambitious blueprint: ready to integrate the original network and middleware various capabilities have been re-precipitated and polished to create a low-level platform for the next-generation architecture of the future, which will carry the responsibility of various service communications.</p>
 
-<p>This is a long-term planning project that takes many years to build and meets the needs of the next five or even ten years. The team will cooperate to build a cross-business, SRE, middleware, infrastructure and other departments. We must have a network proxy forwarding plane with flexible expansion, high performance, and long-term evolution. Nginx and Envoy are unsatisfactory in terms of R &amp; D efficiency and flexible expansion. At the same time, the entire Mesh transformation involves a large number of departments and R &amp; D personnel. The landing costs of cross-team cooperation must be considered. Therefore, we based our own research on Golang. New network proxy MOSN in cloud native scenario. For the performance of Golang, we also did a full investigation and test in the early stage to meet the performance requirements of Ant Financial Services.</p>
+<p>This is a long-term planning project that takes many years to build and meets the needs of the next five or even ten years, and cooperates to build a team that spans business, SRE, middleware, and infrastructure departments. We must have a network proxy forwarding plane with flexible expansion, high performance, and long-term evolution. Nginx and Envoy have a very long-term capacity accumulation and active community in the field of network agents. We have also borrowed from other excellent open source network agents such as Nginx and Envoy. At the same time, we have enhanced research and development efficiency and flexible expansion. Mesh transformation involves a large number of departments and R &amp; D personnel. We must consider the landing cost of cross-team cooperation. Therefore, we have developed a new network proxy MOSN based on Go in the cloud-native scenario. For Go&rsquo;s performance, we also did a full investigation and test in the early stage to meet the performance requirements of Ant Financial&rsquo;s services.</p>
+
+<p>At the same time, we received a lot of feedback and needs from the end user community. Everyone has the same needs and thoughts. So we combined the actual situation of the community and ourselves to conduct the research and development of MOSN from the perspective of satisfying the community and users. We believe that the open source competition is mainly competition between standards and specifications. We need to make the most suitable implementation choice based on open source standards.</p>
 
 <h3 id="what-is-the-difference-between-mosn-and-envoy-what-are-the-advantages-of-mosn">What is the difference between MOSN and Envoy? What are the advantages of MOSN?</h3>
 
@@ -368,7 +370,7 @@ if (!doNotTrack) {
 
 <h3 id="what-version-of-istio-does-mosn-support-when-will-it-be-available-in-istio">What version of Istio does MOSN support? When will it be available in Istio?</h3>
 
-<p>Currently, MOSN can be based on Istio 1.1.4 and run through the bookinfo example. Due to the latest version of Istio that has upgraded the XDS protocol and some enhancements, MOSN is currently adapting. It is expected that in October 2020, it will fully support HTTP of high-level Istio. Department ability.</p>
+<p>Currently, MOSN can be based on Istio 1.1.4 and run through the bookinfo example. Due to the latest version of Istio that has upgraded the XDS protocol and some enhancements, MOSN is currently adapting. It is expected that in October 2020, it will fully support HTTP of high-level Istio ability. To achieve this, the MOSN community has specifically established the <a href="https://github.com/mosn/community/blob/master/wg-istio.md" target="_blank">MOSN Istio Working Group</a> to work with MOSN to adapt Istio.</p>
 
 <h3 id="what-service-registration-and-discovery-mechanisms-does-mosn-support">What service registration and discovery mechanisms does MOSN support?</h3>
 
@@ -376,7 +378,7 @@ if (!doNotTrack) {
 
 <h3 id="how-to-participate-in-the-mosn-open-source-community">How to participate in the MOSN open source community?</h3>
 
-<p>Join the MOSN slack worksapce: <a href="https://mosnproxy.slack.com" target="_blank">https://mosnproxy.slack.com</a> to participate in the open source community. You can also visit the <a href="https://github.com/mosn/community" target="_blank">Community repository</a> to learn about the organizational structure of the MOSN open source community and to obtain community materials.</p>
+<p>Join the MOSN slack worksapce <a href="https://mosnproxy.slack.com" target="_blank">https://mosnproxy.slack.com</a> to participate in the open source community. You can also visit the <a href="https://github.com/mosn/community" target="_blank">Community repository</a> to learn about the organizational structure of the MOSN open source community and to obtain community materials.</p>
 
         <div class="section-index">
     
@@ -456,7 +458,7 @@ if (!doNotTrack) {
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified March 2, 2020: <a  href="https://github.com/mosn/mosn.io/commit/f77cb998a66e0694a3a2c205a0fbad3f50f60e86">Update _index.md (f77cb99)</a>
+	<div class="text-muted mt-5 pt-3 border-top">Last modified March 6, 2020: <a  href="https://github.com/mosn/mosn.io/commit/868f9b9dd5d82d765eb4e6e78d7b861f868b0f5e">Update FAQ, add mailing list (868f9b9)</a>
 </div>
 </div>
 
@@ -482,6 +484,12 @@ if (!doNotTrack) {
   <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Slack" aria-label="Slack">
     <a class="text-white" target="_blank" href="https://mosnproxy.slack.com">
       <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Mailing list" aria-label="Mailing list">
+    <a class="text-white" target="_blank" href="https://groups.google.com/d/forum/mosn-dev">
+      <i class="fa fa-envelope"></i>
     </a>
   </li>
   

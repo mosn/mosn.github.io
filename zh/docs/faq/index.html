@@ -837,9 +837,11 @@ if (!doNotTrack) {
 
 <h3 id="为什么要使用-mosn-替换-istio-的数据面">为什么要使用 MOSN 替换 Istio 的数据面？</h3>
 
-<p>我们在进行Mesh改造前，已经预料到作为下一代蚂蚁金服的基础架构，Mesh 化势必带来革命性的变革以及演进成本，我们有非常宏大的蓝图：准备将原有的网络和中间件方面的各种能力重新沉淀和打磨，打造成为未来新一代架构的底层平台，承载各种服务通讯的职责。</p>
+<p>蚂蚁金服在进行 Mesh 改造前，已经预料到作为下一代蚂蚁金服的基础架构，Mesh 化势必带来革命性的变革以及演进成本，我们有非常宏大的蓝图：准备将原有的网络和中间件方面的各种能力重新沉淀和打磨，打造成为未来新一代架构的底层平台，承载各种服务通讯的职责。</p>
 
-<p>这是一个需要多年时间打造，满足未来五年乃至十年需求的长期规划项目，合作共建团队跨业务，SRE，中间件，基础架构等部门。我们必须有一个具备灵活扩展，高性能，满足长期演进的网络代理转发平面。Nginx、Envoy 在研发效率、灵活扩展等方面均有不满足的地方，同时在整个 Mesh 改造涉及到非常多的部门和研发人员，必须考虑到跨团队合作的落地成本，所以我们基于 Golang 自研了云原生场景下的新型网络代理 MOSN。对于 Golang 的性能，我们前期也做了充分的调研和测试，满足蚂蚁金服业务对性能的要求。</p>
+<p>这是一个需要多年时间打造，满足未来五年乃至十年需求的长期规划项目，合作共建团队跨业务、SRE、中间件、基础架构等部门。我们必须有一个具备灵活扩展、高性能、满足长期演进的网络代理转发平面。Nginx、Envoy 在网络代理领域有非常长期的能力积累和活跃的社区，我们也同时借鉴了 Nginx、Envoy 等其他优秀的开源网络代理， 同时在研发效率、灵活扩展等方面进行了加强，同时在整个 Mesh 改造涉及到非常多的部门和研发人员，必须考虑到跨团队合作的落地成本，所以我们基于 Go 自研了云原生场景下的新型网络代理 MOSN。对于 Go 的性能，我们前期也做了充分的调研和测试，满足蚂蚁金服业务对性能的要求。</p>
+
+<p>同时我们从社区用户方面收到了很多的反馈和需求，大家有同样的需求以及思考，所以我们结合社区与自身的实际情况，从满足社区以及用户角度出发进行了 MOSN 的研发工作，我们认为开源的竞争主要是标准与规范的竞争，我们需要基于开源标准做最适合自身的实现选择。</p>
 
 <h3 id="mosn-与-envoy-不同点是什么-优势在哪里">MOSN 与  Envoy 不同点是什么？优势在哪里？</h3>
 
@@ -871,7 +873,7 @@ if (!doNotTrack) {
 
 <h3 id="mosn-支持-istio-的什么版本-什么时候可以在-istio-中可用">MOSN 支持 Istio 的什么版本？什么时候可以在 Istio 中可用？</h3>
 
-<p>目前 MOSN 可基于 Istio 1.1.4 跑通 bookinfo example，由于最新版本的 Istio 对 XDS 协议进行了升级以及部分能力增强，MOSN 当前正在适配中，预计 2020 年 10 月份会完整支持高版本 Istio 的 HTTP 系能力。</p>
+<p>目前 MOSN 可基于 Istio 1.1.4 跑通 bookinfo example，由于最新版本的 Istio 对 XDS 协议进行了升级以及部分能力增强，MOSN 当前正在适配 Istio 中，预计 2020 年 10 月份会完整支持高版本 Istio 的 HTTP 系能力。为此，MOSN 社区专门成立了 <a href="https://github.com/mosn/community/blob/master/wg-istio.md" target="_blank">MOSN Istio Working Group</a> 从事 MOSN 适配 Istio 的工作。</p>
 
 <h3 id="mosn-支持哪些服务注册和发现机制">MOSN 支持哪些服务注册和发现机制？</h3>
 
@@ -879,7 +881,7 @@ if (!doNotTrack) {
 
 <h3 id="如何参与-mosn-开源社区">如何参与 MOSN 开源社区？</h3>
 
-<p>您可以扫描<a href="/zh/docs/community/">社区</a>页面上的钉钉群二维码，加入MOSN 用户群来参与开源社区，参与社区讨论和获取社区最新活动通知。还可以访问 <a href="https://github.com/mosn/community" target="_blank">Community 仓库</a>了解 MOSN 开源社区的组织架构和获取社区资料。</p>
+<p>MOSN 社区分为用户组和按需求创建的 Working Group。您可以使用钉钉扫描<a href="https://mosn.io/zh/docs/community/" target="_blank">社区</a>页面上的二维码加入 MOSN 用户群，参与社区讨论，获取社区最新活动通知。访问 <a href="https://github.com/mosn/community" target="_blank">Community 仓库</a>了解 MOSN 开源社区的组织架构和获取社区资料。</p>
 
         <div class="section-index">
     
@@ -1007,7 +1009,7 @@ if (!doNotTrack) {
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年3月4日: <a  href="https://github.com/mosn/mosn.io/commit/97f1eee7489a518d6600bdc1dfcd09644006b8da">Move community page to docs (97f1eee)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年3月6日: <a  href="https://github.com/mosn/mosn.io/commit/868f9b9dd5d82d765eb4e6e78d7b861f868b0f5e">Update FAQ, add mailing list (868f9b9)</a>
 </div>
 </div>
 
@@ -1033,6 +1035,12 @@ if (!doNotTrack) {
   <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Slack" aria-label="Slack">
     <a class="text-white" target="_blank" href="https://mosnproxy.slack.com">
       <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Mailing list" aria-label="Mailing list">
+    <a class="text-white" target="_blank" href="https://groups.google.com/d/forum/mosn-dev">
+      <i class="fa fa-envelope"></i>
     </a>
   </li>
   
