@@ -21,6 +21,16 @@
     <lastmod>2020-02-11T17:50:18+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/contribute/github/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/contribute/github/"
+                />
   </url>
   
   <url>
@@ -42,6 +52,16 @@
     <lastmod>2020-01-21T17:47:59+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/quick-start/proxy/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/quick-start/proxy/"
+                />
   </url>
   
   <url>
@@ -49,6 +69,16 @@
     <lastmod>2020-02-13T21:37:12+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/overview/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/overview/"
+                />
   </url>
   
   <url>
@@ -70,6 +100,16 @@
     <lastmod>2020-01-21T17:47:59+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/concept/core-concept/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/concept/core-concept/"
+                />
   </url>
   
   <url>
@@ -77,6 +117,16 @@
     <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/contribute/creating-pages/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/contribute/creating-pages/"
+                />
   </url>
   
   <url>
@@ -84,6 +134,16 @@
     <lastmod>2020-02-11T17:50:18+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/contribute/style-guide/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/contribute/style-guide/"
+                />
   </url>
   
   <url>
@@ -112,6 +172,16 @@
     <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/configuration/server/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/configuration/server/"
+                />
   </url>
   
   <url>
@@ -126,6 +196,16 @@
     <lastmod>2020-01-21T17:47:59+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/quick-start/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/quick-start/"
+                />
   </url>
   
   <url>
@@ -133,6 +213,16 @@
     <lastmod>2020-02-13T15:43:33+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/quick-start/istio/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/quick-start/istio/"
+                />
   </url>
   
   <url>
@@ -140,6 +230,16 @@
     <lastmod>2020-01-21T16:25:20+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/concept/sidecar-pattern/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/concept/sidecar-pattern/"
+                />
   </url>
   
   <url>
@@ -147,6 +247,16 @@
     <lastmod>2020-03-05T15:53:38+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/concept/traffic-hijack/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/concept/traffic-hijack/"
+                />
   </url>
   
   <url>
@@ -154,6 +264,16 @@
     <lastmod>2020-01-21T16:25:20+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/configuration/custom/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/configuration/custom/"
+                />
   </url>
   
   <url>
@@ -161,6 +281,16 @@
     <lastmod>2020-01-21T16:25:20+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/concept/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/concept/"
+                />
   </url>
   
   <url>
@@ -168,6 +298,16 @@
     <lastmod>2020-01-21T16:25:20+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/concept/tls/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/concept/tls/"
+                />
   </url>
   
   <url>
@@ -175,6 +315,16 @@
     <lastmod>2020-02-11T17:50:18+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/samples/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/samples/"
+                />
   </url>
   
   <url>
@@ -182,6 +332,16 @@
     <lastmod>2020-02-11T17:50:18+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/configuration/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/configuration/"
+                />
   </url>
   
   <url>
@@ -189,6 +349,16 @@
     <lastmod>2020-01-21T16:25:20+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/concept/smooth-upgrade/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/concept/smooth-upgrade/"
+                />
   </url>
   
   <url>
@@ -203,6 +373,16 @@
     <lastmod>2020-03-03T18:56:51+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/contribute/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/contribute/"
+                />
   </url>
   
   <url>
