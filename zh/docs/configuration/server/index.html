@@ -476,11 +476,57 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/docs/configuration/clustermanager/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">ClusterManager 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-docs-configuration-clustermanager">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
     <a  href="/zh/docs/configuration/server/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Server 配置</a>
   </li>
   <ul>
     <li class="collapse show" id="zh-docs-configuration-server">
       
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/docs/configuration/server/router/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Router 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-docs-configuration-server-router">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
       
@@ -650,6 +696,12 @@ if (!doNotTrack) {
       
       
       
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-docs-dev-featuregate-introduce" href="/zh/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
+      
+      
     </li>
   </ul>
 </ul>
@@ -790,7 +842,8 @@ if (!doNotTrack) {
 <ul>
 <li><a href="#processor">processor</a></li>
 </ul></li>
-<li><a href="#listeners">Listeners</a></li>
+<li><a href="#listeners">listeners</a></li>
+<li><a href="#routers">routers</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -850,7 +903,8 @@ if (!doNotTrack) {
   &#34;global_log_roller&#34;:&#34;&#34;,
   &#34;graceful_timeout&#34;:&#34;&#34;,
   &#34;processor&#34;:&#34;&#34;,
-  &#34;listeners&#34;:[]
+  &#34;listeners&#34;:[],
+  &#34;routers&#34;:[]
 }</code></pre></div>
 <h2 id="default-log-path">default_log_path</h2>
 
@@ -910,9 +964,13 @@ if (!doNotTrack) {
 - 如果没有配置，默认为 CPU 数量。
 - 如果配置为 0，等价于没有配置。</p>
 
-<h2 id="listeners">Listeners</h2>
+<h2 id="listeners">listeners</h2>
 
 <p>一组 <a href="./listener">Listener</a> 的配置。</p>
+
+<h2 id="routers">routers</h2>
+
+<p>一组<a href="./router">Router</a>的配置。</p>
 
         <div class="section-index">
     
@@ -929,6 +987,19 @@ if (!doNotTrack) {
         
             
         
+            
+        
+            
+        
+            
+        
+            
+                <div class="entry">
+                    <h5>
+                        <a href="/zh/docs/configuration/server/router/">Router 配置</a>
+                    </h5>
+                    <p>路由配置说明。</p>
+                </div>
             
         
             
@@ -1047,7 +1118,7 @@ if (!doNotTrack) {
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年3月3日: <a  href="https://github.com/mosn/mosn.io/commit/3e2013cca40c1dc22b21978d8fec47a0081e4563">Update docs and blog structure (3e2013c)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年3月13日: <a  href="https://github.com/mosn/mosn.io/commit/39b27c9e1526547f6b3ae1086de0028cf0c31360">update router config (39b27c9)</a>
 </div>
 </div>
 

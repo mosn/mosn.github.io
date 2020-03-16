@@ -7,7 +7,7 @@
 
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
-<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/zh/docs/configuration/index.xml">
+<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/zh/docs/configuration/clustermanager/index.xml">
 
 
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
@@ -21,22 +21,19 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>配置概览 | MOSN</title><meta property="og:title" content="配置概览" />
-<meta property="og:description" content="MOSN 配置文件概览。
-" />
+<title>ClusterManager 配置 | MOSN</title><meta property="og:title" content="ClusterManager 配置" />
+<meta property="og:description" content="MOSN ClusterManager 配置说明。" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://mosn.io/zh/docs/configuration/" />
+<meta property="og:url" content="https://mosn.io/zh/docs/configuration/clustermanager/" />
 
 <meta property="og:updated_time" content="2020-01-20T00:00:00&#43;00:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="配置概览">
-<meta itemprop="description" content="MOSN 配置文件概览。
-">
+<meta itemprop="name" content="ClusterManager 配置">
+<meta itemprop="description" content="MOSN ClusterManager 配置说明。">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="配置概览"/>
-<meta name="twitter:description" content="MOSN 配置文件概览。
-"/>
+<meta name="twitter:title" content="ClusterManager 配置"/>
+<meta name="twitter:description" content="MOSN ClusterManager 配置说明。"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -65,7 +62,7 @@ if (!doNotTrack) {
 
 
 
-    <title>配置概览 | MOSN</title>
+    <title>ClusterManager 配置 | MOSN</title>
   </head>
   <body class="td-section">
     <header>
@@ -136,7 +133,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/docs/configuration/">English</a>
+	<a class="dropdown-item" href="/">English</a>
 	
 </div>
 			</li>
@@ -178,7 +175,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/docs/configuration/">English</a>
+	<a class="dropdown-item" href="/">English</a>
 	
 </div>
     </div>
@@ -462,7 +459,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">配置概览</a>
+    <a  href="/zh/docs/configuration/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">配置概览</a>
   </li>
   <ul>
     <li class="collapse show" id="zh-docs-configuration">
@@ -479,10 +476,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/clustermanager/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">ClusterManager 配置</a>
+    <a  href="/zh/docs/configuration/clustermanager/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">ClusterManager 配置</a>
   </li>
   <ul>
-    <li class="collapse " id="zh-docs-configuration-clustermanager">
+    <li class="collapse show" id="zh-docs-configuration-clustermanager">
       
       
       
@@ -821,8 +818,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/configuration/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=%e9%85%8d%e7%bd%ae%e6%a6%82%e8%a7%88" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/configuration/clustermanager/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=ClusterManager%20%e9%85%8d%e7%bd%ae" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -831,27 +828,6 @@ if (!doNotTrack) {
 
 
 
-
-
-
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#配置类型">配置类型</a>
-<ul>
-<li><a href="#静态配置">静态配置</a></li>
-<li><a href="#动态配置">动态配置</a></li>
-<li><a href="#混合模式">混合模式</a></li>
-</ul></li>
-<li><a href="#配置示例">配置示例</a>
-<ul>
-<li><a href="#静态配置示例">静态配置示例</a></li>
-<li><a href="#动态配置示例">动态配置示例</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
 
 
 
@@ -867,6 +843,9 @@ if (!doNotTrack) {
 
 
 
+
+
+
 <li class="breadcrumb-item" >
 	<a href="https://mosn.io/zh/docs/">文档</a>
 </li>
@@ -874,8 +853,15 @@ if (!doNotTrack) {
 
 
 
-<li class="breadcrumb-item active" aria-current="page">
+<li class="breadcrumb-item" >
 	<a href="https://mosn.io/zh/docs/configuration/">配置概览</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://mosn.io/zh/docs/configuration/clustermanager/">ClusterManager 配置</a>
 </li>
 
 	</ol>
@@ -883,158 +869,9 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>配置概览</h1>
-	<div class="lead">MOSN 配置文件概览。</div>
+	<h1>ClusterManager 配置</h1>
+	<div class="lead">MOSN ClusterManager 配置说明。</div>
 	
-
-<p>MOSN 的配置文件可以分为以下四大部分：</p>
-
-<ul>
-<li>Servers 配置，目前仅支持最多 1 个 Server 的配置，Server 中包含一些基础配置以及对应的 Listener 配置</li>
-<li><code>ClusterManager</code> 配置，包含 MOSN 的 Upstream 详细信息</li>
-<li>对接控制平面（Pilot）的 xDS 相关配置</li>
-<li>其他配置
-
-<ul>
-<li>Trace、Metrics、Debug、Admin API 相关配置</li>
-<li>扩展配置，提供自定义配置扩展需求</li>
-</ul></li>
-</ul>
-
-<p><strong>配置文件概览</strong></p>
-
-<p>MOSN 的基本配置部分如下所示：</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
-  <span style="color:#204a87;font-weight:bold">&#34;servers&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[],</span>
-  <span style="color:#204a87;font-weight:bold">&#34;cluster_manager&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{},</span>
-  <span style="color:#204a87;font-weight:bold">&#34;dynamic_resources&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{},</span>
-  <span style="color:#204a87;font-weight:bold">&#34;static_resources&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{},</span>
-  <span style="color:#204a87;font-weight:bold">&#34;admin&#34;</span><span style="color:#000;font-weight:bold">:{},</span>
-  <span style="color:#204a87;font-weight:bold">&#34;pprof&#34;</span><span style="color:#000;font-weight:bold">:{},</span>
-  <span style="color:#204a87;font-weight:bold">&#34;tracing&#34;</span><span style="color:#000;font-weight:bold">:{},</span>
-  <span style="color:#204a87;font-weight:bold">&#34;metrics&#34;</span><span style="color:#000;font-weight:bold">:{}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h2 id="配置类型">配置类型</h2>
-
-<p>MOSN 的配置包括以下几种类型：</p>
-
-<ul>
-<li>静态配置</li>
-<li>动态配置</li>
-<li>混合模式</li>
-</ul>
-
-<h3 id="静态配置">静态配置</h3>
-
-<ul>
-<li>静态配置是指 MOSN 启动时，不对接控制平面 Pilot 的配置，用于一些相对固定的简单场景（如 MOSN 的示例）。</li>
-<li>使用静态配置启动的 MOSN，也可以通过扩展代码，调用动态更新配置的接口实现动态修改。</li>
-<li>静态配置启动时必须包含一个 Server 以及至少一个 Cluster。</li>
-</ul>
-
-<h3 id="动态配置">动态配置</h3>
-
-<ul>
-<li><p>动态配置是指 MOSN 启动时，只有访问控制平面相关的配置，没有 MOSN 运行时所需要的配置。</p></li>
-
-<li><p>使用动态配置启动的 MOSN，会向管控面请求获取运行时所需要的配置，管控面也可能在运行时推送更新 MOSN 运行配置。</p></li>
-
-<li><p>动态配置启动时必须包含 <code>DynamicResources</code> 和 <code>StaticResources</code> 配置。</p></li>
-</ul>
-
-<h3 id="混合模式">混合模式</h3>
-
-<p>MOSN 启动时的配置可以同时包含静态模式与动态模式，以混合模式启动的 MOSN 会先以静态配置完成初始化，随后可能由控制平面获取配置更新。</p>
-
-<h2 id="配置示例">配置示例</h2>
-
-<h3 id="静态配置示例">静态配置示例</h3>
-
-<p>静态配置的示例如下所示。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
-  <span style="color:#204a87;font-weight:bold">&#34;servers&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
-    <span style="color:#000;font-weight:bold">{</span>
-      <span style="color:#204a87;font-weight:bold">&#34;default_log_path&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;/home/admin/logs/mosn/default.log&#34;</span><span style="color:#000;font-weight:bold">,</span>
-      <span style="color:#204a87;font-weight:bold">&#34;default_log_level&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;DEBUG&#34;</span><span style="color:#000;font-weight:bold">,</span>
-      <span style="color:#204a87;font-weight:bold">&#34;processor&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">4</span><span style="color:#000;font-weight:bold">,</span>
-      <span style="color:#204a87;font-weight:bold">&#34;listeners&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
-        <span style="color:#000;font-weight:bold">{</span>
-          <span style="color:#204a87;font-weight:bold">&#34;address&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;0.0.0.0:12220&#34;</span><span style="color:#000;font-weight:bold">,</span>
-          <span style="color:#204a87;font-weight:bold">&#34;bind_port&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">,</span>
-          <span style="color:#204a87;font-weight:bold">&#34;filter_chains&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
-            <span style="color:#000;font-weight:bold">{</span>
-              <span style="color:#204a87;font-weight:bold">&#34;filters&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
-                <span style="color:#000;font-weight:bold">{</span>
-                  <span style="color:#204a87;font-weight:bold">&#34;type&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;proxy&#34;</span><span style="color:#000;font-weight:bold">,</span>
-                  <span style="color:#204a87;font-weight:bold">&#34;config&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
-                      <span style="color:#204a87;font-weight:bold">&#34;downstream_protocol&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;SofaRpc&#34;</span><span style="color:#000;font-weight:bold">,</span>
-                      <span style="color:#204a87;font-weight:bold">&#34;upstream_protocol&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;SofaRpc&#34;</span><span style="color:#000;font-weight:bold">,</span>
-                      <span style="color:#204a87;font-weight:bold">&#34;router_config_name&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;test_router&#34;</span>
-                  <span style="color:#000;font-weight:bold">}</span>
-                <span style="color:#000;font-weight:bold">},</span>
-                <span style="color:#000;font-weight:bold">{</span>
-                  <span style="color:#204a87;font-weight:bold">&#34;type&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;connection_manager&#34;</span><span style="color:#000;font-weight:bold">,</span>
-                  <span style="color:#204a87;font-weight:bold">&#34;config&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
-                       <span style="color:#204a87;font-weight:bold">&#34;router_config_name&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;test_router&#34;</span><span style="color:#000;font-weight:bold">,</span>
-                      <span style="color:#204a87;font-weight:bold">&#34;virtual_hosts&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[]</span>
-                  <span style="color:#000;font-weight:bold">}</span>
-                <span style="color:#000;font-weight:bold">}</span>
-              <span style="color:#000;font-weight:bold">]</span>
-            <span style="color:#000;font-weight:bold">}</span>
-          <span style="color:#000;font-weight:bold">]</span>
-        <span style="color:#000;font-weight:bold">}</span>
-      <span style="color:#000;font-weight:bold">]</span>
-    <span style="color:#000;font-weight:bold">}</span>
-  <span style="color:#000;font-weight:bold">],</span>
-  <span style="color:#204a87;font-weight:bold">&#34;cluster_manager&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
-      <span style="color:#204a87;font-weight:bold">&#34;clusters&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
-        <span style="color:#000;font-weight:bold">{</span>
-          <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;example&#34;</span><span style="color:#000;font-weight:bold">,</span>
-          <span style="color:#204a87;font-weight:bold">&#34;lb_type&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;LB_ROUNDROBIN&#34;</span><span style="color:#000;font-weight:bold">,</span>
-          <span style="color:#204a87;font-weight:bold">&#34;hosts&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
-            <span style="color:#000;font-weight:bold">{</span><span style="color:#204a87;font-weight:bold">&#34;address&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;127.0.0.1:12200&#34;</span><span style="color:#000;font-weight:bold">}</span>
-          <span style="color:#000;font-weight:bold">]</span>
-        <span style="color:#000;font-weight:bold">}</span>
-      <span style="color:#000;font-weight:bold">]</span>
-  <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h3 id="动态配置示例">动态配置示例</h3>
-
-<p>动态配置的示例如下所示。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
- <span style="color:#204a87;font-weight:bold">&#34;dynamic_resources&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
-   <span style="color:#204a87;font-weight:bold">&#34;ads_config&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
-      <span style="color:#204a87;font-weight:bold">&#34;api_type&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;GRPC&#34;</span><span style="color:#000;font-weight:bold">,</span>
-      <span style="color:#204a87;font-weight:bold">&#34;grpc_services&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
-          <span style="color:#000;font-weight:bold">{</span>
-            <span style="color:#204a87;font-weight:bold">&#34;envoy_grpc&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#204a87;font-weight:bold">&#34;cluster_name&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;xds-grpc&#34;</span><span style="color:#000;font-weight:bold">}</span>
-          <span style="color:#000;font-weight:bold">}</span>
-        <span style="color:#000;font-weight:bold">]</span>
-      <span style="color:#000;font-weight:bold">}</span>
-    <span style="color:#000;font-weight:bold">}</span>
-  <span style="color:#000;font-weight:bold">}</span><span style="color:#a40000">,</span>
-  <span style="color:#4e9a06">&#34;static_resources&#34;</span><span style="color:#a40000">:</span> <span style="color:#000;font-weight:bold">{</span>
-    <span style="color:#204a87;font-weight:bold">&#34;clusters&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
-      <span style="color:#000;font-weight:bold">{</span>
-        <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;xds-grpc&#34;</span><span style="color:#000;font-weight:bold">,</span>
-        <span style="color:#204a87;font-weight:bold">&#34;type&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;STRICT_DNS&#34;</span><span style="color:#000;font-weight:bold">,</span>
-        <span style="color:#204a87;font-weight:bold">&#34;connect_timeout&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;10s&#34;</span><span style="color:#000;font-weight:bold">,</span>
-        <span style="color:#204a87;font-weight:bold">&#34;lb_policy&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;ROUND_ROBIN&#34;</span><span style="color:#000;font-weight:bold">,</span>
-        <span style="color:#204a87;font-weight:bold">&#34;hosts&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
-          <span style="color:#000;font-weight:bold">{</span>
-            <span style="color:#204a87;font-weight:bold">&#34;socket_address&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#204a87;font-weight:bold">&#34;address&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;pilot&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">&#34;port_value&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">15010</span><span style="color:#000;font-weight:bold">}</span>
-          <span style="color:#000;font-weight:bold">}</span>
-        <span style="color:#000;font-weight:bold">],</span>
-        <span style="color:#204a87;font-weight:bold">&#34;upstream_connection_options&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
-          <span style="color:#204a87;font-weight:bold">&#34;tcp_keepalive&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
-            <span style="color:#204a87;font-weight:bold">&#34;keepalive_time&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">300</span>
-          <span style="color:#000;font-weight:bold">}</span>
-        <span style="color:#000;font-weight:bold">},</span>
-        <span style="color:#204a87;font-weight:bold">&#34;http2_protocol_options&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000;font-weight:bold">}</span>
-      <span style="color:#000;font-weight:bold">}</span>
-    <span style="color:#000;font-weight:bold">]</span>
-  <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#a40000">}</span></code></pre></div>
         <div class="section-index">
     
     
@@ -1063,25 +900,9 @@ if (!doNotTrack) {
             
         
             
-                <div class="entry">
-                    <h5>
-                        <a href="/zh/docs/configuration/clustermanager/">ClusterManager 配置</a>
-                    </h5>
-                    <p>MOSN ClusterManager 配置说明。</p>
-                </div>
-            
         
             
         
-            
-        
-            
-                <div class="entry">
-                    <h5>
-                        <a href="/zh/docs/configuration/server/">Server 配置</a>
-                    </h5>
-                    <p>MOSN server 配置说明。</p>
-                </div>
             
         
             
@@ -1095,12 +916,7 @@ if (!doNotTrack) {
             
         
             
-                <div class="entry">
-                    <h5>
-                        <a href="/zh/docs/configuration/custom/">自定义配置</a>
-                    </h5>
-                    <p>MOSN 自定义配置说明。</p>
-                </div>
+        
             
         
             
@@ -1188,7 +1004,7 @@ if (!doNotTrack) {
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年2月11日: <a  href="https://github.com/mosn/mosn.io/commit/8107a1e6d63ed7efb64efd4600f0cf8f587602ef">Add MOSN doc contribution guide (8107a1e)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年3月16日: <a  href="https://github.com/mosn/mosn.io/commit/058b2efd45d816ef01484144b5ae9b84c278266e">add space (058b2ef)</a>
 </div>
 </div>
 

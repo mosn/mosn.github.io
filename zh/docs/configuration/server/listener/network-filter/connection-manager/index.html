@@ -479,11 +479,57 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/docs/configuration/clustermanager/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">ClusterManager 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-docs-configuration-clustermanager">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
     <a  href="/zh/docs/configuration/server/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Server 配置</a>
   </li>
   <ul>
     <li class="collapse show" id="zh-docs-configuration-server">
       
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/zh/docs/configuration/server/router/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Router 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="zh-docs-configuration-server-router">
+      
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
       
@@ -653,6 +699,12 @@ if (!doNotTrack) {
       
       
       
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-docs-dev-featuregate-introduce" href="/zh/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
+      
+      
     </li>
   </ul>
 </ul>
@@ -782,22 +834,6 @@ if (!doNotTrack) {
 
 
 
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#virtualhost">VirtualHost</a></li>
-<li><a href="#router">Router</a></li>
-<li><a href="#match">match</a></li>
-<li><a href="#header">header</a></li>
-<li><a href="#route">route</a></li>
-<li><a href="#retry-policy">retry_policy</a></li>
-</ul></li>
-</ul>
-</nav>
-
-
-
           </div>
           <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
             <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
@@ -868,120 +904,10 @@ if (!doNotTrack) {
 <div class="td-content">
 	<h1>connection_manager</h1>
 	<div class="lead">Network Filter 中的 connection_manager  配置说明。</div>
-	
+	<p><code>connection_manager</code> 用于描述 MOSN 的路由配置，通常与 proxy 配合使用。配置详细描述见<a href="../../../router">router</a></p>
 
-<p><code>connection_manager</code> 用于描述 MOSN 的路由配置，通常与 proxy 配合使用。</p>
-
-<pre><code>{
-  &quot;router_config_name&quot;:&quot;&quot;,
-  &quot;virtual_hosts&quot;: [
-  ]
-}
-</code></pre>
-
-<ul>
-<li><code>router_config_name</code>，唯一的路由配置标识，与 <code>proxy</code> 中配置的字段对应。</li>
-<li><code>virtual_hosts</code>，描述具体的路由规则细节。</li>
-</ul>
-
-<h2 id="virtualhost">VirtualHost</h2>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
-  <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
-  <span style="color:#204a87;font-weight:bold">&#34;domains&#34;</span><span style="color:#000;font-weight:bold">:[],</span>
-  <span style="color:#204a87;font-weight:bold">&#34;routers&#34;</span><span style="color:#000;font-weight:bold">:[]</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<ul>
-<li><code>name</code>，字符串。用作 virtual host 的唯一标识。</li>
-<li><code>domains</code>，字符串数组。表示一组可以匹配到该 virtual host 的 domain，支持配置通配符。domain 的匹配优先级如下：
-
-<ul>
-<li>首先匹配精确的，如 <code>www.foo.com</code>。</li>
-<li>其次匹配最长后缀的通配符，如 <code>*.foo.com</code>、<code>*-bar.foo.com</code>，其中如果一个 domain 是 <code>foo-bar.foo.com</code>，那么会优先匹配 <code>*-bar.foo.com</code>。</li>
-<li>最后匹配任意domain的通配符 <code>*</code> 。</li>
-</ul></li>
-<li><code>routers</code>，一组具体的路由匹配规则。</li>
-</ul>
-
-<h2 id="router">Router</h2>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
-  <span style="color:#204a87;font-weight:bold">&#34;match&#34;</span><span style="color:#000;font-weight:bold">:{},</span>
-  <span style="color:#204a87;font-weight:bold">&#34;route&#34;</span><span style="color:#000;font-weight:bold">:{},</span>
-  <span style="color:#204a87;font-weight:bold">&#34;per_filter_config&#34;</span><span style="color:#000;font-weight:bold">:{}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<ul>
-<li><code>match</code>，路由的匹配参数。</li>
-<li><code>route</code>，路由行为，描述请求将被路由的 upstream 信息。</li>
-<li><code>per_filter_config</code>，是一个 <code>key: json</code> 格式的 json。</li>
-<li>其中 key 需要匹配一个 stream filter 的 type，key 对应的 json 是该 stream filter 的 config。
-
-<ul>
-<li>当配置了该字段时，对于某些 stream filter（依赖具体 filter 的实现），可以使用该字段表示的配置覆盖原有 stream filter 的配置，以此做到路由匹配级别的 stream filter 配置。</li>
-</ul></li>
-</ul>
-
-<h2 id="match">match</h2>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
-  <span style="color:#204a87;font-weight:bold">&#34;prefix&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
-  <span style="color:#204a87;font-weight:bold">&#34;path&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
-  <span style="color:#204a87;font-weight:bold">&#34;regex&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
-  <span style="color:#204a87;font-weight:bold">&#34;headers&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[]</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<ul>
-<li>路径（path）匹配
-
-<ul>
-<li><code>prefix</code>，表示路由会匹配 path 的前缀，该配置的优先级高于 path 和 regex。 如果 prefix 被配置，那么请求首先要满足 path 的前缀与 prefix 配置相符合。</li>
-<li><code>path</code>，表示路由会匹配精确的 path，该配置的优先级高于 regex。如果 path被配置，那么请求首先要满足 path 与 path 配置相符合。</li>
-<li><code>regex</code>，表示路由会按照正则匹配的方式匹配 path。如果 regex 被配置，那么请求首先要满足 path 与 regex 配置相符合。</li>
-<li>路径匹配配置同时存在时，只有高优先级的配置会生效。</li>
-</ul></li>
-<li>Heaer 匹配
-
-<ul>
-<li>headers，表示一组请求需要匹配的 header。请求需要满足配置中所有的 Header 配置条件才算匹配成功。</li>
-</ul></li>
-</ul>
-
-<h2 id="header">header</h2>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
-  <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
-  <span style="color:#204a87;font-weight:bold">&#34;value&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
-  <span style="color:#204a87;font-weight:bold">&#34;regex&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<ul>
-<li><code>name</code>，表示 header 的 key。</li>
-<li><code>value</code>，表示 header 对应 key 的 value。</li>
-<li><code>regex</code>，bool 类型，如果为 true，表示 value 支持按照正则表达式的方式进行匹配。</li>
-</ul>
-
-<h2 id="route">route</h2>
-
-<pre><code>{
-  &quot;cluster_name&quot;:&quot;&quot;,
-  &quot;metadata_match&quot;:&quot;&quot;,
-  &quot;timeout&quot;:&quot;&quot;,
-  &quot;retry_policy&quot;:{}
-}
-</code></pre>
-
-<ul>
-<li><code>cluster_name</code>，表示请求将路由到的 upstream cluster。</li>
-<li><code>metadata_match</code>，<a href="../../../../custom#metadata">metadata</a>，如果配置了该字段，表示该路由会基于该 metadata 去匹配 upstream cluster 的 subset 。</li>
-<li><code>timeout</code>，<a href="../../../../custom#duration-string">Duration String</a>，表示默认情况下请求转发的超时时间。如果请求中明确指定了超时时间，那么这个配置会被忽略。</li>
-<li><code>retry_policy</code>，重试配置，表示如果请求在遇到了特定的错误时采取的重试策略，默认没有配置的情况下，表示没有重试。</li>
-</ul>
-
-<h2 id="retry-policy">retry_policy</h2>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
-  <span style="color:#204a87;font-weight:bold">&#34;retry_on&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
-  <span style="color:#204a87;font-weight:bold">&#34;retry_timeout&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
-  <span style="color:#204a87;font-weight:bold">&#34;num_retries&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<ul>
-<li><code>retry_on</code>，bool 类型，表示是否开启重试。</li>
-<li><code>retry_timeout</code>，<a href="../../../../custom#duration-string">Duration String</a>，表示每次重试的超时时间。当 <code>retry_timeout</code> 大于 route 配置的 timeout 或者请求明确指定的 timeout 时，属于无效配置。</li>
-<li><code>num_retries</code>，表示最大的重试次数。</li>
-</ul>
+<p>注意：这是一个已经废弃的配置项。依然保留它的存在，是为了兼容性考虑。
+新的配置模式下，应该配置在<a href="../../../../server">server</a>的routers中</p>
 
         <div class="section-index">
     
@@ -989,6 +915,12 @@ if (!doNotTrack) {
     
     
     <hr class="panel-line">
+        
+            
+        
+            
+        
+            
         
             
         
@@ -1109,7 +1041,7 @@ if (!doNotTrack) {
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年3月3日: <a  href="https://github.com/mosn/mosn.io/commit/3e2013cca40c1dc22b21978d8fec47a0081e4563">Update docs and blog structure (3e2013c)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年3月13日: <a  href="https://github.com/mosn/mosn.io/commit/39b27c9e1526547f6b3ae1086de0028cf0c31360">update router config (39b27c9)</a>
 </div>
 </div>
 

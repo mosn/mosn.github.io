@@ -113,8 +113,22 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/docs/dev/featuregate-introduce/</loc>
+    <lastmod>2020-03-16T12:20:31+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/docs/configuration/server/router/</loc>
+    <lastmod>2020-03-16T10:30:39+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/contribute/creating-pages/</loc>
-    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <lastmod>2020-03-13T15:33:24+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -154,6 +168,13 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/docs/configuration/clustermanager/</loc>
+    <lastmod>2020-03-16T12:20:31+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/configuration/server/listener/</loc>
     <lastmod>2020-03-03T16:12:21+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -169,7 +190,7 @@
   
   <url>
     <loc>https://mosn.io/zh/docs/configuration/server/</loc>
-    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <lastmod>2020-03-13T22:06:24+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -186,7 +207,7 @@
   
   <url>
     <loc>https://mosn.io/zh/docs/configuration/server/listener/network-filter/connection-manager/</loc>
-    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <lastmod>2020-03-13T22:06:24+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
