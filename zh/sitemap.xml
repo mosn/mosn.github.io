@@ -127,6 +127,13 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-eventloop/</loc>
+    <lastmod>2020-03-11T10:10:21+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/contribute/creating-pages/</loc>
     <lastmod>2020-03-13T15:33:24+08:00</lastmod>
     <changefreq>daily</changefreq>
