@@ -113,6 +113,23 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/docs/quick-start/istio/</loc>
+    <lastmod>2020-03-19T23:23:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/quick-start/istio/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/quick-start/istio/"
+                />
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/dev/featuregate-introduce/</loc>
     <lastmod>2020-03-16T12:20:31+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -233,23 +250,6 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://mosn.io/zh/docs/quick-start/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/docs/quick-start/istio/</loc>
-    <lastmod>2020-02-13T15:43:33+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://mosn.io/docs/quick-start/istio/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/quick-start/istio/"
                 />
   </url>
   
