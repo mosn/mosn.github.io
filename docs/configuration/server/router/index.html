@@ -7,6 +7,7 @@
 
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
+<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/docs/configuration/server/router/index.xml">
 
 
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
@@ -20,29 +21,21 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Documentation contribution guide | MOSN</title><meta property="og:title" content="Documentation contribution guide" />
-<meta property="og:description" content="We appreciate your interest in contributing to MOSN&#39;s documentation. Please take some time to familiarize yourself with MOSN&#39;s documentation contribution process.
+<title>Router configurations | MOSN</title><meta property="og:title" content="Router configurations" />
+<meta property="og:description" content="This topic describes router configurations.
 " />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://mosn.io/docs/contribute/github/" />
-<meta property="article:published_time" content="2020-02-11T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-03-10T16:24:53&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://mosn.io/docs/configuration/server/router/" />
 
-<meta itemprop="name" content="Documentation contribution guide">
-<meta itemprop="description" content="We appreciate your interest in contributing to MOSN&#39;s documentation. Please take some time to familiarize yourself with MOSN&#39;s documentation contribution process.
+<meta property="og:updated_time" content="2020-03-13T00:00:00&#43;00:00"/><meta property="og:site_name" content="MOSN" />
+
+<meta itemprop="name" content="Router configurations">
+<meta itemprop="description" content="This topic describes router configurations.
 ">
 
-
-<meta itemprop="datePublished" content="2020-02-11T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-03-10T16:24:53&#43;08:00" />
-<meta itemprop="wordCount" content="396">
-
-
-
-<meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Documentation contribution guide"/>
-<meta name="twitter:description" content="We appreciate your interest in contributing to MOSN&#39;s documentation. Please take some time to familiarize yourself with MOSN&#39;s documentation contribution process.
+<meta name="twitter:title" content="Router configurations"/>
+<meta name="twitter:description" content="This topic describes router configurations.
 "/>
 
 <script type="application/javascript">
@@ -72,9 +65,9 @@ if (!doNotTrack) {
 
 
 
-    <title>Documentation contribution guide | MOSN</title>
+    <title>Router configurations | MOSN</title>
   </head>
-  <body class="td-page">
+  <body class="td-section">
     <header>
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
@@ -144,7 +137,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/contribute/github/">中文</a>
+	<a class="dropdown-item" href="/zh/docs/configuration/server/router/">中文</a>
 	
 </div>
 			</li>
@@ -186,7 +179,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/contribute/github/">中文</a>
+	<a class="dropdown-item" href="/zh/docs/configuration/server/router/">中文</a>
 	
 </div>
     </div>
@@ -453,10 +446,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Configuration overview</a>
+    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Configuration overview</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-configuration">
+    <li class="collapse show" id="docs-configuration">
       
       
       
@@ -585,10 +578,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server configurations</a>
+    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Server configurations</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-configuration-server">
+    <li class="collapse show" id="docs-configuration-server">
       
       
       
@@ -602,10 +595,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/server/router/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Router configurations</a>
+    <a  href="/docs/configuration/server/router/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Router configurations</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-configuration-server-router">
+    <li class="collapse show" id="docs-configuration-server-router">
       
       
       
@@ -683,17 +676,17 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Document contribution</a>
+    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
   </li>
   <ul>
-    <li class="collapse show" id="docs-contribute">
+    <li class="collapse " id="docs-contribute">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-contribute-github" href="/docs/contribute/github/">Documentation contribution guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">Documentation contribution guide</a>
       
       
       
@@ -783,8 +776,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/contribute/github/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Documentation%20contribution%20guide" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/configuration/server/router/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Router%20configurations" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
@@ -800,14 +793,12 @@ if (!doNotTrack) {
 <ul>
 <li>
 <ul>
-<li><a href="#how-to">How to contribute</a></li>
-<li><a href="#add">Add content</a></li>
-<li><a href="#review">Review PRs</a></li>
-<li><a href="#preview">Preview PRs</a>
-<ul>
-<li><a href="#online-preview">Online preview</a></li>
-<li><a href="#local-preview">Local preview</a></li>
-</ul></li>
+<li><a href="#virtualhost">VirtualHost</a></li>
+<li><a href="#router">Router</a></li>
+<li><a href="#match">match</a></li>
+<li><a href="#header">header</a></li>
+<li><a href="#route">route</a></li>
+<li><a href="#retry-policy">retry_policy</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -829,6 +820,9 @@ if (!doNotTrack) {
 
 
 
+
+
+
 <li class="breadcrumb-item" >
 	<a href="https://mosn.io/docs/">Documentation</a>
 </li>
@@ -837,14 +831,21 @@ if (!doNotTrack) {
 
 
 <li class="breadcrumb-item" >
-	<a href="https://mosn.io/docs/contribute/">Document contribution</a>
+	<a href="https://mosn.io/docs/configuration/">Configuration overview</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://mosn.io/docs/configuration/server/">Server configurations</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="https://mosn.io/docs/contribute/github/">Documentation contribution guide</a>
+	<a href="https://mosn.io/docs/configuration/server/router/">Router configurations</a>
 </li>
 
 	</ol>
@@ -852,68 +853,185 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>Documentation contribution guide</h1>
-	<div class="lead">We appreciate your interest in contributing to MOSN&rsquo;s documentation. Please take some time to familiarize yourself with MOSN&rsquo;s documentation contribution process.</div>
+	<h1>Router configurations</h1>
+	<div class="lead">This topic describes router configurations.</div>
 	
 
-<p>To contribute to MOSN&rsquo;s documentation, you need to:</p>
-
+<p><code>router</code>: Specifies the router configurations of MOSN and is usually used with proxy.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;router_config_name&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;virtual_hosts&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
+  <span style="color:#000;font-weight:bold">]</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <ul>
-<li>Create a <a href="https://github.com/" target="_blank">GitHub account</a>.</li>
+<li><code>router_config_name</code>: The unique router configuration ID, which corresponds to the field configured in <code>proxy</code>.</li>
+<li><code>virtual_hosts</code>: Specifies the specific routing rules.</li>
 </ul>
 
-<p>This documentation is published in compliance with <a href="https://github.com/mosn/mosn.io/blob/master/LICENSE" target="_blank">Apache 2.0</a> license.</p>
-
-<h2 id="how-to">How to contribute</h2>
-
-<p>You can contribute to MOSN&rsquo;s documentation in the following three ways:</p>
+<h2 id="virtualhost">VirtualHost</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;domains&#34;</span><span style="color:#000;font-weight:bold">:[],</span>
+  <span style="color:#204a87;font-weight:bold">&#34;routers&#34;</span><span style="color:#000;font-weight:bold">:[]</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li><code>name</code>: String. The unique ID of a virtual host.</li>
+<li><code>domains</code>: String array. Indicates a group of domains that match the virtual host. Wildcard characters are supported. The matching priorities of domains are as follows:
 
 <ul>
-<li>To edit an existing topic, open the page with your browser, click <strong>Edit This Page</strong> on the upper-right side, edit the GitHub page that appears, and submit the modifications.</li>
-<li>To make general edits, follow the procedure in <a href="#add">Add content</a>.</li>
-<li>To review an existing pull request (PR), follow the procedure in the <a href="#review">Review PRs</a>.</li>
+<li>First, exact match, for example, <code>www.foo.com</code>.</li>
+<li>Second, wildcard match with the longest suffix. For example, <code>*-bar.foo.com</code> is a preferred match for the domain <code>foo-bar.foo.com</code> between <code>*.foo.com</code> and <code>*-bar.foo.com</code>.</li>
+<li>At last, wildcard match for any domains, that is, <code>*</code>.</li>
+</ul></li>
+<li><code>routers</code>: A group of specific router rules.</li>
 </ul>
 
-<p>PRs are immediately displayed on <a href="https://mosn.io" target="_blank">https://mosn.io</a> after being merged.</p>
+<h2 id="router">Router</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;match&#34;</span><span style="color:#000;font-weight:bold">:{},</span>
+  <span style="color:#204a87;font-weight:bold">&#34;route&#34;</span><span style="color:#000;font-weight:bold">:{},</span>
+  <span style="color:#204a87;font-weight:bold">&#34;per_filter_config&#34;</span><span style="color:#000;font-weight:bold">:{}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li><code>match</code>: The route match parameter.</li>
+<li><code>route</code>: The routing behavior. Specifies the upstream information of a request to be routed.</li>
+<li><code>per_filter_config</code>: The filter configuration in the <code>key: json</code> format.</li>
+<li>The key needs to match a type of the stream filter, and the json corresponding to the key is the value configured for the stream filter.
 
-<h2 id="add">Add content</h2>
+<ul>
+<li>When this field is configured, the configurations indicated by this field can be used to overwrite the original configurations of some stream filters (depending on specific filters), to generate stream filter configurations at the router match level.</li>
+</ul></li>
+</ul>
 
-<p>To add content, you need to create a repository branch and submit a PR to the mater repository from the branch. Perform the following steps:</p>
+<h2 id="match">match</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;prefix&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;path&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;regex&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;headers&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[]</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li>Path match
 
-<ol>
-<li>Access the MOSN repository at GitHub <a href="https://github.com/mosn/mosn.io" target="_blank">https://github.com/mosn/mosn.io</a>.</li>
-<li>Click <strong>Fork</strong> in the upper-right corner to fork a copy of the MOSN repository to your GitHub account.</li>
-<li>Clone your fork to your computer and make modifications as required.</li>
-<li>Upload the modifications to your fork repository when you are ready to submit them to us.</li>
-<li>Go to the index page of your fork repository and click <strong>New pull request</strong> to submit a PR.</li>
-</ol>
+<ul>
+<li><code>prefix</code>: Indicates that the router will match the path prefix. This configuration has a higher priority than path and regex. If this field is configured, the path prefix of the request needs to first comply with this configuration.</li>
+<li><code>path</code>: Indicates that the router will match the exact path. This configuration has a higher priority than regex. If this field is configured, the path of the request needs to first comply with this configuration.</li>
+<li><code>regex</code>: Indicates that the router will match the path based on a regular expression. If this field is configured, the path of the request needs to first comply with this configuration.</li>
+<li>When multiple path match configurations are available, only the one with a higher priority takes effect.</li>
+</ul></li>
+<li>Header match
 
-<h2 id="review">Review PRs</h2>
+<ul>
+<li>headers: The group of headers that the request needs to match. The match succeeds only when the request meets all header configuration conditions.</li>
+</ul></li>
+</ul>
 
-<p>You can directly comment on a PR. To add detailed comments, perform the following steps:</p>
+<h2 id="header">header</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;value&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;regex&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li><code>name</code>: The key of the header.</li>
+<li><code>value</code>: The value of the header key.</li>
+<li><code>regex</code>: Boolean. Specifies whether the value can be matched by a regular expression. Default values: True and False.</li>
+</ul>
 
-<ol>
-<li>Add detailed comments to the PR. If possible, directly add comments to the corresponding files and file lines.</li>
-<li>Provide suggestions to the PR authors and contributors in the comments as appropriate.</li>
-<li>Publish and share your comments with the PR contributors.</li>
-<li>Merge the PR after publishing the comments and reaching an agreement with the contributors.</li>
-</ol>
+<h2 id="route">route</h2>
 
-<h2 id="preview">Preview PRs</h2>
+<pre><code>{
+  &quot;cluster_name&quot;:&quot;&quot;,
+  &quot;metadata_match&quot;:&quot;&quot;,
+  &quot;timeout&quot;:&quot;&quot;,
+  &quot;retry_policy&quot;:{}
+}
+</code></pre>
 
-<p>You can preview your PR online or run Hugo on your computer to access the MOSN website for real-time preview.</p>
+<ul>
+<li><code>cluster_name</code>: The upstream cluster to which the request is to be routed.</li>
+<li><code>metadata_match</code>: The <a href=".. /../custom#metadata" target="_blank">metadata</a> configuration. If this field is configured, the router will match against the subset of the upstream cluster based on the metadata.</li>
+<li><code>timeout</code>: The <a href=".. /../custom#duration-string" target="_blank">Duration String</a> configuration. Indicates the default forwarding timeout value of the request. If the timeout value is specified in the request, this configuration will be ignored.</li>
+<li><code>retry_policy</code>: The retry configuration, which indicates the retry policy applied when the request encounters a specific error. If this field is left unconfigured, no retry will be performed by default.</li>
+</ul>
 
-<h3 id="online-preview">Online preview</h3>
+<h2 id="retry-policy">retry_policy</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;retry_on&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;retry_timeout&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;num_retries&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<ul>
+<li><code>retry_on</code>: Boolean. Specifies whether to enable retry.</li>
+<li><code>retry_timeout</code>: The <a href=".. /../custom#duration-string" target="_blank">Duration String</a> configuration. Indicates the timeout value for each retry. When <code>retry_timeout</code> exceeds the timeout value specified in the route field or request, this configuration is invalid.</li>
+<li><code>num_retries</code>: Indicates the maximum number of retries supported.</li>
+</ul>
 
-<p>After you submit a PR, a series of check items are displayed on the corresponding PR page at GitHub. The <code>deploy/netlify</code> step generates the preview page on the MOSN official website. You can click <strong>Details</strong> to go to the preview page. A preview page is constructed each time you submit the same PR.</p>
-
-<p><img src="website-preview.png" alt="Preview" /></p>
-
-<p>This temporary website ensures normal page display after the PR is merged.</p>
-
-<h3 id="local-preview">Local preview</h3>
-
-<p>In addition to online preview, you can also preview your PR with <a href="https://github.com/gohugoio/hugo" target="_blank">Hugo</a> (the v0.55.5 extended version is recommended). You can run <code>hugo server</code> at the root directory of your code repository and then access <code>http://localhost:1313</code> with your browser.</p>
+        <div class="section-index">
+    
+    
+    
+    
+    <hr class="panel-line">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+</div>
 
 	
 		<style>
@@ -977,10 +1095,9 @@ if (!doNotTrack) {
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified March 10, 2020: <a  href="https://github.com/mosn/mosn.io/commit/4e314bf65b7223782be83f5cd81e1bed9b3c00db">Add the English docs of MOSN (4e314bf)</a>
+	<div class="text-muted mt-5 pt-3 border-top">Last modified March 23, 2020: <a  href="https://github.com/mosn/mosn.io/commit/f3fcea730cc6452343395c810595f36be4d2dac7">Add new English docs (f3fcea7)</a>
 </div>
 </div>
-
 
           </main>
         </div>

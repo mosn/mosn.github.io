@@ -85,6 +85,40 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/docs/dev/featuregate-introduce/</loc>
+    <lastmod>2020-03-23T13:59:51+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/dev/featuregate-introduce/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/dev/featuregate-introduce/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/docs/configuration/server/router/</loc>
+    <lastmod>2020-03-23T13:59:51+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/configuration/server/router/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/configuration/server/router/"
+                />
+  </url>
+  
+  <url>
     <loc>https://mosn.io/docs/contribute/creating-pages/</loc>
     <lastmod>2020-03-10T16:24:53+08:00</lastmod>
     <changefreq>daily</changefreq>

@@ -21,20 +21,20 @@
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
 <title>MOSN源码浅析-协程模型 | MOSN</title><meta property="og:title" content="MOSN源码浅析-协程模型" />
-<meta property="og:description" content="本文主要以safarpc-sample为例来分析MOSN处理请求跟响应的整个流程。
+<meta property="og:description" content="本文主要以 sofarpc-sample 为例来分析 MOSN 处理请求跟响应的整个流程。
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/blog/code/mosn-eventloop/" />
 <meta property="article:published_time" content="2020-02-25T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-03-11T10:10:21&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-03-23T13:59:51&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="MOSN源码浅析-协程模型">
-<meta itemprop="description" content="本文主要以safarpc-sample为例来分析MOSN处理请求跟响应的整个流程。
+<meta itemprop="description" content="本文主要以 sofarpc-sample 为例来分析 MOSN 处理请求跟响应的整个流程。
 ">
 
 
 <meta itemprop="datePublished" content="2020-02-25T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-03-11T10:10:21&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-23T13:59:51&#43;08:00" />
 <meta itemprop="wordCount" content="2025">
 
 
@@ -42,7 +42,7 @@
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MOSN源码浅析-协程模型"/>
-<meta name="twitter:description" content="本文主要以safarpc-sample为例来分析MOSN处理请求跟响应的整个流程。
+<meta name="twitter:description" content="本文主要以 sofarpc-sample 为例来分析 MOSN 处理请求跟响应的整个流程。
 "/>
 
 <script type="application/javascript">
@@ -350,13 +350,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-code-mosn-eventloop" href="/zh/blog/code/mosn-eventloop/">MOSN源码浅析-协程模型</a>
-      
-      
-      
-      
-      
       <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-startup" href="/zh/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-code-mosn-eventloop" href="/zh/blog/code/mosn-eventloop/">MOSN源码浅析-协程模型</a>
       
       
       
@@ -445,24 +445,18 @@ if (!doNotTrack) {
 
 <nav id="TableOfContents">
 <ul>
-<li><a href="#一-基本概念">一、基本概念</a></li>
-<li><a href="#二-流程概述">二、流程概述</a></li>
-<li><a href="#三-源码分析">三、源码分析</a>
-<ul>
 <li>
 <ul>
-<li>
+<li><a href="#基本概念">基本概念</a></li>
+<li><a href="#流程概述">流程概述</a></li>
+<li><a href="#源码分析">源码分析</a>
 <ul>
-<li>
-<ul>
-<li><a href="#a-发起请求">A、发起请求</a></li>
-<li><a href="#b-结果响应">B、结果响应</a></li>
+<li><a href="#发起请求">发起请求</a></li>
+<li><a href="#结果响应">结果响应</a></li>
 </ul></li>
+<li><a href="#协程池">协程池</a></li>
+<li><a href="#总结">总结</a></li>
 </ul></li>
-</ul></li>
-</ul></li>
-<li><a href="#四-协程池">四、协程池</a></li>
-<li><a href="#五-总结">五、总结</a></li>
 </ul>
 </nav>
 
@@ -476,14 +470,14 @@ if (!doNotTrack) {
             
 <div class="td-content">
 	<h1>MOSN源码浅析-协程模型</h1>
-	<div class="lead">本文主要以safarpc-sample为例来分析MOSN处理请求跟响应的整个流程。</div>
+	<div class="lead">本文主要以 sofarpc-sample 为例来分析 MOSN 处理请求跟响应的整个流程。</div>
 	<div class="td-byline mb-4">
-		作者 <b><a href="https://github.com/zhenjunMa" target="_blank">凌风郎少</a></b> |
+		作者 <b><a href="https://github.com/zhenjunMa" target="_blank">马振军（陌陌）</a></b> |
 		<time datetime="2020-02-25" class="text-muted">2020年2月25日</time>
 	</div>
 	
 
-<h1 id="一-基本概念">一、基本概念</h1>
+<h2 id="基本概念">基本概念</h2>
 
 <p><img src="concept.jpg" alt="" /></p>
 
@@ -498,7 +492,7 @@ if (!doNotTrack) {
 <li>serverCluster：真正提供服务的业务进程，也就是说一个MOSN可以代理多个服务端进程。</li>
 </ol>
 
-<h1 id="二-流程概述">二、流程概述</h1>
+<h2 id="流程概述">流程概述</h2>
 
 <p><img src="eventloop.png" alt="" /></p>
 
@@ -511,11 +505,11 @@ if (!doNotTrack) {
 
 <p>明白了大致流程以后，下面就通过源码来分析一下整个过程。</p>
 
-<h1 id="三-源码分析">三、源码分析</h1>
+<h2 id="源码分析">源码分析</h2>
 
 <p>为了便于理解，这里从下往上看，也就是先从网络层接收数据的逻辑开始，一步一步来分析 MOSN 是怎么做编解码，怎么转发请求。</p>
 
-<h5 id="a-发起请求">A、发起请求</h5>
+<h3 id="发起请求">发起请求</h3>
 
 <p>MOSN 对于网络层的操作，无论是调用端还是服务端，都封装在<code>eventloop.go</code>文件中，每当连接建立以后，MOSN 都会开启两个协程分别处理该连接上的读写操作，分别对应<code>startReadLoop</code>跟<code>startWriteLoop</code>两个方法。</p>
 
@@ -813,7 +807,7 @@ if (!doNotTrack) {
 
 <p>接下来需要回到<code>handleCommand</code>方法，当stream创建好之后，会直接调用其receiver的<code>OnReceive</code>方法，由于现在还是处理请求，所以对应的是<code>downstream.go</code>中的实现：</p>
 
-<p><code>注意：每个请求数据都分为了header，body，trailers三部分</code></p>
+<p>注意：每个请求数据都分为了header，body，trailers三部分。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">downStream</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">OnReceive</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">headers</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">HeaderMap</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">data</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IoBuffer</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">trailers</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">HeaderMap</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#8f5902;font-style:italic">//head body trailer
 </span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqHeaders</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">headers</span>
@@ -1173,7 +1167,7 @@ if (!doNotTrack) {
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <p>经过上面的几个步骤，请求被成功转发出去，并且对应的stream在阻塞等待响应。</p>
 
-<h5 id="b-结果响应">B、结果响应</h5>
+<h3 id="结果响应">结果响应</h3>
 
 <p>接下来我们再回头看看收到响应时候的处理过程，由于网络层的处理逻辑都是一样的，所以我们从前面出现分歧的地方开始看，也就是<code>processStream</code>方法，当收到的数据类型是<code>RESPONSE</code>时，它会调用<code>onStreamRecv</code>，一起来看下：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">conn</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">streamConnection</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">onStreamRecv</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">cmd</span> <span style="color:#000">sofarpc</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SofaRpcCmd</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">stream</span> <span style="color:#000;font-weight:bold">{</span>
@@ -1273,7 +1267,7 @@ if (!doNotTrack) {
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <p>上面的receiveXXX方法会把响应数据转发给业务进程，之前分析过了，这里就不再赘述。</p>
 
-<h1 id="四-协程池">四、协程池</h1>
+<h2 id="协程池">协程池</h2>
 
 <p>前面在请求处理过程中提到了会把请求任务交给一个协程池去处理，这里就简单看一下 MOSN 中协程池的实现原理：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">workerPool</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
@@ -1327,7 +1321,7 @@ if (!doNotTrack) {
 </span><span style="color:#8f5902;font-style:italic"></span>		<span style="color:#000">task</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#ce5c00;font-weight:bold">&lt;-</span><span style="color:#000">p</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">work</span>
 	<span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h1 id="五-总结">五、总结</h1>
+<h2 id="总结">总结</h2>
 
 <p>MOSN 对于数据的处理及转发这块非常复杂，主要是概念很多，尤其是stream部分，对象之间互相引用，错综复杂，考虑到篇幅原因，本文只说明了流程，其他比如路由策略的细节等需要通过其他文章进行分析。</p>
 
@@ -1335,9 +1329,9 @@ if (!doNotTrack) {
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/zh/blog/code/mosn-startup/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+    <a href="/zh/blog/code/mosn-shm/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
   </li>
-    <a href="/zh/blog/code/mosn-log/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+    <a href="/zh/blog/code/mosn-startup/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
   </li>
 </ul>
 
