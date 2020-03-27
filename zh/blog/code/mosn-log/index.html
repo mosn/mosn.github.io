@@ -20,26 +20,26 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>MOSN 源码解析 - log系统 | MOSN</title><meta property="og:title" content="MOSN 源码解析 - log系统" />
+<title>MOSN 源码解析 - log 系统 | MOSN</title><meta property="og:title" content="MOSN 源码解析 - log 系统" />
 <meta property="og:description" content="对 MOSN Log系统的源码解析。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/blog/code/mosn-log/" />
 <meta property="article:published_time" content="2020-03-03T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-03-06T21:26:30&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-03-27T11:05:02&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="MOSN 源码解析 - log系统">
+<meta itemprop="name" content="MOSN 源码解析 - log 系统">
 <meta itemprop="description" content="对 MOSN Log系统的源码解析。">
 
 
 <meta itemprop="datePublished" content="2020-03-03T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-03-06T21:26:30&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-27T11:05:02&#43;08:00" />
 <meta itemprop="wordCount" content="529">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MOSN 源码解析 - log系统"/>
+<meta name="twitter:title" content="MOSN 源码解析 - log 系统"/>
 <meta name="twitter:description" content="对 MOSN Log系统的源码解析。"/>
 
 <script type="application/javascript">
@@ -69,7 +69,7 @@ if (!doNotTrack) {
 
 
 
-    <title>MOSN 源码解析 - log系统 | MOSN</title>
+    <title>MOSN 源码解析 - log 系统 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -347,7 +347,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-code-mosn-log" href="/zh/blog/code/mosn-log/">MOSN 源码解析 - log系统</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-code-mosn-log" href="/zh/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-http" href="/zh/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
       
       
       
@@ -359,13 +365,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-eventloop" href="/zh/blog/code/mosn-eventloop/">MOSN源码浅析-协程模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-eventloop" href="/zh/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-shm" href="/zh/blog/code/mosn-shm/">MOSN 源码分析 - 共享内存模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-shm" href="/zh/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
       
       
       
@@ -377,7 +383,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-buffer" href="/zh/blog/code/mosn-buffer/">MOSN 源码分析 - 内存复用机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-buffer" href="/zh/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
       
       
       
@@ -389,7 +395,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-xds" href="/zh/blog/code/mosn-xds/">MOSN 源码分析 - XDS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-xds" href="/zh/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
       
       
       
@@ -401,7 +407,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-reconfig-mechanism" href="/zh/blog/code/mosn-reconfig-mechanism/">MOSN 的 reconfig 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-code-mosn-reconfig-mechanism" href="/zh/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
       
       
     </li>
@@ -434,7 +440,7 @@ if (!doNotTrack) {
 
 
 <a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/code/mosn-log/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e6%ba%90%e7%a0%81%e8%a7%a3%e6%9e%90%20-%20log%e7%b3%bb%e7%bb%9f" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e6%ba%90%e7%a0%81%e8%a7%a3%e6%9e%90%20-%20log%20%e7%b3%bb%e7%bb%9f" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -489,7 +495,7 @@ if (!doNotTrack) {
             </a>
             
 <div class="td-content">
-	<h1>MOSN 源码解析 - log系统</h1>
+	<h1>MOSN 源码解析 - log 系统</h1>
 	<div class="lead">对 MOSN Log系统的源码解析。</div>
 	<div class="td-byline mb-4">
 		作者 <b><a href="https://github.com/champly" target="_blank">陈鹏（多点生活）</a></b> |
@@ -764,7 +770,7 @@ if (!doNotTrack) {
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/zh/blog/code/mosn-startup/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+    <a href="/zh/blog/code/mosn-http/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
   </li>
     <a  class="btn btn-primary  disabled">下一页 <span class="ml-1">→</span></a>
   </li>

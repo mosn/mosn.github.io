@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/code/mosn-log/</loc>
-    <lastmod>2020-03-06T21:26:30+08:00</lastmod>
+    <lastmod>2020-03-27T11:05:02+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -483,7 +483,14 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/posts/multi-protocol-deep-dive/</loc>
-    <lastmod>2020-03-27T10:24:31+08:00</lastmod>
+    <lastmod>2020-03-27T11:05:02+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-http/</loc>
+    <lastmod>2020-03-27T11:05:02+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -531,7 +538,7 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/code/mosn-eventloop/</loc>
-    <lastmod>2020-03-23T13:59:51+08:00</lastmod>
+    <lastmod>2020-03-27T11:05:02+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -545,7 +552,7 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/code/mosn-shm/</loc>
-    <lastmod>2020-03-04T23:05:22+08:00</lastmod>
+    <lastmod>2020-03-27T11:05:02+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -559,7 +566,7 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/code/mosn-buffer/</loc>
-    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <lastmod>2020-03-27T11:05:02+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -573,7 +580,7 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/code/mosn-xds/</loc>
-    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <lastmod>2020-03-27T11:05:02+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -601,7 +608,7 @@
   
   <url>
     <loc>https://mosn.io/zh/blog/code/mosn-reconfig-mechanism/</loc>
-    <lastmod>2020-03-03T16:12:21+08:00</lastmod>
+    <lastmod>2020-03-27T11:05:02+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
