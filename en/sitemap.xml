@@ -314,16 +314,6 @@
     <lastmod>2020-03-10T16:24:53+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/samples/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://mosn.io/docs/samples/"
-                />
   </url>
   
   <url>

@@ -353,19 +353,9 @@
   
   <url>
     <loc>https://mosn.io/zh/docs/samples/</loc>
-    <lastmod>2020-02-11T17:50:18+08:00</lastmod>
+    <lastmod>2020-04-01T11:03:06+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://mosn.io/docs/samples/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/samples/"
-                />
   </url>
   
   <url>
@@ -400,6 +390,13 @@
                 hreflang="zh"
                 href="https://mosn.io/zh/docs/concept/smooth-upgrade/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/docs/concept/multi-protocol/</loc>
+    <lastmod>2020-04-01T11:03:06+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
