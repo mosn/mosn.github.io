@@ -30,9 +30,10 @@
 
 &lt;ul&gt;
 &lt;li&gt;Support the extension of Listener Filter, the transparent hijacking capability is implemented based on Listener Filter &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;New Set method for variable mechanism &lt;a href=&#34;https://github.com/pxzero&#34; target=&#34;_blank&#34;&gt;@pxzero&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Added automatic retry and exception handling when SDS Client fails &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Improve TraceLog and support injecting context &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;New Set method for variable mechanism &lt;a href=&#34;https://github.com/neverhook&#34; target=&#34;_blank&#34;&gt;@neverhook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Added automatic retry and exception handling when SDS Client fails &lt;a href=&#34;https://github.com/pxzero&#34; target=&#34;_blank&#34;&gt;@pxzero&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Improve TraceLog and support injecting context &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Added FeatureGate &lt;code&gt;auto_config&lt;/code&gt;, when the feature is enabled, the dynamically updated configuration will be saved to the startup configuration &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
