@@ -14,6 +14,64 @@
     
     
     <item>
+      <title>Blog: MOSN v0.11.0 发布</title>
+      <link>https://mosn.io/zh/blog/releases/v0.11.0/</link>
+      <pubDate>Fri, 03 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/blog/releases/v0.11.0/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.11.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.11.0&lt;/a&gt; 发布。以下是该版本的变更日志。&lt;/p&gt;
+
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;支持 Listener Filter 的扩展，透明劫持能力基于 Listener Filter 实现 &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;变量机制新增 Set 方法 &lt;a href=&#34;https://github.com/neverhook&#34; target=&#34;_blank&#34;&gt;@neverhook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 SDS Client 失败时自动重试和异常处理 &lt;a href=&#34;https://github.com/pxzero&#34; target=&#34;_blank&#34;&gt;@pxzero&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;完善 TraceLog，支持注入 context &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 FeatureGate &lt;code&gt;auto_config&lt;/code&gt;，当开启该Feature以后动态更新的配置会保存到启动配置中 &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;重构 XProtocol Engine，并且重新实现了 SofaRPC 协议 &lt;a href=&#34;https://github.com/neverhook&#34; target=&#34;_blank&#34;&gt;@neverhook&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;移除了 SofaRpc Healthcheck filter，改为 xprotocol 内建的 heartbeat 实现&lt;/li&gt;
+&lt;li&gt;移除了 SofaRpc 协议原本的协议转换 (protocol conv) 支持，新增了基于 stream filter 的的协议转换扩展实现能力&lt;/li&gt;
+&lt;li&gt;xprotocol 新增 idle free 和 keepalive&lt;/li&gt;
+&lt;li&gt;协议解析优化&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;修改 HTTP2 协议的 Encode 方法参数 &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;精简了 LDS 接口参数 &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修改了路由配置模型，废弃了&lt;code&gt;connection_manager&lt;/code&gt;&lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;优化 Upstream 动态解析域名机制 &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 TLS 封装，新增了错误日志，修改了兼容模式下的超时时间 &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化超时时间设置，使用变量机制设置超时时间 &lt;a href=&#34;https://github.com/neverhook&#34; target=&#34;_blank&#34;&gt;@neverhook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Dubbo 解析库依赖升级到 1.5.0 &lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;引用路径迁移脚本新增 OS 自适应 &lt;a href=&#34;https://github.com/taomaree&#34; target=&#34;_blank&#34;&gt;@taomaree&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;修复 HTTP2 协议转发时丢失 query string 的问题 &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN v0.10.0 发布</title>
       <link>https://mosn.io/zh/blog/releases/v0.10.0/</link>
       <pubDate>Fri, 28 Feb 2020 00:00:00 +0000</pubDate>

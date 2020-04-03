@@ -14,6 +14,63 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.11.0</title>
+      <link>https://mosn.io/blog/releases/v0.11.0/</link>
+      <pubDate>Fri, 03 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.11.0/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.11.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.11.0&lt;/a&gt;. You can see the changelog below.&lt;/p&gt;
+
+&lt;h3 id=&#34;new-features&#34;&gt;New features&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Support the extension of Listener Filter, the transparent hijacking capability is implemented based on Listener Filter &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;New Set method for variable mechanism &lt;a href=&#34;https://github.com/pxzero&#34; target=&#34;_blank&#34;&gt;@pxzero&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Added automatic retry and exception handling when SDS Client fails &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Improve TraceLog and support injecting context &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Refactored XProtocol Engine and reimplemented SOFARPC protocol &lt;a href=&#34;https://github.com/neverhook&#34; target=&#34;_blank&#34;&gt;@neverhook&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Removed SOFARPC Healthcheck filter and changed to xprotocol&amp;rsquo;s built-in heartbeat implementation&lt;/li&gt;
+&lt;li&gt;Removed the original protocol conversion (protocol conv) support of the SOFARPC protocol, and added a new protocol conversion extension implementation capability based on stream filter&lt;/li&gt;
+&lt;li&gt;xprotocol adds idle free and keepalive&lt;/li&gt;
+&lt;li&gt;Protocol analysis and optimization&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Modify the Encode method parameters of HTTP2 protocol &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Streamlined LDS interface parameters &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Modified the routing configuration model, abandoned &lt;code&gt;connection_manager&lt;/code&gt; &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Optimize Upstream dynamic domain name resolution mechanism &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimized TLS encapsulation, added error log, and modified timeout period in compatibility mode &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize timeout setting, use variable mechanism to set timeout &lt;a href=&#34;https://github.com/neverhook&#34; target=&#34;_blank&#34;&gt;@neverhook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Dubbo parsing library dependency upgraded to 1.5.0 &lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Reference path migration script adds OS adaptation &lt;a href=&#34;https://github.com/taomaree&#34; target=&#34;_blank&#34;&gt;@taomaree&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bug-fix&#34;&gt;Bug fix&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fix the problem of losing query string during HTTP2 protocol forwarding &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.10.0</title>
       <link>https://mosn.io/blog/releases/v0.10.0/</link>
       <pubDate>Fri, 28 Feb 2020 00:00:00 +0000</pubDate>

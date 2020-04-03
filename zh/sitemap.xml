@@ -479,6 +479,23 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/releases/v0.11.0/</loc>
+    <lastmod>2020-04-03T17:28:38+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/blog/releases/v0.11.0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/blog/releases/v0.11.0/"
+                />
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/posts/multi-protocol-deep-dive/</loc>
     <lastmod>2020-03-27T11:05:02+08:00</lastmod>
     <changefreq>daily</changefreq>
