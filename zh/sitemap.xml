@@ -503,6 +503,13 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-connection-pool/</loc>
+    <lastmod>2020-04-07T08:01:03+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/code/mosn-http/</loc>
     <lastmod>2020-03-27T11:05:02+08:00</lastmod>
     <changefreq>daily</changefreq>
