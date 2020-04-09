@@ -7,7 +7,7 @@
 
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
-<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/zh/docs/dev/index.xml">
+<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/zh/docs/configuration/trace/skywalking/index.xml">
 
 
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
@@ -21,22 +21,19 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>开发指南 | MOSN</title><meta property="og:title" content="开发指南" />
-<meta property="og:description" content="MOSN 开发指南。
-" />
+<title>SkyWalking 配置 | MOSN</title><meta property="og:title" content="SkyWalking 配置" />
+<meta property="og:description" content="MOSN SkyWalking trace 配置说明。" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://mosn.io/zh/docs/dev/" />
+<meta property="og:url" content="https://mosn.io/zh/docs/configuration/trace/skywalking/" />
 
-<meta property="og:updated_time" content="2020-03-03T00:00:00&#43;00:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="og:updated_time" content="2020-04-08T00:00:00&#43;00:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="开发指南">
-<meta itemprop="description" content="MOSN 开发指南。
-">
+<meta itemprop="name" content="SkyWalking 配置">
+<meta itemprop="description" content="MOSN SkyWalking trace 配置说明。">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="开发指南"/>
-<meta name="twitter:description" content="MOSN 开发指南。
-"/>
+<meta name="twitter:title" content="SkyWalking 配置"/>
+<meta name="twitter:description" content="MOSN SkyWalking trace 配置说明。"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -65,7 +62,7 @@ if (!doNotTrack) {
 
 
 
-    <title>开发指南 | MOSN</title>
+    <title>SkyWalking 配置 | MOSN</title>
   </head>
   <body class="td-section">
     <header>
@@ -137,7 +134,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/">English</a>
+	<a class="dropdown-item" href="/docs/configuration/trace/skywalking/">English</a>
 	
 </div>
 			</li>
@@ -179,7 +176,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/">English</a>
+	<a class="dropdown-item" href="/docs/configuration/trace/skywalking/">English</a>
 	
 </div>
     </div>
@@ -452,10 +449,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">配置概览</a>
+    <a  href="/zh/docs/configuration/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">配置概览</a>
   </li>
   <ul>
-    <li class="collapse " id="zh-docs-configuration">
+    <li class="collapse show" id="zh-docs-configuration">
       
       
       
@@ -653,10 +650,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace 配置</a>
+    <a  href="/zh/docs/configuration/trace/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Trace 配置</a>
   </li>
   <ul>
-    <li class="collapse " id="zh-docs-configuration-trace">
+    <li class="collapse show" id="zh-docs-configuration-trace">
       
       
       
@@ -670,10 +667,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/configuration/trace/skywalking/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">SkyWalking 配置</a>
+    <a  href="/zh/docs/configuration/trace/skywalking/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">SkyWalking 配置</a>
   </li>
   <ul>
-    <li class="collapse " id="zh-docs-configuration-trace-skywalking">
+    <li class="collapse show" id="zh-docs-configuration-trace-skywalking">
       
       
       
@@ -728,10 +725,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/docs/dev/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">开发指南</a>
+    <a  href="/zh/docs/dev/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开发指南</a>
   </li>
   <ul>
-    <li class="collapse show" id="zh-docs-dev">
+    <li class="collapse " id="zh-docs-dev">
       
       
       
@@ -857,8 +854,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/dev/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=%e5%bc%80%e5%8f%91%e6%8c%87%e5%8d%97" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/configuration/trace/skywalking/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=SkyWalking%20%e9%85%8d%e7%bd%ae" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -867,6 +864,20 @@ if (!doNotTrack) {
 
 
 
+
+
+
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#reporter">reporter</a></li>
+<li><a href="#backend-service">backend_service</a></li>
+<li><a href="#service-name">service_name</a></li>
+<li><a href="#with-register">with_register</a></li>
+</ul></li>
+</ul>
+</nav>
 
 
 
@@ -882,6 +893,12 @@ if (!doNotTrack) {
 
 
 
+
+
+
+
+
+
 <li class="breadcrumb-item" >
 	<a href="https://mosn.io/zh/docs/">文档</a>
 </li>
@@ -889,8 +906,22 @@ if (!doNotTrack) {
 
 
 
+<li class="breadcrumb-item" >
+	<a href="https://mosn.io/zh/docs/configuration/">配置概览</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://mosn.io/zh/docs/configuration/trace/">Trace 配置</a>
+</li>
+
+
+
+
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="https://mosn.io/zh/docs/dev/">开发指南</a>
+	<a href="https://mosn.io/zh/docs/configuration/trace/skywalking/">SkyWalking 配置</a>
 </li>
 
 	</ol>
@@ -898,9 +929,60 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>开发指南</h1>
-	<div class="lead">MOSN 开发指南。</div>
+	<h1>SkyWalking 配置</h1>
+	<div class="lead">MOSN SkyWalking trace 配置说明。</div>
 	
+
+<p>本文描述的是 SkyWalking Trace  配置。</p>
+
+<p>目前支持 <code>HTTP1</code> 协议追踪。</p>
+
+<p>SkyWalking 描述的 MOSN 的基本全局参数如下所示。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;tracing&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">&#34;enable&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">,</span>
+    <span style="color:#204a87;font-weight:bold">&#34;driver&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;SkyWalking&#34;</span><span style="color:#000;font-weight:bold">,</span>
+    <span style="color:#204a87;font-weight:bold">&#34;tracer&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;SkyWalking&#34;</span><span style="color:#000;font-weight:bold">,</span>
+    <span style="color:#204a87;font-weight:bold">&#34;config&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+      <span style="color:#204a87;font-weight:bold">&#34;reporter&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;gRPC&#34;</span><span style="color:#000;font-weight:bold">,</span>
+      <span style="color:#204a87;font-weight:bold">&#34;backend_service&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;127.0.0.1:11800&#34;</span><span style="color:#000;font-weight:bold">,</span>
+      <span style="color:#204a87;font-weight:bold">&#34;service_name&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;mosn&#34;</span><span style="color:#000;font-weight:bold">,</span>
+      <span style="color:#204a87;font-weight:bold">&#34;with_register&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">true</span>
+    <span style="color:#000;font-weight:bold">}</span>
+  <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<h2 id="reporter">reporter</h2>
+
+<p>trace 数据上报模式， 支持 <code>log</code>（仅用于测试） 和 <code>gRPC</code> 两种模式 。</p>
+
+<ul>
+<li>如果配置为空，则默认为 <code>log</code>。</li>
+</ul>
+
+<h2 id="backend-service">backend_service</h2>
+
+<p>SkyWalking 后端服务地址，仅在上报模式为 <code>gRPC</code> 模式时使用 。</p>
+
+<ul>
+<li>示例：<code>127.0.0.1:11800</code>。</li>
+</ul>
+
+<h2 id="service-name">service_name</h2>
+
+<p>注册到 SkyWalking 的服务名称 。</p>
+
+<ul>
+<li>如果配置为空，则默认为 <code>mosn</code>。</li>
+</ul>
+
+<h2 id="with-register">with_register</h2>
+
+<p>bool 类型，当此值为 true 时，会阻塞协程等待当前实例注册到 SkyWalking 。</p>
+
+<ul>
+<li>如果配置为空，则默认为 <code>true</code>。</li>
+</ul>
+
         <div class="section-index">
     
     
@@ -924,13 +1006,6 @@ if (!doNotTrack) {
         
             
         
-            
-                <div class="entry">
-                    <h5>
-                        <a href="/zh/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
-                    </h5>
-                    <p>本页介绍了 MOSN 的 featuregate。</p>
-                </div>
             
         
             
@@ -1046,7 +1121,7 @@ if (!doNotTrack) {
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年3月3日: <a  href="https://github.com/mosn/mosn.io/commit/6f2685410bfd56ef361897adb38f79a3d6f23eeb">Add development doc section (6f26854)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年4月9日: <a  href="https://github.com/mosn/mosn.io/commit/22a131f2807ec7cc990b92214fe528b2a95214d2">SkyWalking configuration doc (#77) (22a131f)</a>
 </div>
 </div>
 

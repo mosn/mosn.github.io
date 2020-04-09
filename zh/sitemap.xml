@@ -3,6 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mosn.io/zh/docs/configuration/trace/skywalking/</loc>
+    <lastmod>2020-04-09T11:18:49+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/configuration/trace/skywalking/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/configuration/trace/skywalking/"
+                />
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/code/mosn-log/</loc>
     <lastmod>2020-03-27T11:05:02+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -284,6 +301,23 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/docs/configuration/trace/</loc>
+    <lastmod>2020-04-09T11:18:49+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/docs/configuration/trace/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/docs/configuration/trace/"
+                />
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/concept/traffic-hijack/</loc>
     <lastmod>2020-03-05T15:53:38+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -353,7 +387,7 @@
   
   <url>
     <loc>https://mosn.io/zh/docs/samples/</loc>
-    <lastmod>2020-04-01T11:03:06+08:00</lastmod>
+    <lastmod>2020-04-09T11:18:49+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
