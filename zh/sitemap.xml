@@ -513,6 +513,20 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/docs/concept/extensions/</loc>
+    <lastmod>2020-04-10T14:43:23+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/posts/mosn-extensions/</loc>
+    <lastmod>2020-04-10T14:43:23+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/code/mosn-connection-pool/</loc>
     <lastmod>2020-04-07T12:38:10+08:00</lastmod>
     <changefreq>daily</changefreq>
