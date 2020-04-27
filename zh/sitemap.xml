@@ -3,13 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-tls/</loc>
-    <lastmod>2020-04-27T14:43:36+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://mosn.io/zh/docs/configuration/trace/skywalking/</loc>
     <lastmod>2020-04-23T15:33:01+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -24,13 +17,6 @@
                 hreflang="zh"
                 href="https://mosn.io/zh/docs/configuration/trace/skywalking/"
                 />
-  </url>
-  
-  <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-log/</loc>
-    <lastmod>2020-03-27T11:05:02+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
@@ -520,8 +506,15 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-tls/</loc>
+    <lastmod>2020-04-27T16:25:17+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/code/mosn-router/</loc>
-    <lastmod>2020-04-27T15:18:23+08:00</lastmod>
+    <lastmod>2020-04-27T16:25:17+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
@@ -574,6 +567,13 @@
   <url>
     <loc>https://mosn.io/zh/blog/code/mosn-http/</loc>
     <lastmod>2020-03-27T11:05:02+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-log/</loc>
+    <lastmod>2020-04-27T16:25:17+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
