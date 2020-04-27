@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-tls/</loc>
+    <lastmod>2020-04-27T14:43:36+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/configuration/trace/skywalking/</loc>
     <lastmod>2020-04-23T15:33:01+08:00</lastmod>
     <changefreq>daily</changefreq>
