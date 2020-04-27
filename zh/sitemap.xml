@@ -520,6 +520,13 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/code/mosn-router/</loc>
+    <lastmod>2020-04-27T15:18:23+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/docs/concept/extensions/</loc>
     <lastmod>2020-04-10T14:43:23+08:00</lastmod>
     <changefreq>daily</changefreq>
