@@ -478,6 +478,23 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/releases/v0.12.0/</loc>
+    <lastmod>2020-04-28T19:09:28+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://mosn.io/blog/releases/v0.12.0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://mosn.io/zh/blog/releases/v0.12.0/"
+                />
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/posts/skywalking-support/</loc>
     <lastmod>2020-04-28T11:23:00+08:00</lastmod>
     <changefreq>daily</changefreq>

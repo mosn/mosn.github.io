@@ -13,6 +13,67 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.12.0</title>
+      <link>https://mosn.io/blog/releases/v0.12.0/</link>
+      <pubDate>Tue, 28 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.12.0/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.11.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.12.0&lt;/a&gt;. Thanks to &lt;a href=&#34;https://github.com/peacocktrain&#34; target=&#34;_blank&#34;&gt;Sun Fuze (@peacocktrain)&lt;/a&gt; for his great contribution to this release, certified as &lt;a href=&#34;https://github.com/mosn/community/issues/6&#34; target=&#34;_blank&#34;&gt;commiter&lt;/a&gt;🎉 by MOSN Community Leaders.&lt;/p&gt;
+
+&lt;p&gt;You can see the changelog below.&lt;/p&gt;
+
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Support Skywalking &lt;a href=&#34;https://github.com/arugal&#34; target=&#34;_blank&#34;&gt;@arugal&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Stream Filter adds a new phase of Receive Filter execution, which allows you to execute Receive Filter &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt; again after MOSN has finished routing Host&lt;/li&gt;
+&lt;li&gt;HTTP2 supports streaming  &lt;a href=&#34;https://github.com/peacocktrain&#34; target=&#34;_blank&#34;&gt;@peacocktrain&lt;/a&gt; &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;FeatureGate adds interface KnownFeatures to output current FeatureGate status &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Provide a protocol-transparent way to obtain requested resources (PATH, URI, ARG), with the definition of resources defined by each protocol itself &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;New load balancing algorithm
+
+&lt;ul&gt;
+&lt;li&gt;Support for ActiveRequest LB &lt;a href=&#34;https://github.com/CodingSinger&#34; target=&#34;_blank&#34;&gt;@CodingSinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support WRR LB  &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;optimize&#34;&gt;Optimize&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;XProtocol protocol engine optimization &lt;a href=&#34;https://github.com/neverhook&#34; target=&#34;_blank&#34;&gt;@neverhook&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Modifies the XProtocol heartbeat response interface to support the protocol&amp;rsquo;s heartbeat response to return more information&lt;/li&gt;
+&lt;li&gt;Optimize connpool for heartbeat triggering, only heartbeats will be triggered if the protocol for heartbeats is implemented&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Dubbo library dependency version updated from v1.5.0-rc1 to v1.5.0 &lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;API Adjustments, HostInfo added health check related interface &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize circuit breaking function  &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Responsible for balanced selection logic simplification, Hosts of the same address multiplex the same health check mark &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt; &lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize HTTP building logic and improve HTTP building performance &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Log rotation logic triggered from writing logs, adjusted to timed trigger &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Typo fixes &lt;a href=&#34;https://github.com/xujianhai666&#34; target=&#34;_blank&#34;&gt;@xujianhai666&lt;/a&gt; &lt;a href=&#34;https://github.com/candyleer&#34; target=&#34;_blank&#34;&gt;@candyleer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bug-fix&#34;&gt;Bug Fix&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fix the xDS parsing fault injection configuration error  &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the request hold issue caused by the MOSN HTTP HEAD method &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix a problem with missing StatusCode mappings in the XProtocol engine &lt;a href=&#34;https://github.com/neverhook&#34; target=&#34;_blank&#34;&gt;@neverhook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug for DirectReponse triggering retries &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.11.0</title>
       <link>https://mosn.io/blog/releases/v0.11.0/</link>
       <pubDate>Fri, 03 Apr 2020 00:00:00 +0000</pubDate>
