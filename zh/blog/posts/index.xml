@@ -658,6 +658,126 @@
     </item>
     
     <item>
+      <title>Blog: MOSN 支持使用 SkyWalking 进行分布式追踪</title>
+      <link>https://mosn.io/zh/blog/posts/skywalking-support/</link>
+      <pubDate>Tue, 28 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/blog/posts/skywalking-support/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;相比传统的巨石（Monolith）应用，微服务的一个主要变化是将应用中的不同模块拆分为了独立的进程。在微服务架构下，原来进程内的方法调用成为了跨进程的远程方法调用。相对于单一进程内的方法调用而言，跨进程调用的调试和故障分析是非常困难的，难以使用传统的代码调试程序或者日志打印来对分布式的调用过程进行查看和分析。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;tracing.jpg&#34; alt=&#34;分布式追踪示意图&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如上图右边所示，微服务架构中系统中各个微服务之间存在复杂的调用关系。&lt;/p&gt;
+
+&lt;p&gt;一个来自客户端的请求在其业务处理过程中经过了多个微服务进程。我们如果想要对该请求的端到端调用过程进行完整的分析，则必须将该请求经过的所有进程的相关信息都收集起来并关联在一起，这就是“分布式追踪”。&lt;/p&gt;
+
+&lt;p&gt;以上关于分布式追踪的介绍引用自 &lt;a href=&#34;https://www.servicemesher.com/istio-handbook/practice/distributed-tracing.html&#34; target=&#34;_blank&#34;&gt;Istio Handbook&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;mosn-中-tracing-的架构&#34;&gt;MOSN 中 tracing 的架构&lt;/h2&gt;
+
+&lt;p&gt;MOSN 的 tracing 框架由 Driver、Tracer 和 Span 三个部分组成。&lt;/p&gt;
+
+&lt;p&gt;Driver 是 Tracer 的容器，管理注册的 Tracer 实例，Tracer 是 tracing 的入口，根据请求信息创建一个 Span，Span 存储当前跨度的链路信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;mosn-tracing.jpg&#34; alt=&#34;MOSN 中的 tracing 架构&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;目前 MOSN tracing 有 &lt;a href=&#34;http://github.com/sofastack/sofa-tracer&#34; target=&#34;_blank&#34;&gt;SOFATracer&lt;/a&gt; 和 SkyWalking 两种实现。SOFATracer 支持 http1 和 xprotocol 协议，将 trace 数据写入本地日志文件中。SkyWalking 支持 http1 协议，将 trace 数据通过 gRPC 上报到 SkyWalking 后端服务。&lt;/p&gt;
+
+&lt;h2 id=&#34;快速开始&#34;&gt;快速开始&lt;/h2&gt;
+
+&lt;p&gt;下面将使用 Docker 和 &lt;code&gt;docker-compose&lt;/code&gt; 来快速开始运行一个集成了 SkyWalking 的分布式追踪示例，该示例代码请见 &lt;a href=&#34;https://github.com/mosn/mosn/tree/master/examples/codes/trace/skywalking/http&#34; target=&#34;_blank&#34;&gt;MOSN GitHub&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h3 id=&#34;准备&#34;&gt;准备&lt;/h3&gt;
+
+&lt;p&gt;安装 docker 和 docker-compose。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://docs.docker.com/install/&#34; target=&#34;_blank&#34;&gt;安装 docker&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://docs.docker.com/compose/install/&#34; target=&#34;_blank&#34;&gt;安装 docker-compose&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;需要一个编译好的 MOSN 程序。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;projectpath&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/cmd/mosn/main
+go build&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;获取示例代码目录。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;targetpath&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;projectpath&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/examples/codes/trace/skywalking/http/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;将编译好的程序移动到示例代码目录。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mv main &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;targetpath&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/
+&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;targetpath&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;目录结构&#34;&gt;目录结构&lt;/h3&gt;
+
+&lt;p&gt;下面是 SkyWalking 的目录结构。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;* skywalking
+└─── http
+│           main                           # 编译完成的 MOSN 程序
+|           server.go                      # 模拟的 Http Server
+|           clint.go                       # 模拟的 Http Client
+|           config.json                    # MOSN 配置
+|           skywalking-docker-compose.yaml # skywalking docker-compose
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;运行说明&#34;&gt;运行说明&lt;/h3&gt;
+
+&lt;p&gt;启动 SkyWalking oap &amp;amp; ui。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker-compose -f skywalking-docker-compose.yaml up -d&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;启动一个 HTTP Server。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;go run server.go&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;启动 MOSN。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./main start -c config.json&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;启动一个 HTTP Client。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;go run client.go&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;打开 &lt;a href=&#34;http://127.0.0.1:8080/&#34; target=&#34;_blank&#34;&gt;http://127.0.0.1:8080&lt;/a&gt; 查看 SkyWalking-UI，SkyWalking Dashboard 界面如下图所示。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;skywalking-dashboard.png&#34; alt=&#34;SkyWalking Dashboard&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在打开 Dashboard 后请点击右上角的 &lt;code&gt;Auto&lt;/code&gt; 按钮以使页面自动刷新。&lt;/p&gt;
+
+&lt;h3 id=&#34;demo-视频&#34;&gt;Demo 视频&lt;/h3&gt;
+
+&lt;p&gt;下面来看一下该 Demo 的操作视频。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.bilibili.com/video/BV17i4y1t7mZ/&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;demo.jpg&#34; alt=&#34;Demo&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;清理&#34;&gt;清理&lt;/h3&gt;
+
+&lt;p&gt;要想销毁 SkyWalking 后台运行的 docker 容器只需要下面的命令。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;projectpath&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/examples/codes/trace/skywalking/http/
+docker-compose -f skywalking-docker-compose.yaml down&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;未来计划&#34;&gt;未来计划&lt;/h2&gt;
+
+&lt;p&gt;在今年五月份，SkyWalking  8.0 版本会进行一次全面升级，采用新的探针协议和分析逻辑，探针将更具互感知能力，更好的在 Service Mesh 下使用探针进行监控。同时，SkyWalking 将开放之前仅存在于内核中的 metrics 指标分析体系。Prmoetheus、Spring Cloud Sleuth、Zabbix 等常用的 metrics 监控方式，都会被统一的接入进来，进行分析。此外， SkyWalking 与 MOSN 社区将继续合作：支持追踪 Dubbo 和 &lt;a href=&#34;https://github.com/sofastack/sofa-rpc&#34; target=&#34;_blank&#34;&gt;SOFARPC&lt;/a&gt;，同时适配 sidecar 模式下的链路追踪。&lt;/p&gt;
+
+&lt;h2 id=&#34;关于-mosn&#34;&gt;关于 MOSN&lt;/h2&gt;
+
+&lt;p&gt;MOSN 是一款使用 Go 语言开发的网络代理软件，由蚂蚁金服开源并经过几十万容器的生产级验证。 MOSN 作为云原生的网络数据平面，旨在为服务提供多协议、模块化、智能化、安全的代理能力。 MOSN 是 Modular Open Smart Network 的简称。 MOSN 可以与任何支持 xDS API 的 Service Mesh 集成，亦可以作为独立的四、七层负载均衡，API Gateway、云原生 Ingress 等使用。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GitHub：&lt;a href=&#34;https://github.com/mosn/mosn&#34; target=&#34;_blank&#34;&gt;https://github.com/mosn/mosn&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;官网：&lt;a href=&#34;https://mosn.io&#34; target=&#34;_blank&#34;&gt;https://mosn.io&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;关于-skywalking&#34;&gt;关于 Skywalking&lt;/h2&gt;
+
+&lt;p&gt;SkyWalking 是观察性分析平台和应用性能管理系统。提供分布式追踪、服务网格遥测分析、度量聚合和可视化一体化解决方案。支持 Java、.Net Core、PHP、NodeJS、Golang、LUA 语言探针，支持 Envoy/MOSN + Istio 构建的 Service Mesh。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GitHub：&lt;a href=&#34;https://github.com/apache/skywalking&#34; target=&#34;_blank&#34;&gt;https://github.com/apache/skywalking&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;官网：&lt;a href=&#34;https://skywalking.apache.org&#34; target=&#34;_blank&#34;&gt;https://skywalking.apache.org&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;关于本文中的示例请参考 &lt;a href=&#34;https://github.com/mosn/mosn/tree/master/examples/cn_readme/trace/skywalking/http&#34; target=&#34;_blank&#34;&gt;MOSN GitHub&lt;/a&gt; 和 &lt;a href=&#34;https://mosn.io/zh/docs/configuration/trace/&#34; target=&#34;_blank&#34;&gt;MOSN 官方文档&lt;/a&gt;。&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN 扩展机制解析</title>
       <link>https://mosn.io/zh/blog/posts/mosn-extensions/</link>
       <pubDate>Thu, 09 Apr 2020 21:00:00 +0800</pubDate>
