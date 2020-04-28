@@ -25,15 +25,15 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/blog/posts/skywalking-support/" />
 <meta property="article:published_time" content="2020-04-28T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-04-28T10:33:10&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-04-28T11:23:00&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="MOSN 支持使用 SkyWalking 进行分布式追踪">
 <meta itemprop="description" content="日前，观察性分析平台和应用性能管理系统 SkyWalking 完成了与云原生网络代理 MOSN 的集成，作为 MOSN 中的支持的分布式追踪系统之一，旨在实现在微服务和 Service Mesh 中的更强大的可观察性。">
 
 
 <meta itemprop="datePublished" content="2020-04-28T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-04-28T10:33:10&#43;08:00" />
-<meta itemprop="wordCount" content="255">
+<meta itemprop="dateModified" content="2020-04-28T11:23:00&#43;08:00" />
+<meta itemprop="wordCount" content="271">
 
 
 
@@ -306,18 +306,6 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-nginx-envoy-mosn-hot-upgrade" href="/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-source-code-brief" href="/zh/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
-      
-      
-      
-      
-      
       <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-posts-skywalking-support" href="/zh/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
       
       
@@ -337,6 +325,18 @@ if (!doNotTrack) {
       
       
       <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-udpa-follow-up" href="/zh/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-mosn-source-code-brief" href="/zh/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-posts-nginx-envoy-mosn-hot-upgrade" href="/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
       
       
     </li>
@@ -543,7 +543,7 @@ if (!doNotTrack) {
 
 <p><img src="mosn-tracing.jpg" alt="MOSN 中的 tracing 架构" /></p>
 
-<p>目前 MOSN tracing 有 <a href="http://github.com/sofastack/sofa-tracer" target="_blank">SOFATracer</a> 和 SkyWalking 两种实现。SOFATracer 支持 http1 和 xprotocol 协议，将 trace 数据写入本地日志文件中。SkyWalking 支持 http1 协议，将 trace 数据通过 gRPC 上报到 SkyWalking 后端服务。</p>
+<p>目前 MOSN tracing 有 <a href="http://github.com/sofastack/sofa-tracer" target="_blank">SOFATracer</a> 和 SkyWalking 两种实现。SOFATracer 支持 http1 和 xprotocol 协议的链路追踪，将 trace 数据写入本地日志文件中。SkyWalking 支持 http1 协议的链路追踪，使用原生的 Go 语言探针 <a href="https://github.com/SkyAPM/go2sky" target="_blank">go2sky</a> 将 trace 数据通过 gRPC 上报到 SkyWalking 后端服务。</p>
 
 <h2 id="快速开始">快速开始</h2>
 
@@ -559,7 +559,9 @@ if (!doNotTrack) {
 <li><p><a href="https://docs.docker.com/compose/install/" target="_blank">安装 docker-compose</a></p></li>
 </ul>
 
-<p>需要一个编译好的 MOSN 程序。</p>
+<p>需要一个编译好的 MOSN 程序，您可以<a href="https://github.com/mosn/mosn" target="_blank">下载 MOSN 源码</a>自行编译，或者直接下载 <a href="https://github.com/mosn/mosn/releases/tag/v0.12.0" target="_blank">MOSN v0.12.0 发行版</a>以获取 MOSN 的运行时二进制文件。</p>
+
+<p>下面将以源码编译的方式演示 MOSN 如何与 SkyWalking 集成。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#204a87">cd</span> <span style="color:#4e9a06">${</span><span style="color:#000">projectpath</span><span style="color:#4e9a06">}</span>/cmd/mosn/main
 go build</code></pre></div>
 <p>获取示例代码目录。</p>
@@ -570,16 +572,13 @@ go build</code></pre></div>
 <h3 id="目录结构">目录结构</h3>
 
 <p>下面是 SkyWalking 的目录结构。</p>
-
-<pre><code>* skywalking
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">* skywalking
 └─── http
-│           main                           # 编译完成的 MOSN 程序
-|           server.go                      # 模拟的 Http Server
-|           clint.go                       # 模拟的 Http Client
-|           config.json                    # MOSN 配置
-|           skywalking-docker-compose.yaml # skywalking docker-compose
-</code></pre>
-
+│           main                           <span style="color:#8f5902;font-style:italic"># 编译完成的 MOSN 程序</span>
+<span style="color:#000;font-weight:bold">|</span>           server.go                      <span style="color:#8f5902;font-style:italic"># 模拟的 Http Server</span>
+<span style="color:#000;font-weight:bold">|</span>           clint.go                       <span style="color:#8f5902;font-style:italic"># 模拟的 Http Client</span>
+<span style="color:#000;font-weight:bold">|</span>           config.json                    <span style="color:#8f5902;font-style:italic"># MOSN 配置</span>
+<span style="color:#000;font-weight:bold">|</span>           skywalking-docker-compose.yaml <span style="color:#8f5902;font-style:italic"># skywalking docker-compose</span></code></pre></div>
 <h3 id="运行说明">运行说明</h3>
 
 <p>启动 SkyWalking oap &amp; ui。</p>
@@ -637,7 +636,7 @@ docker-compose -f skywalking-docker-compose.yaml down</code></pre></div>
   <li>
     <a href="/zh/blog/posts/mosn-extensions/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
   </li>
-    <a href="/zh/blog/posts/mosn-source-code-brief/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+    <a  class="btn btn-primary  disabled">下一页 <span class="ml-1">→</span></a>
   </li>
 </ul>
 
