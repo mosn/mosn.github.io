@@ -478,6 +478,13 @@
   </url>
   
   <url>
+    <loc>https://mosn.io/zh/blog/posts/mosn-overview/</loc>
+    <lastmod>2020-05-08T16:06:14+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mosn.io/zh/blog/releases/v0.12.0/</loc>
     <lastmod>2020-04-28T19:09:28+08:00</lastmod>
     <changefreq>daily</changefreq>
