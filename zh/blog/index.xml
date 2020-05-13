@@ -4519,7 +4519,7 @@ cat /tmp/mosn_bench/benchmark_access.log
 
 &lt;h3 id=&#34;variable-缓存&#34;&gt;Variable 缓存&lt;/h3&gt;
 
-&lt;p&gt;&lt;code&gt;Variable 缓存&lt;/code&gt; 是一组 Variable 的 key-value 对，key 是变量的名字，value 是 &lt;code&gt;Variable 接口&lt;/code&gt;；以 map 的形式存在于内存中。Variable 接口含有&lt;code&gt;变量的名字&lt;/code&gt;，&lt;code&gt;变量值得获取方式&lt;/code&gt;, &lt;code&gt;变量值得设置方式&lt;/code&gt; 等属性。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Variable 缓存&lt;/code&gt; 是一组 Variable 的 key-value 对，key 是变量的名字，value 是 &lt;code&gt;Variable 接口&lt;/code&gt;；以 map 的形式存在于内存中。Variable 接口含有&lt;code&gt;变量的名字&lt;/code&gt;，&lt;code&gt;变量值的获取方式&lt;/code&gt;, &lt;code&gt;变量值的设置方式&lt;/code&gt; 等属性。&lt;/p&gt;
 
 &lt;h3 id=&#34;初始化阶段&#34;&gt;初始化阶段&lt;/h3&gt;
 
@@ -4818,7 +4818,7 @@ cat /tmp/mosn_bench/benchmark_access.log
 
 &lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 
-&lt;p&gt;&lt;code&gt;变量机制&lt;/code&gt; 的实现是比较面向对象的，首先定义了结构体 &lt;code&gt;Variable&lt;/code&gt;, 主要记录了变量名和获取对应变量值的实现&lt;code&gt;GetterFunc&lt;/code&gt;；&lt;code&gt;GetterFunc&lt;/code&gt; 定义好了获取变量值得函数定义，每个变量都得实现自己的 &lt;code&gt;getter&lt;/code&gt;（&lt;code&gt;面向接口编程&lt;/code&gt;）。 然后在代码初始化的时候把所有变量都实例化，并注册到作为缓存的全局变量 &lt;code&gt;variables&lt;/code&gt; 中 （&lt;code&gt;表驱动法&lt;/code&gt;）; 最后，更加变量名去缓存 &lt;code&gt;variables&lt;/code&gt; 获取相应的实现，获取变量的实际值。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;变量机制&lt;/code&gt; 的实现是比较面向对象的，首先定义了结构体 &lt;code&gt;Variable&lt;/code&gt;, 主要记录了变量名和获取对应变量值的实现&lt;code&gt;GetterFunc&lt;/code&gt;；&lt;code&gt;GetterFunc&lt;/code&gt; 定义好了获取变量值的函数定义，每个变量都得实现自己的 &lt;code&gt;getter&lt;/code&gt;（&lt;code&gt;面向接口编程&lt;/code&gt;）。 然后在代码初始化的时候把所有变量都实例化，并注册到作为缓存的全局变量 &lt;code&gt;variables&lt;/code&gt; 中 （&lt;code&gt;表驱动法&lt;/code&gt;）; 最后，更加变量名去缓存 &lt;code&gt;variables&lt;/code&gt; 获取相应的实现，获取变量的实际值。&lt;/p&gt;
 
 &lt;p&gt;另外，很好地利用了 &lt;code&gt;golang&lt;/code&gt; 特有的 &lt;code&gt;context&lt;/code&gt; 贯穿了整个流程。&lt;/p&gt;
 
@@ -5197,8 +5197,9 @@ goroutine 还不能知道对应的 downstream request 和其 context 的 bufferV
 
 &lt;h2 id=&#34;概述&#34;&gt;概述&lt;/h2&gt;
 
-&lt;p&gt;Plugin 机制是 MOSN 提供的一种方式，可以让 MOSN 和一个独立的进程进行交互，这个进程可以用任何语言开发，只要满足 GRPC 的 proto 定义。
-&lt;img src=&#34;plugin.png&#34; alt=&#34;plugin&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Plugin 机制是 MOSN 提供的一种方式，可以让 MOSN 和一个独立的进程进行交互，这个进程可以用任何语言开发，只要满足 gRPC 的 proto 定义。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;plugin.png&#34; alt=&#34;plugin&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;为什么我们支持这个功能，跟我们遇到的一些业务场景有关：&lt;/p&gt;
 

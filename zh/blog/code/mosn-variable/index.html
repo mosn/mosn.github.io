@@ -26,7 +26,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/blog/code/mosn-variable/" />
 <meta property="article:published_time" content="2020-02-16T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-03-03T16:12:21&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-05-13T15:12:10&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="MOSN 源码解析 - 变量机制">
 <meta itemprop="description" content="MOSN 源码解析系列之变量机制的源码解析。
@@ -34,7 +34,7 @@
 
 
 <meta itemprop="datePublished" content="2020-02-16T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-03-03T16:12:21&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-13T15:12:10&#43;08:00" />
 <meta itemprop="wordCount" content="934">
 
 
@@ -581,7 +581,7 @@ cat /tmp/mosn_bench/benchmark_access.log
 
 <h3 id="variable-缓存">Variable 缓存</h3>
 
-<p><code>Variable 缓存</code> 是一组 Variable 的 key-value 对，key 是变量的名字，value 是 <code>Variable 接口</code>；以 map 的形式存在于内存中。Variable 接口含有<code>变量的名字</code>，<code>变量值得获取方式</code>, <code>变量值得设置方式</code> 等属性。</p>
+<p><code>Variable 缓存</code> 是一组 Variable 的 key-value 对，key 是变量的名字，value 是 <code>Variable 接口</code>；以 map 的形式存在于内存中。Variable 接口含有<code>变量的名字</code>，<code>变量值的获取方式</code>, <code>变量值的设置方式</code> 等属性。</p>
 
 <h3 id="初始化阶段">初始化阶段</h3>
 
@@ -880,7 +880,7 @@ cat /tmp/mosn_bench/benchmark_access.log
 
 <h2 id="总结">总结</h2>
 
-<p><code>变量机制</code> 的实现是比较面向对象的，首先定义了结构体 <code>Variable</code>, 主要记录了变量名和获取对应变量值的实现<code>GetterFunc</code>；<code>GetterFunc</code> 定义好了获取变量值得函数定义，每个变量都得实现自己的 <code>getter</code>（<code>面向接口编程</code>）。 然后在代码初始化的时候把所有变量都实例化，并注册到作为缓存的全局变量 <code>variables</code> 中 （<code>表驱动法</code>）; 最后，更加变量名去缓存 <code>variables</code> 获取相应的实现，获取变量的实际值。</p>
+<p><code>变量机制</code> 的实现是比较面向对象的，首先定义了结构体 <code>Variable</code>, 主要记录了变量名和获取对应变量值的实现<code>GetterFunc</code>；<code>GetterFunc</code> 定义好了获取变量值的函数定义，每个变量都得实现自己的 <code>getter</code>（<code>面向接口编程</code>）。 然后在代码初始化的时候把所有变量都实例化，并注册到作为缓存的全局变量 <code>variables</code> 中 （<code>表驱动法</code>）; 最后，更加变量名去缓存 <code>variables</code> 获取相应的实现，获取变量的实际值。</p>
 
 <p>另外，很好地利用了 <code>golang</code> 特有的 <code>context</code> 贯穿了整个流程。</p>
 
