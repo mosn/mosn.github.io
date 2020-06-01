@@ -87,6 +87,181 @@
     </item>
     
     <item>
+      <title>Docs: Dubbo 集成</title>
+      <link>https://mosn.io/zh/docs/dev/dubbo-integrate/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/docs/dev/dubbo-integrate/</guid>
+      <description>
+        
+        
+        
+
+&lt;h2 id=&#34;dubbo-介绍&#34;&gt;Dubbo 介绍&lt;/h2&gt;
+
+&lt;p&gt;Dubbo 最初是 &lt;a href=&#34;https://dubbo.apache.org/zh-cn/&#34; target=&#34;_blank&#34;&gt;Java 开发的一套 RPC 框架&lt;/a&gt;，随着社区的发展。当前 dubbo 也渐渐成为一套跨语言的解决方案。除了 Java 以外，还有相应的 &lt;a href=&#34;https://github.com/apache/dubbo-go&#34; target=&#34;_blank&#34;&gt;Go 实现&lt;/a&gt;。有规律的版本发布节奏，社区较为活跃。&lt;/p&gt;
+
+&lt;h2 id=&#34;dubbo-服务-mesh-化&#34;&gt;Dubbo 服务 mesh 化&lt;/h2&gt;
+
+&lt;p&gt;接入 service mesh 的应用，其服务发现应该由相应的 mesh 模块接管。一般由控制面将相应的服务发现配置进行订阅和下发。但这里存在几个问题：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;如果公司是第一次接入 service mesh，不希望一次引入太多模块，这样会增加整体的运维负担。如果可以渐进地迁移到 service mesh 架构，例如先接入数据面，再接入控制面。那么就可以随时以较低的成本进行回滚。也不会给运维造成太大的压力。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;每个公司都有自己的发展规划，并不是每个公司都完整地拥抱了云原生。大部分公司可能存在部分上云，部分未上云的情况，在迁移到 service mesh 时，也存在部分应用接入了 service mesh，而另一部分未接入的情况。需要考虑跨架构互通。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我们这里提出的方案希望能够解决这些问题。&lt;/p&gt;
+
+&lt;h2 id=&#34;服务发现接入&#34;&gt;服务发现接入&lt;/h2&gt;
+
+&lt;h3 id=&#34;配置工作&#34;&gt;配置工作&lt;/h3&gt;
+
+&lt;p&gt;在配置文件中，我们配置了两个 listener：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;一个是 serverListener，负责拦截外部进入的流量，转发给本地模块，这个方向的请求不需要做特殊处理，只要使用 xprotocol 转发给本机即可。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;一个是 clientListener，负责拦截本机向外发起的请求，因为外部集群根据服务注册中心下发的 endpoint 列表动态变化，所以该 listener 对应的也是一个 &lt;strong&gt;特殊的 router 名 &amp;ldquo;dubbo&amp;rdquo;。&lt;/strong&gt;，这里务必注意。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;      &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;listeners&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;
+        &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+          &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;serverListener&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+          &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;address&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;127.0.0.1:2046&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+          &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;bind_port&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+          &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;log_path&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;stdout&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+          &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;filter_chains&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;
+            &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+              &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;tls_context&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{},&lt;/span&gt;
+              &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;filters&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;
+                &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+                  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;proxy&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+                  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;config&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+                    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;downstream_protocol&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;X&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+                    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;upstream_protocol&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;X&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+                    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;router_config_name&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;server_router&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+                    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;extend_config&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+                      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;sub_protocol&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;dubbo&amp;#34;&lt;/span&gt;
+                    &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+                  &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+                &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+              &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt;
+            &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+          &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt;
+        &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;},&lt;/span&gt;
+        &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+          &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;clientListener&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+          &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;address&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;0.0.0.0:2045&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+          &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;bind_port&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+          &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;log_path&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;stdout&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+          &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;filter_chains&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;
+            &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+              &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;tls_context&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{},&lt;/span&gt;
+              &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;filters&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;
+                &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+                  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;proxy&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+                  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;config&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+                    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;downstream_protocol&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;X&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+                    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;upstream_protocol&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;X&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+                    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;router_config_name&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;dubbo&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+                    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;extend_config&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+                      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;sub_protocol&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;dubbo&amp;#34;&lt;/span&gt;
+                    &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+                  &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+                &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+              &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt;
+            &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+          &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt;
+        &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+      &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;开发工作&#34;&gt;开发工作&lt;/h3&gt;
+
+&lt;p&gt;接入 MOSN dubbo 时，需要进行下列准备工作。&lt;/p&gt;
+
+&lt;p&gt;第一步，build MOSN 的 dubbo 特殊版本。&lt;/p&gt;
+
+&lt;p&gt;在 MOSN 的 cmd/mosn/main 中，执行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;go&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;build&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;tags&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;dubbo&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;第二步，针对接入的服务，需要简单修改 sdk 中的 pub、sub 环节代码：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;pub 时，如果当前环境为接入 MOSN 环境(可通过配置系统下发的开关来判断)，则调用 MOSN 的 pub 接口，而非直接去注册中心 pub。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sub 时，如果当前环境为接入 MOSN 环境，则调用 MOSN 的 sub 接口，不去注册中心 sub。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;第三步，应用退出时，需要将所有 pub、sub 的服务执行反向操作，即 unpub、unsub。&lt;/p&gt;
+
+&lt;p&gt;在本文中使用 &lt;a href=&#34;https://github.com/jakubroztocil/httpie&#34; target=&#34;_blank&#34;&gt;httpie&lt;/a&gt; 来发送 http 请求。使用 dubbo-go 中的样例程序作为我们的服务的 client 和 server。&lt;/p&gt;
+
+&lt;p&gt;接下来我们使用 httpie 来模拟各种情况下的 pub、sub 流程。&lt;/p&gt;
+
+&lt;h3 id=&#34;直连-client-与正常的-dubbo-service-互通&#34;&gt;直连 client 与正常的 dubbo service 互通&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/MOSN/examples/tree/master/codes/dubbo-with-zk-discover/direct_client_normal_server&#34; target=&#34;_blank&#34;&gt;例子路径&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Service 是正常的 dubbo service，所以会自动注册到 zk 中去，不需要我们帮它 pub，这里只要 sub 就可以了，所以执行流程为：&lt;/p&gt;
+
+&lt;p&gt;第一步，build 带 dubbo tag 的 MOSN。&lt;/p&gt;
+
+&lt;p&gt;第二步，mosn start。&lt;/p&gt;
+
+&lt;p&gt;第三步，start server。&lt;/p&gt;
+
+&lt;p&gt;第四步，subscribe service。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;http --json post localhost:22222/sub registry:&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{&amp;#34;type&amp;#34;:&amp;#34;zookeeper&amp;#34;, &amp;#34;addr&amp;#34; : &amp;#34;127.0.0.1:2181&amp;#34;}&amp;#39;&lt;/span&gt; service:&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{&amp;#34;interface&amp;#34; : &amp;#34;com.ikurento.user.UserProvider&amp;#34;, &amp;#34;methods&amp;#34; :[&amp;#34;GetUser&amp;#34;], &amp;#34;group&amp;#34; : &amp;#34;&amp;#34;, &amp;#34;version&amp;#34; : &amp;#34;&amp;#34;}&amp;#39;&lt;/span&gt; --verbose&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;第五步，start client。&lt;/p&gt;
+
+&lt;p&gt;在 client 中正确看到返回结果的话，说明请求成功了。&lt;/p&gt;
+
+&lt;h3 id=&#34;直连-client-与直连-dubbo-service-互通&#34;&gt;直连 client 与直连 dubbo service 互通&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/MOSN/examples/tree/master/codes/dubbo-with-zk-discover/direct_client_direct_server&#34; target=&#34;_blank&#34;&gt;例子路径&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;直连的服务不会主动对自身进行发布，直连的 client 不会主动进行订阅。因此此例子中，pub 和 sub 都是由我们来辅助进行的。&lt;/p&gt;
+
+&lt;p&gt;第一步，build 带 dubbo tag 的 MOSN&lt;/p&gt;
+
+&lt;p&gt;第二步，mosn start&lt;/p&gt;
+
+&lt;p&gt;第三步，start server&lt;/p&gt;
+
+&lt;p&gt;第四步，subscribe service&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;http --json post localhost:22222/sub registry:&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{&amp;#34;type&amp;#34;:&amp;#34;zookeeper&amp;#34;, &amp;#34;addr&amp;#34; : &amp;#34;127.0.0.1:2181&amp;#34;}&amp;#39;&lt;/span&gt; service:&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{&amp;#34;interface&amp;#34; : &amp;#34;com.ikurento.user.UserProvider&amp;#34;, &amp;#34;methods&amp;#34; :[&amp;#34;GetUser&amp;#34;], &amp;#34;group&amp;#34; : &amp;#34;&amp;#34;, &amp;#34;version&amp;#34; : &amp;#34;&amp;#34;}&amp;#39;&lt;/span&gt; --verbose&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;第五步，publish service&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;http --json post localhost:22222/pub registry:&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{&amp;#34;type&amp;#34;:&amp;#34;zookeeper&amp;#34;, &amp;#34;addr&amp;#34; : &amp;#34;127.0.0.1:2181&amp;#34;}&amp;#39;&lt;/span&gt; service:&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{&amp;#34;interface&amp;#34; : &amp;#34;com.ikurento.user.UserProvider&amp;#34;, &amp;#34;methods&amp;#34; :[&amp;#34;GetUser&amp;#34;], &amp;#34;group&amp;#34; : &amp;#34;&amp;#34;, &amp;#34;version&amp;#34; : &amp;#34;&amp;#34;}&amp;#39;&lt;/span&gt; --verbose&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;第六步，start client&lt;/p&gt;
+
+&lt;p&gt;此时应该能看到 client 侧的响应。&lt;/p&gt;
+
+&lt;h3 id=&#34;正常的-client-与直连-dubbo-service-互通&#34;&gt;正常的 client 与直连 dubbo service 互通&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/MOSN/examples/tree/master/codes/dubbo-with-zk-discover/normal_client_direct_server&#34; target=&#34;_blank&#34;&gt;例子路径&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Client 是正常 client，因此 client 会自己去 subscribe。我们只要正常地把服务 pub 出去即可：&lt;/p&gt;
+
+&lt;p&gt;第一步，build 带 dubbo tag 的 MOSN&lt;/p&gt;
+
+&lt;p&gt;第二步，mosn start&lt;/p&gt;
+
+&lt;p&gt;第三步，start server&lt;/p&gt;
+
+&lt;p&gt;第四步，publish service&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;http --json post localhost:22222/sub registry:&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{&amp;#34;type&amp;#34;:&amp;#34;zookeeper&amp;#34;, &amp;#34;addr&amp;#34; : &amp;#34;127.0.0.1:2181&amp;#34;}&amp;#39;&lt;/span&gt; service:&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{&amp;#34;interface&amp;#34; : &amp;#34;com.ikurento.user.UserProvider&amp;#34;, &amp;#34;methods&amp;#34; :[&amp;#34;GetUser&amp;#34;], &amp;#34;group&amp;#34; : &amp;#34;&amp;#34;, &amp;#34;version&amp;#34; : &amp;#34;&amp;#34;}&amp;#39;&lt;/span&gt; --verbose&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;第五步，start client&lt;/p&gt;
+
+&lt;p&gt;此时应该能看到 client 侧的响应。&lt;/p&gt;
+
+&lt;h2 id=&#34;faq&#34;&gt;FAQ&lt;/h2&gt;
+
+&lt;h3 id=&#34;目前还存在哪些问题么&#34;&gt;目前还存在哪些问题么？&lt;/h3&gt;
+
+&lt;p&gt;暂时还不支持 Dubbo 的路由，未来会进行支持。&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: Featuregate 介绍</title>
       <link>https://mosn.io/zh/docs/dev/featuregate-introduce/</link>
       <pubDate>Fri, 13 Mar 2020 00:00:00 +0000</pubDate>
