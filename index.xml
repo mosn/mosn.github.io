@@ -13,6 +13,53 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.13.0</title>
+      <link>https://mosn.io/blog/releases/v0.13.0/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.13.0/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.13.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.13.0&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Support Strict DNS Cluster &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Stream Filter &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt; that supports GZip processing&lt;/li&gt;
+&lt;li&gt;Dubbo service registry complete Beta version &lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Stream Filter &lt;a href=&#34;https://github.com/NeGnail&#34; target=&#34;_blank&#34;&gt;@NeGnail&lt;/a&gt; that supports standalone fault isolation&lt;/li&gt;
+&lt;li&gt;Integrated Sentinel flow limiting capability &lt;a href=&#34;https://github.com/ansiz&#34; target=&#34;_blank&#34;&gt;@ansiz&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Optimize implementation of EDF LB and re-implement WRR LB using EDF &lt;a href=&#34;https://github.com/CodingSinger&#34; target=&#34;_blank&#34;&gt;@CodingSinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Configure to get ADMIN API optimizations, add features and environment variable related ADMIN API &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Update that triggers a health check when updating Host changed from asynchronous mode to synchronous mode &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Updated the Dubbo library to optimize the performance of Dubbo Decode &lt;a href=&#34;https://github.com/zonghaishang&#34; target=&#34;_blank&#34;&gt;@zonghaishang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize Metrics output in Prometheus, using regularity to filter out illegal Key &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize MOSN&amp;rsquo;s return status code &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bug-fix&#34;&gt;Bug fix&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fix concurrent conflict issues with health check registration callback functions &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the error where the configuration persistence function did not handle the null configuration correctly &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the problem that DUMP as a file fails when ClusterName/RouterName is too long &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the problem of not getting the XProtocol protocol correctly when getting it &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the problem with fetching the wrong context when creating StreamFilter &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.12.0</title>
       <link>https://mosn.io/blog/releases/v0.12.0/</link>
       <pubDate>Tue, 28 Apr 2020 00:00:00 +0000</pubDate>
@@ -23,7 +70,7 @@
         
         
 
-&lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.11.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.12.0&lt;/a&gt;. Thanks to &lt;a href=&#34;https://github.com/peacocktrain&#34; target=&#34;_blank&#34;&gt;Sun Fuze (@peacocktrain)&lt;/a&gt; for his great contribution to this release, certified as &lt;a href=&#34;https://github.com/mosn/community/issues/6&#34; target=&#34;_blank&#34;&gt;commiter&lt;/a&gt;🎉 by MOSN Community Leaders.&lt;/p&gt;
+&lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.12.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.12.0&lt;/a&gt;. Thanks to &lt;a href=&#34;https://github.com/peacocktrain&#34; target=&#34;_blank&#34;&gt;Sun Fuze (@peacocktrain)&lt;/a&gt; for his great contribution to this release, certified as &lt;a href=&#34;https://github.com/mosn/community/issues/6&#34; target=&#34;_blank&#34;&gt;commiter&lt;/a&gt;🎉 by MOSN Community Leaders.&lt;/p&gt;
 
 &lt;p&gt;You can see the changelog below.&lt;/p&gt;
 

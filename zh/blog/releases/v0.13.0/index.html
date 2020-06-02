@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.55.5" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/zh/blog/code/index.xml">
 
 
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
@@ -19,18 +18,30 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>源码解析 | MOSN</title><meta property="og:title" content="源码解析" />
-<meta property="og:description" content="用于边缘或服务网格的云原生网络代理" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://mosn.io/zh/blog/code/" />
-<meta property="og:site_name" content="MOSN" />
+<title>MOSN v0.13.0 发布 | MOSN</title><meta property="og:title" content="MOSN v0.13.0 发布" />
+<meta property="og:description" content="MOSN v0.13.0 变更日志。
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/zh/blog/releases/v0.13.0/" />
+<meta property="article:published_time" content="2020-06-01T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2020-06-02T11:41:48&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="源码解析">
-<meta itemprop="description" content="用于边缘或服务网格的云原生网络代理">
+<meta itemprop="name" content="MOSN v0.13.0 发布">
+<meta itemprop="description" content="MOSN v0.13.0 变更日志。
+">
 
+
+<meta itemprop="datePublished" content="2020-06-01T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-06-02T11:41:48&#43;08:00" />
+<meta itemprop="wordCount" content="93">
+
+
+
+<meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="源码解析"/>
-<meta name="twitter:description" content="用于边缘或服务网格的云原生网络代理"/>
+<meta name="twitter:title" content="MOSN v0.13.0 发布"/>
+<meta name="twitter:description" content="MOSN v0.13.0 变更日志。
+"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -59,9 +70,9 @@ if (!doNotTrack) {
 
 
 
-    <title>源码解析 | MOSN</title>
+    <title>MOSN v0.13.0 发布 | MOSN</title>
   </head>
-  <body class="td-section td-blog">
+  <body class="td-page td-blog">
     <header>
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
@@ -131,7 +142,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/">English</a>
+	<a class="dropdown-item" href="/blog/releases/v0.13.0/">English</a>
 	
 </div>
 			</li>
@@ -173,7 +184,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/">English</a>
+	<a class="dropdown-item" href="/blog/releases/v0.13.0/">English</a>
 	
 </div>
     </div>
@@ -204,17 +215,17 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/blog/releases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">发布</a>
+    <a  href="/zh/blog/releases/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">发布</a>
   </li>
   <ul>
-    <li class="collapse " id="zh-blog-releases">
+    <li class="collapse show" id="zh-blog-releases">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-zh-blog-releases-v0-13-0" href="/zh/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-zh-blog-releases-v0-13-0" href="/zh/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
       
       
       
@@ -363,10 +374,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/zh/blog/code/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">源码解析</a>
+    <a  href="/zh/blog/code/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">源码解析</a>
   </li>
   <ul>
-    <li class="collapse show" id="zh-blog-code">
+    <li class="collapse " id="zh-blog-code">
       
       
       
@@ -483,8 +494,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/code/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=%e6%ba%90%e7%a0%81%e8%a7%a3%e6%9e%90" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/releases/v0.13.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20v0.13.0%20%e5%8f%91%e5%b8%83" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -496,244 +507,84 @@ if (!doNotTrack) {
 
 
 
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#新功能">新功能</a></li>
+<li><a href="#优化">优化</a></li>
+<li><a href="#bug-修复">Bug 修复</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+
+
+
           </div>
           <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
-            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/zh/blog/code/index.xml" target="_blank">
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/zh/blog/releases/index.xml" target="_blank">
               RSS <i class="fa fa-rss ml-2 "></i>
             </a>
             
-
-
-
-
-
-
-
-<div class="row">
-	<div class="col-12">
-		
-		<h2>发布于 2020 年</h2>
-		<ul class="list-unstyled mt-4">
-			
-			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="/zh/blog/code/mosn-router/">MOSN 源码解析 - 路由</a></h5>
-					<p class="mb-2 mb-md-3"><small class="text-muted">2020年4月26日 归档于 源码解析</small></p>
-					
-
-
-
-
-
-                    
-					<p class="pt-0 mt-0">本文主要介绍 MOSN 的路由能力。</p>
-					<p class="pt-0"><a href="/zh/blog/code/mosn-router/">查看详情</a></p>
-				</div>
-			</li>
-			
-			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="/zh/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a></h5>
-					<p class="mb-2 mb-md-3"><small class="text-muted">2020年4月26日 归档于 源码解析</small></p>
-					
-
-
-
-
-
-                    
-					<p class="pt-0 mt-0">MOSN TLS 能力解析。</p>
-					<p class="pt-0"><a href="/zh/blog/code/mosn-tls/">查看详情</a></p>
-				</div>
-			</li>
-			
-			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="/zh/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a></h5>
-					<p class="mb-2 mb-md-3"><small class="text-muted">2020年4月7日 归档于 源码解析</small></p>
-					
-
-
-
-
-
-                    
-					<p class="pt-0 mt-0">MOSN 源码解析系列之连接池。
-</p>
-					<p class="pt-0"><a href="/zh/blog/code/mosn-connection-pool/">查看详情</a></p>
-				</div>
-			</li>
-			
-			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="/zh/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a></h5>
-					<p class="mb-2 mb-md-3"><small class="text-muted">2020年3月7日 归档于 源码解析</small></p>
-					
-
-
-
-
-
-                    
-					<p class="pt-0 mt-0">本文分析的是 MOSN 的 HTTP 系能力。</p>
-					<p class="pt-0"><a href="/zh/blog/code/mosn-http/">查看详情</a></p>
-				</div>
-			</li>
-			
-			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="/zh/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a></h5>
-					<p class="mb-2 mb-md-3"><small class="text-muted">2020年3月3日 归档于 源码解析</small></p>
-					
-
-
-
-
-
-                    
-					<p class="pt-0 mt-0">对 MOSN Log系统的源码解析。</p>
-					<p class="pt-0"><a href="/zh/blog/code/mosn-log/">查看详情</a></p>
-				</div>
-			</li>
-			
-			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="/zh/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a></h5>
-					<p class="mb-2 mb-md-3"><small class="text-muted">2020年2月26日 归档于 源码解析</small></p>
-					
-
-
-
-
-
-                    
-					<p class="pt-0 mt-0">MOSN 源码解析之启动流程分析。</p>
-					<p class="pt-0"><a href="/zh/blog/code/mosn-startup/">查看详情</a></p>
-				</div>
-			</li>
-			
-			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="/zh/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a></h5>
-					<p class="mb-2 mb-md-3"><small class="text-muted">2020年2月25日 归档于 源码解析</small></p>
-					
-
-
-
-
-
-                    
-					<p class="pt-0 mt-0">本文主要以 sofarpc-sample 为例来分析 MOSN 处理请求跟响应的整个流程。
-</p>
-					<p class="pt-0"><a href="/zh/blog/code/mosn-eventloop/">查看详情</a></p>
-				</div>
-			</li>
-			
-			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="/zh/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a></h5>
-					<p class="mb-2 mb-md-3"><small class="text-muted">2020年2月23日 归档于 源码解析</small></p>
-					
-
-
-
-
-
-                    
-					<p class="pt-0 mt-0">MOSN 源码解析系列之共享内存模型。
-</p>
-					<p class="pt-0"><a href="/zh/blog/code/mosn-shm/">查看详情</a></p>
-				</div>
-			</li>
-			
-			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="/zh/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a></h5>
-					<p class="mb-2 mb-md-3"><small class="text-muted">2020年2月16日 归档于 源码解析</small></p>
-					
-
-
-
-
-
-                    
-					<p class="pt-0 mt-0">MOSN 源码解析系列之变量机制的源码解析。
-</p>
-					<p class="pt-0"><a href="/zh/blog/code/mosn-variable/">查看详情</a></p>
-				</div>
-			</li>
-			
-			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="/zh/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a></h5>
-					<p class="mb-2 mb-md-3"><small class="text-muted">2020年2月15日 归档于 源码解析</small></p>
-					
-
-
-
-
-
-                    
-					<p class="pt-0 mt-0">MOSN 源码解析系列之内存复用机制。
-</p>
-					<p class="pt-0"><a href="/zh/blog/code/mosn-buffer/">查看详情</a></p>
-				</div>
-			</li>
-			
-		</ul>
-		
+<div class="td-content">
+	<h1>MOSN v0.13.0 发布</h1>
+	<div class="lead">MOSN v0.13.0 变更日志。</div>
+	<div class="td-byline mb-4">
+		作者 <b>MOSN 团队</b> |
+		<time datetime="2020-06-01" class="text-muted">2020年6月1日</time>
 	</div>
-</div>
-<div class="row pl-2 pt-2">
-	<div class="col">
-		
+	
 
-<ul class="pagination">
-    
-    <li class="page-item">
-        <a href="/zh/blog/code/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-    </li>
-    
-    <li class="page-item disabled">
-    <a href="" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-    </li>
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item active"><a class="page-link" href="/zh/blog/code/">1</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/zh/blog/code/page/2/">2</a></li>
-    
-    
-    <li class="page-item">
-    <a href="/zh/blog/code/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-        <a href="/zh/blog/code/page/2/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-    </li>
-    
+<p>我们很高兴的宣布 <a href="https://github.com/mosn/mosn/releases/tag/v0.13.0" target="_blank">MOSN v0.13.0</a> 发布。</p>
+
+<p>以下是该版本的变更日志。</p>
+
+<h3 id="新功能">新功能</h3>
+
+<ul>
+<li>支持 Strict DNS Cluster <a href="https://github.com/dengqian" target="_blank">@dengqian</a></li>
+<li>支持 GZip 处理的 Stream Filter <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+<li>Dubbo 服务发现完成 Beta 版本 <a href="https://github.com/cch123" target="_blank">@cch123</a></li>
+<li>支持单机故障隔离的 Stream Filter <a href="https://github.com/NeGnail" target="_blank">@NeGnail</a></li>
+<li>集成 Sentinel 限流能力 <a href="https://github.com/ansiz" target="_blank">@ansiz</a></li>
 </ul>
 
-	</div>
+<h3 id="优化">优化</h3>
+
+<ul>
+<li>优化 EDF LB 的实现，使用 EDF 重新实现 WRR LB <a href="https://github.com/CodingSinger" target="_blank">@CodingSinger</a></li>
+<li>配置获取 ADMIN API 优化，新增 Features 和环境变量相关 ADMIN API <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>更新 Host 时触发健康检查的更新从异步模式修改为同步模式 <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>更新了 Dubbo 库，优化了 Dubbo Decode 的性能 <a href="https://github.com/zonghaishang" target="_blank">@zonghaishang</a></li>
+<li>优化 Metrics 在 Prometheus 中的输出，使用正则过滤非法的 Key <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>优化 MOSN 的返回状态码 <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+</ul>
+
+<h3 id="bug-修复">Bug 修复</h3>
+
+<ul>
+<li>修复健康检查注册回调函数时的并发冲突问题 <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>修复配置持久化函数没有正确处理空配置的错误 <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>修复 ClusterName/RouterName 过长时，以文件形式 DUMP 会失败的问题 <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>修复获取 XProtocol 协议时，无法正确获取协议的问题 <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+<li>修复创建 StreamFilter 时，获取的 context 错误的问题 <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+</ul>
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a href="/zh/blog/releases/v0.12.0/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+  </li>
+    <a  class="btn btn-primary  disabled">下一页 <span class="ml-1">→</span></a>
+  </li>
+</ul>
+
 </div>
+
 
           </main>
         </div>

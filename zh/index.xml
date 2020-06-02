@@ -13,6 +13,55 @@
     
     
     <item>
+      <title>Blog: MOSN v0.13.0 发布</title>
+      <link>https://mosn.io/zh/blog/releases/v0.13.0/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/blog/releases/v0.13.0/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.13.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.13.0&lt;/a&gt; 发布。&lt;/p&gt;
+
+&lt;p&gt;以下是该版本的变更日志。&lt;/p&gt;
+
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;支持 Strict DNS Cluster &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持 GZip 处理的 Stream Filter &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Dubbo 服务发现完成 Beta 版本 &lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持单机故障隔离的 Stream Filter &lt;a href=&#34;https://github.com/NeGnail&#34; target=&#34;_blank&#34;&gt;@NeGnail&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;集成 Sentinel 限流能力 &lt;a href=&#34;https://github.com/ansiz&#34; target=&#34;_blank&#34;&gt;@ansiz&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;优化 EDF LB 的实现，使用 EDF 重新实现 WRR LB &lt;a href=&#34;https://github.com/CodingSinger&#34; target=&#34;_blank&#34;&gt;@CodingSinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;配置获取 ADMIN API 优化，新增 Features 和环境变量相关 ADMIN API &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;更新 Host 时触发健康检查的更新从异步模式修改为同步模式 &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;更新了 Dubbo 库，优化了 Dubbo Decode 的性能 &lt;a href=&#34;https://github.com/zonghaishang&#34; target=&#34;_blank&#34;&gt;@zonghaishang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 Metrics 在 Prometheus 中的输出，使用正则过滤非法的 Key &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 MOSN 的返回状态码 &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;修复健康检查注册回调函数时的并发冲突问题 &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复配置持久化函数没有正确处理空配置的错误 &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 ClusterName/RouterName 过长时，以文件形式 DUMP 会失败的问题 &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复获取 XProtocol 协议时，无法正确获取协议的问题 &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复创建 StreamFilter 时，获取的 context 错误的问题 &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN 源码解析 - 总览</title>
       <link>https://mosn.io/zh/blog/posts/mosn-overview/</link>
       <pubDate>Fri, 08 May 2020 00:00:00 +0000</pubDate>
