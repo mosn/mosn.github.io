@@ -14,5 +14,68 @@
       
     
     
+    <item>
+      <title>Docs: SkyWalking 配置</title>
+      <link>https://mosn.io/zh/docs/configuration/trace/skywalking/</link>
+      <pubDate>Wed, 08 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/docs/configuration/trace/skywalking/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;本文描述的是 SkyWalking Trace  配置。&lt;/p&gt;
+
+&lt;p&gt;目前支持 &lt;code&gt;HTTP1&lt;/code&gt; 协议追踪。&lt;/p&gt;
+
+&lt;p&gt;SkyWalking 描述的 MOSN 的基本全局参数如下所示。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;tracing&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;enable&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;driver&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;SkyWalking&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;config&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;reporter&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;gRPC&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;backend_service&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;127.0.0.1:11800&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;service_name&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;mosn&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;with_register&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;true&lt;/span&gt;
+    &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+  &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;reporter&#34;&gt;reporter&lt;/h2&gt;
+
+&lt;p&gt;trace 数据上报模式， 支持 &lt;code&gt;log&lt;/code&gt;（仅用于测试） 和 &lt;code&gt;gRPC&lt;/code&gt; 两种模式 。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如果配置为空，则默认为 &lt;code&gt;log&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;backend-service&#34;&gt;backend_service&lt;/h2&gt;
+
+&lt;p&gt;SkyWalking 后端服务地址，仅在上报模式为 &lt;code&gt;gRPC&lt;/code&gt; 模式时使用 。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;示例：&lt;code&gt;127.0.0.1:11800&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;service-name&#34;&gt;service_name&lt;/h2&gt;
+
+&lt;p&gt;注册到 SkyWalking 的服务名称 。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如果配置为空，则默认为 &lt;code&gt;mosn&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;with-register&#34;&gt;with_register&lt;/h2&gt;
+
+&lt;p&gt;bool 类型，当此值为 true 时，会阻塞协程等待当前实例注册到 SkyWalking 。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如果配置为空，则默认为 &lt;code&gt;true&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
   </channel>
 </rss>
