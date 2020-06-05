@@ -2859,7 +2859,7 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;p&gt;以下是 MOSN 的用户。&lt;/p&gt;
 
-&lt;div&gt;
+&lt;p&gt;&lt;div&gt;
 &lt;table&gt;
   &lt;tbody&gt;
   &lt;tr&gt;&lt;/tr&gt;
@@ -2911,6 +2911,7 @@ ECDHE-ECDSA-SM4-SM3
   &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
+请在&lt;a href=&#34;https://github.com/mosn/community/issues/8&#34; target=&#34;_blank&#34;&gt;此处&lt;/a&gt;登记并提供反馈来帮助 MOSN 做的更好。&lt;/p&gt;
 
 &lt;h2 id=&#34;加入社区&#34;&gt;加入社区&lt;/h2&gt;
 
