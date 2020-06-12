@@ -2843,6 +2843,16 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;p&gt;选择加入您感兴趣的工作组，开始您的 MOSN 之旅吧！&lt;/p&gt;
 
+&lt;h2 id=&#34;社区会议&#34;&gt;社区会议&lt;/h2&gt;
+
+&lt;p&gt;MOSN 社区定期召开社区会议。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://ebay.zoom.com.cn/j/96285622161&#34; target=&#34;_blank&#34;&gt;每双周三晚 8 点（北京时间）&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://docs.google.com/document/d/12lgyCW-GmlErr_ihvAO7tMmRe87i70bv2xqe4h2LUz4/edit?usp=sharing&#34; target=&#34;_blank&#34;&gt;会议纪要&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&#34;合作伙伴&#34;&gt;合作伙伴&lt;/h2&gt;
 
 &lt;p&gt;合作伙伴参与 MOSN 合作开发，使 MOSN 变得更好。&lt;/p&gt;
@@ -2889,7 +2899,7 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;p&gt;以下是 MOSN 的用户。&lt;/p&gt;
 
-&lt;div&gt;
+&lt;p&gt;&lt;div&gt;
 &lt;table&gt;
   &lt;tbody&gt;
   &lt;tr&gt;&lt;/tr&gt;
@@ -2948,8 +2958,19 @@ ECDHE-ECDSA-SM4-SM3
   &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
+请在&lt;a href=&#34;https://github.com/mosn/community/issues/8&#34; target=&#34;_blank&#34;&gt;此处&lt;/a&gt;登记并提供反馈来帮助 MOSN 做的更好。&lt;/p&gt;
 
-&lt;p&gt;请在&lt;a href=&#34;https://github.com/mosn/community/issues/8&#34; target=&#34;_blank&#34;&gt;此处&lt;/a&gt;登记并提供反馈来帮助 MOSN 做的更好。&lt;/p&gt;
+&lt;h2 id=&#34;roadmap&#34;&gt;Roadmap&lt;/h2&gt;
+
+&lt;p&gt;MOSN with Istio 路线图如下。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;mosn-with-istio-roadmap.png&#34; alt=&#34;MOSN with Istio 路线图&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Roadmap 详情见 &lt;a href=&#34;https://docs.google.com/spreadsheets/d/1fALompY9nKZNImOuxQw23xtMD-5rCBrXWziJZkj76bo/edit#gid=0&#34; target=&#34;_blank&#34;&gt;Google Sheet&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;教程&#34;&gt;教程&lt;/h2&gt;
+
+&lt;p&gt;MOSN 提供线上教程，见&lt;a href=&#34;https://mosn.io/zh/docs/tutorial/&#34;&gt;教程页面&lt;/a&gt;。&lt;/p&gt;
 
 &lt;h2 id=&#34;加入社区&#34;&gt;加入社区&lt;/h2&gt;
 

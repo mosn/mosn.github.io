@@ -2156,7 +2156,7 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;p&gt;For more materials about MOSN community, please go to the &lt;a href=&#34;https://github.com/mosn/community&#34; target=&#34;_blank&#34;&gt;community repo&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;working-groups&#34;&gt;Working Groups&lt;/h2&gt;
+&lt;h2 id=&#34;working-groups&#34;&gt;Working groups&lt;/h2&gt;
 
 &lt;p&gt;MOSN including the following working groups now.&lt;/p&gt;
 
@@ -2166,6 +2166,16 @@ ECDHE-ECDSA-SM4-SM3
 &lt;/ul&gt;
 
 &lt;p&gt;Choose to join a working group that interests you and start your MOSN journey!&lt;/p&gt;
+
+&lt;h2 id=&#34;community-meeting&#34;&gt;Community meeting&lt;/h2&gt;
+
+&lt;p&gt;MOSN community holds regular meetings.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://ebay.zoom.com.cn/j/96285622161&#34; target=&#34;_blank&#34;&gt;Wednesday 8:00 PM CST(Beijing)&lt;/a&gt;  every other week&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://docs.google.com/document/d/12lgyCW-GmlErr_ihvAO7tMmRe87i70bv2xqe4h2LUz4/edit?usp=sharing&#34; target=&#34;_blank&#34;&gt;Meeting notes&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&#34;partners&#34;&gt;Partners&lt;/h2&gt;
 
@@ -2274,6 +2284,16 @@ ECDHE-ECDSA-SM4-SM3
 &lt;/div&gt;
 
 &lt;p&gt;Please &lt;a href=&#34;https://github.com/mosn/community/issues/8&#34; target=&#34;_blank&#34;&gt;leave a comment here&lt;/a&gt; to tell us your scenario to make MOSN better!&lt;/p&gt;
+
+&lt;h2 id=&#34;roadmap&#34;&gt;Roadmap&lt;/h2&gt;
+
+&lt;p&gt;MOSN with Istio roadmap.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;mosn-with-istio-roadmap.png&#34; alt=&#34;MOSN with Istio roadmap&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h2&gt;
+
+&lt;p&gt;See MOSN &lt;a href=&#34;https://mosn.io/docs/tutorial/&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;communication&#34;&gt;Communication&lt;/h2&gt;
 
