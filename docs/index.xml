@@ -2285,6 +2285,48 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;p&gt;Please &lt;a href=&#34;https://github.com/mosn/community/issues/8&#34; target=&#34;_blank&#34;&gt;leave a comment here&lt;/a&gt; to tell us your scenario to make MOSN better!&lt;/p&gt;
 
+&lt;h2 id=&#34;ecosystem&#34;&gt;Ecosystem&lt;/h2&gt;
+
+&lt;p&gt;The MOSN community actively embraces the open source ecosystem and has established good relationships with the following open source communities.&lt;/p&gt;
+
+&lt;div&gt;
+&lt;table&gt;
+  &lt;tbody&gt;
+  &lt;tr&gt;&lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td align=&#34;center&#34; valign=&#34;middle&#34;&gt;
+        &lt;a href=&#34;https://istio.io/&#34; target=&#34;_blank&#34;&gt;
+          &lt;img width=&#34;222px&#34;  src=&#34;https://mosn.io/images/community/istio.png&#34;&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td align=&#34;center&#34;  valign=&#34;middle&#34;&gt;
+        &lt;a href=&#34;https://skywalking.apache.org/&#34; target=&#34;_blank&#34;&gt;
+          &lt;img width=&#34;222px&#34;  src=&#34;https://mosn.io/images/community/skywalking.png&#34;&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td align=&#34;center&#34; valign=&#34;middle&#34;&gt;
+        &lt;a href=&#34;https://dubbo.apache.org/&#34; target=&#34;_blank&#34;&gt;
+          &lt;img width=&#34;222px&#34;  src=&#34;https://mosn.io/images/community/dubbo.png&#34;&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td align=&#34;center&#34; valign=&#34;middle&#34;&gt;
+        &lt;a href=&#34;https://sentinelguard.io/&#34; target=&#34;_blank&#34;&gt;
+          &lt;img width=&#34;222px&#34;  src=&#34;https://mosn.io/images/community/sentinel.png&#34;&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;&lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td align=&#34;center&#34; valign=&#34;middle&#34;&gt;
+        &lt;a href=&#34;https://www.sofastack.tech/&#34; target=&#34;_blank&#34;&gt;
+          &lt;img width=&#34;222px&#34;  src=&#34;https://mosn.io/images/community/sofastack.png&#34;&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;roadmap&#34;&gt;Roadmap&lt;/h2&gt;
 
 &lt;p&gt;MOSN with Istio roadmap.&lt;/p&gt;

@@ -2899,7 +2899,7 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;p&gt;以下是 MOSN 的用户。&lt;/p&gt;
 
-&lt;p&gt;&lt;div&gt;
+&lt;div&gt;
 &lt;table&gt;
   &lt;tbody&gt;
   &lt;tr&gt;&lt;/tr&gt;
@@ -2958,7 +2958,50 @@ ECDHE-ECDSA-SM4-SM3
   &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-请在&lt;a href=&#34;https://github.com/mosn/community/issues/8&#34; target=&#34;_blank&#34;&gt;此处&lt;/a&gt;登记并提供反馈来帮助 MOSN 做的更好。&lt;/p&gt;
+
+&lt;p&gt;请在&lt;a href=&#34;https://github.com/mosn/community/issues/8&#34; target=&#34;_blank&#34;&gt;此处&lt;/a&gt;登记并提供反馈来帮助 MOSN 做的更好。&lt;/p&gt;
+
+&lt;h2 id=&#34;开源生态&#34;&gt;开源生态&lt;/h2&gt;
+
+&lt;p&gt;MOSN 社区积极拥抱开源生态，与以下开源社区建立了良好的合作关系。&lt;/p&gt;
+
+&lt;div&gt;
+&lt;table&gt;
+  &lt;tbody&gt;
+  &lt;tr&gt;&lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td align=&#34;center&#34; valign=&#34;middle&#34;&gt;
+        &lt;a href=&#34;https://istio.io/&#34; target=&#34;_blank&#34;&gt;
+          &lt;img width=&#34;222px&#34;  src=&#34;https://mosn.io/images/community/istio.png&#34;&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td align=&#34;center&#34;  valign=&#34;middle&#34;&gt;
+        &lt;a href=&#34;https://skywalking.apache.org/&#34; target=&#34;_blank&#34;&gt;
+          &lt;img width=&#34;222px&#34;  src=&#34;https://mosn.io/images/community/skywalking.png&#34;&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td align=&#34;center&#34; valign=&#34;middle&#34;&gt;
+        &lt;a href=&#34;https://dubbo.apache.org/&#34; target=&#34;_blank&#34;&gt;
+          &lt;img width=&#34;222px&#34;  src=&#34;https://mosn.io/images/community/dubbo.png&#34;&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td align=&#34;center&#34; valign=&#34;middle&#34;&gt;
+        &lt;a href=&#34;https://sentinelguard.io/&#34; target=&#34;_blank&#34;&gt;
+          &lt;img width=&#34;222px&#34;  src=&#34;https://mosn.io/images/community/sentinel.png&#34;&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;&lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td align=&#34;center&#34; valign=&#34;middle&#34;&gt;
+        &lt;a href=&#34;https://www.sofastack.tech/&#34; target=&#34;_blank&#34;&gt;
+          &lt;img width=&#34;222px&#34;  src=&#34;https://mosn.io/images/community/sofastack.png&#34;&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&#34;roadmap&#34;&gt;Roadmap&lt;/h2&gt;
 
