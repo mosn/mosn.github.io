@@ -2965,7 +2965,7 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;p&gt;MOSN 社区积极拥抱开源生态，与以下开源社区建立了良好的合作关系。&lt;/p&gt;
 
-&lt;div&gt;
+&lt;p&gt;&lt;div&gt;
 &lt;table&gt;
   &lt;tbody&gt;
   &lt;tr&gt;&lt;/tr&gt;
@@ -3001,7 +3001,67 @@ ECDHE-ECDSA-SM4-SM3
       &lt;/tr&gt;
     &lt;/tbody&gt;
   &lt;/table&gt;
-&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;committer-列表&#34;&gt;Committer 列表&lt;/h2&gt;
+
+&lt;p&gt;MOSN 社区认证的 Committer 如下：&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;姓名&lt;/th&gt;
+&lt;th&gt;GitHub&lt;/th&gt;
+&lt;th&gt;公司&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;田阳&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;taoyuanyuan&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;蚂蚁金服&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;王发康&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;wangfakang&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;蚂蚁金服&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;白鹏&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;nejisama&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;蚂蚁金服&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;曹春晖&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;cch123&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;蚂蚁金服&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;孙福泽&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/peacocktrain&#34; target=&#34;_blank&#34;&gt;peacocktrain&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Boss 直聘&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;陈鹏&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;champly&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;多点生活&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Committer 是具有 MOSN 仓库写权限的个人，标准如下：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;能够在长时间内做持续贡献 issue、PR 的个人；&lt;/li&gt;
+&lt;li&gt;参与 issue 列表的维护及重要功能的讨论；&lt;/li&gt;
+&lt;li&gt;积极参与 code review 和社区会议；&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&#34;roadmap&#34;&gt;Roadmap&lt;/h2&gt;
 

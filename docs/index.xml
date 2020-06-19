@@ -2327,6 +2327,66 @@ ECDHE-ECDSA-SM4-SM3
   &lt;/table&gt;
 &lt;/div&gt;
 
+&lt;h2 id=&#34;committers&#34;&gt;Committers&lt;/h2&gt;
+
+&lt;p&gt;The MOSN Community Certified Committer is as follows.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;GitHub&lt;/th&gt;
+&lt;th&gt;公司&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Yang Tian&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;taoyuanyuan&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Ant Financial&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Fakang Wang&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;wangfakang&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Ant Financial&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Peng Bai&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;nejisama&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Ant Financial&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Chunhui Cao&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;cch123&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Ant Financial&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Fuze Sun&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/peacocktrain&#34; target=&#34;_blank&#34;&gt;peacocktrain&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Boss 直聘&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Peng Chen&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;champly&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;dmall.com&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Committer is an individual with MOSN repository write access to the following criteria.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Individuals who can make sustained contributions to issues, PR over time.&lt;/li&gt;
+&lt;li&gt;Participate in the maintenance of issue lists and discussion of important features.&lt;/li&gt;
+&lt;li&gt;Active participation in code reviews and community meetings.&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&#34;roadmap&#34;&gt;Roadmap&lt;/h2&gt;
 
 &lt;p&gt;MOSN with Istio roadmap.&lt;/p&gt;
