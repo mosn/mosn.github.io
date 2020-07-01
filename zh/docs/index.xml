@@ -37,7 +37,12 @@
       &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;reporter&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;gRPC&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
       &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;backend_service&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;127.0.0.1:11800&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
       &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;service_name&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;mosn&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
-      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;with_register&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;true&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;max_send_queue_size&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;30000&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;authentication&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;mosn&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;tls&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;cert_file&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;cert.crt&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+        &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;server_name_override&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;mosn.io&amp;#34;&lt;/span&gt;
+      &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
     &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
   &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -59,19 +64,43 @@
 
 &lt;h2 id=&#34;service-name&#34;&gt;service_name&lt;/h2&gt;
 
-&lt;p&gt;注册到 SkyWalking 的服务名称 。&lt;/p&gt;
+&lt;p&gt;注册到 SkyWalking 的服务名称，仅在上报模式为 &lt;code&gt;gRPC&lt;/code&gt; 模式时使用 。&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;如果配置为空，则默认为 &lt;code&gt;mosn&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;with-register&#34;&gt;with_register&lt;/h2&gt;
+&lt;h2 id=&#34;max-send-queue-size&#34;&gt;max_send_queue_size&lt;/h2&gt;
 
-&lt;p&gt;bool 类型，当此值为 true 时，会阻塞协程等待当前实例注册到 SkyWalking 。&lt;/p&gt;
+&lt;p&gt;trace 数据缓冲队列大小，仅在上报模式为 &lt;code&gt;gRPC&lt;/code&gt; 模式时使用 。&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;如果配置为空，则默认为 &lt;code&gt;true&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;如果配置为空，则默认为 &lt;code&gt;30000&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id=&#34;authentication&#34;&gt;authentication&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;gRPC&lt;/code&gt; 身份认证参数，仅在上报模式为 &lt;code&gt;gRPC&lt;/code&gt; 模式时使用 。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如果配置不为空，在与 SkyWalking 后端服务建立连接时会使用此参数进行身份认证。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;tls&#34;&gt;tls&lt;/h2&gt;
+
+&lt;p&gt;仅在上报模式为 &lt;code&gt;gRPC&lt;/code&gt; 模式时使用 。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如果配置不为空，将使用 TLS 连接 SkyWalking 后端服务。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;cert-file&#34;&gt;cert_file&lt;/h3&gt;
+
+&lt;p&gt;TLS 客户端证书。&lt;/p&gt;
+
+&lt;h3 id=&#34;server-name-override&#34;&gt;server_name_override&lt;/h3&gt;
+
+&lt;p&gt;服务名称。&lt;/p&gt;
 
       </description>
     </item>
