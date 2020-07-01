@@ -24,7 +24,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/faq/" />
 <meta property="article:published_time" content="2020-03-02T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-07-01T14:19:10&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-07-01T14:33:11&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="FAQ">
 <meta itemprop="description" content="MOSN frequently asked questions.
@@ -32,7 +32,7 @@
 
 
 <meta itemprop="datePublished" content="2020-03-02T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-07-01T14:19:10&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-01T14:33:11&#43;08:00" />
 <meta itemprop="wordCount" content="800">
 
 
@@ -575,7 +575,7 @@ if (!doNotTrack) {
 <ul>
 <li><a href="#why-use-mosn-instead-of-istio-s-default-data-plane">Why use MOSN instead of Istio&rsquo;s default data plane?</a></li>
 <li><a href="#what-is-the-difference-between-mosn-and-envoy-what-are-the-advantages-of-mosn">What is the difference between MOSN and Envoy? What are the advantages of MOSN?</a></li>
-<li><a href="#is-the-open-source-mosn-the-same-version-as-the-mosn-used-internally-by-ant-financial">Is the open source MOSN the same version as the MOSN used internally by Ant Financial?</a></li>
+<li><a href="#is-the-open-source-mosn-the-same-version-as-the-mosn-used-internally-by-ant-group">Is the open source MOSN the same version as the MOSN used internally by Ant Group?</a></li>
 <li><a href="#what-is-the-difference-between-the-open-source-and-commercial-versions-of-mosn">What is the difference between the open source and commercial versions of MOSN?</a></li>
 <li><a href="#what-is-mosn-s-open-source-plan">What is MOSN&rsquo;s open source plan?</a></li>
 <li><a href="#what-version-of-istio-does-mosn-support-when-will-it-be-available-in-istio">What version of Istio does MOSN support? When will it be available in Istio?</a></li>
@@ -623,9 +623,9 @@ if (!doNotTrack) {
 
 <h3 id="why-use-mosn-instead-of-istio-s-default-data-plane">Why use MOSN instead of Istio&rsquo;s default data plane?</h3>
 
-<p>Before the Service Mesh transformation, we have expected that as the next generation of Ant Financial&rsquo;s infrastructure, Meshization will inevitably bring revolutionary changes and evolution costs. We have a very ambitious blueprint: ready to integrate the original network and middleware various capabilities have been re-precipitated and polished to create a low-level platform for the next-generation architecture of the future, which will carry the responsibility of various service communications.</p>
+<p>Before the Service Mesh transformation, we have expected that as the next generation of Ant Group&rsquo;s infrastructure, Meshization will inevitably bring revolutionary changes and evolution costs. We have a very ambitious blueprint: ready to integrate the original network and middleware various capabilities have been re-precipitated and polished to create a low-level platform for the next-generation architecture of the future, which will carry the responsibility of various service communications.</p>
 
-<p>This is a long-term planning project that takes many years to build and meets the needs of the next five or even ten years, and cooperates to build a team that spans business, SRE, middleware, and infrastructure departments. We must have a network proxy forwarding plane with flexible expansion, high performance, and long-term evolution. Nginx and Envoy have a very long-term capacity accumulation and active community in the field of network agents. We have also borrowed from other excellent open source network agents such as Nginx and Envoy. At the same time, we have enhanced research and development efficiency and flexible expansion. Mesh transformation involves a large number of departments and R &amp; D personnel. We must consider the landing cost of cross-team cooperation. Therefore, we have developed a new network proxy MOSN based on Go in the cloud-native scenario. For Go&rsquo;s performance, we also did a full investigation and test in the early stage to meet the performance requirements of Ant Financial&rsquo;s services.</p>
+<p>This is a long-term planning project that takes many years to build and meets the needs of the next five or even ten years, and cooperates to build a team that spans business, SRE, middleware, and infrastructure departments. We must have a network proxy forwarding plane with flexible expansion, high performance, and long-term evolution. Nginx and Envoy have a very long-term capacity accumulation and active community in the field of network agents. We have also borrowed from other excellent open source network agents such as Nginx and Envoy. At the same time, we have enhanced research and development efficiency and flexible expansion. Mesh transformation involves a large number of departments and R &amp; D personnel. We must consider the landing cost of cross-team cooperation. Therefore, we have developed a new network proxy MOSN based on Go in the cloud-native scenario. For Go&rsquo;s performance, we also did a full investigation and test in the early stage to meet the performance requirements of Ant Group&rsquo;s services.</p>
 
 <p>At the same time, we received a lot of feedback and needs from the end user community. Everyone has the same needs and thoughts. So we combined the actual situation of the community and ourselves to conduct the research and development of MOSN from the perspective of satisfying the community and users. We believe that the open source competition is mainly competition between standards and specifications. We need to make the most suitable implementation choice based on open source standards.</p>
 
@@ -643,13 +643,13 @@ if (!doNotTrack) {
 <li>Transport layer national secret algorithm support with Chinese encryption compliance;</li>
 </ul>
 
-<h3 id="is-the-open-source-mosn-the-same-version-as-the-mosn-used-internally-by-ant-financial">Is the open source MOSN the same version as the MOSN used internally by Ant Financial?</h3>
+<h3 id="is-the-open-source-mosn-the-same-version-as-the-mosn-used-internally-by-ant-group">Is the open source MOSN the same version as the MOSN used internally by Ant Group?</h3>
 
-<p>First of all, there is no so-called independent MOSN version inside Ant Financial. Ant Financial has many modules developed based on MOSN, and the internal modules rely on the open source version of MOSN. The research and development of business-independent MOSN core capabilities are carried out directly on the open source version.</p>
+<p>First of all, there is no so-called independent MOSN version inside Ant Group. Ant Group has many modules developed based on MOSN, and the internal modules rely on the open source version of MOSN. The research and development of business-independent MOSN core capabilities are carried out directly on the open source version.</p>
 
 <h3 id="what-is-the-difference-between-the-open-source-and-commercial-versions-of-mosn">What is the difference between the open source and commercial versions of MOSN?</h3>
 
-<p>Ant Financial has commercial Mesh products. Commercial products mainly provide a complete solution from development to delivery runtime. At the same time, in order to meet the business needs of enterprise users, MOSN will be extended, so the so-called MOSN commercial version It mainly carries the version of the business user&rsquo;s own business module.</p>
+<p>Ant Group has commercial Mesh products. Commercial products mainly provide a complete solution from development to delivery runtime. At the same time, in order to meet the business needs of enterprise users, MOSN will be extended, so the so-called MOSN commercial version It mainly carries the version of the business user&rsquo;s own business module.</p>
 
 <h3 id="what-is-mosn-s-open-source-plan">What is MOSN&rsquo;s open source plan?</h3>
 
@@ -669,7 +669,7 @@ if (!doNotTrack) {
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified July 1, 2020: <a  href="https://github.com/mosn/mosn.io/commit/29a87e60c909151d621d44bd44121eefe4cafac5">add trainyao as a committer (#105) (29a87e6)</a>
+	<div class="text-muted mt-5 pt-3 border-top">Last modified July 1, 2020: <a  href="https://github.com/mosn/mosn.io/commit/b634cf06bbae9ac1113ad26738a0426517459c5c">update Ant Financial to Ant Group (b634cf0)</a>
 </div>
 </div>
 

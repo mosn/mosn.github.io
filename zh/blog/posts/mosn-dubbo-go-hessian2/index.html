@@ -23,14 +23,14 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/blog/posts/mosn-dubbo-go-hessian2/" />
 <meta property="article:published_time" content="2020-06-02T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-07-01T14:19:10&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-07-01T14:33:11&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化">
 <meta itemprop="description" content="本文会重点描述在基于 Go 语言库 dubbo-go-hessian2 、Dubbo 协议中对 MOSN 所做的性能优化。">
 
 
 <meta itemprop="datePublished" content="2020-06-02T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-07-01T14:19:10&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-01T14:33:11&#43;08:00" />
 <meta itemprop="wordCount" content="1733">
 
 
@@ -574,7 +574,7 @@ if (!doNotTrack) {
 	</div>
 	
 
-<p>蚂蚁金服内部对 Service Mesh 的稳定性和性能要求是比较高的，内部 MOSN 广泛用于生产环境。在云上和开源社区，RPC 领域 Dubbo 和 Spring Cloud 同样广泛用于生产环境，我们在 MOSN 基础上，支持了 Dubbo 和 spring cloud 流量代理。我们发现在支持 Dubbo 协议过程中，经过 Mesh 流量代理后，性能有非常大的性能损耗，在大商户落地 Mesh 中也对性能有较高要求，因此本文会重点描述在基于 Go 语言库 <a href="https://github.com/apache/dubbo-go-hessian2" target="_blank">dubbo-go-hessian2</a> 、Dubbo 协议中对 <a href="https://github.com/mosn/mosn" target="_blank">MOSN</a> 所做的性能优化。</p>
+<p>蚂蚁集团内部对 Service Mesh 的稳定性和性能要求是比较高的，内部 MOSN 广泛用于生产环境。在云上和开源社区，RPC 领域 Dubbo 和 Spring Cloud 同样广泛用于生产环境，我们在 MOSN 基础上，支持了 Dubbo 和 spring cloud 流量代理。我们发现在支持 Dubbo 协议过程中，经过 Mesh 流量代理后，性能有非常大的性能损耗，在大商户落地 Mesh 中也对性能有较高要求，因此本文会重点描述在基于 Go 语言库 <a href="https://github.com/apache/dubbo-go-hessian2" target="_blank">dubbo-go-hessian2</a> 、Dubbo 协议中对 <a href="https://github.com/mosn/mosn" target="_blank">MOSN</a> 所做的性能优化。</p>
 
 <h3 id="性能优化概述">性能优化概述</h3>
 
@@ -595,7 +595,7 @@ if (!doNotTrack) {
 
 <h3 id="性能优化工具-pprof">性能优化工具 pprof</h3>
 
-<p>磨刀不误砍柴工，在性能优化前首先要找到性能卡点，找到性能卡点后，另一个难点就是如何用高效代码优化替代 slow code。因为蚂蚁金服 Service Mesh 是基于 go 语言实现的，我们首选 go 自带的 pprof 性能工具，我们简要介绍这个工具如何使用。如果我们 go 库自带 http.Server 时并且在 main 头部导入 <code>import _ &quot;net/http/pprof&quot;</code>，go 会帮我们挂载对应的 handler , 详细可以参考 <a href="https://pkg.go.dev/net/http/pprof?tab=doc" target="_blank">godoc</a> 。</p>
+<p>磨刀不误砍柴工，在性能优化前首先要找到性能卡点，找到性能卡点后，另一个难点就是如何用高效代码优化替代 slow code。因为蚂蚁集团 Service Mesh 是基于 go 语言实现的，我们首选 go 自带的 pprof 性能工具，我们简要介绍这个工具如何使用。如果我们 go 库自带 http.Server 时并且在 main 头部导入 <code>import _ &quot;net/http/pprof&quot;</code>，go 会帮我们挂载对应的 handler , 详细可以参考 <a href="https://pkg.go.dev/net/http/pprof?tab=doc" target="_blank">godoc</a> 。</p>
 
 <p>因为 mosn 默认会在 <code>34902</code> 端口暴露 http 服务，通过以下命令轻松获取 mosn 的性能诊断文件：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go tool pprof -seconds <span style="color:#0000cf;font-weight:bold">60</span> http://benchmark-server-ip:34902/debug/pprof/profile
@@ -1007,7 +1007,7 @@ BenchmarkNewDecoderOptimized-12 <span style="color:#0000cf;font-weight:bold">105
 
 <h3 id="关于作者">关于作者</h3>
 
-<p>商宗海（诣极），GitHub ID zonghaishang，Apache Dubbo PMC，目前就职于蚂蚁金服金服中间件团队，主攻 RPC 和 Service Mesh 方向。 《深入理解 Apache Dubbo 与实战》一书作者。</p>
+<p>商宗海（诣极），GitHub ID zonghaishang，Apache Dubbo PMC，目前就职于蚂蚁集团金服中间件团队，主攻 RPC 和 Service Mesh 方向。 《深入理解 Apache Dubbo 与实战》一书作者。</p>
 
 	
 

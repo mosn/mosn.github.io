@@ -2241,9 +2241,9 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;p&gt;&lt;img src=&#34;1585209248463-b8b38ab0-09ed-4225-8d60-5bad3c2a372b.png&#34; alt=&#34;多协议机制&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;前面提到，蚂蚁金服 2019 年双十一核心链路百分之百 Mesh 化，是业界当时已知的最大规模的 Service Mesh 落地，为什么我们敢这么做？因为我们具备能够让架构平滑迁移的方案。&amp;rdquo;兼容性&amp;rdquo;是任何架构演进升级都必然要面对的一个问题，这在早已实践微服务化架构的蚂蚁金服内部同样如此。为了实现架构的平滑迁移，需要让新老节点的外在行为尽可能的表现一致，从而让依赖方无感知，这其中很重要的一点就是保持协议兼容性。&lt;/p&gt;
+&lt;p&gt;前面提到，蚂蚁集团 2019 年双十一核心链路百分之百 Mesh 化，是业界当时已知的最大规模的 Service Mesh 落地，为什么我们敢这么做？因为我们具备能够让架构平滑迁移的方案。&amp;rdquo;兼容性&amp;rdquo;是任何架构演进升级都必然要面对的一个问题，这在早已实践微服务化架构的蚂蚁集团内部同样如此。为了实现架构的平滑迁移，需要让新老节点的外在行为尽可能的表现一致，从而让依赖方无感知，这其中很重要的一点就是保持协议兼容性。&lt;/p&gt;
 
-&lt;p&gt;因此，我们需要在 Service Mesh 架构下，兼容现有微服务体系中的通信协议——也就是说需要在 MOSN 内实现对目前蚂蚁金服内部通信协议的扩展支持。&lt;/p&gt;
+&lt;p&gt;因此，我们需要在 Service Mesh 架构下，兼容现有微服务体系中的通信协议——也就是说需要在 MOSN 内实现对目前蚂蚁集团内部通信协议的扩展支持。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;1585209248513-3bf90371-3d7c-4a0f-a98a-db4538bb2271.png&#34; alt=&#34;协议扩展支持&#34; /&gt;&lt;/p&gt;
 
@@ -2293,7 +2293,7 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;p&gt;&lt;img src=&#34;1585209248663-0e25c95b-d711-4de2-9a42-f71d05b360df.png&#34; alt=&#34;SOFABolt 简介&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;这里先对 SOFABolt 进行一个简单介绍，SOFABolt 是一个开源的轻量、易用、高性能、易扩展的  RPC 通信框架，广泛应用于蚂蚁金服内部。&lt;/p&gt;
+&lt;p&gt;这里先对 SOFABolt 进行一个简单介绍，SOFABolt 是一个开源的轻量、易用、高性能、易扩展的  RPC 通信框架，广泛应用于蚂蚁集团内部。&lt;/p&gt;
 
 &lt;p&gt;SOFABolt：&lt;a href=&#34;https://github.com/sofastack/sofa-bolt&#34; target=&#34;_blank&#34;&gt;https://github.com/sofastack/sofa-bolt&lt;/a&gt;&lt;/p&gt;
 
@@ -2767,9 +2767,9 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;h3 id=&#34;为什么要使用-mosn-替换-istio-的数据面&#34;&gt;为什么要使用 MOSN 替换 Istio 的数据面？&lt;/h3&gt;
 
-&lt;p&gt;蚂蚁金服在进行 Mesh 改造前，已经预料到作为下一代蚂蚁金服的基础架构，Mesh 化势必带来革命性的变革以及演进成本，我们有非常宏大的蓝图：准备将原有的网络和中间件方面的各种能力重新沉淀和打磨，打造成为未来新一代架构的底层平台，承载各种服务通讯的职责。&lt;/p&gt;
+&lt;p&gt;蚂蚁集团在进行 Mesh 改造前，已经预料到作为下一代蚂蚁集团的基础架构，Mesh 化势必带来革命性的变革以及演进成本，我们有非常宏大的蓝图：准备将原有的网络和中间件方面的各种能力重新沉淀和打磨，打造成为未来新一代架构的底层平台，承载各种服务通讯的职责。&lt;/p&gt;
 
-&lt;p&gt;这是一个需要多年时间打造，满足未来五年乃至十年需求的长期规划项目，合作共建团队跨业务、SRE、中间件、基础架构等部门。我们必须有一个具备灵活扩展、高性能、满足长期演进的网络代理转发平面。Nginx、Envoy 在网络代理领域有非常长期的能力积累和活跃的社区，我们也同时借鉴了 Nginx、Envoy 等其他优秀的开源网络代理， 同时在研发效率、灵活扩展等方面进行了加强，同时在整个 Mesh 改造涉及到非常多的部门和研发人员，必须考虑到跨团队合作的落地成本，所以我们基于 Go 自研了云原生场景下的新型网络代理 MOSN。对于 Go 的性能，我们前期也做了充分的调研和测试，满足蚂蚁金服业务对性能的要求。&lt;/p&gt;
+&lt;p&gt;这是一个需要多年时间打造，满足未来五年乃至十年需求的长期规划项目，合作共建团队跨业务、SRE、中间件、基础架构等部门。我们必须有一个具备灵活扩展、高性能、满足长期演进的网络代理转发平面。Nginx、Envoy 在网络代理领域有非常长期的能力积累和活跃的社区，我们也同时借鉴了 Nginx、Envoy 等其他优秀的开源网络代理， 同时在研发效率、灵活扩展等方面进行了加强，同时在整个 Mesh 改造涉及到非常多的部门和研发人员，必须考虑到跨团队合作的落地成本，所以我们基于 Go 自研了云原生场景下的新型网络代理 MOSN。对于 Go 的性能，我们前期也做了充分的调研和测试，满足蚂蚁集团业务对性能的要求。&lt;/p&gt;
 
 &lt;p&gt;同时我们从社区用户方面收到了很多的反馈和需求，大家有同样的需求以及思考，所以我们结合社区与自身的实际情况，从满足社区以及用户角度出发进行了 MOSN 的研发工作，我们认为开源的竞争主要是标准与规范的竞争，我们需要基于开源标准做最适合自身的实现选择。&lt;/p&gt;
 
@@ -2789,13 +2789,13 @@ ECDHE-ECDSA-SM4-SM3
 &lt;li&gt;&lt;p&gt;具备中国密码合规的传输层国密算法支持；&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;开源的-mosn-和蚂蚁金服内部使用的-mosn-是同一个版本吗&#34;&gt;开源的 MOSN 和蚂蚁金服内部使用的 MOSN 是同一个版本吗？&lt;/h3&gt;
+&lt;h3 id=&#34;开源的-mosn-和蚂蚁集团内部使用的-mosn-是同一个版本吗&#34;&gt;开源的 MOSN 和蚂蚁集团内部使用的 MOSN 是同一个版本吗？&lt;/h3&gt;
 
-&lt;p&gt;首先蚂蚁金服内部并没有一个所谓独立的 MOSN 版本。蚂蚁金服内部有较多的基于 MOSN 开发的模块，内部模块依赖开源版的 MOSN。业务无关的 MOSN 核心能力的研发，均是直接在开源版本上进行。&lt;/p&gt;
+&lt;p&gt;首先蚂蚁集团内部并没有一个所谓独立的 MOSN 版本。蚂蚁集团内部有较多的基于 MOSN 开发的模块，内部模块依赖开源版的 MOSN。业务无关的 MOSN 核心能力的研发，均是直接在开源版本上进行。&lt;/p&gt;
 
 &lt;h3 id=&#34;mosn-的开源版本和商业版本的区别是什么&#34;&gt;MOSN 的开源版本和商业版本的区别是什么？&lt;/h3&gt;
 
-&lt;p&gt;蚂蚁金服有 Mesh 商业产品，商业产品主要是提供从开发到部署再到运行时的一套完整的解决方案，同时为了满足商业用户自身的业务需求会对 MOSN 进行扩展，所以所谓的 MOSN 商业版本主要是承载了商业用户自身业务模块的版本。&lt;/p&gt;
+&lt;p&gt;蚂蚁集团有 Mesh 商业产品，商业产品主要是提供从开发到部署再到运行时的一套完整的解决方案，同时为了满足商业用户自身的业务需求会对 MOSN 进行扩展，所以所谓的 MOSN 商业版本主要是承载了商业用户自身业务模块的版本。&lt;/p&gt;
 
 &lt;h3 id=&#34;mosn-的开源计划是什么&#34;&gt;MOSN 的开源计划是什么？&lt;/h3&gt;
 
@@ -2857,7 +2857,7 @@ ECDHE-ECDSA-SM4-SM3
         
         
 
-&lt;p&gt;MOSN 是一个开源项目，于 2018 年 7 月由蚂蚁金服开源，使用 Apache 2.0 协议，任何人都可以使用和参与改进。MOSN 社区期待您的加入！&lt;/p&gt;
+&lt;p&gt;MOSN 是一个开源项目，于 2018 年 7 月由蚂蚁集团开源，使用 Apache 2.0 协议，任何人都可以使用和参与改进。MOSN 社区期待您的加入！&lt;/p&gt;
 
 &lt;p&gt;关于 MOSN 社区的详细资料请访问 &lt;a href=&#34;https://github.com/mosn/community&#34; target=&#34;_blank&#34;&gt;Community 仓库&lt;/a&gt;。&lt;/p&gt;
 
@@ -3049,25 +3049,25 @@ ECDHE-ECDSA-SM4-SM3
 &lt;tr&gt;
 &lt;td&gt;田阳&lt;/td&gt;
 &lt;td&gt;&lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;taoyuanyuan&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;蚂蚁金服&lt;/td&gt;
+&lt;td&gt;蚂蚁集团&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
 &lt;td&gt;王发康&lt;/td&gt;
 &lt;td&gt;&lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;wangfakang&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;蚂蚁金服&lt;/td&gt;
+&lt;td&gt;蚂蚁集团&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
 &lt;td&gt;白鹏&lt;/td&gt;
 &lt;td&gt;&lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;nejisama&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;蚂蚁金服&lt;/td&gt;
+&lt;td&gt;蚂蚁集团&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
 &lt;td&gt;曹春晖&lt;/td&gt;
 &lt;td&gt;&lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;cch123&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;蚂蚁金服&lt;/td&gt;
+&lt;td&gt;蚂蚁集团&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;

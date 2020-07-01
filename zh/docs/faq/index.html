@@ -24,7 +24,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/zh/docs/faq/" />
 <meta property="article:published_time" content="2020-03-02T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-07-01T14:19:10&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-07-01T14:33:11&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="FAQ">
 <meta itemprop="description" content="MOSN 常见问题解答。
@@ -32,7 +32,7 @@
 
 
 <meta itemprop="datePublished" content="2020-03-02T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-07-01T14:19:10&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-01T14:33:11&#43;08:00" />
 <meta itemprop="wordCount" content="137">
 
 
@@ -622,7 +622,7 @@ if (!doNotTrack) {
 <ul>
 <li><a href="#为什么要使用-mosn-替换-istio-的数据面">为什么要使用 MOSN 替换 Istio 的数据面？</a></li>
 <li><a href="#mosn-与-envoy-不同点是什么-优势在哪里">MOSN 与  Envoy 不同点是什么？优势在哪里？</a></li>
-<li><a href="#开源的-mosn-和蚂蚁金服内部使用的-mosn-是同一个版本吗">开源的 MOSN 和蚂蚁金服内部使用的 MOSN 是同一个版本吗？</a></li>
+<li><a href="#开源的-mosn-和蚂蚁集团内部使用的-mosn-是同一个版本吗">开源的 MOSN 和蚂蚁集团内部使用的 MOSN 是同一个版本吗？</a></li>
 <li><a href="#mosn-的开源版本和商业版本的区别是什么">MOSN 的开源版本和商业版本的区别是什么？</a></li>
 <li><a href="#mosn-的开源计划是什么">MOSN 的开源计划是什么？</a></li>
 <li><a href="#mosn-支持-istio-的什么版本-什么时候可以在-istio-中可用">MOSN 支持 Istio 的什么版本？什么时候可以在 Istio 中可用？</a></li>
@@ -670,9 +670,9 @@ if (!doNotTrack) {
 
 <h3 id="为什么要使用-mosn-替换-istio-的数据面">为什么要使用 MOSN 替换 Istio 的数据面？</h3>
 
-<p>蚂蚁金服在进行 Mesh 改造前，已经预料到作为下一代蚂蚁金服的基础架构，Mesh 化势必带来革命性的变革以及演进成本，我们有非常宏大的蓝图：准备将原有的网络和中间件方面的各种能力重新沉淀和打磨，打造成为未来新一代架构的底层平台，承载各种服务通讯的职责。</p>
+<p>蚂蚁集团在进行 Mesh 改造前，已经预料到作为下一代蚂蚁集团的基础架构，Mesh 化势必带来革命性的变革以及演进成本，我们有非常宏大的蓝图：准备将原有的网络和中间件方面的各种能力重新沉淀和打磨，打造成为未来新一代架构的底层平台，承载各种服务通讯的职责。</p>
 
-<p>这是一个需要多年时间打造，满足未来五年乃至十年需求的长期规划项目，合作共建团队跨业务、SRE、中间件、基础架构等部门。我们必须有一个具备灵活扩展、高性能、满足长期演进的网络代理转发平面。Nginx、Envoy 在网络代理领域有非常长期的能力积累和活跃的社区，我们也同时借鉴了 Nginx、Envoy 等其他优秀的开源网络代理， 同时在研发效率、灵活扩展等方面进行了加强，同时在整个 Mesh 改造涉及到非常多的部门和研发人员，必须考虑到跨团队合作的落地成本，所以我们基于 Go 自研了云原生场景下的新型网络代理 MOSN。对于 Go 的性能，我们前期也做了充分的调研和测试，满足蚂蚁金服业务对性能的要求。</p>
+<p>这是一个需要多年时间打造，满足未来五年乃至十年需求的长期规划项目，合作共建团队跨业务、SRE、中间件、基础架构等部门。我们必须有一个具备灵活扩展、高性能、满足长期演进的网络代理转发平面。Nginx、Envoy 在网络代理领域有非常长期的能力积累和活跃的社区，我们也同时借鉴了 Nginx、Envoy 等其他优秀的开源网络代理， 同时在研发效率、灵活扩展等方面进行了加强，同时在整个 Mesh 改造涉及到非常多的部门和研发人员，必须考虑到跨团队合作的落地成本，所以我们基于 Go 自研了云原生场景下的新型网络代理 MOSN。对于 Go 的性能，我们前期也做了充分的调研和测试，满足蚂蚁集团业务对性能的要求。</p>
 
 <p>同时我们从社区用户方面收到了很多的反馈和需求，大家有同样的需求以及思考，所以我们结合社区与自身的实际情况，从满足社区以及用户角度出发进行了 MOSN 的研发工作，我们认为开源的竞争主要是标准与规范的竞争，我们需要基于开源标准做最适合自身的实现选择。</p>
 
@@ -692,13 +692,13 @@ if (!doNotTrack) {
 <li><p>具备中国密码合规的传输层国密算法支持；</p></li>
 </ul>
 
-<h3 id="开源的-mosn-和蚂蚁金服内部使用的-mosn-是同一个版本吗">开源的 MOSN 和蚂蚁金服内部使用的 MOSN 是同一个版本吗？</h3>
+<h3 id="开源的-mosn-和蚂蚁集团内部使用的-mosn-是同一个版本吗">开源的 MOSN 和蚂蚁集团内部使用的 MOSN 是同一个版本吗？</h3>
 
-<p>首先蚂蚁金服内部并没有一个所谓独立的 MOSN 版本。蚂蚁金服内部有较多的基于 MOSN 开发的模块，内部模块依赖开源版的 MOSN。业务无关的 MOSN 核心能力的研发，均是直接在开源版本上进行。</p>
+<p>首先蚂蚁集团内部并没有一个所谓独立的 MOSN 版本。蚂蚁集团内部有较多的基于 MOSN 开发的模块，内部模块依赖开源版的 MOSN。业务无关的 MOSN 核心能力的研发，均是直接在开源版本上进行。</p>
 
 <h3 id="mosn-的开源版本和商业版本的区别是什么">MOSN 的开源版本和商业版本的区别是什么？</h3>
 
-<p>蚂蚁金服有 Mesh 商业产品，商业产品主要是提供从开发到部署再到运行时的一套完整的解决方案，同时为了满足商业用户自身的业务需求会对 MOSN 进行扩展，所以所谓的 MOSN 商业版本主要是承载了商业用户自身业务模块的版本。</p>
+<p>蚂蚁集团有 Mesh 商业产品，商业产品主要是提供从开发到部署再到运行时的一套完整的解决方案，同时为了满足商业用户自身的业务需求会对 MOSN 进行扩展，所以所谓的 MOSN 商业版本主要是承载了商业用户自身业务模块的版本。</p>
 
 <h3 id="mosn-的开源计划是什么">MOSN 的开源计划是什么？</h3>
 
@@ -718,7 +718,7 @@ if (!doNotTrack) {
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年7月1日: <a  href="https://github.com/mosn/mosn.io/commit/29a87e60c909151d621d44bd44121eefe4cafac5">add trainyao as a committer (#105) (29a87e6)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年7月1日: <a  href="https://github.com/mosn/mosn.io/commit/b634cf06bbae9ac1113ad26738a0426517459c5c">update Ant Financial to Ant Group (b634cf0)</a>
 </div>
 </div>
 

@@ -271,7 +271,7 @@
 
 &lt;h3 id=&#34;bolt-协议-发送-1k-字符串&#34;&gt;Bolt 协议（发送 1K 字符串）&lt;/h3&gt;
 
-&lt;p&gt;发送 Bolt 协议数据的客户端使用 &amp;ldquo;蚂蚁金服&amp;rdquo;内部开发的线上压力机，并部署 sofa rpc client。 通过压力机的性能页面，可反映压测过程中的QPS、成功/失败次数，以及RT等参数。&lt;/p&gt;
+&lt;p&gt;发送 Bolt 协议数据的客户端使用 &amp;ldquo;蚂蚁集团&amp;rdquo;内部开发的线上压力机，并部署 sofa rpc client。 通过压力机的性能页面，可反映压测过程中的QPS、成功/失败次数，以及RT等参数。&lt;/p&gt;
 
 &lt;h3 id=&#34;http1-1-协议-发送-1k-字符串&#34;&gt;HTTP1.1 协议（发送 1K 字符串）&lt;/h3&gt;
 
