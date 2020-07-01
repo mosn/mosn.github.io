@@ -13,6 +13,71 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.14.0</title>
+      <link>https://mosn.io/blog/releases/v0.14.0/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.14.0/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.14.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.14.0&lt;/a&gt;. Congratulations to &lt;a href=&#34;https://github.com/trainyao&#34; target=&#34;_blank&#34;&gt;Changyu Yao (@trainyao)&lt;/a&gt; for becoming a MOSN Committer and thank him for his contribution to the MOSN community.&lt;/p&gt;
+
+&lt;h2 id=&#34;v0-14-0&#34;&gt;v0.14.0&lt;/h2&gt;
+
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Support for Istio 1.5.X &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt; &lt;a href=&#34;https://github.com/trainyao&#34; target=&#34;_blank&#34;&gt;@trainyao&lt;/a&gt; &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;go-control-plane upgrade to version 0.9.4&lt;/li&gt;
+&lt;li&gt;xDS support for ACK, new Metrics for xDS.&lt;/li&gt;
+&lt;li&gt;Istio sourceLabels filtering support&lt;/li&gt;
+&lt;li&gt;probe interface with pilot-agent support&lt;/li&gt;
+&lt;li&gt;support for more startup parameters, adapting to Istio agent startup scenarios&lt;/li&gt;
+&lt;li&gt;gzip, strict-dns, original-dst support for xDS updates.&lt;/li&gt;
+&lt;li&gt;Remove Xproxy Logic&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Maglev Load Balancing Algorithm Support &lt;a href=&#34;https://github.com/trainyao&#34; target=&#34;_blank&#34;&gt;@trainyao&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;New connection pool implementation for supporting message class requests &lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;New Metrics for TLS Connection Switching &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Metrics for adding HTTP StatusCode &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add Metrics Admin API output &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;New interface to query the number of current requests for proxy &lt;a href=&#34;https://github.com/zonghaishang&#34; target=&#34;_blank&#34;&gt;@zonghaishang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support for HostRewrite Header &lt;a href=&#34;https://github.com/liangyuanpeng&#34; target=&#34;_blank&#34;&gt;@liangyuanpeng&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Upgrade tars dependencies to fix compilation issues with higher versions of Golang &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;xDS Configuration Analysis Upgrade Adaptation Istio 1.5.x &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize log output from proxy &lt;a href=&#34;https://github.com/wenxuwan&#34; target=&#34;_blank&#34;&gt;@wenxuwan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;DNS Cache default time changed to 15s &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;HTTP Parameter Route Matching Optimization &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Upgrade the fasthttp library &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimizing Dubbo Request Forwarding Encoding &lt;a href=&#34;https://github.com/zonghaishang&#34; target=&#34;_blank&#34;&gt;@zonghaishang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Request max body configurable for HTTP support &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fix Dubbo Decode bug that fails to parse attachment &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix bug where streams could be created before HTTP2 connection is established &lt;a href=&#34;https://github.com/dunjut&#34; target=&#34;_blank&#34;&gt;@dunjut&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix HTTP2 Handling Trailer null pointer exception &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan &lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix bug where HTTP request headers are not standardized by default &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix panic exceptions caused by disconnected connections during HTTP request processing &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix read/write lock copy issue with dubbo registry &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.13.0</title>
       <link>https://mosn.io/blog/releases/v0.13.0/</link>
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>

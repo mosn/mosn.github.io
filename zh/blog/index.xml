@@ -14,6 +14,71 @@
     
     
     <item>
+      <title>Blog: MOSN v0.14.0 发布</title>
+      <link>https://mosn.io/zh/blog/releases/v0.14.0/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/zh/blog/releases/v0.14.0/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.14.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.14.0&lt;/a&gt; 发布，恭喜&lt;a href=&#34;https://github.com/trainyao&#34; target=&#34;_blank&#34;&gt;姚昌宇（@trainyao）&lt;/a&gt;成为 MOSN Committer，感谢他为 MOSN 社区所做的贡献。&lt;/p&gt;
+
+&lt;p&gt;以下是该版本的变更日志。&lt;/p&gt;
+
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;支持 Istio 1.5.X &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt; &lt;a href=&#34;https://github.com/trainyao&#34; target=&#34;_blank&#34;&gt;@trainyao&lt;/a&gt; &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;go-control-plane 升级到 0.9.4 版本&lt;/li&gt;
+&lt;li&gt;xDS 支持 ACK，新增 xDS 的 Metrics&lt;/li&gt;
+&lt;li&gt;支持 Istio sourceLabels 过滤功能&lt;/li&gt;
+&lt;li&gt;支持 pilot-agent 的探测接口&lt;/li&gt;
+&lt;li&gt;支持更多的启动参数，适配 Istio agent 启动场景&lt;/li&gt;
+&lt;li&gt;gzip、strict-dns、original-dst 支持 xDS 更新&lt;/li&gt;
+&lt;li&gt;移除 Xproxy 逻辑&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Maglev 负载均衡算法支持 &lt;a href=&#34;https://github.com/trainyao&#34; target=&#34;_blank&#34;&gt;@trainyao&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增连接池实现，用于支持消息类请求 &lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 TLS 连接切换的 Metrics &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 HTTP StatusCode 的 Metrics &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 Metrics Admin API 输出 &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;proxy 新增查询当前请求数的接口 &lt;a href=&#34;https://github.com/zonghaishang&#34; target=&#34;_blank&#34;&gt;@zonghaishang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持 HostRewrite Header &lt;a href=&#34;https://github.com/liangyuanpeng&#34; target=&#34;_blank&#34;&gt;@liangyuanpeng&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;升级 tars 依赖，修复在高版本 Golang 下的编译问题 &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;xDS 配置解析升级适配 Istio 1.5.x &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 proxy 的日志输出 &lt;a href=&#34;https://github.com/wenxuwan&#34; target=&#34;_blank&#34;&gt;@wenxuwan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;DNS Cache 默认时间修改为 15s &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;HTTP 参数路由匹配优化 &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;升级 fasthttp 库 &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 Dubbo 请求转发编码 &lt;a href=&#34;https://github.com/zonghaishang&#34; target=&#34;_blank&#34;&gt;@zonghaishang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持 HTTP 的请求最大 body 可配置 &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;修复 Dubbo Decode 无法解析 attachment 的 bug &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 HTTP2 连接建立之前就可能创建 stream 的 bug &lt;a href=&#34;https://github.com/dunjut&#34; target=&#34;_blank&#34;&gt;@dunjut&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复处理 HTTP2 处理 Trailer 空指针异常 &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 HTTP 请求头默认不标准化处理的 bug &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 HTTP 请求处理时连接断开导致的 panic 异常 &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 dubbo registry 的读写锁拷贝问题 &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: 在 MOSN 中玩转 dubbo-go</title>
       <link>https://mosn.io/zh/blog/posts/mosn-dubbo-integrate/</link>
       <pubDate>Mon, 15 Jun 2020 00:00:00 +0000</pubDate>
