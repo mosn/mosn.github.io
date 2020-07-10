@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,29 +18,29 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Router configurations | MOSN</title><meta property="og:title" content="Router configurations" />
-<meta property="og:description" content="This topic describes router configurations.
+<title>Router 配置 | MOSN</title><meta property="og:title" content="Router 配置" />
+<meta property="og:description" content="路由配置说明。
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/configuration/server/router/" />
 <meta property="article:published_time" content="2020-03-13T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-07-10T11:35:32&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-07-10T23:50:30&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="Router configurations">
-<meta itemprop="description" content="This topic describes router configurations.
+<meta itemprop="name" content="Router 配置">
+<meta itemprop="description" content="路由配置说明。
 ">
 
 
 <meta itemprop="datePublished" content="2020-03-13T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-07-10T11:35:32&#43;08:00" />
-<meta itemprop="wordCount" content="564">
+<meta itemprop="dateModified" content="2020-07-10T23:50:30&#43;08:00" />
+<meta itemprop="wordCount" content="190">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Router configurations"/>
-<meta name="twitter:description" content="This topic describes router configurations.
+<meta name="twitter:title" content="Router 配置"/>
+<meta name="twitter:description" content="路由配置说明。
 "/>
 
 <script type="application/javascript">
@@ -70,7 +70,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Router configurations | MOSN</title>
+    <title>Router 配置 | MOSN</title>
   </head>
   <body class="td-page">
     <header>
@@ -99,7 +99,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/" ><span class="active">Documentation</span></a>
+				<a class="nav-link active" href="/docs/" ><span class="active">文档</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -109,7 +109,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/blog/" ><span>Blog</span></a>
+				<a class="nav-link" href="/blog/" ><span>博客</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -119,7 +119,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/community/" ><span class="active">Community</span></a>
+				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">教程</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -129,7 +129,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">Tutorial</span></a>
+				<a class="nav-link active" href="/docs/community/" ><span class="active">社区</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -148,11 +148,11 @@ if (!doNotTrack) {
 				
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/configuration/server/router/">中文</a>
+	<a class="dropdown-item" href="/en/docs/configuration/server/router/">English</a>
 	
 </div>
 			</li>
@@ -160,7 +160,7 @@ if (!doNotTrack) {
 		</ul>
 	</div>
 	<div class="navbar-nav d-none d-lg-block">
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 </div>
 </nav>
 
@@ -178,7 +178,7 @@ if (!doNotTrack) {
   
   <form class="td-sidebar__search d-flex align-items-center">
     
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 
     <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
@@ -190,11 +190,11 @@ if (!doNotTrack) {
       
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/configuration/server/router/">中文</a>
+	<a class="dropdown-item" href="/en/docs/configuration/server/router/">English</a>
 	
 </div>
     </div>
@@ -208,7 +208,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">文档</a>
   </li>
   <ul>
     <li class="collapse show" id="docs">
@@ -218,13 +218,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">Overview</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">简介</a>
       
       
       
@@ -237,7 +231,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Get started</a>
+    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开始</a>
   </li>
   <ul>
     <li class="collapse " id="docs-quick-start">
@@ -247,13 +241,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">Quick start</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">快速开始</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">Istio integration</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">集成 Istio</a>
       
       
     </li>
@@ -272,7 +266,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
+    <a  href="/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">架构原理</a>
   </li>
   <ul>
     <li class="collapse " id="docs-concept">
@@ -282,37 +276,55 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">Core concepts</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">核心概念</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar 模式</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">流量劫持</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS connections</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS 安全链路</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN 平滑升级原理解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-multi-protocol" href="/docs/concept/multi-protocol/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-extensions" href="/docs/concept/extensions/">MOSN 扩展机制解析</a>
       
       
     </li>
   </ul>
 </ul>
 
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">工程示例</a>
       
       
       
@@ -325,7 +337,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Configuration overview</a>
+    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">配置概览</a>
   </li>
   <ul>
     <li class="collapse show" id="docs-configuration">
@@ -334,25 +346,8 @@ if (!doNotTrack) {
       
       
       
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener">
       
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-filter-chain" href="/docs/configuration/listener/filter-chain/">FilterChain</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-clustermanager" href="/docs/configuration/clustermanager/">ClusterManager 配置</a>
       
       
       
@@ -365,48 +360,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener-network-filter">
-      
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-proxy" href="/docs/configuration/listener/network-filter/proxy/">proxy</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-connection-manager" href="/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-      
-      
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Server configurations</a>
+    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Server 配置</a>
   </li>
   <ul>
     <li class="collapse show" id="docs-configuration-server">
@@ -416,7 +370,71 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router 配置</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-filter-chain" href="/docs/configuration/server/listener/filter-chain/">FilterChain</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener-network-filter">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-proxy" href="/docs/configuration/server/listener/network-filter/proxy/">proxy</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-connection-manager" href="/docs/configuration/server/listener/network-filter/connection-manager/">connection_manager</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
     </li>
@@ -435,7 +453,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
+    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace 配置</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration-trace">
@@ -445,7 +463,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking 配置</a>
       
       
     </li>
@@ -457,19 +475,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">Custom configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">自定义配置</a>
       
       
     </li>
   </ul>
 </ul>
 
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">Example projects</a>
       
       
       
@@ -482,7 +494,42 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
+    <a  href="/docs/dev/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开发指南</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-dev">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-dubbo-integrate" href="/docs/dev/dubbo-integrate/">Dubbo 集成</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">贡献文档</a>
   </li>
   <ul>
     <li class="collapse " id="docs-contribute">
@@ -492,19 +539,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">Documentation contribution guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">文档贡献指南</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">Create a page</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">创建页面</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">Format guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">样式指南</a>
       
       
     </li>
@@ -522,13 +569,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">Community</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">教程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">Tutorial</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">社区</a>
       
       
     </li>
@@ -554,11 +601,11 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/configuration/server/router/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Router%20configurations" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/configuration/server/router/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Router%20%e9%85%8d%e7%bd%ae" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
-<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
 
 </div>
 
@@ -602,28 +649,28 @@ if (!doNotTrack) {
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/">Documentation</a>
+	<a href="/docs/">文档</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/configuration/">Configuration overview</a>
+	<a href="/docs/configuration/">配置概览</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/configuration/server/">Server configurations</a>
+	<a href="/docs/configuration/server/">Server 配置</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/configuration/server/router/">Router configurations</a>
+	<a href="/docs/configuration/server/router/">Router 配置</a>
 </li>
 
 	</ol>
@@ -632,19 +679,22 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>Router configurations</h1>
-	<div class="lead">This topic describes router configurations.</div>
+	<h1>Router 配置</h1>
+	<div class="lead">路由配置说明。</div>
 	
 
-<p><code>router</code>: Specifies the router configurations of MOSN and is usually used with proxy.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
-  <span style="color:#204a87;font-weight:bold">&#34;router_config_name&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
-  <span style="color:#204a87;font-weight:bold">&#34;virtual_hosts&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
-  <span style="color:#000;font-weight:bold">]</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p><code>router</code> 用于描述 MOSN 的路由配置，通常与 proxy 配合使用。</p>
+
+<pre><code>{
+  &quot;router_config_name&quot;:&quot;&quot;,
+  &quot;virtual_hosts&quot;: [
+  ]
+}
+</code></pre>
+
 <ul>
-<li><code>router_config_name</code>: The unique router configuration ID, which corresponds to the field configured in <code>proxy</code>.</li>
-<li><code>virtual_hosts</code>: Specifies the specific routing rules.</li>
+<li><code>router_config_name</code>，唯一的路由配置标识，与 <code>proxy</code> 中配置的字段对应。</li>
+<li><code>virtual_hosts</code>，描述具体的路由规则细节。</li>
 </ul>
 
 <h2 id="virtualhost">VirtualHost</h2>
@@ -654,15 +704,15 @@ if (!doNotTrack) {
   <span style="color:#204a87;font-weight:bold">&#34;routers&#34;</span><span style="color:#000;font-weight:bold">:[]</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <ul>
-<li><code>name</code>: String. The unique ID of a virtual host.</li>
-<li><code>domains</code>: String array. Indicates a group of domains that match the virtual host. Wildcard characters are supported. The matching priorities of domains are as follows:
+<li><code>name</code>，字符串。用作 virtual host 的唯一标识。</li>
+<li><code>domains</code>，字符串数组。表示一组可以匹配到该 virtual host 的 domain，支持配置通配符。domain 的匹配优先级如下：
 
 <ul>
-<li>First, exact match, for example, <code>www.foo.com</code>.</li>
-<li>Second, wildcard match with the longest suffix. For example, <code>*-bar.foo.com</code> is a preferred match for the domain <code>foo-bar.foo.com</code> between <code>*.foo.com</code> and <code>*-bar.foo.com</code>.</li>
-<li>At last, wildcard match for any domains, that is, <code>*</code>.</li>
+<li>首先匹配精确的，如 <code>www.foo.com</code>。</li>
+<li>其次匹配最长后缀的通配符，如 <code>*.foo.com</code>、<code>*-bar.foo.com</code>，其中如果一个 domain 是 <code>foo-bar.foo.com</code>，那么会优先匹配 <code>*-bar.foo.com</code>。</li>
+<li>最后匹配任意domain的通配符 <code>*</code> 。</li>
 </ul></li>
-<li><code>routers</code>: A group of specific router rules.</li>
+<li><code>routers</code>，一组具体的路由匹配规则。</li>
 </ul>
 
 <h2 id="router">Router</h2>
@@ -672,13 +722,13 @@ if (!doNotTrack) {
   <span style="color:#204a87;font-weight:bold">&#34;per_filter_config&#34;</span><span style="color:#000;font-weight:bold">:{}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <ul>
-<li><code>match</code>: The route match parameter.</li>
-<li><code>route</code>: The routing behavior. Specifies the upstream information of a request to be routed.</li>
-<li><code>per_filter_config</code>: The filter configuration in the <code>key: json</code> format.</li>
-<li>The key needs to match a type of the stream filter, and the json corresponding to the key is the value configured for the stream filter.
+<li><code>match</code>，路由的匹配参数。</li>
+<li><code>route</code>，路由行为，描述请求将被路由的 upstream 信息。</li>
+<li><code>per_filter_config</code>，是一个 <code>key: json</code> 格式的 json。</li>
+<li>其中 key 需要匹配一个 stream filter 的 type，key 对应的 json 是该 stream filter 的 config。
 
 <ul>
-<li>When this field is configured, the configurations indicated by this field can be used to overwrite the original configurations of some stream filters (depending on specific filters), to generate stream filter configurations at the router match level.</li>
+<li>当配置了该字段时，对于某些 stream filter（依赖具体 filter 的实现），可以使用该字段表示的配置覆盖原有 stream filter 的配置，以此做到路由匹配级别的 stream filter 配置。</li>
 </ul></li>
 </ul>
 
@@ -690,18 +740,18 @@ if (!doNotTrack) {
   <span style="color:#204a87;font-weight:bold">&#34;headers&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[]</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <ul>
-<li>Path match
+<li>路径（path）匹配
 
 <ul>
-<li><code>prefix</code>: Indicates that the router will match the path prefix. This configuration has a higher priority than path and regex. If this field is configured, the path prefix of the request needs to first comply with this configuration.</li>
-<li><code>path</code>: Indicates that the router will match the exact path. This configuration has a higher priority than regex. If this field is configured, the path of the request needs to first comply with this configuration.</li>
-<li><code>regex</code>: Indicates that the router will match the path based on a regular expression. If this field is configured, the path of the request needs to first comply with this configuration.</li>
-<li>When multiple path match configurations are available, only the one with a higher priority takes effect.</li>
+<li><code>prefix</code>，表示路由会匹配 path 的前缀，该配置的优先级高于 path 和 regex。 如果 prefix 被配置，那么请求首先要满足 path 的前缀与 prefix 配置相符合。</li>
+<li><code>path</code>，表示路由会匹配精确的 path，该配置的优先级高于 regex。如果 path被配置，那么请求首先要满足 path 与 path 配置相符合。</li>
+<li><code>regex</code>，表示路由会按照正则匹配的方式匹配 path。如果 regex 被配置，那么请求首先要满足 path 与 regex 配置相符合。</li>
+<li>路径匹配配置同时存在时，只有高优先级的配置会生效。</li>
 </ul></li>
-<li>Header match
+<li>Heaer 匹配
 
 <ul>
-<li>headers: The group of headers that the request needs to match. The match succeeds only when the request meets all header configuration conditions.</li>
+<li>headers，表示一组请求需要匹配的 header。请求需要满足配置中所有的 Header 配置条件才算匹配成功。</li>
 </ul></li>
 </ul>
 
@@ -712,9 +762,9 @@ if (!doNotTrack) {
   <span style="color:#204a87;font-weight:bold">&#34;regex&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <ul>
-<li><code>name</code>: The key of the header.</li>
-<li><code>value</code>: The value of the header key.</li>
-<li><code>regex</code>: Boolean. Specifies whether the value can be matched by a regular expression. Default values: True and False.</li>
+<li><code>name</code>，表示 header 的 key。</li>
+<li><code>value</code>，表示 header 对应 key 的 value。</li>
+<li><code>regex</code>，bool 类型，如果为 true，表示 value 支持按照正则表达式的方式进行匹配。</li>
 </ul>
 
 <h2 id="route">route</h2>
@@ -728,10 +778,10 @@ if (!doNotTrack) {
 </code></pre>
 
 <ul>
-<li><code>cluster_name</code>: The upstream cluster to which the request is to be routed.</li>
-<li><code>metadata_match</code>: The <a href=".. /../custom#metadata" target="_blank">metadata</a> configuration. If this field is configured, the router will match against the subset of the upstream cluster based on the metadata.</li>
-<li><code>timeout</code>: The <a href=".. /../custom#duration-string" target="_blank">Duration String</a> configuration. Indicates the default forwarding timeout value of the request. If the timeout value is specified in the request, this configuration will be ignored.</li>
-<li><code>retry_policy</code>: The retry configuration, which indicates the retry policy applied when the request encounters a specific error. If this field is left unconfigured, no retry will be performed by default.</li>
+<li><code>cluster_name</code>，表示请求将路由到的 upstream cluster。</li>
+<li><code>metadata_match</code>，<a href="../../custom#metadata">metadata</a>，如果配置了该字段，表示该路由会基于该 metadata 去匹配 upstream cluster 的 subset 。</li>
+<li><code>timeout</code>，<a href="../../custom#duration-string">Duration String</a>，表示默认情况下请求转发的超时时间。如果请求中明确指定了超时时间，那么这个配置会被忽略。</li>
+<li><code>retry_policy</code>，重试配置，表示如果请求在遇到了特定的错误时采取的重试策略，默认没有配置的情况下，表示没有重试。</li>
 </ul>
 
 <h2 id="retry-policy">retry_policy</h2>
@@ -741,14 +791,14 @@ if (!doNotTrack) {
   <span style="color:#204a87;font-weight:bold">&#34;num_retries&#34;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#4e9a06">&#34;&#34;</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <ul>
-<li><code>retry_on</code>: Boolean. Specifies whether to enable retry.</li>
-<li><code>retry_timeout</code>: The <a href=".. /../custom#duration-string" target="_blank">Duration String</a> configuration. Indicates the timeout value for each retry. When <code>retry_timeout</code> exceeds the timeout value specified in the route field or request, this configuration is invalid.</li>
-<li><code>num_retries</code>: Indicates the maximum number of retries supported.</li>
+<li><code>retry_on</code>，bool 类型，表示是否开启重试。</li>
+<li><code>retry_timeout</code>，<a href="../../custom#duration-string">Duration String</a>，表示每次重试的超时时间。当 <code>retry_timeout</code> 大于 route 配置的 timeout 或者请求明确指定的 timeout 时，属于无效配置。</li>
+<li><code>num_retries</code>，表示最大的重试次数。</li>
 </ul>
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified July 10, 2020: <a  href="https://github.com/mosn/mosn.io/commit/9065f7d98999f54af9928ada3a6998df4d9ab552">update faq (9065f7d)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年7月10日: <a  href="https://github.com/mosn/mosn.io/commit/65e92406806201ea9ca61af4cd9718312072ce96">set the default language to Chinese (65e9240)</a>
 </div>
 </div>
 
@@ -801,7 +851,7 @@ if (!doNotTrack) {
         
       </div>
       <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        <small class="text-white">&copy; 2020 The MOSN Authors All Rights Reserved</small>
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
         
 	
       </div>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,29 +18,29 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Announcing MOSN v0.12.0 | MOSN</title><meta property="og:title" content="Announcing MOSN v0.12.0" />
-<meta property="og:description" content="MOSN v0.12.0 changelog.
+<title>MOSN v0.12.0 发布 | MOSN</title><meta property="og:title" content="MOSN v0.12.0 发布" />
+<meta property="og:description" content="MOSN v0.12.0 变更日志。
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/releases/v0.12.0/" />
 <meta property="article:published_time" content="2020-04-28T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-07-10T11:35:32&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-07-10T23:50:30&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="Announcing MOSN v0.12.0">
-<meta itemprop="description" content="MOSN v0.12.0 changelog.
+<meta itemprop="name" content="MOSN v0.12.0 发布">
+<meta itemprop="description" content="MOSN v0.12.0 变更日志。
 ">
 
 
 <meta itemprop="datePublished" content="2020-04-28T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-07-10T11:35:32&#43;08:00" />
-<meta itemprop="wordCount" content="267">
+<meta itemprop="dateModified" content="2020-07-10T23:50:30&#43;08:00" />
+<meta itemprop="wordCount" content="113">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Announcing MOSN v0.12.0"/>
-<meta name="twitter:description" content="MOSN v0.12.0 changelog.
+<meta name="twitter:title" content="MOSN v0.12.0 发布"/>
+<meta name="twitter:description" content="MOSN v0.12.0 变更日志。
 "/>
 
 <script type="application/javascript">
@@ -70,7 +70,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Announcing MOSN v0.12.0 | MOSN</title>
+    <title>MOSN v0.12.0 发布 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -99,7 +99,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+				<a class="nav-link" href="/docs/" ><span>文档</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -109,7 +109,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/blog/" ><span class="active">Blog</span></a>
+				<a class="nav-link active" href="/blog/" ><span class="active">博客</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -119,7 +119,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/docs/community/" ><span>Community</span></a>
+				<a class="nav-link" href="/docs/tutorial/" ><span>教程</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -129,7 +129,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/docs/tutorial/" ><span>Tutorial</span></a>
+				<a class="nav-link" href="/docs/community/" ><span>社区</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -148,11 +148,11 @@ if (!doNotTrack) {
 				
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/blog/releases/v0.12.0/">中文</a>
+	<a class="dropdown-item" href="/en/blog/releases/v0.12.0/">English</a>
 	
 </div>
 			</li>
@@ -160,7 +160,7 @@ if (!doNotTrack) {
 		</ul>
 	</div>
 	<div class="navbar-nav d-none d-lg-block">
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 </div>
 </nav>
 
@@ -178,7 +178,7 @@ if (!doNotTrack) {
   
   <form class="td-sidebar__search d-flex align-items-center">
     
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 
     <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
@@ -190,11 +190,11 @@ if (!doNotTrack) {
       
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/blog/releases/v0.12.0/">中文</a>
+	<a class="dropdown-item" href="/en/blog/releases/v0.12.0/">English</a>
 	
 </div>
     </div>
@@ -208,7 +208,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/blog/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Blog</a>
+    <a  href="/blog/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">博客</a>
   </li>
   <ul>
     <li class="collapse show" id="blog">
@@ -225,7 +225,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/blog/releases/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Release</a>
+    <a  href="/blog/releases/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">发布</a>
   </li>
   <ul>
     <li class="collapse show" id="blog-releases">
@@ -235,31 +235,262 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-14-0" href="/blog/releases/v0.14.0/">Announcing MOSN v0.14.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-14-0" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-13-0" href="/blog/releases/v0.13.0/">Announcing MOSN v0.13.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-13-0" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blog-releases-v0-12-0" href="/blog/releases/v0.12.0/">Announcing MOSN v0.12.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blog-releases-v0-12-0" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-11-0" href="/blog/releases/v0.11.0/">Announcing MOSN v0.11.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-11-0" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-10-0" href="/blog/releases/v0.10.0/">Announcing MOSN v0.10.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-10-0" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-1-0-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-2-1-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blog-news">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-mosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-announcing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/posts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">分享</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blog-posts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-skywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-multi-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-udpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-nginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/code/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">源码解析</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blog-code">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
       
       
     </li>
@@ -291,11 +522,11 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/blog/releases/v0.12.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Announcing%20MOSN%20v0.12.0" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/releases/v0.12.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20v0.12.0%20%e5%8f%91%e5%b8%83" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
-<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
 
 </div>
 
@@ -310,9 +541,9 @@ if (!doNotTrack) {
 <ul>
 <li>
 <ul>
-<li><a href="#new-features">New Features</a></li>
-<li><a href="#optimize">Optimize</a></li>
-<li><a href="#bug-fix">Bug Fix</a></li>
+<li><a href="#新功能">新功能</a></li>
+<li><a href="#优化">优化</a></li>
+<li><a href="#bug-修复">Bug 修复</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -327,68 +558,68 @@ if (!doNotTrack) {
             </a>
             
 <div class="td-content">
-	<h1>Announcing MOSN v0.12.0</h1>
-	<div class="lead">MOSN v0.12.0 changelog.</div>
+	<h1>MOSN v0.12.0 发布</h1>
+	<div class="lead">MOSN v0.12.0 变更日志。</div>
 	<div class="td-byline mb-4">
-		By <b>MOSN Team</b> |
-		<time datetime="2020-04-28" class="text-muted">Apr 28, 2020</time>
+		作者 <b>MOSN 团队</b> |
+		<time datetime="2020-04-28" class="text-muted">2020年4月28日</time>
 	</div>
 	
 
-<p>We are happy to announce the release of <a href="https://github.com/mosn/mosn/releases/tag/v0.12.0" target="_blank">MOSN v0.12.0</a>. Thanks to <a href="https://github.com/peacocktrain" target="_blank">Sun Fuze (@peacocktrain)</a> for his great contribution to this release, certified as <a href="https://github.com/mosn/community/issues/6" target="_blank">commiter</a>🎉 by MOSN Community Leaders.</p>
+<p>我们很高兴的宣布 <a href="https://github.com/mosn/mosn/releases/tag/v0.12.0" target="_blank">MOSN v0.12.0</a> 发布，感谢<a href="https://github.com/peacocktrain" target="_blank">孙福泽（@peacocktrain）</a>对该版本做出的巨大贡献，经 MOSN 社区 Lead 们认证为 <a href="https://github.com/mosn/community/issues/6" target="_blank">commiter</a> 🎉。</p>
 
-<p>You can see the changelog below.</p>
+<p>以下是该版本的变更日志。</p>
 
-<h3 id="new-features">New Features</h3>
-
-<ul>
-<li>Support Skywalking <a href="https://github.com/arugal" target="_blank">@arugal</a></li>
-<li>Stream Filter adds a new phase of Receive Filter execution, which allows you to execute Receive Filter <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a> again after MOSN has finished routing Host</li>
-<li>HTTP2 supports streaming  <a href="https://github.com/peacocktrain" target="_blank">@peacocktrain</a> <a href="https://github.com/taoyuanyuan" target="_blank">@taoyuanyuan</a></li>
-<li>FeatureGate adds interface KnownFeatures to output current FeatureGate status <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
-<li>Provide a protocol-transparent way to obtain requested resources (PATH, URI, ARG), with the definition of resources defined by each protocol itself <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
-<li>New load balancing algorithm
+<h3 id="新功能">新功能</h3>
 
 <ul>
-<li>Support for ActiveRequest LB <a href="https://github.com/CodingSinger" target="_blank">@CodingSinger</a></li>
-<li>Support WRR LB  <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li><a href="blog/posts/skywalking-support" target="_blank">支持 Skywalking</a> <a href="https://github.com/arugal" target="_blank">@arugal</a></li>
+<li>Stream Filter 新增了一个 Receive Filter 执行的阶段，可在 MOSN 路由选择完 Host 以后，再次执行 Receive Filter <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+<li>HTTP2 支持流式 <a href="https://github.com/peacocktrain" target="_blank">@peacocktrain</a> <a href="https://github.com/taoyuanyuan" target="_blank">@taoyuanyuan</a></li>
+<li>FeatureGate 新增接口 KnownFeatures，可输出当前 FeatureGate 状态 <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>提供一种协议透明的方式获取请求资源（PATH、URI、ARG），对于资源的定义由各个协议自身定义 <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+<li>新增负载均衡算法
+
+<ul>
+<li>支持 ActiveRequest LB <a href="https://github.com/CodingSinger" target="_blank">@CodingSinger</a></li>
+<li>支持 WRR LB <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
 </ul></li>
 </ul>
 
-<h3 id="optimize">Optimize</h3>
+<h3 id="优化">优化</h3>
 
 <ul>
-<li>XProtocol protocol engine optimization <a href="https://github.com/neverhook" target="_blank">@neverhook</a>
+<li>XProtocol 协议引擎优化 <a href="https://github.com/neverhook" target="_blank">@neverhook</a>
 
 <ul>
-<li>Modifies the XProtocol heartbeat response interface to support the protocol&rsquo;s heartbeat response to return more information</li>
-<li>Optimize connpool for heartbeat triggering, only heartbeats will be triggered if the protocol for heartbeats is implemented</li>
+<li>修改 XProtocol 心跳响应接口，支持协议的心跳响应可返回更多的信息</li>
+<li>优化 connpool 的心跳触发，只有实现了心跳的协议才会发心跳</li>
 </ul></li>
-<li>Dubbo library dependency version updated from v1.5.0-rc1 to v1.5.0 <a href="https://github.com/cch123" target="_blank">@cch123</a></li>
-<li>API Adjustments, HostInfo added health check related interface <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
-<li>Optimize circuit breaking function  <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
-<li>Responsible for balanced selection logic simplification, Hosts of the same address multiplex the same health check mark <a href="https://github.com/nejisama" target="_blank">@nejisama</a> <a href="https://github.com/cch123" target="_blank">@cch123</a></li>
-<li>Optimize HTTP building logic and improve HTTP building performance <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
-<li>Log rotation logic triggered from writing logs, adjusted to timed trigger <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
-<li>Typo fixes <a href="https://github.com/xujianhai666" target="_blank">@xujianhai666</a> <a href="https://github.com/candyleer" target="_blank">@candyleer</a></li>
+<li>Dubbo 库依赖版本从 v1.5.0-rc1 更新到 v1.5.0 <a href="https://github.com/cch123" target="_blank">@cch123</a></li>
+<li>API 调整，HostInfo 新增健康检查相关的接口 <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+<li>熔断功能实现优化 <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+<li>负责均衡选择逻辑简化，同样地址的 Host 复用相同的健康检查标记 <a href="https://github.com/nejisama" target="_blank">@nejisama</a> <a href="https://github.com/cch123" target="_blank">@cch123</a></li>
+<li>优化 HTTP 建连逻辑，提升 HTTP 建立性能 <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+<li>日志轮转逻辑从写日志触发，调整为定时触发 <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>typo 调整 <a href="https://github.com/xujianhai666" target="_blank">@xujianhai666</a> <a href="https://github.com/candyleer" target="_blank">@candyleer</a></li>
 </ul>
 
-<h3 id="bug-fix">Bug Fix</h3>
+<h3 id="bug-修复">Bug 修复</h3>
 
 <ul>
-<li>Fix the xDS parsing fault injection configuration error  <a href="https://github.com/champly" target="_blank">@champly</a></li>
-<li>Fix the request hold issue caused by the MOSN HTTP HEAD method <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
-<li>Fix a problem with missing StatusCode mappings in the XProtocol engine <a href="https://github.com/neverhook" target="_blank">@neverhook</a></li>
-<li>Fix the bug for DirectReponse triggering retries <a href="https://github.com/taoyuanyuan" target="_blank">@taoyuanyuan</a></li>
+<li>修复 xDS 解析故障注入配置的错误 <a href="https://github.com/champly" target="_blank">@champly</a></li>
+<li>修复 MOSN HTTP HEAD 方法导致的请求 Hold 问题 <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+<li>修复 XProtocol 引擎对于 StatusCode 映射缺失的问题 <a href="https://github.com/neverhook" target="_blank">@neverhook</a></li>
+<li>修复 DirectReponse 触发重试的 BUG <a href="https://github.com/taoyuanyuan" target="_blank">@taoyuanyuan</a></li>
 </ul>
 
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/blog/releases/v0.11.0/" class="btn btn-primary "><span class="mr-1">←</span> Previous</a>
+    <a href="/blog/releases/v0.11.0/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
   </li>
-    <a href="/blog/releases/v0.13.0/" class="btn btn-primary ">Next <span class="ml-1">→</span></a>
+    <a href="/blog/releases/v0.13.0/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
   </li>
 </ul>
 
@@ -443,7 +674,7 @@ if (!doNotTrack) {
         
       </div>
       <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        <small class="text-white">&copy; 2020 The MOSN Authors All Rights Reserved</small>
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
         
 	
       </div>

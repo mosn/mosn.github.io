@@ -1,0 +1,939 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.5" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Use MOSN as an Istio data plane | MOSN</title><meta property="og:title" content="Use MOSN as an Istio data plane" />
+<meta property="og:description" content="This topic shows you how to build a Service Mesh development environment with MOSN under the Istio framework, and verify the basic routing and load balancing capabilities of MOSN.
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/en/docs/quick-start/istio/" />
+<meta property="article:published_time" content="2020-01-20T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2020-07-10T23:50:30&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+
+<meta itemprop="name" content="Use MOSN as an Istio data plane">
+<meta itemprop="description" content="This topic shows you how to build a Service Mesh development environment with MOSN under the Istio framework, and verify the basic routing and load balancing capabilities of MOSN.
+">
+
+
+<meta itemprop="datePublished" content="2020-01-20T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-07-10T23:50:30&#43;08:00" />
+<meta itemprop="wordCount" content="1055">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Use MOSN as an Istio data plane"/>
+<meta name="twitter:description" content="This topic shows you how to build a Service Mesh development environment with MOSN under the Istio framework, and verify the basic routing and load balancing capabilities of MOSN.
+"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
+<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+    <title>Use MOSN as an Istio data plane | MOSN</title>
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/en/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+        
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/mosn/mosn/" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/en/docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/en/blog/" ><span>Blog</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/en/docs/community/" ><span class="active">Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/en/docs/tutorial/" ><span class="active">Tutorial</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/en/docs/faq/" ><span class="active">FAQ</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	English
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/docs/quick-start/istio/">中文</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	English
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/docs/quick-start/istio/">中文</a>
+	
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="en-docs">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-overview" href="/en/docs/overview/">Overview</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-dev-featuregate-introduce" href="/en/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/quick-start/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Get started</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="en-docs-quick-start">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-quick-start-proxy" href="/en/docs/quick-start/proxy/">Quick start</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-en-docs-quick-start-istio" href="/en/docs/quick-start/istio/">Istio integration</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-concept">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-core-concept" href="/en/docs/concept/core-concept/">Core concepts</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-sidecar-pattern" href="/en/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-traffic-hijack" href="/en/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-tls" href="/en/docs/concept/tls/">TLS connections</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-smooth-upgrade" href="/en/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Configuration overview</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-configuration">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-configuration-listener">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-filter-chain" href="/en/docs/configuration/listener/filter-chain/">FilterChain</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-configuration-listener-network-filter">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-network-filter-proxy" href="/en/docs/configuration/listener/network-filter/proxy/">proxy</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-network-filter-connection-manager" href="/en/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server configurations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-configuration-server">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-server-router" href="/en/docs/configuration/server/router/">Router configurations</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-configuration-trace">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-trace-skywalking" href="/en/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-custom" href="/en/docs/configuration/custom/">Custom configurations</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-samples" href="/en/docs/samples/">Example projects</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-contribute">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-github" href="/en/docs/contribute/github/">Documentation contribution guide</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-creating-pages" href="/en/docs/contribute/creating-pages/">Create a page</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-style-guide" href="/en/docs/contribute/style-guide/">Format guide</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-faq" href="/en/docs/faq/">FAQ</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-community" href="/en/docs/community/">Community</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-tutorial" href="/en/docs/tutorial/">Tutorial</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/quick-start/istio/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Use%20MOSN%20as%20an%20Istio%20data%20plane" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#relationship-between-mosn-and-istio">Relationship between MOSN and Istio</a></li>
+<li><a href="#preparations">Preparations</a>
+<ul>
+<li><a href="#install-hyperkit">Install hyperkit</a>
+<ul>
+<li><a href="#install-docker">Install docker</a></li>
+<li><a href="#install-drivers">Install drivers</a></li>
+</ul></li>
+<li><a href="#install-minikube-or-a-commercial-kubernetes-cluster">Install Minikube (or a commercial Kubernetes cluster)</a></li>
+<li><a href="#start-minikube">Start Minikube</a></li>
+<li><a href="#install-the-kubectl-command-line-tool">Install the kubectl command-line tool</a></li>
+<li><a href="#install-helm">Install Helm</a></li>
+</ul></li>
+<li><a href="#istio-deployment-with-source-code">Istio deployment with source code</a>
+<ul>
+<li><a href="#download-the-sofamesh-source-code">Download the SOFAMesh source code</a></li>
+<li><a href="#install-sofamesh-with-helm">Install SOFAMesh with Helm</a></li>
+<li><a href="#verify-the-installation">Verify the installation</a></li>
+<li><a href="#uninstall">Uninstall</a></li>
+</ul></li>
+<li><a href="#bookinfo-test">Bookinfo test</a>
+<ul>
+<li><a href="#deploy-bookinfo-and-inject-mosn">Deploy Bookinfo and inject MOSN</a></li>
+<li><a href="#access-bookinfo-services">Access Bookinfo services</a></li>
+<li><a href="#verify-routing-by-version-in-mosn">Verify routing by version in MOSN</a></li>
+<li><a href="#verify-routing-by-weight-in-mosn">Verify routing by weight in MOSN</a></li>
+<li><a href="#verify-routing-by-specific-header-in-mosn">Verify routing by specific header in MOSN</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="/en/en/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="/en/en/docs/quick-start/">Get started</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="/en/en/docs/quick-start/istio/">Istio integration</a>
+</li>
+
+	</ol>
+</nav	>
+
+
+            
+<div class="td-content">
+	<h1>Use MOSN as an Istio data plane</h1>
+	<div class="lead">This topic shows you how to build a Service Mesh development environment with MOSN under the Istio framework, and verify the basic routing and load balancing capabilities of MOSN.</div>
+	
+
+
+
+<div class="pageinfo pageinfo-primary">
+<p>MOSN succeeded in the Bookinfo test for Istio 1.1.4. For more information about the support from the latest version of Istio, see <a href="https://github.com/mosn/mosn/issues/933" target="_blank">Issue #933</a>.</p>
+
+</div>
+
+
+<p>This topic covers the following content:</p>
+
+<ul>
+<li>Relationship between MOSN and Istio</li>
+<li>Preparations</li>
+<li>Istio deployment with source code</li>
+<li>Bookinfo test</li>
+</ul>
+
+<h2 id="relationship-between-mosn-and-istio">Relationship between MOSN and Istio</h2>
+
+<p>As described in the <a href="../../overview">MOSN overview</a>, MOSN is a service mesh data plane proxy developed in Golang.</p>
+
+<p>The following figure shows the operating principle of MOSN in Istio.</p>
+
+<div align=center><img src="mosn-with-service-mesh.png" width = "450" height = "400" alt="MOSN overview" /></div>
+
+<h2 id="preparations">Preparations</h2>
+
+<p>The operating system described in this topic is macOS. You can install the software versions for your OS, too.</p>
+
+<h3 id="install-hyperkit">Install hyperkit</h3>
+
+<p>Install <a href="https://store.docker.com/editions/community/docker-ce-desktop-mac" target="_blank">docker-for-mac</a> and then <a href="https://github.com/kubernetes/minikube/blob/master/docs/drivers.md" target="_blank">install drivers</a>.</p>
+
+<h4 id="install-docker">Install docker</h4>
+
+<p>Download the software package or run the following command to install it:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew cask install docker</code></pre></div>
+<h4 id="install-drivers">Install drivers</h4>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -LO https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-hyperkit <span style="color:#4e9a06">\
+</span><span style="color:#4e9a06"></span><span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> chmod +x docker-machine-driver-hyperkit <span style="color:#4e9a06">\
+</span><span style="color:#4e9a06"></span><span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> sudo mv docker-machine-driver-hyperkit /usr/local/bin/ <span style="color:#4e9a06">\
+</span><span style="color:#4e9a06"></span><span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> sudo chown root:wheel /usr/local/bin/docker-machine-driver-hyperkit <span style="color:#4e9a06">\
+</span><span style="color:#4e9a06"></span><span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> sudo chmod u+s /usr/local/bin/docker-machine-driver-hyperkit</code></pre></div>
+<h3 id="install-minikube-or-a-commercial-kubernetes-cluster">Install Minikube (or a commercial Kubernetes cluster)</h3>
+
+<p>We recommend that you use Minikube v0.28 or later versions. For more information, go to <a href="https://github.com/kubernetes/minikube" target="_blank">https://github.com/kubernetes/minikube</a>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew cask install minikube</code></pre></div>
+<h3 id="start-minikube">Start Minikube</h3>
+
+<p>The pilot requires a memory space of at least 2 GB. Therefore, you can allocate resources to Minikube by adding parameters upon startup. If you do not have sufficient resources on your machine, we recommend that you use the commercial Kubernetes cluster.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ minikube start --memory<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">8192</span> --cpus<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">4</span> --kubernetes-version<span style="color:#ce5c00;font-weight:bold">=</span>v1.15.0 --vm-driver<span style="color:#ce5c00;font-weight:bold">=</span>hyperkit</code></pre></div>
+<p>Create an Istio namespace</p>
+
+<pre><code>$ kubectl create namespace istio-system
+</code></pre>
+
+<h3 id="install-the-kubectl-command-line-tool">Install the kubectl command-line tool</h3>
+
+<p>kubectl is a command line interface for executing commands against Kubernetes clusters. For details about the installation of kubectl, go to <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl" target="_blank">https://kubernetes.io/docs/tasks/tools/install-kubectl</a>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install kubernetes-cli</code></pre></div>
+<h3 id="install-helm">Install Helm</h3>
+
+<p>Helm is a package management tool of Kubernetes. For details about the installation of Helm, go to <a href="https://docs.helm.sh/using_helm/#installing-helm" target="_blank">https://docs.helm.sh/using_helm/#installing-helm</a>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install kubernetes-helm</code></pre></div>
+<h2 id="istio-deployment-with-source-code">Istio deployment with source code</h2>
+
+
+
+<div class="pageinfo pageinfo-primary">
+<p>SOFAMesh is now directly developed based on Istio to contribute to the Istio community. Development through the fork method is not supported. It will be directly supported by Istio in the future. MOSN succeeded in the Bookinfo test for Istio 1.1.4. For more information about the support from the latest version of Istio, see <a href="https://github.com/mosn/mosn/issues/933" target="_blank">Issue #933</a>.</p>
+
+</div>
+
+
+<h3 id="download-the-sofamesh-source-code">Download the SOFAMesh source code</h3>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/sofastack/sofa-mesh.git</code></pre></div>
+<h3 id="install-sofamesh-with-helm">Install SOFAMesh with Helm</h3>
+
+<p><strong>Run <code>helm template</code> to install SOFAMesh.</strong></p>
+
+<p>Switch to the directory that stores the Istio source code and then install the Istio CRD and other components with Helm.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#204a87">cd</span> istio
+$ helm template install/kubernetes/helm/istio-init --name istio-init --namespace istio-system <span style="color:#000;font-weight:bold">|</span> kubectl apply -f -
+$ helm template install/kubernetes/helm/istio --name istio --namespace istio-system <span style="color:#000;font-weight:bold">|</span> kubectl apply -f -</code></pre></div>
+<h3 id="verify-the-installation">Verify the installation</h3>
+
+<p>If all pods in the <code>istio-system</code> namespace are running, the deployment succeeds.
+If you only need to run Bookinfo, running three pods, pilot, injector, and citadel, will suffice your need.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pods -n istio-system
+NAME                                       READY    STATUS   RESTARTS    AGE
+istio-citadel-6579c78cd9-w57lr              <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m
+istio-egressgateway-7649f76df4-zs8kw        <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m
+istio-galley-c77876cb6-nhczq                <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m
+istio-ingressgateway-5c9c8565d9-d972t       <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m
+istio-pilot-7485f9fb4b-xsvtm                <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m
+istio-policy-5766bc84b9-p2wfj               <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m
+istio-sidecar-injector-7f5f586bc7-2sdx6     <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m
+istio-statsd-prom-bridge-7f44bb5ddb-stcf6   <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m
+istio-telemetry-55ff8c77f4-q8d8q            <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m
+prometheus-84bd4b9796-nq8lg                 <span style="color:#0000cf;font-weight:bold">1</span>/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          5m</code></pre></div>
+<h3 id="uninstall">Uninstall</h3>
+
+<p>Uninstall SOFAMesh.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm template install/kubernetes/helm/istio --name istio --namespace istio-system <span style="color:#000;font-weight:bold">|</span> kubectl delete -f -
+$ kubectl delete namespace istio-system</code></pre></div>
+<h2 id="bookinfo-test">Bookinfo test</h2>
+
+<p>Bookinfo is a book app. It provides four basic services:</p>
+
+<ul>
+<li>Product Page: The product page is developed in python. It displays all book information and calls the Reviews and Details services.</li>
+<li>Reviews: The review service is developed in java. It displays book reviews and calls the Ratings service.</li>
+<li>Ratings: The rating service is developed in nodejs.</li>
+<li>Details: The book details is developed in ruby.</li>
+</ul>
+
+<div align=center><img src="bookinfo.png" width = "550" height = "400" alt="bookinfo" /></div>
+
+<h3 id="deploy-bookinfo-and-inject-mosn">Deploy Bookinfo and inject MOSN</h3>
+
+<blockquote>
+<p>For details, go to <a href="https://istio.io/docs/examples/bookinfo/" target="_blank">https://istio.io/docs/examples/bookinfo/</a>.</p>
+</blockquote>
+
+<p>Inject MOSN</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl label namespace default istio-injection<span style="color:#ce5c00;font-weight:bold">=</span>enabled</code></pre></div>
+<p>Deploy Bookinfo</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml</code></pre></div>
+<p>Verify whether the deployment succeeds</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get services
+NAME                       CLUSTER-IP   EXTERNAL-IP   PORT<span style="color:#ce5c00;font-weight:bold">(</span>S<span style="color:#ce5c00;font-weight:bold">)</span>              AGE
+details                    <span style="color:#0000cf;font-weight:bold">10</span>.0.0.31    &lt;none&gt;        <span style="color:#0000cf;font-weight:bold">9080</span>/TCP             6m
+kubernetes                 <span style="color:#0000cf;font-weight:bold">10</span>.0.0.1     &lt;none&gt;        <span style="color:#0000cf;font-weight:bold">443</span>/TCP              7d
+productpage                <span style="color:#0000cf;font-weight:bold">10</span>.0.0.120   &lt;none&gt;        <span style="color:#0000cf;font-weight:bold">9080</span>/TCP             6m
+ratings                    <span style="color:#0000cf;font-weight:bold">10</span>.0.0.15    &lt;none&gt;        <span style="color:#0000cf;font-weight:bold">9080</span>/TCP             6m
+reviews                    <span style="color:#0000cf;font-weight:bold">10</span>.0.0.170   &lt;none&gt;        <span style="color:#0000cf;font-weight:bold">9080</span>/TCP             6m</code></pre></div>
+<p>Wait until all pods are running</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pods
+NAME                                        READY     STATUS    RESTARTS   AGE
+details-v1-1520924117-48z17                 <span style="color:#0000cf;font-weight:bold">2</span>/2       Running   <span style="color:#0000cf;font-weight:bold">0</span>          6m
+productpage-v1-560495357-jk1lz              <span style="color:#0000cf;font-weight:bold">2</span>/2       Running   <span style="color:#0000cf;font-weight:bold">0</span>          6m
+ratings-v1-734492171-rnr5l                  <span style="color:#0000cf;font-weight:bold">2</span>/2       Running   <span style="color:#0000cf;font-weight:bold">0</span>          6m
+reviews-v1-874083890-f0qf0                  <span style="color:#0000cf;font-weight:bold">2</span>/2       Running   <span style="color:#0000cf;font-weight:bold">0</span>          6m
+reviews-v2-1343845940-b34q5                 <span style="color:#0000cf;font-weight:bold">2</span>/2       Running   <span style="color:#0000cf;font-weight:bold">0</span>          6m
+reviews-v3-1813607990-8ch52                 <span style="color:#0000cf;font-weight:bold">2</span>/2       Running   <span style="color:#0000cf;font-weight:bold">0</span>          6m</code></pre></div>
+<h3 id="access-bookinfo-services">Access Bookinfo services</h3>
+
+<p>Enable the gateway mode.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
+$ kubectl get gateway        // Check whether the gateway is running.
+NAME               AGE
+bookinfo-gateway   24m</code></pre></div>
+<p>Set GATEWAY_URL. For details, go to <a href="https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports" target="_blank">https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports</a>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#204a87">export</span> <span style="color:#000">INGRESS_PORT</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87;font-weight:bold">$(</span>kubectl -n istio-system get service istio-ingressgateway -o <span style="color:#000">jsonpath</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;{.spec.ports[?(@.name==&#34;http2&#34;)].nodePort}&#39;</span><span style="color:#204a87;font-weight:bold">)</span>
+$ <span style="color:#204a87">export</span> <span style="color:#000">SECURE_INGRESS_PORT</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87;font-weight:bold">$(</span>kubectl -n istio-system get service istio-ingressgateway -o <span style="color:#000">jsonpath</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;{.spec.ports[?(@.name==&#34;https&#34;)].nodePort}&#39;</span><span style="color:#204a87;font-weight:bold">)</span>
+$ <span style="color:#204a87">export</span> <span style="color:#000">INGRESS_HOST</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87;font-weight:bold">$(</span>minikube ip<span style="color:#204a87;font-weight:bold">)</span>
+$ <span style="color:#204a87">export</span> <span style="color:#000">GATEWAY_URL</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#000">$INGRESS_HOST</span>:<span style="color:#000">$INGRESS_PORT</span></code></pre></div>
+<p>Check whether the gateway takes effect.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -o /dev/null -s -w <span style="color:#4e9a06">&#34;%{http_code}\n&#34;</span>  http://<span style="color:#000">$GATEWAY_URL</span>/productpage   // <span style="color:#0000cf;font-weight:bold">200</span> indicates a success. 
+<span style="color:#0000cf;font-weight:bold">200</span></code></pre></div>
+<p><strong>View the page</strong></p>
+
+<p>Go to <code>http://$GATEWAY_URL/productpage</code> (replace $GATEWAY_URL with your address). The Bookinfo page is shown as follows after you refresh it. Three versions of Book Reviews are available.
+The three versions will be displayed in turn when you refresh the page. For more information, go to samples/bookinfo/platform/kube/bookinfo.yaml.</p>
+
+<p>Page v1</p>
+
+<p><img src="v1.png" alt="v1" /></p>
+
+<p>Page v2</p>
+
+<p><img src="v2.png" alt="v2" /></p>
+
+<p>Page v3</p>
+
+<p><img src="v3.png" alt="v3" /></p>
+
+<h3 id="verify-routing-by-version-in-mosn">Verify routing by version in MOSN</h3>
+
+<p>Create a series of destination rules for Bookinfo services.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml</code></pre></div>
+<p>Specify access to only v1 of the Book Reviews service.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml</code></pre></div>
+<p>Go to <code>http://$GATEWAY_URL/productpage</code>. You will find that book reviews are now fixed to be displayed on page v1.</p>
+
+<p><img src="v1.png" alt="v1" /></p>
+
+<h3 id="verify-routing-by-weight-in-mosn">Verify routing by weight in MOSN</h3>
+
+<p>Allocate 50% of the traffic to v1 and v3 each.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml</code></pre></div>
+<p>Go to <code>http://$GATEWAY_URL/productpage</code>. You will find that page v1 and page v3 are displayed with a possibility of 50% each.</p>
+
+<h3 id="verify-routing-by-specific-header-in-mosn">Verify routing by specific header in MOSN</h3>
+
+<p>The Bookinfo page provides a login entry in the upper-right corner. After you log in, your request will carry the end-user custom field, the value of which is the user name. MOSN supports routing by the value of this header. For example, route user Jason to v2 and others to v1. (The username and password are both jason. For the reason of using this user account, check the corresponding YAML file).</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml</code></pre></div>
+<p>When you go to <code>http://$GATEWAY_URL/productpage</code>:</p>
+
+<p>Page v2 will be displayed if you log in as Jason.</p>
+
+<p><img src="login.png" alt="Login" /></p>
+
+<p>Page v1 will be displayed if you log in as other users.</p>
+
+<p><img src="v1.png" alt="v1" /></p>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified July 10, 2020: <a  href="https://github.com/mosn/mosn.io/commit/65e92406806201ea9ca61af4cd9718312072ce96">set the default language to Chinese (65e9240)</a>
+</div>
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-12 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://twitter.com/MosnProxy">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Slack" aria-label="Slack">
+    <a class="text-white" target="_blank" href="https://join.slack.com/t/istio/shared_invite/zt-dhww29on-SvP1~DBvtrk3UdjjbO0SGQ">
+      <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Mailing list" aria-label="Mailing list">
+    <a class="text-white" target="_blank" href="https://groups.google.com/d/forum/mosn-dev">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/mosn/mosn">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2020 The MOSN Authors All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>

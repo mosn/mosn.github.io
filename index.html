@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,18 +20,18 @@
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
 <title>MOSN</title><meta property="og:title" content="MOSN" />
-<meta property="og:description" content="The Cloud Native Proxy for Edge or Service Mesh" />
+<meta property="og:description" content="用于边缘或服务网格的云原生网络代理" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mosn.io/" />
 <meta property="og:site_name" content="MOSN" />
 
 <meta itemprop="name" content="MOSN">
-<meta itemprop="description" content="The Cloud Native Proxy for Edge or Service Mesh">
+<meta itemprop="description" content="用于边缘或服务网格的云原生网络代理">
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://mosn.io/featured-background.jpg"/>
 <meta name="twitter:title" content="MOSN"/>
-<meta name="twitter:description" content="The Cloud Native Proxy for Edge or Service Mesh"/>
+<meta name="twitter:description" content="用于边缘或服务网格的云原生网络代理"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -88,7 +88,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/docs/" ><span>Documentation</span></a>
+				<a class="nav-link" href="/docs/" ><span>文档</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -98,7 +98,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/blog/" ><span>Blog</span></a>
+				<a class="nav-link" href="/blog/" ><span>博客</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -108,7 +108,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/docs/community/" ><span>Community</span></a>
+				<a class="nav-link" href="/docs/tutorial/" ><span>教程</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -118,7 +118,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/docs/tutorial/" ><span>Tutorial</span></a>
+				<a class="nav-link" href="/docs/community/" ><span>社区</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -137,11 +137,11 @@ if (!doNotTrack) {
 				
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/">中文</a>
+	<a class="dropdown-item" href="/en/">English</a>
 	
 </div>
 			</li>
@@ -149,7 +149,7 @@ if (!doNotTrack) {
 		</ul>
 	</div>
 	<div class="navbar-nav d-none d-lg-block">
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 </div>
 </nav>
 
@@ -184,7 +184,7 @@ if (!doNotTrack) {
 }
 </style>
 
-<section id="td-cover-block-0" class="row td-cover-block td-cover-block--height-full js-td-cover td-overlay td-overlay--dark -bg-orange">
+<section id="td-cover-block-0" class="row td-cover-block td-cover-block--height-full js-td-cover td-overlay td-overlay--dark -bg-dark">
   <div class="container td-overlay__inner">
     <div class="row">
       <div class="col-12">
@@ -194,17 +194,17 @@ if (!doNotTrack) {
           <div class="pt-3 lead">
             <div class="mx-auto">
     <a class="btn btn-lg btn-primary mr-3 mb-4" href="/docs/">
-        Learn More <i class="fas fa-arrow-alt-circle-right ml-2"></i>
+        开始了解<i class="fas fa-arrow-alt-circle-right ml-2"></i>
     </a>
     <a class="btn btn-lg btn-secondary mr-3 mb-4" href="https://github.com/mosn/mosn">
-        Download <i class="fab fa-github ml-2 "></i>
+        下载<i class="fab fa-github ml-2 "></i>
     </a>
-    <p class="lead mt-5">The Cloud Native Proxy for Edge or Service Mesh</p>
+    <p class="lead mt-5">用于边缘和服务网格的云原生网络代理</p>
     <div class="mx-auto mt-5">
         
 
 
-<a class="btn btn-link text-info" href="#td-block-1"><i class="fa fa-chevron-circle-down" style="font-size: 400%"></i></a>
+<a class="btn btn-link text-light" href="#td-block-1"><i class="fa fa-chevron-circle-down" style="font-size: 400%"></i></a>
 
     </div>
 </div>
@@ -218,22 +218,18 @@ if (!doNotTrack) {
 
 <div id="overview">
   <div class="contain">
-    <h2 class="section-head">What is MOSN?</h2>
+    <h2 class="section-head">关于 MOSN</h2>
     <p>
-    MOSN is a network proxy written in Golang.
-    It was open sourced by Ant Group with the verification of 100k+ containers production-grade application.
-    It can be used as a cloud-native network data plane,
-    providing services with the following proxy functions:
-    multi-protocol, modular, intelligent, and secure.
-    MOSN is the short name of Modular Open Smart Network (proxy).
-    MOSN can be integrated with any Service Mesh which support xDS API.
-    It can also be used as an independent Layer 4 or Layer 7 load balancer, API Gateway, cloud-native Ingress, etc.
-    </p>
-     <p>
-    <img src="/images/cloud-native-computing.svg" width="300px" alt="Cloud Native Computing Foundation" title="Cloud Native Computing Foundation">
+    MOSN 是一款使用 Go 语言开发的网络代理软件，由蚂蚁集团开源并经过几十万容器的生产级验证。
+    MOSN 作为云原生的网络数据平面，旨在为服务提供多协议、模块化、智能化、安全的代理能力。
+    MOSN 是 Modular Open Smart Network 的简称。
+    MOSN 可以与任何支持 xDS API 的 Service Mesh 集成，亦可以作为独立的四、七层负载均衡，API Gateway、云原生 Ingress 等使用。
     </p>
     <p>
-    MOSN enriches the <a href="https://landscape.cncf.io/">CNCF Cloud Native Landscape</a>.
+    <img src="/images/cloud-native-computing.svg" width="300px" alt="云原生计算基金会" title="云原生计算基金会">
+    </p>
+    <p>
+    MOSN 是 <a href="https://landscape.cncf.io/">CNCF Landscape</a> 中的项目。
     </p>
   </div>
 </div>
@@ -250,8 +246,8 @@ if (!doNotTrack) {
   <div class="mb-4 h1">
     <i class="fas fa-question"></i>
   </div>
-  <h4 class="h3">Any questions?</h4>
-  <p class="mb-0"><p>Features request, ask questions or report bugs? Feel free to <a href="https://github.com/mosn/mosn/issues/new/choose">file a issue</a> or join our <a href="https://mosnproxy.slack.com">slack</a> workspace.</p>
+  <h4 class="h3">反馈问题</h4>
+  <p class="mb-0"><p>功能请求、提问和 Bug，请使用 <a href="https://github.com/mosn/mosn/issues/new/choose">Github Issue</a> 报告给我们或加入<a href="community">钉钉群</a>与我们交流。</p>
 </p>
   
 </div>
@@ -260,8 +256,8 @@ if (!doNotTrack) {
   <div class="mb-4 h1">
     <i class="fab fa-github"></i>
   </div>
-  <h4 class="h3">Contributions welcome!</h4>
-  <p class="mb-0"><p>We do a <a href="https://github.com/mosn/mosn/pulls" target="_blank">Pull Request</a> contributions workflow on <strong>GitHub</strong>. New users are always welcome!</p>
+  <h4 class="h3">欢迎贡献</h4>
+  <p class="mb-0"><p>不要犹豫，请在 Github 上提交 <a href="https://github.com/mosn/mosn/pulls" target="_blank">Pull Request</a>！</p>
 </p>
   
 </div>
@@ -270,8 +266,8 @@ if (!doNotTrack) {
   <div class="mb-4 h1">
     <i class="fab fa-twitter"></i>
   </div>
-  <h4 class="h3">Follow us on Twitter!</h4>
-  <p class="mb-0"><p>For announcement of latest features etc on <a href="https://twitter.com/MosnProxy">@MosnProxy</a>.</p>
+  <h4 class="h3">在 Twitter 上关注我们</h4>
+  <p class="mb-0"><p>在 Twitter 上关注 <a href="https://twitter.com/MosnProxy">@MosnProxy</a> 获取 MOSN 的最新消息。</p>
 </p>
   
 </div>
@@ -280,24 +276,6 @@ if (!doNotTrack) {
 	</div>
 </section>
 
-
-<!--
-
-
-
- 
-<a id="td-block-2" class="td-offset-anchor"></a>
-<section class="row td-box td-box--2 td-box--gradient td-box--height-auto">
-	<div class="col">
-		<div class="row ">
-			<div class="col">
-<h1 class="text-center">This is the second Section</h1>
-</div>
-		</div>
-	</div>
-</section>
-
--->
 
 
 
@@ -347,7 +325,7 @@ if (!doNotTrack) {
         
       </div>
       <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        <small class="text-white">&copy; 2020 The MOSN Authors All Rights Reserved</small>
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
         
 	
       </div>

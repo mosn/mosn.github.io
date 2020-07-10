@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,29 +18,29 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>FeatureGate overview | MOSN</title><meta property="og:title" content="FeatureGate overview" />
-<meta property="og:description" content="This topic describes FeatureGate of MOSN.
+<title>Featuregate 介绍 | MOSN</title><meta property="og:title" content="Featuregate 介绍" />
+<meta property="og:description" content="本页介绍了 MOSN 的 featuregate。
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/dev/featuregate-introduce/" />
 <meta property="article:published_time" content="2020-03-13T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-07-10T11:35:32&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-07-10T23:50:30&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="FeatureGate overview">
-<meta itemprop="description" content="This topic describes FeatureGate of MOSN.
+<meta itemprop="name" content="Featuregate 介绍">
+<meta itemprop="description" content="本页介绍了 MOSN 的 featuregate。
 ">
 
 
 <meta itemprop="datePublished" content="2020-03-13T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-07-10T11:35:32&#43;08:00" />
-<meta itemprop="wordCount" content="1461">
+<meta itemprop="dateModified" content="2020-07-10T23:50:30&#43;08:00" />
+<meta itemprop="wordCount" content="761">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="FeatureGate overview"/>
-<meta name="twitter:description" content="This topic describes FeatureGate of MOSN.
+<meta name="twitter:title" content="Featuregate 介绍"/>
+<meta name="twitter:description" content="本页介绍了 MOSN 的 featuregate。
 "/>
 
 <script type="application/javascript">
@@ -70,7 +70,7 @@ if (!doNotTrack) {
 
 
 
-    <title>FeatureGate overview | MOSN</title>
+    <title>Featuregate 介绍 | MOSN</title>
   </head>
   <body class="td-page">
     <header>
@@ -99,7 +99,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/" ><span class="active">Documentation</span></a>
+				<a class="nav-link active" href="/docs/" ><span class="active">文档</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -109,7 +109,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/blog/" ><span>Blog</span></a>
+				<a class="nav-link" href="/blog/" ><span>博客</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -119,7 +119,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/community/" ><span class="active">Community</span></a>
+				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">教程</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -129,7 +129,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">Tutorial</span></a>
+				<a class="nav-link active" href="/docs/community/" ><span class="active">社区</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -148,11 +148,11 @@ if (!doNotTrack) {
 				
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/dev/featuregate-introduce/">中文</a>
+	<a class="dropdown-item" href="/en/docs/dev/featuregate-introduce/">English</a>
 	
 </div>
 			</li>
@@ -160,7 +160,7 @@ if (!doNotTrack) {
 		</ul>
 	</div>
 	<div class="navbar-nav d-none d-lg-block">
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 </div>
 </nav>
 
@@ -178,7 +178,7 @@ if (!doNotTrack) {
   
   <form class="td-sidebar__search d-flex align-items-center">
     
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 
     <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
@@ -190,11 +190,11 @@ if (!doNotTrack) {
       
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/dev/featuregate-introduce/">中文</a>
+	<a class="dropdown-item" href="/en/docs/dev/featuregate-introduce/">English</a>
 	
 </div>
     </div>
@@ -208,7 +208,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Documentation</a>
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">文档</a>
   </li>
   <ul>
     <li class="collapse show" id="docs">
@@ -218,13 +218,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">Overview</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">简介</a>
       
       
       
@@ -237,7 +231,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Get started</a>
+    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开始</a>
   </li>
   <ul>
     <li class="collapse " id="docs-quick-start">
@@ -247,13 +241,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">Quick start</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">快速开始</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">Istio integration</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">集成 Istio</a>
       
       
     </li>
@@ -272,7 +266,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
+    <a  href="/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">架构原理</a>
   </li>
   <ul>
     <li class="collapse " id="docs-concept">
@@ -282,37 +276,55 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">Core concepts</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">核心概念</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar 模式</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">流量劫持</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS connections</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS 安全链路</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN 平滑升级原理解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-multi-protocol" href="/docs/concept/multi-protocol/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-extensions" href="/docs/concept/extensions/">MOSN 扩展机制解析</a>
       
       
     </li>
   </ul>
 </ul>
 
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">工程示例</a>
       
       
       
@@ -325,7 +337,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Configuration overview</a>
+    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">配置概览</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration">
@@ -334,25 +346,8 @@ if (!doNotTrack) {
       
       
       
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener">
       
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-filter-chain" href="/docs/configuration/listener/filter-chain/">FilterChain</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-clustermanager" href="/docs/configuration/clustermanager/">ClusterManager 配置</a>
       
       
       
@@ -365,48 +360,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener-network-filter">
-      
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-proxy" href="/docs/configuration/listener/network-filter/proxy/">proxy</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-connection-manager" href="/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-      
-      
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server configurations</a>
+    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server 配置</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration-server">
@@ -416,7 +370,71 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router 配置</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-filter-chain" href="/docs/configuration/server/listener/filter-chain/">FilterChain</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener-network-filter">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-proxy" href="/docs/configuration/server/listener/network-filter/proxy/">proxy</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-connection-manager" href="/docs/configuration/server/listener/network-filter/connection-manager/">connection_manager</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
     </li>
@@ -435,7 +453,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
+    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace 配置</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration-trace">
@@ -445,7 +463,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking 配置</a>
       
       
     </li>
@@ -457,19 +475,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">Custom configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">自定义配置</a>
       
       
     </li>
   </ul>
 </ul>
 
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">Example projects</a>
       
       
       
@@ -482,7 +494,42 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
+    <a  href="/docs/dev/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">开发指南</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs-dev">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-dubbo-integrate" href="/docs/dev/dubbo-integrate/">Dubbo 集成</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">贡献文档</a>
   </li>
   <ul>
     <li class="collapse " id="docs-contribute">
@@ -492,19 +539,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">Documentation contribution guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">文档贡献指南</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">Create a page</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">创建页面</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">Format guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">样式指南</a>
       
       
     </li>
@@ -522,13 +569,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">Community</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">教程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">Tutorial</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">社区</a>
       
       
     </li>
@@ -554,11 +601,11 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/dev/featuregate-introduce/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=FeatureGate%20overview" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/dev/featuregate-introduce/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Featuregate%20%e4%bb%8b%e7%bb%8d" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
-<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
 
 </div>
 
@@ -571,19 +618,19 @@ if (!doNotTrack) {
 <ul>
 <li>
 <ul>
-<li><a href="#featuregate-overview">FeatureGate overview</a></li>
-<li><a href="#featuregate-based-development">FeatureGate-based development</a>
+<li><a href="#featuregate-介绍">Featuregate 介绍</a></li>
+<li><a href="#基于-featuregate-进行开发">基于 featuregate 进行开发</a>
 <ul>
-<li><a href="#implementation-of-featuregate">Implementation of Featuregate</a></li>
-<li><a href="#usage">Usage</a>
+<li><a href="#featuregate-实现">Featuregate 实现</a></li>
+<li><a href="#featuregate-的使用">Featuregate 的使用</a>
 <ul>
-<li><a href="#1-basic-global-switch">1. Basic global switch</a></li>
-<li><a href="#2-initialization-operation">2. Initialization operation</a></li>
-<li><a href="#3-feature-dependency-management">3. Feature dependency management</a></li>
+<li><a href="#1-基本的-全局-开关">1. 基本的“全局”开关</a></li>
+<li><a href="#2-需要进行-初始化-操作">2. 需要进行“初始化”操作</a></li>
+<li><a href="#3-feature-之间存在依赖关系">3. Feature 之间存在依赖关系</a></li>
 </ul></li>
 <li><a href="#faq">FAQ</a>
 <ul>
-<li><a href="#why-is-featuregate-used-instead-of-configuration-files">Why is FeatureGate used instead of configuration files?</a></li>
+<li><a href="#为什么不使用配置的方式-而要使用-featuregate">为什么不使用配置的方式，而要使用 featuregate?</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -604,15 +651,25 @@ if (!doNotTrack) {
 
 
 
+
+
+
 <li class="breadcrumb-item" >
-	<a href="/docs/">Documentation</a>
+	<a href="/docs/">文档</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="/docs/dev/">开发指南</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+	<a href="/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
 </li>
 
 	</ol>
@@ -621,59 +678,62 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>FeatureGate overview</h1>
-	<div class="lead">This topic describes FeatureGate of MOSN.</div>
+	<h1>Featuregate 介绍</h1>
+	<div class="lead">本页介绍了 MOSN 的 featuregate。</div>
 	
 
-<h2 id="featuregate-overview">FeatureGate overview</h2>
+<h2 id="featuregate-介绍">Featuregate 介绍</h2>
 
-<p>When using MOSN, you may want to enable some features at startup and disable those that you do not need. To meet this requirement, MOSN provides a feature switch: FeatureGate.</p>
+<p>在 MOSN 中，存在一些功能需要在启动时决定是否开启的，为了满足这种需求，MOSN 推出了 featuregate（功能开关）的能力。</p>
 
-<p>FeatureGate specifies a pair of states (enabled/disabled) for features in MOSN. Each feature has its own default state. Different MOSN versions support different features and default states. FeatureGate describes features and their states in a string in the form of <code>${feature}=${bool}</code>. Multiple features and states are separated by a comma.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">// General template
-./mosn start -c <span style="color:#4e9a06">${</span><span style="color:#000">config</span><span style="color:#000;font-weight:bold"> path</span><span style="color:#4e9a06">}</span> -f <span style="color:#4e9a06">${</span><span style="color:#000">feature</span><span style="color:#000;font-weight:bold"> gates description</span><span style="color:#4e9a06">}</span>
-// Example
-./mosn start -c mosn_config.json -f <span style="color:#4e9a06">&#34;auto_config=true,XdsMtlsEnable=true&#34;</span></code></pre></div>
-<p>FeatureGate supports not only feature switching, but also extensible development. During MOSN-based secondary development, you can use the following FeatureGate capabilities:</p>
+<p>Featuregate 描述了一组 MOSN 中需要开启 / 关闭的 feature 状态，每个 feature 都有自己默认的状态，每个 MOSN 版本支持的 feature、feature 默认的版本都有所不同；featuregate 的描述用一个字符串表示，按照<code>${feature}=${bool}</code>的方式，用逗号进行分割：</p>
+
+<pre><code>// 通用模版
+./mosn start -c ${config path} -f ${feature gates description}
+// 示例
+./mosn start -c mosn_config.json -f &quot;auto_config=true,XdsMtlsEnable=true&quot;
+</code></pre>
+
+<p>Featuregate 不仅仅是提供了一种功能切换的能力，同时也提供了一种可扩展的开发机制，基于 MOSN 进行二次开发时，可以使用 featuregate 做到如下的功能：</p>
 
 <ul>
-<li>Feature switching. You can use FeatureGate to enable/disable a specific feature.</li>
-<li>Feature dependency management. This includes startup sequence and enabled/disabled state dependencies between features.
+<li>功能切换的能力，可以控制某个 feature 的开启 / 关闭</li>
+<li>feature 之间的依赖关系管理，包括 feature 之间的启动顺序依赖、开启 / 关闭状态的依赖等
 
 <ul>
-<li>For example, we have two features A and B implemented in MOSN. Initialization of Feature B depends on the initialization result of Feature A. That is to say Feature B depends on Feature A. When Feature A is disabled, Feature B is disabled or downgraded accordingly. FeatureGate provides a simple mechanism to help you focus on feature development, without being distracted by the management of startup items and dependencies.</li>
+<li>举例说明，基于 MOSN 实现两个 feature，分别为 A 和 B，需要在 A 初始化完成以后，B 会使用 A 初始化的结果进行初始化，这就是 B 依赖 A，当 feature A 处于 Disable 状态时，B 显然也会处于 Disable 或者需要作出对应的“降级”； feature gate 框架提供了一种简单的方式，可以更加专注于 feature 的开发，而不用去管理对应的启动与依赖</li>
 </ul></li>
 </ul>
 
-<p>FeatureGate is mainly intended for secondary development of different features in MOSN.</p>
+<p>基于 featuregate 的框架，在 MOSN 中进行不同 feature 的二次开发，是 featuregate 框架最主要的目的。</p>
 
-<h2 id="featuregate-based-development">FeatureGate-based development</h2>
+<h2 id="基于-featuregate-进行开发">基于 featuregate 进行开发</h2>
 
-<h3 id="implementation-of-featuregate">Implementation of Featuregate</h3>
+<h3 id="featuregate-实现">Featuregate 实现</h3>
 
-<p>FeatureGate provides the following APIs:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#8f5902;font-style:italic">// Returns the current status of a feature, where &#34;true&#34; indicates &#34;enabled&#34;, and &#34;false&#34; indicates &#34;disabled&#34;.
+<p>首先，我们来看一下，featuregate 框架提供了哪些接口：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#8f5902;font-style:italic">// 返回一个 Feature 当前的状态，true 表示 enable，false 表示 disable
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">Enabled</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">key</span> <span style="color:#000">Feature</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">bool</span>
-<span style="color:#8f5902;font-style:italic">// Subscribes to a feature and returns its status after subscription finishes.
-</span><span style="color:#8f5902;font-style:italic">// Returns whether the subscribed feature is enabled after it is initialized.
-</span><span style="color:#8f5902;font-style:italic">// Returns &#34;false&#34; if the subscribed feature is disabled; returns a subscription timeout error if
-</span><span style="color:#8f5902;font-style:italic">// the initialization is still not finished after the subscription times out. If the timeout value is less than or equal to 0, no subscription timeout error is returned.
+<span style="color:#8f5902;font-style:italic">// “订阅”一个 Feature，并且返回其订阅完成以后的状态。
+</span><span style="color:#8f5902;font-style:italic">// 当订阅的 Feature 初始化完成以后，会返回其是否 Enable。
+</span><span style="color:#8f5902;font-style:italic">// 如果订阅的 Feature 是 Disable 的，会直接返回 false；如果在订阅的 timeout 期间，Feature 依然没有
+</span><span style="color:#8f5902;font-style:italic">// 初始化完成，那么会返回订阅超时的错误，如果 timeout 小于等于 0，则没有订阅超时
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">Subscribe</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">key</span> <span style="color:#000">Feature</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">timeout</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Duration</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#8f5902;font-style:italic">// Sets the state of FeatureGate. &#34;value&#34; is a complete FeatureGate description.
+<span style="color:#8f5902;font-style:italic">// 设置 feature gates 的状态，value 为一个完整的 feature gates 描述
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">Set</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">value</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span>
-<span style="color:#8f5902;font-style:italic">// Sets the state of FeatureGate. &#34;key&#34; of &#34;map&#34; is the key of the feature, and &#34;value&#34; is the expected state of the feature.
+<span style="color:#8f5902;font-style:italic">// 设置 feature gates 的状态，其中 map 的 key 为 feature 的 key，value 是期望设置的 feature 状态
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">SetFromMap</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">m</span> <span style="color:#204a87;font-weight:bold">map</span><span style="color:#000;font-weight:bold">[</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">]</span><span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span>
-<span style="color:#8f5902;font-style:italic">// Registers a new feature with FeatureGate.
+<span style="color:#8f5902;font-style:italic">// 新注册一个 feature 到 feature gate 中
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">AddFeatureSpec</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">key</span> <span style="color:#000">Feature</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">spec</span> <span style="color:#000">FeatureSpec</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span>
-<span style="color:#8f5902;font-style:italic">// Sets the state of a feature.
+<span style="color:#8f5902;font-style:italic">// 设置一个 feature 的状态
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">SetFeatureState</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">key</span> <span style="color:#000">Feature</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">enable</span> <span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span>
-<span style="color:#8f5902;font-style:italic">// Enables feature initialization.
+<span style="color:#8f5902;font-style:italic">// 开启初始化 feature
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">StartInit</span><span style="color:#000;font-weight:bold">()</span>
-<span style="color:#8f5902;font-style:italic">// Waits for the initialization of all features to finish.
+<span style="color:#8f5902;font-style:italic">// 等待所有的 feature 初始化结束
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">WaitInitFinsh</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">error</span></code></pre></div>
-<p>StartInit and WaitInitFinsh are called by MOSN and can be ignored during secondary development based on MOSN. Generally, Set and SetFromMap can also be ignored. All the above APIs are exposed by the default non-exportable global FeatureGate object. You can use the default FeatureGate object without creating a new one, unless otherwise required in special cases (for example, when writing unit tests).</p>
+<p>这其中，StartInit 和 WaitInitFinsh 是由 MOSN 框架进行调用，基于 MOSN 进行二次开发时无须关注和调用；通常情况下，Set 和 SetFromMap 也无须关注。所有的上述接口，都是由框架下默认的一个不可导出的全局 featuregate 对象暴露，在没有极为特殊需求的场景下（如编写单元测试），不需要额外生成 FeatureGate 对象，使用默认的即可。</p>
 
-<p>The following example shows how FeatureGate is implemented.</p>
+<p>接下来，我们看一下 featuregate 的实现：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">knownFeatureSpec</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
         <span style="color:#000">FeatureSpec</span>
         <span style="color:#000">once</span>    <span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Once</span>
@@ -689,16 +749,10 @@ if (!doNotTrack) {
         <span style="color:#000">wg</span>     <span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WaitGroup</span>
         <span style="color:#000">once</span>   <span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Once</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>FeatureGate consists of the following member variables:
-- <code>map</code>: records all supported features;
-- <code>inited</code>: a status indicator that indicates whether FeatureGate has been initialized;
-- <code>once</code>: used to ensure that FeatureGate is initialized only once;
-- <code>WaitGroup</code>: used to synchronize the feature initialization result;
-- <code>Mutex</code>: used for concurrency control.</p>
-
-<p>According to the design of FeatureGate, you can add new features by calling the <code>Add</code> method, and modify their states by calling the <code>Set</code> method. However, initialization of all features is uniformly implemented by executing the <code>Init</code> function. After <code>Init</code> is executed, no feature can be added, and no feature state can be modified. That is why we need the <code>inited</code> status indicator to record the initialization action.
-<code>knownFeatureSpec</code> is a non-exportable structure that specifies <code>FeatureSpec</code> of different features. Both <code>once</code> and <code>channel</code> are used for subscription and initialization in FeatureGate, and are not detailed here.
-The following describes the definition of <code>FeatureSpec</code>, which is the core data structure for FeatureGate-based development.</p>
+<p>Featuregate 包含了一个 map，用于记录所有被支持的 feature；一个<code>inited</code>状态标，表示 featuregate 是否已经完成了初始化；<code>once</code>用于确保 featuregate 的初始化只执行一次，<code>WaitGroup</code>则用于同步 feature 初始化的结果；一个<code>Mutex</code>用于并发保护。
+按照 featuregate 的设计，不同的 feature 是可以通过<code>Add</code>的方式新增，以及不同的<code>Set</code>方法改变状态的，而不同 feature 的初始化<code>Init</code>函数都会统一执行，因此一旦执行完<code>Init</code>，则不再允许新增 feature、修改 feature 状态；因此我们需要一个<code>inited</code>的标记来记录这个行为。
+<code>knownFeatureSpec</code>是一个不可导出的结构体，用于对表示不同 feature 的<code>FeatureSpec</code>封装，其中的<code>once</code>和<code>channel</code>均是用于 featuregate 中订阅和初始化使用，在此不做详细说明。
+下面，我们来看一下<code>FeatureSpec</code>的定义，这也是我们基于 featuregate 框架进行开发的核心数据结构。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">prerelease</span> <span style="color:#204a87;font-weight:bold">string</span>
 <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000;font-weight:bold">(</span>
         <span style="color:#8f5902;font-style:italic">// Values for PreRelease.
@@ -721,29 +775,29 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 </span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">PreRelease</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000">prerelease</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <ul>
-<li><code>prerelease</code> refers to a non-exportable type. There are only three conventional exportable variables whose type is prerelease. It is equivalent to the Enum type in conventional languages and is used to describe feature information. The role of prerelease is currently not clear.</li>
-<li><code>FeatureSpec</code> can be implemented with your own code. Generally, you can use <code>BaseFeatureSpec</code> provided by the framework or implement a new one based on <code>BaseFeatureSpec</code>. As described in the following comments, you generally only need to encapsulate an additional <code>InitFunc</code> function to implement this API.</li>
+<li><code>prerelease</code> 是不可导出的定义，有三个约定的导出变量可以使用，相当于传统语言的 Enum 类型，用于描述 feature 的信息，没有明确的作用</li>
+<li><code>FeatureSpec</code>可以自行实现，同时多数情况下可以用框架实现的<code>BaseFeatureSpec</code>，或者基于<code>BaseFeatureSpec</code>进行封装；如注释描述，通常情况下只需要额外封装实现一个<code>InitFunc</code>函数即可</li>
 </ul>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#8f5902;font-style:italic">// BaseFeatureSpec is a basic implementation of FeatureSpec.
 </span><span style="color:#8f5902;font-style:italic">// Usually, a feature spec just need an init func.
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">BaseFeatureSpec</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
-        <span style="color:#8f5902;font-style:italic">// Default state.
+        <span style="color:#8f5902;font-style:italic">// 默认状态
 </span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">DefaultValue</span>    <span style="color:#204a87;font-weight:bold">bool</span>
-        <span style="color:#8f5902;font-style:italic">// Specifies whether the state can be modified, where &#34;true&#34; indicates that the feature can only remain in the default state.
-</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#8f5902;font-style:italic">// Generally, when it is set to &#34;true&#34; here, the default state is also &#34;true&#34;.
-</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#8f5902;font-style:italic">// This feature is mainly used as a &#34;base dependency&#34; for other features.
+        <span style="color:#8f5902;font-style:italic">// 是否可修改状态，如果为 true，说明这个 feature 只能保持默认状态
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#8f5902;font-style:italic">// 一般情况下设置这个为 true 的时候，default 也是 true
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#8f5902;font-style:italic">// 这种 feature 主要会用于做为其他 feature 的“基础依赖”
 </span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">IsLockedDefault</span> <span style="color:#204a87;font-weight:bold">bool</span>
         <span style="color:#000">PreReleaseValue</span> <span style="color:#000">prerelease</span>
         <span style="color:#000">stateValue</span>      <span style="color:#204a87;font-weight:bold">bool</span>  <span style="color:#8f5902;font-style:italic">// stateValue shoule be setted by SetState
 </span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">inited</span>          <span style="color:#204a87;font-weight:bold">int32</span> <span style="color:#8f5902;font-style:italic">// inited cannot be setted
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h3 id="usage">Usage</h3>
+<h3 id="featuregate-的使用">Featuregate 的使用</h3>
 
-<p>After understanding the basic implementation of FeatureGate, you can use it for basic extended programming. The following describes several usage scenarios of FeatureGate and methods for writing features.</p>
+<p>了解了 featuregate 的基本实现，就可以考虑使用 featuregate 进行基本的编程扩展了。下面会介绍几种 featuregate 的使用场景，以及如何编写 feature。</p>
 
-<h4 id="1-basic-global-switch">1. Basic global switch</h4>
+<h4 id="1-基本的-全局-开关">1. 基本的“全局”开关</h4>
 
-<p>In feature switching, the most basic usage scenario of FeatureGate, FeatureGate works like a global variable. <code>if</code> conditional judgement is used to execute different logic here. This allows FeatureGate to integrate all feature switching control parameters into the startup parameters.</p>
+<p>对于 feature 切换最基本的使用场景，就是使用一个类似“全局变量”进行控制，通过<code>if</code>条件判断执行不同的逻辑。使用 featuregate 框架实现这种能力，可以把控制 feature 切换的参数全部统一到启动参数中。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">featureName</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;simple_feature&#34;</span>
 <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">init</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">fs</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">BaseFeatureSpec</span><span style="color:#000;font-weight:bold">{</span>
@@ -759,9 +813,9 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
         <span style="color:#000">dosth2</span><span style="color:#000;font-weight:bold">()</span>
     <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h4 id="2-initialization-operation">2. Initialization operation</h4>
+<h4 id="2-需要进行-初始化-操作">2. 需要进行“初始化”操作</h4>
 
-<p>The InitFunc function enables related initialization procedures to be uniformly performed when MOSN starts. If a feature is disabled, it will not be executed by InitFunc.</p>
+<p>通过封装扩展 InitFunc 函数，让相关的初始化工作在 MOSN 启动时统一完成，如果 feature 处于 disable 状态，那么 InitFunc 不会执行。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">featureName</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;init_feature&#34;</span>
 
 <span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">MyFeature</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
@@ -771,16 +825,16 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">MyFeature</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">InitFunc</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">doInit</span><span style="color:#000;font-weight:bold">()</span>
 <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#ce5c00;font-weight:bold">//</span> <span style="color:#000">The</span> <span style="color:#000">rest</span> <span style="color:#000">are</span> <span style="color:#000">similar</span> <span style="color:#000">to</span> <span style="color:#000">the</span> <span style="color:#000">code</span> <span style="color:#000">example</span> <span style="color:#000">provided</span> <span style="color:#000">in</span> <span style="color:#0000cf;font-weight:bold">1.</span> <span style="color:#000">Basic</span> <span style="color:#000">global</span> <span style="color:#204a87;font-weight:bold">switch</span><span style="color:#000;font-weight:bold">.</span></code></pre></div>
-<h4 id="3-feature-dependency-management">3. Feature dependency management</h4>
+<span style="color:#ce5c00;font-weight:bold">//</span> <span style="color:#000">其他的类似</span> <span style="color:#0000cf;font-weight:bold">1.</span></code></pre></div>
+<h4 id="3-feature-之间存在依赖关系">3. Feature 之间存在依赖关系</h4>
 
-<p>This is the most important capability of FeatureGate. It easily solves the following problem.</p>
+<p>这个功能是 featuregate 框架提供的最重要的能力，可以方便的解决下面的场景：</p>
 
 <ul>
-<li>Assume that we have four independent features: A, B, C, and D.</li>
-<li>B and C depend on A, which means we must enable A before we can enable B and C. D depends on B, which means we must enable B before we can enable D.</li>
-<li>If A is not enabled, B cannot be enabled, but C can still work in downgrade mode.</li>
-<li>The four features can be implemented separately in FeatureGate as follows.</li>
+<li>假设我们存在四个独立的组件（feature），分别是 A、B、C，D</li>
+<li>B 和 C 的启动都依赖于 A，即首先要 A 启动完成，然后 B 和 C 才能启动完成；D 依赖于 B，必须 B 启动完成，D 才可以启动</li>
+<li>如果 A 没有启动，B 就不能启动，而 C 存在一种降级方案，依然可以继续工作</li>
+<li>四个 feature 在 featuregate 框架下可各自实现，如下</li>
 </ul>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">FeatureA</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;A&#34;</span>
 
@@ -798,7 +852,7 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">FB</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">InitFunc</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">enabled</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Subscribe</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">FeatureA</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">5</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Second</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#ce5c00;font-weight:bold">||</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">enabled</span> <span style="color:#000;font-weight:bold">{</span>
-        <span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetState</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">// If feature A is not enabled, feature B will not be enabled.
+        <span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetState</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">// 如果 FeatureA 没有开启，则 FeatureB 也不开启
 </span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">FeatureC</span>  <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;C&#34;</span>
 
@@ -810,11 +864,11 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">FC</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">InitFunc</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">enabled</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Subscribe</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">FeatureA</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">5</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Second</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#ce5c00;font-weight:bold">||</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">enabled</span> <span style="color:#000;font-weight:bold">{</span>
-        <span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mode</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#8f5902;font-style:italic">// Downgrade mode.
+        <span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mode</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#8f5902;font-style:italic">// 降级模式
 </span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#204a87;font-weight:bold">return</span>
     <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">enabled</span> <span style="color:#000;font-weight:bold">{</span>
-        <span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mode</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#8f5902;font-style:italic">// Normal mode.
+        <span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mode</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#8f5902;font-style:italic">// 正常模式
 </span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000;font-weight:bold">}</span>
 
@@ -831,7 +885,7 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 <span style="color:#000;font-weight:bold">}</span>
 
 <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">FD</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">InitFunc</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
-    <span style="color:#000">enabled</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Subscribe</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">FeatureB</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">// No timeout. Waits until B is enabled.
+    <span style="color:#000">enabled</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Subscribe</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">FeatureB</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">// 不超时，一定要等待 B 结束
 </span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#ce5c00;font-weight:bold">||</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">enabled</span> <span style="color:#000;font-weight:bold">{</span>
         <span style="color:#204a87;font-weight:bold">return</span>
     <span style="color:#000;font-weight:bold">}</span>
@@ -842,16 +896,16 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <h3 id="faq">FAQ</h3>
 
-<h4 id="why-is-featuregate-used-instead-of-configuration-files">Why is FeatureGate used instead of configuration files?</h4>
+<h4 id="为什么不使用配置的方式-而要使用-featuregate">为什么不使用配置的方式，而要使用 featuregate?</h4>
 
 <ul>
-<li>Unlike configuration files that must be parsed first, FeatureGate is more efficient in implementing advanced features.</li>
-<li>Decision needs to be made on some features earlier than parsing of the configuration files, and may even affect the parsing logic.</li>
+<li>配置文件需要进行解析，featuregate 更有利于扩展能力的实现</li>
+<li>有的 feature 需要判断的时机，比配置文件解析要早，甚至可能影响配置解析的逻辑</li>
 </ul>
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified July 10, 2020: <a  href="https://github.com/mosn/mosn.io/commit/9065f7d98999f54af9928ada3a6998df4d9ab552">update faq (9065f7d)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年7月10日: <a  href="https://github.com/mosn/mosn.io/commit/65e92406806201ea9ca61af4cd9718312072ce96">set the default language to Chinese (65e9240)</a>
 </div>
 </div>
 
@@ -904,7 +958,7 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
         
       </div>
       <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        <small class="text-white">&copy; 2020 The MOSN Authors All Rights Reserved</small>
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
         
 	
       </div>

@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.5" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>MOSN hot upgrade | MOSN</title><meta property="og:title" content="MOSN hot upgrade" />
+<meta property="og:description" content="This topic describes how to upgrade the sidecar (MOSN) without affecting the business and how to migrate existing persistent connections.
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/en/docs/concept/smooth-upgrade/" />
+<meta property="article:published_time" content="2020-01-20T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2020-07-10T23:50:30&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+
+<meta itemprop="name" content="MOSN hot upgrade">
+<meta itemprop="description" content="This topic describes how to upgrade the sidecar (MOSN) without affecting the business and how to migrate existing persistent connections.
+">
+
+
+<meta itemprop="datePublished" content="2020-01-20T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-07-10T23:50:30&#43;08:00" />
+<meta itemprop="wordCount" content="2628">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MOSN hot upgrade"/>
+<meta name="twitter:description" content="This topic describes how to upgrade the sidecar (MOSN) without affecting the business and how to migrate existing persistent connections.
+"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
+<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+    <title>MOSN hot upgrade | MOSN</title>
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/en/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+        
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/mosn/mosn/" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/en/docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/en/blog/" ><span>Blog</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/en/docs/community/" ><span class="active">Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/en/docs/tutorial/" ><span class="active">Tutorial</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/en/docs/faq/" ><span class="active">FAQ</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	English
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/docs/concept/smooth-upgrade/">中文</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	English
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/docs/concept/smooth-upgrade/">中文</a>
+	
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="en-docs">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-overview" href="/en/docs/overview/">Overview</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-dev-featuregate-introduce" href="/en/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Get started</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-quick-start">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-quick-start-proxy" href="/en/docs/quick-start/proxy/">Quick start</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-quick-start-istio" href="/en/docs/quick-start/istio/">Istio integration</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/concept/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="en-docs-concept">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-core-concept" href="/en/docs/concept/core-concept/">Core concepts</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-sidecar-pattern" href="/en/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-traffic-hijack" href="/en/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-tls" href="/en/docs/concept/tls/">TLS connections</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-en-docs-concept-smooth-upgrade" href="/en/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Configuration overview</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-configuration">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-configuration-listener">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-filter-chain" href="/en/docs/configuration/listener/filter-chain/">FilterChain</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-configuration-listener-network-filter">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-network-filter-proxy" href="/en/docs/configuration/listener/network-filter/proxy/">proxy</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-network-filter-connection-manager" href="/en/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server configurations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-configuration-server">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-server-router" href="/en/docs/configuration/server/router/">Router configurations</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-configuration-trace">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-trace-skywalking" href="/en/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-custom" href="/en/docs/configuration/custom/">Custom configurations</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-samples" href="/en/docs/samples/">Example projects</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
+  </li>
+  <ul>
+    <li class="collapse " id="en-docs-contribute">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-github" href="/en/docs/contribute/github/">Documentation contribution guide</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-creating-pages" href="/en/docs/contribute/creating-pages/">Create a page</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-style-guide" href="/en/docs/contribute/style-guide/">Format guide</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-faq" href="/en/docs/faq/">FAQ</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-community" href="/en/docs/community/">Community</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-tutorial" href="/en/docs/tutorial/">Tutorial</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/concept/smooth-upgrade/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20hot%20upgrade" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+
+
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#background">Background</a></li>
+<li><a href="#normal-procedure">Normal procedure</a></li>
+<li><a href="#hot-upgrade-procedure">Hot upgrade procedure</a>
+<ul>
+<li><a href="#trigger-conditions">Trigger conditions</a></li>
+<li><a href="#interaction-procedure">Interaction procedure</a></li>
+<li><a href="#persistent-connection-migration-procedure">Persistent-connection migration procedure</a></li>
+<li><a href="#residual-response-migration-procedure">Residual-response migration procedure</a></li>
+<li><a href="#connection-status-data">Connection status data</a></li>
+</ul></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#feedback">Feedback</a></li>
+</ul></li>
+</ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="/en/en/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="/en/en/docs/concept/">Architecture and principle</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="/en/en/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+</li>
+
+	</ol>
+</nav	>
+
+
+            
+<div class="td-content">
+	<h1>MOSN hot upgrade</h1>
+	<div class="lead">This topic describes how to upgrade the sidecar (MOSN) without affecting the business and how to migrate existing persistent connections.</div>
+	
+
+<p>Sidecar O&amp;M is always challenging for a service mesh, while sidecar upgrades are common at the data plane. This topic describes how to upgrade the sidecar (MOSN) without affecting the business and how to migrate existing persistent connections.</p>
+
+<h2 id="background">Background</h2>
+
+<p>This topic describes why and how MOSN supports hot upgrade. For details about the basic concepts of hot upgrade, see the <a href="/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/">NGINX vs Envoy vs MOSN hot upgrade</a>.</p>
+
+<p>First, why don&rsquo;t NGINX and Envoy require a connection-lossless migration solution like MOSN does? This depends on their business scenarios. NGINX and Envoy mainly support the HTTP1 and HTTP2 protocols. The <code>connection: Close</code> request/response header in HTTP1 and GOAWAY frame in HTTP2 allow a client to actively close a connection and establish a new one to a new process. However, common multiplexing protocols such as Dubbo and SOFARPC do not provide control frames, and a request will fail if the connection to the old process is closed.</p>
+
+<p>A common upgrade approach is to: cut off the application&rsquo;s traffic, for example, by unpublishing the service; upgrade MOSN when no new request is received; and then publish the service again. This process takes a rather long time, and the service is unavailable during this period of time. In addition, the application usage also needs to be considered. Achieving a balance between service availability and the upgrade in a large-scale scenario is difficult. To adapt to business scenarios of MOSN, a persistent-connection migration solution is developed to migrate persistent connections to new processes. The entire procedure is transparent to the client, and no connection needs to be re-established, implementing a request-lossless hot upgrade.</p>
+
+<p><img src="reqeust-smooth-upgrade-process.png" alt="Request-lossless hot upgrade procedure of MOSN" /></p>
+
+<h2 id="normal-procedure">Normal procedure</h2>
+
+<p><img src="normal-process.png" alt="Normal procedure" /></p>
+
+<ol>
+<li>A client sends a request to MOSN.</li>
+<li>MOSN forwards the request to a server.</li>
+<li>The server returns a response to MOSN.</li>
+<li>MOSN returns the response to the client.</li>
+</ol>
+
+<p>The preceding figure briefly shows a normal request procedure. Next, we need to migrate TCP1 connections between the client and MOSN. TCP2 connections between MOSN and the server do not need to be migrated, because the server accessed by MOSN is selected through load balancing. The connection/disconnection with the server is not our concern.</p>
+
+<h2 id="hot-upgrade-procedure">Hot upgrade procedure</h2>
+
+<h3 id="trigger-conditions">Trigger conditions</h3>
+
+<p>We can trigger a hot upgrade through either of the following methods:</p>
+
+<ol>
+<li>Register a SIGHUP event listener with MOSN, and send a SIGHUP signal to the MOSN process to call ForkExec to generate a new MOSN process.</li>
+<li>Directly start a new MOSN process.</li>
+</ol>
+
+<p>Why do we provide two methods? In the beginning, only the first method was supported, which is used by NGINX and Envoy. In this method, we can replace the old MOSN binary file in a virtual machine or container for an upgrade. However, our scenarios require cross-container upgrades. We need to start a new container (a new MOSN process) to implement a hot upgrade. That is why the second method is provided. Cross-container upgrades also require support from operators, but this will not be discussed in detail here.</p>
+
+<h3 id="interaction-procedure">Interaction procedure</h3>
+
+<p><img src="interaction-process.png" alt="Interaction procedure" /></p>
+
+<p><img src="interaction-process-timeline.png" alt="Sequence diagram of an interaction procedure" /></p>
+
+<p>The old MOSN process will start a goroutine to run the <code>ReconfigureHandler()</code> function to listen to a domain socket (<code>reconfig.sock</code>) in the last stage. This operation enables the new MOSN process to detect whether an old MOSN process exists.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">ReconfigureHandler</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">l</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Listen</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;unix&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ReconfigureDomainSocket</span><span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">uc</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">ul</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AcceptUnix</span><span style="color:#000;font-weight:bold">()</span>
+        <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">uc</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Write</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#204a87;font-weight:bold">byte</span><span style="color:#000;font-weight:bold">{</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">})</span>
+        <span style="color:#000">reconfigure</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>Both hot upgrade triggering methods start a new MOSN process at last. The new MOSN process will then successively call the <code>GetInheritListeners()</code> and <code>isReconfigure()</code> functions to verify whether an old MOSN process exists (whether the <code>reconfig.sock</code> listener exists). If yes, MOSN starts the migration procedure; otherwise, MOSN starts a normal startup procedure.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// The core procedure is kept.
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">GetInheritListeners</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">([]</span><span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Listener</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Conn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">isReconfigure</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#000">l</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Listen</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;unix&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TransferListenDomainSocket</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">uc</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">ul</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AcceptUnix</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">oobn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">uc</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ReadMsgUnix</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buf</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">oob</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">file</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">os</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NewFile</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">fd</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">fileListener</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">FileListener</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">file</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">listeners</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">uc</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>If the migration procedure starts, the new MOSN process will listen to a new domain socket (<code>listen.sock</code>). This ensures that the old MOSN process can transfer the listen FD to the new MOSN process. sendMsg and recvMsg are used to transfer the listen FD. After receiving the listen FD, the new MOSN process calls the <code>net.FileListener()</code> function to generate a listener. In this case, the new and old MOSN processes have the same listen socket.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// FileListener returns a copy of the network listener corresponding
+</span><span style="color:#8f5902;font-style:italic">// to the open file f.
+</span><span style="color:#8f5902;font-style:italic">// It is the caller&#39;s responsibility to close ln when finished.
+</span><span style="color:#8f5902;font-style:italic">// Closing ln does not affect f, and closing f does not affect ln.
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">FileListener</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">os</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">File</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">ln</span> <span style="color:#000">Listener</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">ln</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">fileListener</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">OpError</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">Op</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;file&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Net</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;file+net&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Source</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Addr</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">fileAddr</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Name</span><span style="color:#000;font-weight:bold">()),</span> <span style="color:#000">Err</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">err</span><span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#204a87;font-weight:bold">return</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>The migration procedure of MOSN is different from that of NGINX. In NGINX, after the forking is done, the child process automatically inherits the listen FD. However, MOSN starts a new process that is independent from the old one, without a parent-child relationship. Therefore, sendMsg is required for transferring the listen FD.</p>
+
+<p>A total of two domain sockets are used to start the migration and transfer the listen FD.</p>
+
+<ul>
+<li><code>reconfig.sock</code> is the old MOSN listener used by the new MOSN process to verify whether an old MOSN process exists.</li>
+<li><code>listen.sock</code> is the new MOSN listener used by the old MOSN process to transfer the listen FD.</li>
+</ul>
+
+<p>These two sockets are actually interchangeable. For example, <code>reconfig.sock</code> can also be used for transferring the listen FD. These two sockets are used for some historical reasons. They can be merged into one later on, to make the code simpler and easier to read.</p>
+
+<p>Let us take a look at the handling procedure of the old MOSN process. After receiving the notification from the new MOSN process, the old MOSN process starts the <code>reconfigure(false)</code> procedure. It first calls <code>sendInheritListeners()</code> to transfer the listen FD to the new MOSN process as described above, and then calls <code>WaitConnectionsDone()</code> to migrate existing persistent connections.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// The core procedure is kept.
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">reconfigure</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">start</span> <span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">start</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">startNewMosn</span><span style="color:#000;font-weight:bold">()</span>
+        <span style="color:#204a87;font-weight:bold">return</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#8f5902;font-style:italic">// transfer listen fd
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">notify</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">sendInheritListeners</span><span style="color:#000;font-weight:bold">();</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">return</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#8f5902;font-style:italic">// Wait for all connections to be finished
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">WaitConnectionsDone</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">GracefulTimeout</span><span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#000">os</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Exit</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>After receiving the listen FD, the new MOSN process starts the migration process based on the configurations. Then the new MOSN process starts a goroutine to run <code>TransferServer()</code> to listen to a new <code>domain socket (conn.sock)</code>, for receiving persistent connections from the old MOSN process subsequently. The migration function is <code>transferHandler().</code></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">TransferServer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">handler</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ConnectionHandler</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">l</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Listen</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;unix&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TransferConnDomainSocket</span><span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#000">utils</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">GoWithRecover</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">c</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">l</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Accept</span><span style="color:#000;font-weight:bold">()</span>
+            <span style="color:#204a87;font-weight:bold">go</span> <span style="color:#000">transferHandler</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">handler</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">transferMap</span><span style="color:#000;font-weight:bold">)</span>
+
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">},</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>The old MOSN process starts persistent-connection migration through <code>transferRead()</code> and <code>transferWrite()</code>. This is analyzed as follows.</p>
+
+<h3 id="persistent-connection-migration-procedure">Persistent-connection migration procedure</h3>
+
+<p><img src="long-connection-migrating-process.png" alt="Persistent-connection migration procedure" /></p>
+
+<p>First, let us take a look at the migration procedure of a new request.</p>
+
+<ol>
+<li>A client sends a request to MOSN.</li>
+<li>MOSN (the old MOSN process) sends the FD and connection status data of TCP1 to New MOSN (the new MOSN process).</li>
+<li>New MOSN receives the FD and request data, creates a new connection structure, and sends the connection ID to the MOSN. At this time, New MOSN has a copy of the TCP1 connection.</li>
+<li>New MOSN selects a new server by using the load balancer, establishes a TCP3 connection, and forwards the request to the server.</li>
+<li>The server returns a response to New MOSN.</li>
+<li>New MOSN returns a response to the client based on the copy of TCP1 connection transferred from MOSN.</li>
+</ol>
+
+<p>In the original <code>WaitConnectionsDone()</code> function, <code>s.stopChan</code> has been disabled. In ReadLoop of the connection, a <code>[TransferTimeout, 2 * TransferTimeout]</code> random time interval will be set for the migration procedure. The random interval is intended to discretize the migration time for TCP connections of each client, to ensure smooth migration.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">connection</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">startReadLoop</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">transferTime</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Time</span>
+    <span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">case</span> <span style="color:#ce5c00;font-weight:bold">&lt;-</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">stopChan</span><span style="color:#000;font-weight:bold">:</span>
+            <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">transferTime</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IsZero</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+                <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">transferCallbacks</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">transferCallbacks</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+                    <span style="color:#000">randTime</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Duration</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">rand</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Intn</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">TransferTimeout</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Nanoseconds</span><span style="color:#000;font-weight:bold">())))</span>
+                    <span style="color:#000">transferTime</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Now</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Add</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">TransferTimeout</span><span style="color:#000;font-weight:bold">).</span><span style="color:#000">Add</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">randTime</span><span style="color:#000;font-weight:bold">)</span>
+                    <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Infof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;[network] [read loop] transferTime: Wait %d Second&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">TransferTimeout</span><span style="color:#ce5c00;font-weight:bold">+</span><span style="color:#000">randTime</span><span style="color:#000;font-weight:bold">)</span><span style="color:#ce5c00;font-weight:bold">/</span><span style="color:#0000cf;font-weight:bold">1e9</span><span style="color:#000;font-weight:bold">)</span>
+                <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+                    <span style="color:#8f5902;font-style:italic">// set a long time, not transfer connection, wait mosn exit.
+</span><span style="color:#8f5902;font-style:italic"></span>                    <span style="color:#000">transferTime</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Now</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Add</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">10</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">TransferTimeout</span><span style="color:#000;font-weight:bold">)</span>
+                    <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Infof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;[network] [read loop] not support transfer connection, Connection = %d, Local Address = %+v, Remote Address = %+v&#34;</span><span style="color:#000;font-weight:bold">,</span>
+                        <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">id</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">rawConnection</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">LocalAddr</span><span style="color:#000;font-weight:bold">(),</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RemoteAddr</span><span style="color:#000;font-weight:bold">())</span>
+                <span style="color:#000;font-weight:bold">}</span>
+            <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+                <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">transferTime</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Before</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Now</span><span style="color:#000;font-weight:bold">())</span> <span style="color:#000;font-weight:bold">{</span>
+                    <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">transfer</span><span style="color:#000;font-weight:bold">()</span>
+                    <span style="color:#204a87;font-weight:bold">return</span>
+                <span style="color:#000;font-weight:bold">}</span>
+            <span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>After one random interval elapses, the <code>c.transfer()</code> function is called. <code>c.notifyTransfer()</code> is used for suspending write operations. No write operation is allowed during migration of read operations, because data confusion will occur if write operations are performed simultaneously in the old and new MOSN processes.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">connection</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">transfer</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">notifyTransfer</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#000">id</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferRead</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">transferWrite</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">id</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>Then the <code>transferRead()</code> function is called to transfer the FD and status data of a connection to New MOSN through <code>conn.sock</code>. Similar to migrating the listen FD, New MOSN returns an ID after successful processing. This ID identifies the new connection established by New MOSN and will be used later.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// old mosn transfer readloop
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">transferRead</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">connection</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">uint64</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">unixConn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Dial</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;unix&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TransferConnDomainSocket</span><span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#000">file</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">tlsConn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferGetFile</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#000">uc</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">unixConn</span><span style="color:#000;font-weight:bold">.(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UnixConn</span><span style="color:#000;font-weight:bold">)</span>
+    
+    <span style="color:#8f5902;font-style:italic">// send type and TCP FD
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">transferSendType</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">file</span><span style="color:#000;font-weight:bold">)</span>
+    
+    <span style="color:#8f5902;font-style:italic">// send header + buffer + TLS
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">transferReadSendData</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">tlsConn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">readBuffer</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">)</span>
+    
+    <span style="color:#8f5902;font-style:italic">// recv ID
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">id</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferRecvID</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">id</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>We constructed a simple read transfer protocol, which mainly involves the length of the TCP raw data, the length of the TLS data, the TCP raw data, and the TLS data.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ce5c00;font-weight:bold">/**</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span>  <span style="color:#000">transfer</span> <span style="color:#000">read</span> <span style="color:#000">protocol</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span>  <span style="color:#000">header</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">8</span> <span style="color:#000">bytes</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">readBuffer</span> <span style="color:#000">data</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">TLS</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#0000cf;font-weight:bold">0</span>                       <span style="color:#0000cf;font-weight:bold">4</span>                       <span style="color:#0000cf;font-weight:bold">8</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#ce5c00;font-weight:bold">+-----+-----+-----+-----+-----+-----+-----+-----+</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">|</span>      <span style="color:#000">data</span> <span style="color:#000">length</span>      <span style="color:#000;font-weight:bold">|</span>     <span style="color:#000">TLS</span> <span style="color:#000">length</span>        <span style="color:#000;font-weight:bold">|</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#ce5c00;font-weight:bold">+-----+-----+-----+-----+-----+-----+-----+-----+</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">|</span>                     <span style="color:#000">data</span>                      <span style="color:#000;font-weight:bold">|</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#ce5c00;font-weight:bold">+-----+-----+-----+-----+-----+-----+-----+-----+</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">|</span>                     <span style="color:#000">TLS</span>                       <span style="color:#000;font-weight:bold">|</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#ce5c00;font-weight:bold">+-----+-----+-----+-----+-----+-----+-----+-----+</span>
+ <span style="color:#ce5c00;font-weight:bold">*</span></code></pre></div>
+<p>Now, let us take a look at the handling procedure of the new MOSN process. After receiving migration requests, the new MOSN process starts a goroutine for each migration request to run the <code>transferHandler()</code> function. The function distinguishes read and write transfer requests based on the protocol read. Read transfer is described first. The new MOSN process calls transferNewConn to generate a new connection structure based on the FD and packets transferred from the old MOSN process. Then the new MOSN process transfers the new connection ID to the old MOSN process.</p>
+
+<p>The new MOSN process starts to read data from the new TCP connection, and proceeds with a normal business request procedure.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">transferHandler</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Conn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">handler</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ConnectionHandler</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">transferMap</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Map</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#8f5902;font-style:italic">// recv type
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">conn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferRecvType</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Errorf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;[network] [transfer] [handler] transferRecvType error :%v&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#204a87;font-weight:bold">return</span>
+    <span style="color:#000;font-weight:bold">}</span>
+
+    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">conn</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#8f5902;font-style:italic">// transfer read
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#8f5902;font-style:italic">// recv header + buffer
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">dataBuf</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">tlsBuf</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferReadRecvData</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Errorf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;[network] [transfer] [handler] transferRecvData error :%v&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#204a87;font-weight:bold">return</span>
+        <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#000">connection</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferNewConn</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">conn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">dataBuf</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">tlsBuf</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">handler</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">transferMap</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">connection</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">transferSendID</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">connection</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">id</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">transferSendID</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">transferErr</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#8f5902;font-style:italic">// transfer write
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#8f5902;font-style:italic">// recv header + buffer
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">id</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">buf</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferWriteRecvData</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Errorf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;[network] [transfer] [handler] transferRecvData error :%v&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#000">connection</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferFindConnection</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">transferMap</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87">uint64</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">id</span><span style="color:#000;font-weight:bold">))</span>
+        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">connection</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Errorf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;[network] [transfer] [handler] transferFindConnection failed, id = %d&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">id</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#204a87;font-weight:bold">return</span>
+        <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">transferWriteBuffer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">connection</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">buf</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Errorf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;[network] [transfer] [handler] transferWriteBuffer error :%v&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span><span style="color:#000;font-weight:bold">)</span>
+            <span style="color:#204a87;font-weight:bold">return</span>
+        <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>Then the new MOSN process replaces the old MOSN process, to read data from the TCP1 connection and process the data. For the new request, the entire migration procedure is completed.</p>
+
+<h3 id="residual-response-migration-procedure">Residual-response migration procedure</h3>
+
+<p><img src="remaining-responses-migrating-process.png" alt="Residual-response migration procedure" /></p>
+
+<p>Why is a residual-response migration procedure required? Because of the multiplexing protocol, during the previous migration of read connections, residual responses for TCP2 connections are waiting to be returned to the client. The data may go out of order if both the old and new MOSN processes simultaneously write data to TCP1 connections. Therefore, we want the new MOSN process to uniformly handle the residual responses for TCP2 connections.</p>
+
+<ol>
+<li>The server returns a residual response to MOSN.</li>
+<li>MOSN transfers the connection ID and response data previously obtained from New MOSN back to New MOSN through domain socket (conn.sock).</li>
+<li>New MOSN queries the TCP1 connection based on the ID and returns the response to the client.</li>
+</ol>
+
+<p>After the <code>transferRead()</code> (the read transfer) ends, the <code>transferWrite()</code> (the write transfer) starts. In this stage, packets to be written and the connection ID previously obtained from New MOSN are sent to New MOSN.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// old mosn transfer writeloop
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">transferWrite</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">connection</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">id</span> <span style="color:#204a87;font-weight:bold">uint64</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#000;font-weight:bold">{</span>
+
+    <span style="color:#000">unixConn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Dial</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;unix&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TransferConnDomainSocket</span><span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#000">uc</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">unixConn</span><span style="color:#000;font-weight:bold">.(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UnixConn</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">transferSendType</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#8f5902;font-style:italic">// build net.Buffers to IoBuffer
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">buf</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferBuildIoBuffer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#8f5902;font-style:italic">// send header + buffer
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">transferWriteSendData</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">id</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#000">buf</span><span style="color:#000;font-weight:bold">)</span>
+    <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Errorf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;[network] [transfer] [write] transferWrite failed: %v&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span><span style="color:#000;font-weight:bold">)</span>
+        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">err</span>
+    <span style="color:#000;font-weight:bold">}</span>
+    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>We constructed a simple write transfer protocol, which mainly involves the length of the TCP raw data, the connection ID, and the TCP raw data.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">/*
+</span><span style="color:#8f5902;font-style:italic"> *  transfer write protocol
+</span><span style="color:#8f5902;font-style:italic"> *  header (8 bytes) + (writeBuffer data)
+</span><span style="color:#8f5902;font-style:italic"> *
+</span><span style="color:#8f5902;font-style:italic"> * 0                       4                       8
+</span><span style="color:#8f5902;font-style:italic"> * +-----+-----+-----+-----+-----+-----+-----+-----+
+</span><span style="color:#8f5902;font-style:italic"> * |      data length      |    connection  ID     |
+</span><span style="color:#8f5902;font-style:italic"> * +-----+-----+-----+-----+-----+-----+-----+-----+
+</span><span style="color:#8f5902;font-style:italic"> * |                     data                      |
+</span><span style="color:#8f5902;font-style:italic"> * +-----+-----+-----+-----+-----+-----+-----+-----+
+</span><span style="color:#8f5902;font-style:italic"> *
+</span><span style="color:#8f5902;font-style:italic">**/</span></code></pre></div>
+<p>The new MOSN process calls the transferHandler() function to identify the write transfer protocol. Then the new MOSN process calls the <code>transferFindConnection()</code> function to locate the TCP1 connection based on the connection ID, and directly write the data.</p>
+
+<p>Note that new requests are now forwarded to the server through TCP3 connections, and only responses to previous requests will be returned through TCP2 connections. If no response is returned within 2 * TransferTimeout during the entire migration, the requests will time out and fail.</p>
+
+<h3 id="connection-status-data">Connection status data</h3>
+
+<p>During the connection migration, both the TCP FD and the connection status are migrated so that the new MOSN process knows how to initialize the new connection.</p>
+
+<p>The following status data is involved:</p>
+
+<p><strong>Read buffer</strong></p>
+
+<p>The data that has been read from TCP but has not been processed at the application layer during migration.</p>
+
+<p><strong>Write data</strong></p>
+
+<p>The response data received by MOSN after migration.</p>
+
+<p><strong>TLS status data migration</strong></p>
+
+<p>In case of a TLS encrypted request, the following TLS status data must to be migrated:</p>
+
+<ol>
+<li>Encryption key</li>
+<li>Sequence</li>
+<li>Read buffer data (encrypted/unencrypted)</li>
+<li>Cipher type</li>
+<li>TLS version</li>
+</ol>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">TransferTLSInfo</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">Vers</span>         <span style="color:#204a87;font-weight:bold">uint16</span>
+    <span style="color:#000">CipherSuite</span>  <span style="color:#204a87;font-weight:bold">uint16</span>
+    <span style="color:#000">MasterSecret</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">byte</span>
+    <span style="color:#000">ClientRandom</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">byte</span>
+    <span style="color:#000">ServerRandom</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">byte</span>
+    <span style="color:#000">InSeq</span>        <span style="color:#000;font-weight:bold">[</span><span style="color:#0000cf;font-weight:bold">8</span><span style="color:#000;font-weight:bold">]</span><span style="color:#204a87;font-weight:bold">byte</span>
+    <span style="color:#000">OutSeq</span>       <span style="color:#000;font-weight:bold">[</span><span style="color:#0000cf;font-weight:bold">8</span><span style="color:#000;font-weight:bold">]</span><span style="color:#204a87;font-weight:bold">byte</span>
+    <span style="color:#000">RawInput</span>     <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">byte</span>
+    <span style="color:#000">Input</span>        <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">byte</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<h2 id="summary">Summary</h2>
+
+<p>FD migration is a common operation for persistent connection migration, and can be performed through either sendMsg or connection repair.</p>
+
+<p>The most challenging part in the entire procedure is the migration of the application layer data. The general idea is to migrate all data structures of the application layer to the new process, for example, structures such as protocol headers that have been read. However, this increases the migration complexity, because each protocol needs to be handled separately.</p>
+
+<p>To address this problem, MOSN moves migration to the I/O layer, regardless of the protocols used at the application layer. The original TCP packets are migrated, and then the new MOSN process encodes/decodes the packets to assemble the header and other structures. This is a standard procedure that enables migration without parsing protocols. This migration framework can automatically support any stateless protocols.</p>
+
+<p>You may doubt about the residual-response migration procedure. Why don&rsquo;t we start migration after all responses are returned? This procedure seems to be unnecessary. The reason is that when we use a multiplexing protocol, requests are being sent all the time. You cannot always find a time point when all responses are returned.</p>
+
+<h2 id="feedback">Feedback</h2>
+
+<p>For more information about discussions on this issue, go to Github Issue at <a href="https://github.com/mosn/mosn/issues/866" target="_blank">MOSN smooth upgrade problem #866</a>.</p>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified July 10, 2020: <a  href="https://github.com/mosn/mosn.io/commit/65e92406806201ea9ca61af4cd9718312072ce96">set the default language to Chinese (65e9240)</a>
+</div>
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-12 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://twitter.com/MosnProxy">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Slack" aria-label="Slack">
+    <a class="text-white" target="_blank" href="https://join.slack.com/t/istio/shared_invite/zt-dhww29on-SvP1~DBvtrk3UdjjbO0SGQ">
+      <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Mailing list" aria-label="Mailing list">
+    <a class="text-white" target="_blank" href="https://groups.google.com/d/forum/mosn-dev">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/mosn/mosn">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2020 The MOSN Authors All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>

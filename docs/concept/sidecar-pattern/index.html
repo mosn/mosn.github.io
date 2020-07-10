@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,29 +18,29 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Sidecar pattern | MOSN</title><meta property="og:title" content="Sidecar pattern" />
-<meta property="og:description" content="The sidecar pattern is commonly used in service mesh.
+<title>Sidecar 模式 | MOSN</title><meta property="og:title" content="Sidecar 模式" />
+<meta property="og:description" content="Sidecar 模式是 Service Mesh 中习惯采用的模式。
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/concept/sidecar-pattern/" />
 <meta property="article:published_time" content="2019-01-20T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-07-10T11:35:32&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-07-10T23:50:30&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="Sidecar pattern">
-<meta itemprop="description" content="The sidecar pattern is commonly used in service mesh.
+<meta itemprop="name" content="Sidecar 模式">
+<meta itemprop="description" content="Sidecar 模式是 Service Mesh 中习惯采用的模式。
 ">
 
 
 <meta itemprop="datePublished" content="2019-01-20T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-07-10T11:35:32&#43;08:00" />
-<meta itemprop="wordCount" content="339">
+<meta itemprop="dateModified" content="2020-07-10T23:50:30&#43;08:00" />
+<meta itemprop="wordCount" content="66">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Sidecar pattern"/>
-<meta name="twitter:description" content="The sidecar pattern is commonly used in service mesh.
+<meta name="twitter:title" content="Sidecar 模式"/>
+<meta name="twitter:description" content="Sidecar 模式是 Service Mesh 中习惯采用的模式。
 "/>
 
 <script type="application/javascript">
@@ -70,7 +70,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Sidecar pattern | MOSN</title>
+    <title>Sidecar 模式 | MOSN</title>
   </head>
   <body class="td-page">
     <header>
@@ -99,7 +99,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/" ><span class="active">Documentation</span></a>
+				<a class="nav-link active" href="/docs/" ><span class="active">文档</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -109,7 +109,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/blog/" ><span>Blog</span></a>
+				<a class="nav-link" href="/blog/" ><span>博客</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -119,7 +119,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/community/" ><span class="active">Community</span></a>
+				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">教程</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -129,7 +129,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">Tutorial</span></a>
+				<a class="nav-link active" href="/docs/community/" ><span class="active">社区</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -148,11 +148,11 @@ if (!doNotTrack) {
 				
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/concept/sidecar-pattern/">中文</a>
+	<a class="dropdown-item" href="/en/docs/concept/sidecar-pattern/">English</a>
 	
 </div>
 			</li>
@@ -160,7 +160,7 @@ if (!doNotTrack) {
 		</ul>
 	</div>
 	<div class="navbar-nav d-none d-lg-block">
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 </div>
 </nav>
 
@@ -178,7 +178,7 @@ if (!doNotTrack) {
   
   <form class="td-sidebar__search d-flex align-items-center">
     
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 
     <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
@@ -190,11 +190,11 @@ if (!doNotTrack) {
       
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/concept/sidecar-pattern/">中文</a>
+	<a class="dropdown-item" href="/en/docs/concept/sidecar-pattern/">English</a>
 	
 </div>
     </div>
@@ -208,7 +208,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">文档</a>
   </li>
   <ul>
     <li class="collapse show" id="docs">
@@ -218,13 +218,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">Overview</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">简介</a>
       
       
       
@@ -237,7 +231,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Get started</a>
+    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开始</a>
   </li>
   <ul>
     <li class="collapse " id="docs-quick-start">
@@ -247,13 +241,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">Quick start</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">快速开始</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">Istio integration</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">集成 Istio</a>
       
       
     </li>
@@ -272,7 +266,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/concept/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
+    <a  href="/docs/concept/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">架构原理</a>
   </li>
   <ul>
     <li class="collapse show" id="docs-concept">
@@ -282,37 +276,55 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">Core concepts</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">核心概念</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar 模式</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">流量劫持</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS connections</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS 安全链路</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN 平滑升级原理解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-multi-protocol" href="/docs/concept/multi-protocol/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-extensions" href="/docs/concept/extensions/">MOSN 扩展机制解析</a>
       
       
     </li>
   </ul>
 </ul>
 
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">工程示例</a>
       
       
       
@@ -325,7 +337,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Configuration overview</a>
+    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">配置概览</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration">
@@ -334,25 +346,8 @@ if (!doNotTrack) {
       
       
       
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener">
       
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-filter-chain" href="/docs/configuration/listener/filter-chain/">FilterChain</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-clustermanager" href="/docs/configuration/clustermanager/">ClusterManager 配置</a>
       
       
       
@@ -365,48 +360,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener-network-filter">
-      
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-proxy" href="/docs/configuration/listener/network-filter/proxy/">proxy</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-connection-manager" href="/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-      
-      
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server configurations</a>
+    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server 配置</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration-server">
@@ -416,7 +370,71 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router 配置</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-filter-chain" href="/docs/configuration/server/listener/filter-chain/">FilterChain</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener-network-filter">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-proxy" href="/docs/configuration/server/listener/network-filter/proxy/">proxy</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-connection-manager" href="/docs/configuration/server/listener/network-filter/connection-manager/">connection_manager</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
     </li>
@@ -435,7 +453,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
+    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace 配置</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration-trace">
@@ -445,7 +463,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking 配置</a>
       
       
     </li>
@@ -457,19 +475,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">Custom configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">自定义配置</a>
       
       
     </li>
   </ul>
 </ul>
 
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">Example projects</a>
       
       
       
@@ -482,7 +494,42 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
+    <a  href="/docs/dev/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开发指南</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-dev">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-dubbo-integrate" href="/docs/dev/dubbo-integrate/">Dubbo 集成</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">贡献文档</a>
   </li>
   <ul>
     <li class="collapse " id="docs-contribute">
@@ -492,19 +539,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">Documentation contribution guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">文档贡献指南</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">Create a page</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">创建页面</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">Format guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">样式指南</a>
       
       
     </li>
@@ -522,13 +569,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">Community</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">教程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">Tutorial</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">社区</a>
       
       
     </li>
@@ -554,11 +601,11 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/concept/sidecar-pattern/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Sidecar%20pattern" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/concept/sidecar-pattern/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Sidecar%20%e6%a8%a1%e5%bc%8f" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
-<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
 
 </div>
 
@@ -571,9 +618,9 @@ if (!doNotTrack) {
 <ul>
 <li>
 <ul>
-<li><a href="#what-is-the-sidecar-pattern">What is the sidecar pattern?</a></li>
-<li><a href="#benefits">Benefits</a></li>
-<li><a href="#how-does-the-sidecar-pattern-work">How does the sidecar pattern work?</a></li>
+<li><a href="#什么是-sidecar-模式">什么是 Sidecar 模式</a></li>
+<li><a href="#使用-sidecar-模式的优势">使用 Sidecar 模式的优势</a></li>
+<li><a href="#sidecar-模式如何工作">Sidecar 模式如何工作</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -596,21 +643,21 @@ if (!doNotTrack) {
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/">Documentation</a>
+	<a href="/docs/">文档</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/concept/">Architecture and principle</a>
+	<a href="/docs/concept/">架构原理</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+	<a href="/docs/concept/sidecar-pattern/">Sidecar 模式</a>
 </li>
 
 	</ol>
@@ -619,41 +666,41 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>Sidecar pattern</h1>
-	<div class="lead">The sidecar pattern is commonly used in service mesh.</div>
+	<h1>Sidecar 模式</h1>
+	<div class="lead">Sidecar 模式是 Service Mesh 中习惯采用的模式。</div>
 	
 
-<p>The sidecar pattern is commonly used in service mesh. It is a container design pattern that came into being earlier than service mesh did. This topic will help you have a general idea about the sidecar pattern.</p>
+<p>Sidecar 模式是 Service Mesh 中习惯采用的模式，是容器设计模式的一种，在 Service Mesh 出现之前该模式就一直存在，本文将为您讲解 Sidecar 模式。</p>
 
-<h2 id="what-is-the-sidecar-pattern">What is the sidecar pattern?</h2>
+<h2 id="什么是-sidecar-模式">什么是 Sidecar 模式</h2>
 
-<p>In the <strong>sidecar pattern</strong>, features of applications are separated as processes. As shown in the following figure, the sidecar pattern allows you to add more features alongside every application container, without configuring third-party components or modifying the application code.</p>
+<p>将应用程序的功能划分为单独的进程可以被视为 <strong>Sidecar 模式</strong>。如图所示，Sidecar 模式允许您在应用程序旁边添加更多功能，而无需额外第三方组件配置或修改应用程序代码。</p>
 
-<p><img src="sidecar-pattern.jpg" alt="Sidecar pattern" /></p>
+<p><img src="sidecar-pattern.jpg" alt="Sidecar 模式" /></p>
 
-<p>Similar to a sidecar mounted to a three-wheeled motorcycle, in a software architecture, a sidecar is connected to a primary application and adds extension or advanced features to it. Sidecar applications and primary applications are loosely coupled. This pattern can cover the difference between programming languages, and unify microservice features such as observability, monitoring, logging, configuration, and circuit breaker.</p>
+<p>就像连接了 Sidecar 的三轮摩托车一样，在软件架构中， Sidecar 连接到父应用并且为其添加扩展或者增强功能。Sidecar 应用与主应用程序松散耦合。它可以屏蔽不同编程语言的差异，统一实现微服务的可观察性、监控、日志记录、配置、断路器等功能。</p>
 
-<h2 id="benefits">Benefits</h2>
+<h2 id="使用-sidecar-模式的优势">使用 Sidecar 模式的优势</h2>
 
-<p>Benefits of using the sidecar pattern are as follows:</p>
+<p>Sidecar 模式具有以下优势：</p>
 
 <ul>
-<li><p>Moves features unrelated to the application business logic into the common infrastructure. This reduces code complexity of microservices.</p></li>
+<li><p>将与应用业务逻辑无关的功能抽象到共同基础设施降低了微服务代码的复杂度。</p></li>
 
-<li><p>Avoids repeatedly writing configuration files and code for third-party components. This reduces duplicated code in the microservice architecture.</p></li>
+<li><p>因为不再需要编写相同的第三方组件配置文件和代码，所以能够降低微服务架构中的代码重复度。</p></li>
 
-<li><p>Loosens the coupling between the application code and the underlying platform.</p></li>
+<li><p>降低应用程序代码和底层平台的耦合度。</p></li>
 </ul>
 
-<h2 id="how-does-the-sidecar-pattern-work">How does the sidecar pattern work?</h2>
+<h2 id="sidecar-模式如何工作">Sidecar 模式如何工作</h2>
 
-<p>Sidecar is a container widely used in service mesh. For details, see <a href="https://aspenmesh.io/service-mesh-architectures/" target="_blank">Service Mesh Architectures</a>. That blog describes the <strong>node agent</strong> and <strong>sidecar</strong> service mesh architectures in detail.</p>
+<p>Sidecar 是容器应用模式的一种，也是在 Service Mesh 中发扬光大的一种模式，详见 <a href="https://www.servicemesher.com/blog/service-mesh-architectures/" target="_blank">Service Mesh 架构解析</a>，其中详细描述使用了<strong>节点代理</strong>和 <strong>Sidecar</strong> 模式的 Service Mesh 架构。</p>
 
-<p>You can deploy a sidecar service mesh without having to run a new agent on every node, but you will be running multiple copies of an identical sidecar. In sidecar deployments, you have one adjacent container deployed for every application container. This container is a sidecar. The sidecar handles all the network traffic in and out of the application container. In a Kubernetes pod, a sidecar container is deployed alongside the original application container. These two containers share resources such as storage and network. If we take the pod that runs the sidecar container and the application container as a host, these two containers share all host resources.</p>
+<p>使用 Sidecar 模式部署服务网格时，无需在节点上运行代理，但是集群中将运行多个相同的 Sidecar 副本。在 Sidecar 部署方式中，每个应用的容器旁都会部署一个伴生容器，这个容器称之为 Sidecar 容器。Sidecar 接管进出应用容器的所有流量。在 Kubernetes 的 Pod 中，在原有的应用容器旁边注入一个 Sidecar 容器，两个容器共享存储、网络等资源，可以广义的将这个包含了 Sidecar 容器的 Pod 理解为一台主机，两个容器共享主机资源。</p>
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified July 10, 2020: <a  href="https://github.com/mosn/mosn.io/commit/9065f7d98999f54af9928ada3a6998df4d9ab552">update faq (9065f7d)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年7月10日: <a  href="https://github.com/mosn/mosn.io/commit/65e92406806201ea9ca61af4cd9718312072ce96">set the default language to Chinese (65e9240)</a>
 </div>
 </div>
 
@@ -706,7 +753,7 @@ if (!doNotTrack) {
         
       </div>
       <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        <small class="text-white">&copy; 2020 The MOSN Authors All Rights Reserved</small>
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
         
 	
       </div>

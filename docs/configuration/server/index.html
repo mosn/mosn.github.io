@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,19 +19,19 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Server configurations | MOSN</title><meta property="og:title" content="Server configurations" />
-<meta property="og:description" content="The server configurations of MOSN." />
+<title>Server 配置 | MOSN</title><meta property="og:title" content="Server 配置" />
+<meta property="og:description" content="MOSN server 配置说明。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mosn.io/docs/configuration/server/" />
 
 <meta property="og:updated_time" content="2020-01-20T00:00:00&#43;00:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="Server configurations">
-<meta itemprop="description" content="The server configurations of MOSN.">
+<meta itemprop="name" content="Server 配置">
+<meta itemprop="description" content="MOSN server 配置说明。">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Server configurations"/>
-<meta name="twitter:description" content="The server configurations of MOSN."/>
+<meta name="twitter:title" content="Server 配置"/>
+<meta name="twitter:description" content="MOSN server 配置说明。"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -60,7 +60,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Server configurations | MOSN</title>
+    <title>Server 配置 | MOSN</title>
   </head>
   <body class="td-section">
     <header>
@@ -89,7 +89,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/" ><span class="active">Documentation</span></a>
+				<a class="nav-link active" href="/docs/" ><span class="active">文档</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -99,7 +99,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/blog/" ><span>Blog</span></a>
+				<a class="nav-link" href="/blog/" ><span>博客</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -109,7 +109,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/community/" ><span class="active">Community</span></a>
+				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">教程</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -119,7 +119,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">Tutorial</span></a>
+				<a class="nav-link active" href="/docs/community/" ><span class="active">社区</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -138,11 +138,11 @@ if (!doNotTrack) {
 				
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/configuration/server/">中文</a>
+	<a class="dropdown-item" href="/en/docs/configuration/server/">English</a>
 	
 </div>
 			</li>
@@ -150,7 +150,7 @@ if (!doNotTrack) {
 		</ul>
 	</div>
 	<div class="navbar-nav d-none d-lg-block">
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 </div>
 </nav>
 
@@ -168,7 +168,7 @@ if (!doNotTrack) {
   
   <form class="td-sidebar__search d-flex align-items-center">
     
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 
     <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
@@ -180,11 +180,11 @@ if (!doNotTrack) {
       
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/configuration/server/">中文</a>
+	<a class="dropdown-item" href="/en/docs/configuration/server/">English</a>
 	
 </div>
     </div>
@@ -198,7 +198,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">文档</a>
   </li>
   <ul>
     <li class="collapse show" id="docs">
@@ -208,13 +208,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">Overview</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">简介</a>
       
       
       
@@ -227,7 +221,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Get started</a>
+    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开始</a>
   </li>
   <ul>
     <li class="collapse " id="docs-quick-start">
@@ -237,13 +231,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">Quick start</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">快速开始</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">Istio integration</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">集成 Istio</a>
       
       
     </li>
@@ -262,7 +256,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
+    <a  href="/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">架构原理</a>
   </li>
   <ul>
     <li class="collapse " id="docs-concept">
@@ -272,37 +266,55 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">Core concepts</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">核心概念</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar 模式</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">流量劫持</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS connections</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS 安全链路</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN 平滑升级原理解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-multi-protocol" href="/docs/concept/multi-protocol/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-extensions" href="/docs/concept/extensions/">MOSN 扩展机制解析</a>
       
       
     </li>
   </ul>
 </ul>
 
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">工程示例</a>
       
       
       
@@ -315,7 +327,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Configuration overview</a>
+    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">配置概览</a>
   </li>
   <ul>
     <li class="collapse show" id="docs-configuration">
@@ -324,25 +336,8 @@ if (!doNotTrack) {
       
       
       
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener">
       
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-filter-chain" href="/docs/configuration/listener/filter-chain/">FilterChain</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-clustermanager" href="/docs/configuration/clustermanager/">ClusterManager 配置</a>
       
       
       
@@ -355,48 +350,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener-network-filter">
-      
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-proxy" href="/docs/configuration/listener/network-filter/proxy/">proxy</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-connection-manager" href="/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-      
-      
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Server configurations</a>
+    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Server 配置</a>
   </li>
   <ul>
     <li class="collapse show" id="docs-configuration-server">
@@ -406,7 +360,71 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router 配置</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-filter-chain" href="/docs/configuration/server/listener/filter-chain/">FilterChain</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener-network-filter">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-proxy" href="/docs/configuration/server/listener/network-filter/proxy/">proxy</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-connection-manager" href="/docs/configuration/server/listener/network-filter/connection-manager/">connection_manager</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
     </li>
@@ -425,7 +443,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
+    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace 配置</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration-trace">
@@ -435,7 +453,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking 配置</a>
       
       
     </li>
@@ -447,19 +465,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">Custom configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">自定义配置</a>
       
       
     </li>
   </ul>
 </ul>
 
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">Example projects</a>
       
       
       
@@ -472,7 +484,42 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
+    <a  href="/docs/dev/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开发指南</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-dev">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-dubbo-integrate" href="/docs/dev/dubbo-integrate/">Dubbo 集成</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">贡献文档</a>
   </li>
   <ul>
     <li class="collapse " id="docs-contribute">
@@ -482,19 +529,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">Documentation contribution guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">文档贡献指南</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">Create a page</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">创建页面</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">Format guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">样式指南</a>
       
       
     </li>
@@ -512,13 +559,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">Community</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">教程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">Tutorial</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">社区</a>
       
       
     </li>
@@ -544,11 +591,11 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/configuration/server/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Server%20configurations" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/configuration/server/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Server%20%e9%85%8d%e7%bd%ae" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
-<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
 
 </div>
 
@@ -568,7 +615,8 @@ if (!doNotTrack) {
 <ul>
 <li><a href="#processor">processor</a></li>
 </ul></li>
-<li><a href="#listeners">Listeners</a></li>
+<li><a href="#listeners">listeners</a></li>
+<li><a href="#routers">routers</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -591,21 +639,21 @@ if (!doNotTrack) {
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/">Documentation</a>
+	<a href="/docs/">文档</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/configuration/">Configuration overview</a>
+	<a href="/docs/configuration/">配置概览</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/configuration/server/">Server configurations</a>
+	<a href="/docs/configuration/server/">Server 配置</a>
 </li>
 
 	</ol>
@@ -614,62 +662,63 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>Server configurations</h1>
-	<div class="lead">The server configurations of MOSN.</div>
+	<h1>Server 配置</h1>
+	<div class="lead">MOSN server 配置说明。</div>
 	
 
-<p>This topic describes server configurations of MOSN.</p>
+<p>本文是关于 MOSN server 配置的说明。</p>
 
-<p>In the configuration structure of MOSN, <code>servers</code> indicates a server array, but only one server is supported currently.</p>
+<p>虽然 MOSN 的配置结构里 <code>servers</code> 是一个 server 数组，但是目前最多只支持配置一个server。</p>
 
-<p><code>server</code> describes the following basic global parameters of MOSN.</p>
+<p><code>server</code> 描述的 MOSN 的基本的全局参数如下所示。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-josn" data-lang="josn">{
   &#34;default_log_path&#34;:&#34;&#34;,
   &#34;default_log_level&#34;:&#34;&#34;,
   &#34;global_log_roller&#34;:&#34;&#34;,
   &#34;graceful_timeout&#34;:&#34;&#34;,
   &#34;processor&#34;:&#34;&#34;,
-  &#34;listeners&#34;:[]
+  &#34;listeners&#34;:[],
+  &#34;routers&#34;:[]
 }</code></pre></div>
 <h2 id="default-log-path">default_log_path</h2>
 
-<p>The default error log path, which supports a complete log path, stdout, and stderr.</p>
+<p>默认的错误日志文件路径，支持配置完整的日志路径，以及标准输出（stdout）和标准错误（stderr）。</p>
 
 <ul>
-<li>If this field is left empty, logs are output to stderr by default.</li>
+<li>如果配置为空，则默认输出到标准错误（stderr）。</li>
 </ul>
 
 <h2 id="default-log-level">default_log_level</h2>
 
-<p>The default error log level. Valid values: <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code>, and <code>FATAL</code>.</p>
+<p>默认的错误日志级别，支持<code>DEBUG</code>、<code>INFO</code>、<code>WARN</code>、<code>ERROR</code>、<code>FATAL</code>。</p>
 
 <ul>
-<li>Default value: <code>INFO</code>.</li>
+<li>如果配置为空，则默认为 <code>INFO</code>。</li>
 </ul>
 
 <h2 id="global-log-roller">global_log_roller</h2>
 
 <ul>
-<li>The log roller configuration, which is valid for all logs, for example, tracelog, accesslog, and defaultlog.</li>
-<li>The string type, which supports two modes: rolling by time and rolling by log size. Only one mode is valid at a time.</li>
+<li>日志轮转配置，会对所有的日志生效，如 tracelog、accesslog、defaultlog。</li>
+<li>字符串配置，支持两种模式的配置，一种是按时间轮转，一种是按日志大小轮转。同时只能有一种模式生效。</li>
 
-<li><p>Rolling by log size</p>
+<li><p>按照日志大小轮转</p>
 
 <ul>
-<li><code>size</code>: The log size threshold (in MB) to start rolling.</li>
-<li><code>age</code>: The number of days during which the logs will be saved.</li>
-<li><code>keep</code>: The maximum number of logs to be saved.</li>
+<li>size， 表示日志达到多少 M 进行轮转。</li>
+<li>age，表示最多保存多少天的日志。</li>
+<li>keep，表示最多保存多少个日志。</li>
 
-<li><p><code>compress</code>: Specifies whether to compress logs. Valid values: on and off.</p>
+<li><p>compress，表示日志是否压缩，on 为压缩，off 为不压缩。</p>
 
 <pre><code>&quot;global_log_roller&quot;: &quot;size=100 age=10 keep=10 compress=off&quot;
 </code></pre></li>
 </ul></li>
 
-<li><p>Rolling by time</p>
+<li><p>按照时间轮转</p>
 
 <ul>
-<li><p><code>time</code>: The time interval (hours) for rolling.</p>
+<li><p>time，表示每个多少个小时轮转一次。</p>
 
 <pre><code>&quot;global_log_roller&quot;:&quot;time=1&quot;
 </code></pre></li>
@@ -679,22 +728,23 @@ if (!doNotTrack) {
 <h2 id="graceful-timeout">graceful_timeout</h2>
 
 <ul>
-<li>The <a href="../custom#duration-string">Duration String</a> configuration. Indicates the maximum waiting time for disabling a connection in a hot upgrade of MOSN.</li>
-<li>Default value: 30s.</li>
+<li><a href="../custom#duration-string">Duration String </a>的字符串配置，表示 MOSN 在进行平滑升级时，等待连接关闭的最大时间。</li>
+<li>如果没有配置，默认为 30s。</li>
 </ul>
 
 <h3 id="processor">processor</h3>
 
-<p>The number of <code>GOMAXPROCS</code> used by MOSN.</p>
+<p>MOSN 使用的 <code>GOMAXPROCS</code> 数量
+- 如果没有配置，默认为 CPU 数量。
+- 如果配置为 0，等价于没有配置。</p>
 
-<ul>
-<li>Default value: the number of CPUs.</li>
-<li>If it is not set or is set to 0, the default value is used.</li>
-</ul>
+<h2 id="listeners">listeners</h2>
 
-<h2 id="listeners">Listeners</h2>
+<p>一组 <a href="./listener">Listener</a> 的配置。</p>
 
-<p>Settings for a group of <a href="../listener">Listeners</a>.</p>
+<h2 id="routers">routers</h2>
+
+<p>一组<a href="./router">Router</a>的配置。</p>
 
         <div class="section-index">
     
@@ -720,11 +770,30 @@ if (!doNotTrack) {
             
         
             
+        
+            
+        
+            
                 <div class="entry">
                     <h5>
-                        <a href="/docs/configuration/server/router/">Router configurations</a>
+                        <a href="/docs/configuration/server/router/">Router 配置</a>
                     </h5>
-                    <p>This topic describes router configurations.</p>
+                    <p>路由配置说明。</p>
+                </div>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <div class="entry">
+                    <h5>
+                        <a href="/docs/configuration/server/listener/">Listener 配置</a>
+                    </h5>
+                    <p>MOSN listener 配置说明。</p>
                 </div>
             
         
@@ -770,14 +839,12 @@ if (!doNotTrack) {
         
             
         
-            
-        
     
 </div>
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified July 10, 2020: <a  href="https://github.com/mosn/mosn.io/commit/9065f7d98999f54af9928ada3a6998df4d9ab552">update faq (9065f7d)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年7月10日: <a  href="https://github.com/mosn/mosn.io/commit/65e92406806201ea9ca61af4cd9718312072ce96">set the default language to Chinese (65e9240)</a>
 </div>
 </div>
 
@@ -829,7 +896,7 @@ if (!doNotTrack) {
         
       </div>
       <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        <small class="text-white">&copy; 2020 The MOSN Authors All Rights Reserved</small>
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
         
 	
       </div>

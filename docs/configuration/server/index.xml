@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>MOSN – Server configurations</title>
+    <title>MOSN – Server 配置</title>
     <link>https://mosn.io/docs/configuration/server/</link>
-    <description>Recent content in Server configurations on MOSN</description>
+    <description>Recent content in Server 配置 on MOSN</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 20 Jan 2020 00:00:00 +0000</lastBuildDate>
     
@@ -15,7 +15,7 @@
     
     
     <item>
-      <title>Docs: Router configurations</title>
+      <title>Docs: Router 配置</title>
       <link>https://mosn.io/docs/configuration/server/router/</link>
       <pubDate>Fri, 13 Mar 2020 00:00:00 +0000</pubDate>
       
@@ -25,15 +25,18 @@
         
         
 
-&lt;p&gt;&lt;code&gt;router&lt;/code&gt;: Specifies the router configurations of MOSN and is usually used with proxy.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
-  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;router_config_name&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
-  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;virtual_hosts&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[&lt;/span&gt;
-  &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt;
-&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;router&lt;/code&gt; 用于描述 MOSN 的路由配置，通常与 proxy 配合使用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;router_config_name&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;virtual_hosts&amp;quot;: [
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;router_config_name&lt;/code&gt;: The unique router configuration ID, which corresponds to the field configured in &lt;code&gt;proxy&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;virtual_hosts&lt;/code&gt;: Specifies the specific routing rules.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;router_config_name&lt;/code&gt;，唯一的路由配置标识，与 &lt;code&gt;proxy&lt;/code&gt; 中配置的字段对应。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;virtual_hosts&lt;/code&gt;，描述具体的路由规则细节。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;virtualhost&#34;&gt;VirtualHost&lt;/h2&gt;
@@ -43,15 +46,15 @@
   &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;routers&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:[]&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;name&lt;/code&gt;: String. The unique ID of a virtual host.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;domains&lt;/code&gt;: String array. Indicates a group of domains that match the virtual host. Wildcard characters are supported. The matching priorities of domains are as follows:
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt;，字符串。用作 virtual host 的唯一标识。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;domains&lt;/code&gt;，字符串数组。表示一组可以匹配到该 virtual host 的 domain，支持配置通配符。domain 的匹配优先级如下：
 
 &lt;ul&gt;
-&lt;li&gt;First, exact match, for example, &lt;code&gt;www.foo.com&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Second, wildcard match with the longest suffix. For example, &lt;code&gt;*-bar.foo.com&lt;/code&gt; is a preferred match for the domain &lt;code&gt;foo-bar.foo.com&lt;/code&gt; between &lt;code&gt;*.foo.com&lt;/code&gt; and &lt;code&gt;*-bar.foo.com&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;At last, wildcard match for any domains, that is, &lt;code&gt;*&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;首先匹配精确的，如 &lt;code&gt;www.foo.com&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;其次匹配最长后缀的通配符，如 &lt;code&gt;*.foo.com&lt;/code&gt;、&lt;code&gt;*-bar.foo.com&lt;/code&gt;，其中如果一个 domain 是 &lt;code&gt;foo-bar.foo.com&lt;/code&gt;，那么会优先匹配 &lt;code&gt;*-bar.foo.com&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;最后匹配任意domain的通配符 &lt;code&gt;*&lt;/code&gt; 。&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;routers&lt;/code&gt;: A group of specific router rules.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;routers&lt;/code&gt;，一组具体的路由匹配规则。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;router&#34;&gt;Router&lt;/h2&gt;
@@ -61,13 +64,13 @@
   &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;per_filter_config&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:{}&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;match&lt;/code&gt;: The route match parameter.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;route&lt;/code&gt;: The routing behavior. Specifies the upstream information of a request to be routed.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;per_filter_config&lt;/code&gt;: The filter configuration in the &lt;code&gt;key: json&lt;/code&gt; format.&lt;/li&gt;
-&lt;li&gt;The key needs to match a type of the stream filter, and the json corresponding to the key is the value configured for the stream filter.
+&lt;li&gt;&lt;code&gt;match&lt;/code&gt;，路由的匹配参数。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;route&lt;/code&gt;，路由行为，描述请求将被路由的 upstream 信息。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;per_filter_config&lt;/code&gt;，是一个 &lt;code&gt;key: json&lt;/code&gt; 格式的 json。&lt;/li&gt;
+&lt;li&gt;其中 key 需要匹配一个 stream filter 的 type，key 对应的 json 是该 stream filter 的 config。
 
 &lt;ul&gt;
-&lt;li&gt;When this field is configured, the configurations indicated by this field can be used to overwrite the original configurations of some stream filters (depending on specific filters), to generate stream filter configurations at the router match level.&lt;/li&gt;
+&lt;li&gt;当配置了该字段时，对于某些 stream filter（依赖具体 filter 的实现），可以使用该字段表示的配置覆盖原有 stream filter 的配置，以此做到路由匹配级别的 stream filter 配置。&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -79,18 +82,18 @@
   &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;headers&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[]&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;Path match
+&lt;li&gt;路径（path）匹配
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;prefix&lt;/code&gt;: Indicates that the router will match the path prefix. This configuration has a higher priority than path and regex. If this field is configured, the path prefix of the request needs to first comply with this configuration.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;path&lt;/code&gt;: Indicates that the router will match the exact path. This configuration has a higher priority than regex. If this field is configured, the path of the request needs to first comply with this configuration.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;regex&lt;/code&gt;: Indicates that the router will match the path based on a regular expression. If this field is configured, the path of the request needs to first comply with this configuration.&lt;/li&gt;
-&lt;li&gt;When multiple path match configurations are available, only the one with a higher priority takes effect.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;prefix&lt;/code&gt;，表示路由会匹配 path 的前缀，该配置的优先级高于 path 和 regex。 如果 prefix 被配置，那么请求首先要满足 path 的前缀与 prefix 配置相符合。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;path&lt;/code&gt;，表示路由会匹配精确的 path，该配置的优先级高于 regex。如果 path被配置，那么请求首先要满足 path 与 path 配置相符合。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;regex&lt;/code&gt;，表示路由会按照正则匹配的方式匹配 path。如果 regex 被配置，那么请求首先要满足 path 与 regex 配置相符合。&lt;/li&gt;
+&lt;li&gt;路径匹配配置同时存在时，只有高优先级的配置会生效。&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Header match
+&lt;li&gt;Heaer 匹配
 
 &lt;ul&gt;
-&lt;li&gt;headers: The group of headers that the request needs to match. The match succeeds only when the request meets all header configuration conditions.&lt;/li&gt;
+&lt;li&gt;headers，表示一组请求需要匹配的 header。请求需要满足配置中所有的 Header 配置条件才算匹配成功。&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -101,9 +104,9 @@
   &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;regex&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;name&lt;/code&gt;: The key of the header.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;value&lt;/code&gt;: The value of the header key.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;regex&lt;/code&gt;: Boolean. Specifies whether the value can be matched by a regular expression. Default values: True and False.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt;，表示 header 的 key。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;value&lt;/code&gt;，表示 header 对应 key 的 value。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;regex&lt;/code&gt;，bool 类型，如果为 true，表示 value 支持按照正则表达式的方式进行匹配。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;route&#34;&gt;route&lt;/h2&gt;
@@ -117,10 +120,10 @@
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;cluster_name&lt;/code&gt;: The upstream cluster to which the request is to be routed.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;metadata_match&lt;/code&gt;: The &lt;a href=&#34;.. /../custom#metadata&#34; target=&#34;_blank&#34;&gt;metadata&lt;/a&gt; configuration. If this field is configured, the router will match against the subset of the upstream cluster based on the metadata.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;timeout&lt;/code&gt;: The &lt;a href=&#34;.. /../custom#duration-string&#34; target=&#34;_blank&#34;&gt;Duration String&lt;/a&gt; configuration. Indicates the default forwarding timeout value of the request. If the timeout value is specified in the request, this configuration will be ignored.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;retry_policy&lt;/code&gt;: The retry configuration, which indicates the retry policy applied when the request encounters a specific error. If this field is left unconfigured, no retry will be performed by default.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cluster_name&lt;/code&gt;，表示请求将路由到的 upstream cluster。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;metadata_match&lt;/code&gt;，&lt;a href=&#34;../../custom#metadata&#34;&gt;metadata&lt;/a&gt;，如果配置了该字段，表示该路由会基于该 metadata 去匹配 upstream cluster 的 subset 。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeout&lt;/code&gt;，&lt;a href=&#34;../../custom#duration-string&#34;&gt;Duration String&lt;/a&gt;，表示默认情况下请求转发的超时时间。如果请求中明确指定了超时时间，那么这个配置会被忽略。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;retry_policy&lt;/code&gt;，重试配置，表示如果请求在遇到了特定的错误时采取的重试策略，默认没有配置的情况下，表示没有重试。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;retry-policy&#34;&gt;retry_policy&lt;/h2&gt;
@@ -130,9 +133,9 @@
   &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;num_retries&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;retry_on&lt;/code&gt;: Boolean. Specifies whether to enable retry.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;retry_timeout&lt;/code&gt;: The &lt;a href=&#34;.. /../custom#duration-string&#34; target=&#34;_blank&#34;&gt;Duration String&lt;/a&gt; configuration. Indicates the timeout value for each retry. When &lt;code&gt;retry_timeout&lt;/code&gt; exceeds the timeout value specified in the route field or request, this configuration is invalid.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;num_retries&lt;/code&gt;: Indicates the maximum number of retries supported.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;retry_on&lt;/code&gt;，bool 类型，表示是否开启重试。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;retry_timeout&lt;/code&gt;，&lt;a href=&#34;../../custom#duration-string&#34;&gt;Duration String&lt;/a&gt;，表示每次重试的超时时间。当 &lt;code&gt;retry_timeout&lt;/code&gt; 大于 route 配置的 timeout 或者请求明确指定的 timeout 时，属于无效配置。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;num_retries&lt;/code&gt;，表示最大的重试次数。&lt;/li&gt;
 &lt;/ul&gt;
 
       </description>

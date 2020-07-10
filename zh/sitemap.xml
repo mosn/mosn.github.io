@@ -3,894 +3,894 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/trace/skywalking/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/trace/skywalking/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/configuration/trace/skywalking/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/configuration/trace/skywalking/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/configuration/trace/skywalking/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/contribute/github/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/contribute/github/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/contribute/github/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/contribute/github/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/contribute/github/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/server/listener/filter-chain/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/server/listener/filter-chain/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/server/listener/network-filter/proxy/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/server/listener/network-filter/proxy/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/quick-start/proxy/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/quick-start/proxy/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/quick-start/proxy/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/quick-start/proxy/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/quick-start/proxy/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/overview/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/overview/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/overview/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/overview/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/overview/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/concept/core-concept/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/concept/core-concept/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/concept/core-concept/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/concept/core-concept/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/concept/core-concept/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/dev/dubbo-integrate/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/dev/dubbo-integrate/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/quick-start/istio/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/quick-start/istio/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/quick-start/istio/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/quick-start/istio/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/quick-start/istio/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/dev/featuregate-introduce/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/dev/featuregate-introduce/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/dev/featuregate-introduce/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/dev/featuregate-introduce/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/dev/featuregate-introduce/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/server/router/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/server/router/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/configuration/server/router/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/configuration/server/router/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/configuration/server/router/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/contribute/creating-pages/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/contribute/creating-pages/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/contribute/creating-pages/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/contribute/creating-pages/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/contribute/creating-pages/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/contribute/style-guide/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/contribute/style-guide/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/contribute/style-guide/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/contribute/style-guide/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/contribute/style-guide/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/clustermanager/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/clustermanager/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/server/listener/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/server/listener/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/server/listener/network-filter/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/server/listener/network-filter/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/server/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/server/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/configuration/server/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/configuration/server/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/configuration/server/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/server/listener/network-filter/connection-manager/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/server/listener/network-filter/connection-manager/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/quick-start/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/quick-start/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/quick-start/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/quick-start/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/quick-start/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/concept/sidecar-pattern/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/concept/sidecar-pattern/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/concept/sidecar-pattern/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/concept/sidecar-pattern/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/concept/sidecar-pattern/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/trace/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/trace/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/configuration/trace/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/configuration/trace/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/configuration/trace/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/concept/traffic-hijack/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/concept/traffic-hijack/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/concept/traffic-hijack/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/concept/traffic-hijack/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/concept/traffic-hijack/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/custom/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/custom/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/configuration/custom/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/configuration/custom/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/configuration/custom/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/concept/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/concept/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/concept/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/concept/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/concept/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/concept/tls/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/concept/tls/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/concept/tls/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/concept/tls/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/concept/tls/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/samples/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/samples/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/samples/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/samples/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/samples/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/configuration/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/configuration/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/configuration/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/configuration/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/configuration/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/concept/smooth-upgrade/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/concept/smooth-upgrade/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/concept/smooth-upgrade/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/concept/smooth-upgrade/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/concept/smooth-upgrade/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/concept/multi-protocol/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/concept/multi-protocol/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/dev/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/dev/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/contribute/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/contribute/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/contribute/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/contribute/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/contribute/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/releases/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/releases/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/blog/releases/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/blog/releases/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/blog/releases/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/news/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/news/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/posts/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/releases/v0.14.0/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/releases/v0.14.0/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/blog/releases/v0.14.0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/blog/releases/v0.14.0/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/blog/releases/v0.14.0/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-dubbo-integrate/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/posts/mosn-dubbo-integrate/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-dubbo-go-hessian2/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/posts/mosn-dubbo-go-hessian2/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/releases/v0.13.0/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/releases/v0.13.0/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/blog/releases/v0.13.0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/blog/releases/v0.13.0/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/blog/releases/v0.13.0/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-overview/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/posts/mosn-overview/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/releases/v0.12.0/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/releases/v0.12.0/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/blog/releases/v0.12.0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/blog/releases/v0.12.0/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/blog/releases/v0.12.0/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/skywalking-support/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/posts/skywalking-support/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-tls/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-tls/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-router/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-router/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/concept/extensions/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/concept/extensions/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-extensions/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/posts/mosn-extensions/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-connection-pool/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-connection-pool/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/releases/v0.11.0/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/releases/v0.11.0/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/blog/releases/v0.11.0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/blog/releases/v0.11.0/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/blog/releases/v0.11.0/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/multi-protocol-deep-dive/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/posts/multi-protocol-deep-dive/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-http/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-http/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-log/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-log/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/news/mosn-channel-1/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/news/mosn-channel-1/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/faq/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/faq/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/faq/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/faq/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/faq/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/releases/v0.10.0/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/releases/v0.10.0/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/blog/releases/v0.10.0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/blog/releases/v0.10.0/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/blog/releases/v0.10.0/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-startup/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-startup/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-eventloop/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-eventloop/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/udpa-follow-up/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/posts/udpa-follow-up/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-shm/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-shm/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-variable/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-variable/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-buffer/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-buffer/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-plugin/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-plugin/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-xds/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-xds/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-filters/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-filters/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/mosn-source-code-brief/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/posts/mosn-source-code-brief/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/news/announcing-mosn-communtiy/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/news/announcing-mosn-communtiy/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/posts/nginx-envoy-mosn-hot-upgrade/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/releases/mosn-0.1.0-perfermence-report/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/releases/mosn-0.1.0-perfermence-report/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/releases/mosn-0.2.1-performance-report/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/releases/mosn-0.2.1-performance-report/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/code/mosn-reconfig-mechanism/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/code/mosn-reconfig-mechanism/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/index.json</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/index.json</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/index.json"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/index.json"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/index.json"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/blog/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/blog/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/blog/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/blog/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/blog/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/search/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/search/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/search/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/search/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/search/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/tutorial/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/tutorial/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://mosn.io/en/docs/tutorial/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
                 href="https://mosn.io/docs/tutorial/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://mosn.io/zh/docs/tutorial/"
-                />
   </url>
   
   <url>
-    <loc>https://mosn.io/zh/docs/community/</loc>
-    <lastmod>2020-07-10T11:35:32+08:00</lastmod>
+    <loc>https://mosn.io/docs/community/</loc>
+    <lastmod>2020-07-10T23:50:30+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://mosn.io/docs/community/"
+                href="https://mosn.io/en/docs/community/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://mosn.io/zh/docs/community/"
+                href="https://mosn.io/docs/community/"
                 />
   </url>
   

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,29 +18,29 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Custom configurations | MOSN</title><meta property="og:title" content="Custom configurations" />
-<meta property="og:description" content="The custom configurations of MOSN.
+<title>自定义配置 | MOSN</title><meta property="og:title" content="自定义配置" />
+<meta property="og:description" content="MOSN 自定义配置说明。
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/configuration/custom/" />
 <meta property="article:published_time" content="2020-01-20T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-07-10T11:35:32&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-07-10T23:50:30&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="Custom configurations">
-<meta itemprop="description" content="The custom configurations of MOSN.
+<meta itemprop="name" content="自定义配置">
+<meta itemprop="description" content="MOSN 自定义配置说明。
 ">
 
 
 <meta itemprop="datePublished" content="2020-01-20T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-07-10T11:35:32&#43;08:00" />
-<meta itemprop="wordCount" content="451">
+<meta itemprop="dateModified" content="2020-07-10T23:50:30&#43;08:00" />
+<meta itemprop="wordCount" content="167">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Custom configurations"/>
-<meta name="twitter:description" content="The custom configurations of MOSN.
+<meta name="twitter:title" content="自定义配置"/>
+<meta name="twitter:description" content="MOSN 自定义配置说明。
 "/>
 
 <script type="application/javascript">
@@ -70,7 +70,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Custom configurations | MOSN</title>
+    <title>自定义配置 | MOSN</title>
   </head>
   <body class="td-page">
     <header>
@@ -99,7 +99,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/" ><span class="active">Documentation</span></a>
+				<a class="nav-link active" href="/docs/" ><span class="active">文档</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -109,7 +109,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/blog/" ><span>Blog</span></a>
+				<a class="nav-link" href="/blog/" ><span>博客</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -119,7 +119,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/community/" ><span class="active">Community</span></a>
+				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">教程</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -129,7 +129,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">Tutorial</span></a>
+				<a class="nav-link active" href="/docs/community/" ><span class="active">社区</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -148,11 +148,11 @@ if (!doNotTrack) {
 				
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/configuration/custom/">中文</a>
+	<a class="dropdown-item" href="/en/docs/configuration/custom/">English</a>
 	
 </div>
 			</li>
@@ -160,7 +160,7 @@ if (!doNotTrack) {
 		</ul>
 	</div>
 	<div class="navbar-nav d-none d-lg-block">
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 </div>
 </nav>
 
@@ -178,7 +178,7 @@ if (!doNotTrack) {
   
   <form class="td-sidebar__search d-flex align-items-center">
     
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 
     <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
@@ -190,11 +190,11 @@ if (!doNotTrack) {
       
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/configuration/custom/">中文</a>
+	<a class="dropdown-item" href="/en/docs/configuration/custom/">English</a>
 	
 </div>
     </div>
@@ -208,7 +208,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">文档</a>
   </li>
   <ul>
     <li class="collapse show" id="docs">
@@ -218,13 +218,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">Overview</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">简介</a>
       
       
       
@@ -237,7 +231,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Get started</a>
+    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开始</a>
   </li>
   <ul>
     <li class="collapse " id="docs-quick-start">
@@ -247,13 +241,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">Quick start</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">快速开始</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">Istio integration</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">集成 Istio</a>
       
       
     </li>
@@ -272,7 +266,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
+    <a  href="/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">架构原理</a>
   </li>
   <ul>
     <li class="collapse " id="docs-concept">
@@ -282,37 +276,55 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">Core concepts</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">核心概念</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar 模式</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">流量劫持</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS connections</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS 安全链路</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN 平滑升级原理解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-multi-protocol" href="/docs/concept/multi-protocol/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-extensions" href="/docs/concept/extensions/">MOSN 扩展机制解析</a>
       
       
     </li>
   </ul>
 </ul>
 
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">工程示例</a>
       
       
       
@@ -325,7 +337,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Configuration overview</a>
+    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">配置概览</a>
   </li>
   <ul>
     <li class="collapse show" id="docs-configuration">
@@ -334,25 +346,8 @@ if (!doNotTrack) {
       
       
       
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener">
       
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-filter-chain" href="/docs/configuration/listener/filter-chain/">FilterChain</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-clustermanager" href="/docs/configuration/clustermanager/">ClusterManager 配置</a>
       
       
       
@@ -365,48 +360,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener-network-filter">
-      
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-proxy" href="/docs/configuration/listener/network-filter/proxy/">proxy</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-connection-manager" href="/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-      
-      
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server configurations</a>
+    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server 配置</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration-server">
@@ -416,7 +370,71 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router 配置</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-filter-chain" href="/docs/configuration/server/listener/filter-chain/">FilterChain</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener-network-filter">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-proxy" href="/docs/configuration/server/listener/network-filter/proxy/">proxy</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-connection-manager" href="/docs/configuration/server/listener/network-filter/connection-manager/">connection_manager</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
     </li>
@@ -435,7 +453,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
+    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace 配置</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration-trace">
@@ -445,7 +463,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking 配置</a>
       
       
     </li>
@@ -457,19 +475,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-configuration-custom" href="/docs/configuration/custom/">Custom configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-configuration-custom" href="/docs/configuration/custom/">自定义配置</a>
       
       
     </li>
   </ul>
 </ul>
 
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">Example projects</a>
       
       
       
@@ -482,7 +494,42 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
+    <a  href="/docs/dev/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开发指南</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-dev">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-dubbo-integrate" href="/docs/dev/dubbo-integrate/">Dubbo 集成</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">贡献文档</a>
   </li>
   <ul>
     <li class="collapse " id="docs-contribute">
@@ -492,19 +539,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">Documentation contribution guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">文档贡献指南</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">Create a page</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">创建页面</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">Format guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">样式指南</a>
       
       
     </li>
@@ -522,13 +569,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">Community</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">教程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">Tutorial</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">社区</a>
       
       
     </li>
@@ -554,11 +601,11 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/configuration/custom/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Custom%20configurations" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/configuration/custom/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=%e8%87%aa%e5%ae%9a%e4%b9%89%e9%85%8d%e7%bd%ae" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
-<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
 
 </div>
 
@@ -600,21 +647,21 @@ if (!doNotTrack) {
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/">Documentation</a>
+	<a href="/docs/">文档</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/configuration/">Configuration overview</a>
+	<a href="/docs/configuration/">配置概览</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/configuration/custom/">Custom configurations</a>
+	<a href="/docs/configuration/custom/">自定义配置</a>
 </li>
 
 	</ol>
@@ -623,27 +670,27 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>Custom configurations</h1>
-	<div class="lead">The custom configurations of MOSN.</div>
+	<h1>自定义配置</h1>
+	<div class="lead">MOSN 自定义配置说明。</div>
 	
 
-<p>This topic describes custom configurations of MOSN.</p>
+<p>本文是对 MOSN 自定义配置的说明。</p>
 
 <h3 id="duration-string">Duration String</h3>
 
 <ul>
-<li>A string that consists of a decimal digit and a time unit suffix. Valid time units: <code>ns</code>, <code>us</code> (or <code>µs</code>), <code>ms</code>, <code>s</code>, <code>m</code>, and <code>h</code>. For example, <code>1 h</code>, <code>3s</code>, and <code>500 ms</code>.</li>
+<li>字符串，由一个十进制数字和一个时间单位后缀组成，有效的时间单位为 <code>ns</code>、<code>us</code>（或<code>µs</code>）、<code>ms</code>、<code>s</code>、<code>m</code>、<code>h</code>，例如 <code>1h</code>、<code>3s</code>、<code>500ms</code>。</li>
 </ul>
 
 <h3 id="metadata">metadata</h3>
 
-<p><code>metadata</code> is used for matching MOSN routes and cluster hosts.</p>
+<p><code>metadata</code> 用于 MOSN 路由和 Cluster Host 之间的匹配。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
   <span style="color:#204a87;font-weight:bold">&#34;filter_metadata&#34;</span><span style="color:#000;font-weight:bold">:{</span>
     <span style="color:#204a87;font-weight:bold">&#34;mosn.lb&#34;</span><span style="color:#000;font-weight:bold">:{}</span>
   <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p><code>mosn.lb</code> corresponds to any <code>string-string</code> content.</p>
+<p><code>mosn.lb</code> 可对应任意的 <code>string-string</code> 的内容。</p>
 
 <h3 id="tls-context">tls_context</h3>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
@@ -666,17 +713,17 @@ if (!doNotTrack) {
   <span style="color:#204a87;font-weight:bold">&#34;sds_source&#34;</span><span style="color:#000;font-weight:bold">:{}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <ul>
-<li><code>status</code>: Boolean. Indicates whether TLS is enabled. Default value: false.</li>
-<li><code>type</code>: String. Specifies the type of tls_context. tls_context supports extension implementation. Different types correspond to different implementation methods. Default value:&ldquo;&rdquo; (empty string).</li>
-<li><code>server_name</code>: Used to verify the hostname of the certificate returned by the server when insecure_skip is not configured. Valid when configured at a cluster.</li>
-<li><code>ca_cert</code>: The root certificate issued by a trusted certificate authority (CA).</li>
-<li><code>cert_chain</code>: The TLS certificate chain.</li>
-<li><code>private_key</code>: The private key of a certificate.</li>
-<li><code>verify_client</code>: Boolean. Specifies whether to verify a client certificate. Valid when configured at a listener.</li>
-<li><code>require_client_cert</code>: Boolean. Specifies whether the client certificate is required.</li>
-<li><code>insecure_skip</code>: Boolean. Specifies whether to skip server certificate verification. Valid when configured at a cluster.</li>
+<li><code>status</code>，bool类型，表示是否开启 TLS，默认是 false。</li>
+<li><code>type</code>，字符串类型，描述 tls_context 的类型。tls_context 支持扩展实现，不同的 type 对应不同的实现方式，默认实现方式对应的 type 是空字符串。</li>
+<li><code>server_name</code>，当没有配置 insecure_skip 时，用于校验服务端返回证书的 hostname。作为Cluster配置时有效。</li>
+<li><code>ca_cert</code>，证书签发的根 CA 证书。</li>
+<li><code>cert_chain</code>，TLS 证书链配置。</li>
+<li><code>private_key</code>，证书私钥配置。</li>
+<li><code>verify_client</code>，bool 类型，作为 Listener 配置时有效，表示是否要校验 Client 端证书</li>
+<li><code>require_client_cert</code>，bool 类型，表示是否强制 Client 端必须携带证书。</li>
+<li><code>insecure_skip</code>，bool 类型，作为 Cluster 配置时有效，表示是否要忽略 Server 端的证书校验。</li>
 
-<li><p><code>cipher_suites</code>: Specifies the cipher suites to be supported by TLS connections. If this parameter is specified, TLS connections support only the specified cipher suites and use them according to the order of how they are specified. Separate different cipher suites with a comma. Valid values:</p>
+<li><p><code>cipher_suites</code>，如果配置了该配置，那么 TLS 连接将只支持配置了的密码套件，并且会按照配置的顺序作为优先级使用，支持的套件类型如下：</p>
 
 <pre><code>ECDHE-ECDSA-AES256-GCM-SHA384
 ECDHE-RSA-AES256-GCM-SHA384
@@ -696,43 +743,43 @@ ECDHE-RSA-SM4-SM3
 ECDHE-ECDSA-SM4-SM3
 </code></pre></li>
 
-<li><p><code>ecdh_curves</code>: If this parameter is used, TLS connections support only the specified curves.</p></li>
+<li><p><code>ecdh_curves</code>，如果配置了该配置，那么 TLS 连接将只支持配置了的曲线。</p></li>
 
 <li><ul>
-<li>Valid values: x25519, p256, p384, and p521.</li>
+<li>支持 x25519、p256、p384、p521。</li>
 </ul></li>
 
-<li><p><code>min_version</code>: The earliest TLS version supported.</p></li>
+<li><p><code>min_version</code>，最低的 TLS 协议版本，默认是 TLS1.0。</p></li>
 
 <li><ul>
-<li>Valid values: TLS1.0, TLS1.1, and TLS1.2. Default value: TLS1.0.</li>
+<li>支持 TLS1.0、TLS1.1、TLS1.2。</li>
 </ul>
 
 <ul>
-<li>Available TLS versions will be automatically identified by default.</li>
+<li>默认会自动识别可用的 TLS 协议版本。</li>
 </ul></li>
 
-<li><p><code>max_version</code>: The latest TLS version supported.</p></li>
+<li><p><code>max_version</code>，最高的 TLS 协议版本，默认是 TLS1.2。</p></li>
 
 <li><ul>
-<li>Valid values: TLS1.0, TLS1.1, and TLS1.2. Default value: TLS1.2.</li>
+<li>支持 TLS1.0、TLS1.1、TLS1.2。</li>
 </ul>
 
 <ul>
-<li>Available TLS versions will be automatically identified by default.</li>
+<li>默认会自动识别可用的 TLS 协议版本。</li>
 </ul></li>
 
-<li><p><code>alpn</code>: Specifies the protocol supported by ALPN on TLS connections.</p></li>
+<li><p><code>alpn</code>，TLS 的 ALPN 配置。</p></li>
 
 <li><ul>
-<li>Valid values: H2, HTTP/1.1, and SOFA.</li>
+<li>支持 h2、http/1.1、 sofa。</li>
 </ul></li>
 
-<li><p><code>fall_back</code>: Boolean. Specifies whether to fall back when certificate verification fails, without returning an error. This is equivalent to the case when TLS is not enabled. Valid values: True and False.</p></li>
+<li><p><code>fall_back</code>，bool类型，当配置为 true 时，如果证书解析失败，不会报错而是相当于没有开启 TLS。</p></li>
 
-<li><p><code>extend_verify</code>: JSON. Specifies the extension of tls_context when type is not empty.</p></li>
+<li><p><code>extend_verify</code>，任意 json 类型，当 type 为非空时，作为扩展的配置参数。</p></li>
 
-<li><p><code>sds_source</code>: Specifies parameters required for accessing the SDS API. If sds_source is configured, the <code>ca_cert</code>, <code>cert_chain</code>, and <code>private_key</code> parameters will be ignored, but other configurations will remain valid.</p></li>
+<li><p><code>sds_source</code>，访问 SDS API 的配置，如果配置了这个配置，<code>ca_cert</code>、<code>cert_chain</code> 和 <code>private_key</code> 都会被忽略，但是其余的配置依然有效。</p></li>
 </ul>
 
 <h3 id="sds-source">sds_source</h3>
@@ -741,14 +788,14 @@ ECDHE-ECDSA-SM4-SM3
   <span style="color:#204a87;font-weight:bold">&#34;ValidationConfig&#34;</span><span style="color:#000;font-weight:bold">:{}</span>
 <span style="color:#000;font-weight:bold">}</span></code></pre></div>
 <ul>
-<li><code>CertificateConfig</code>: Specifies how to obtain the values of cert_chain and private_key.</li>
-<li><code>ValidationConfig</code>: Specifies how to obtain the value of <code>ca_cert</code>.</li>
-<li>For details about the configurations, see <a href="https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/auth/cert.proto#envoy-api-msg-auth-sdssecretconfig" target="_blank">envoy: sds_secret_config</a>.</li>
+<li><code>CertificateConfig</code> 描述了如何获取 cert_chain 和 private_key 的配置。</li>
+<li><code>ValidationConfig</code> 描述了如何获取 <code>ca_cert</code> 的配置。</li>
+<li>详细的 Config 内容参考 <a href="https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/auth/cert.proto#envoy-api-msg-auth-sdssecretconfig" target="_blank">envoy: sdssecretconfig</a>。</li>
 </ul>
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified July 10, 2020: <a  href="https://github.com/mosn/mosn.io/commit/9065f7d98999f54af9928ada3a6998df4d9ab552">update faq (9065f7d)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年7月10日: <a  href="https://github.com/mosn/mosn.io/commit/65e92406806201ea9ca61af4cd9718312072ce96">set the default language to Chinese (65e9240)</a>
 </div>
 </div>
 
@@ -801,7 +848,7 @@ ECDHE-ECDSA-SM4-SM3
         
       </div>
       <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        <small class="text-white">&copy; 2020 The MOSN Authors All Rights Reserved</small>
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
         
 	
       </div>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,29 +18,29 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Traffic hijacking | MOSN</title><meta property="og:title" content="Traffic hijacking" />
-<meta property="og:description" content="The traffic hijacking solution when MOSN is used as a sidecar.
+<title>流量劫持 | MOSN</title><meta property="og:title" content="流量劫持" />
+<meta property="og:description" content="MOSN 作为 Sidecar 使用时的流量劫持方案。
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/concept/traffic-hijack/" />
 <meta property="article:published_time" content="2020-01-20T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-07-10T11:35:32&#43;08:00"/><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-07-10T23:50:30&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="Traffic hijacking">
-<meta itemprop="description" content="The traffic hijacking solution when MOSN is used as a sidecar.
+<meta itemprop="name" content="流量劫持">
+<meta itemprop="description" content="MOSN 作为 Sidecar 使用时的流量劫持方案。
 ">
 
 
 <meta itemprop="datePublished" content="2020-01-20T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-07-10T11:35:32&#43;08:00" />
-<meta itemprop="wordCount" content="957">
+<meta itemprop="dateModified" content="2020-07-10T23:50:30&#43;08:00" />
+<meta itemprop="wordCount" content="181">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Traffic hijacking"/>
-<meta name="twitter:description" content="The traffic hijacking solution when MOSN is used as a sidecar.
+<meta name="twitter:title" content="流量劫持"/>
+<meta name="twitter:description" content="MOSN 作为 Sidecar 使用时的流量劫持方案。
 "/>
 
 <script type="application/javascript">
@@ -70,7 +70,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Traffic hijacking | MOSN</title>
+    <title>流量劫持 | MOSN</title>
   </head>
   <body class="td-page">
     <header>
@@ -99,7 +99,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/" ><span class="active">Documentation</span></a>
+				<a class="nav-link active" href="/docs/" ><span class="active">文档</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -109,7 +109,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/blog/" ><span>Blog</span></a>
+				<a class="nav-link" href="/blog/" ><span>博客</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -119,7 +119,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/community/" ><span class="active">Community</span></a>
+				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">教程</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -129,7 +129,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">Tutorial</span></a>
+				<a class="nav-link active" href="/docs/community/" ><span class="active">社区</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -148,11 +148,11 @@ if (!doNotTrack) {
 				
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/concept/traffic-hijack/">中文</a>
+	<a class="dropdown-item" href="/en/docs/concept/traffic-hijack/">English</a>
 	
 </div>
 			</li>
@@ -160,7 +160,7 @@ if (!doNotTrack) {
 		</ul>
 	</div>
 	<div class="navbar-nav d-none d-lg-block">
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 </div>
 </nav>
 
@@ -178,7 +178,7 @@ if (!doNotTrack) {
   
   <form class="td-sidebar__search d-flex align-items-center">
     
-<input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
 
     <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
@@ -190,11 +190,11 @@ if (!doNotTrack) {
       
 
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	English
+	中文
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/zh/docs/concept/traffic-hijack/">中文</a>
+	<a class="dropdown-item" href="/en/docs/concept/traffic-hijack/">English</a>
 	
 </div>
     </div>
@@ -208,7 +208,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">文档</a>
   </li>
   <ul>
     <li class="collapse show" id="docs">
@@ -218,13 +218,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">Overview</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">简介</a>
       
       
       
@@ -237,7 +231,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Get started</a>
+    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开始</a>
   </li>
   <ul>
     <li class="collapse " id="docs-quick-start">
@@ -247,13 +241,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">Quick start</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">快速开始</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">Istio integration</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">集成 Istio</a>
       
       
     </li>
@@ -272,7 +266,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/concept/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
+    <a  href="/docs/concept/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">架构原理</a>
   </li>
   <ul>
     <li class="collapse show" id="docs-concept">
@@ -282,37 +276,55 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">Core concepts</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">核心概念</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar 模式</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">流量劫持</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS connections</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS 安全链路</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN 平滑升级原理解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-multi-protocol" href="/docs/concept/multi-protocol/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-extensions" href="/docs/concept/extensions/">MOSN 扩展机制解析</a>
       
       
     </li>
   </ul>
 </ul>
 
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">工程示例</a>
       
       
       
@@ -325,7 +337,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Configuration overview</a>
+    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">配置概览</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration">
@@ -334,25 +346,8 @@ if (!doNotTrack) {
       
       
       
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener">
       
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-filter-chain" href="/docs/configuration/listener/filter-chain/">FilterChain</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-clustermanager" href="/docs/configuration/clustermanager/">ClusterManager 配置</a>
       
       
       
@@ -365,48 +360,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
-  </li>
-  <ul>
-    <li class="collapse " id="docs-configuration-listener-network-filter">
-      
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-proxy" href="/docs/configuration/listener/network-filter/proxy/">proxy</a>
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-listener-network-filter-connection-manager" href="/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-      
-      
-
-
-
-
-
-
-<ul class="td-sidebar-nav__section pr-md-3">
-  <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server configurations</a>
+    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server 配置</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration-server">
@@ -416,7 +370,71 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router 配置</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-filter-chain" href="/docs/configuration/server/listener/filter-chain/">FilterChain</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-configuration-server-listener-network-filter">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-proxy" href="/docs/configuration/server/listener/network-filter/proxy/">proxy</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-connection-manager" href="/docs/configuration/server/listener/network-filter/connection-manager/">connection_manager</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
     </li>
@@ -435,7 +453,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
+    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace 配置</a>
   </li>
   <ul>
     <li class="collapse " id="docs-configuration-trace">
@@ -445,7 +463,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking 配置</a>
       
       
     </li>
@@ -457,19 +475,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">Custom configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">自定义配置</a>
       
       
     </li>
   </ul>
 </ul>
 
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">Example projects</a>
       
       
       
@@ -482,7 +494,42 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
+    <a  href="/docs/dev/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开发指南</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docs-dev">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-dubbo-integrate" href="/docs/dev/dubbo-integrate/">Dubbo 集成</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">贡献文档</a>
   </li>
   <ul>
     <li class="collapse " id="docs-contribute">
@@ -492,19 +539,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">Documentation contribution guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">文档贡献指南</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">Create a page</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">创建页面</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">Format guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">样式指南</a>
       
       
     </li>
@@ -522,13 +569,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">Community</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">教程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">Tutorial</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">社区</a>
       
       
     </li>
@@ -554,11 +601,11 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/concept/traffic-hijack/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Traffic%20hijacking" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/concept/traffic-hijack/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=%e6%b5%81%e9%87%8f%e5%8a%ab%e6%8c%81" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
-<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
 
 </div>
 
@@ -571,17 +618,17 @@ if (!doNotTrack) {
 <ul>
 <li>
 <ul>
-<li><a href="#traffic-takeover">Traffic takeover</a>
+<li><a href="#流量接管">流量接管</a>
 <ul>
-<li><a href="#service-call-procedure">Service call procedure</a></li>
+<li><a href="#服务调用过程">服务调用过程</a></li>
 </ul></li>
-<li><a href="#transparent-hijacking">Transparent hijacking</a>
+<li><a href="#透明劫持">透明劫持</a>
 <ul>
-<li><a href="#iptables-based-traffic-hijacking">iptables-based traffic hijacking</a></li>
-<li><a href="#drawbacks-of-iptables-based-traffic-hijacking">Drawbacks of iptables-based traffic hijacking</a></li>
-<li><a href="#optimization-for-transparent-hijacking">Optimization for transparent hijacking</a></li>
+<li><a href="#使用-iptables-做流量劫持">使用 iptables 做流量劫持</a></li>
+<li><a href="#使用-iptables-做流量劫持时存在的问题">使用 iptables 做流量劫持时存在的问题</a></li>
+<li><a href="#透明劫持方案优化">透明劫持方案优化</a></li>
 </ul></li>
-<li><a href="#summary">Summary</a></li>
+<li><a href="#总结">总结</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -604,21 +651,21 @@ if (!doNotTrack) {
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/">Documentation</a>
+	<a href="/docs/">文档</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/concept/">Architecture and principle</a>
+	<a href="/docs/concept/">架构原理</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/concept/traffic-hijack/">Traffic hijacking</a>
+	<a href="/docs/concept/traffic-hijack/">流量劫持</a>
 </li>
 
 	</ol>
@@ -627,88 +674,88 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>Traffic hijacking</h1>
-	<div class="lead">The traffic hijacking solution when MOSN is used as a sidecar.</div>
+	<h1>流量劫持</h1>
+	<div class="lead">MOSN 作为 Sidecar 使用时的流量劫持方案。</div>
 	
 
-<p>This topic describes the traffic hijacking solution when MOSN is used as a sidecar.</p>
+<p>本文描述的是 MOSN 作为 Sidecar 使用时的流量劫持方案。</p>
 
-<p>When MOSN is deployed as a sidecar in the same pod as that of the business application container, both inbound and outbound service requests of the business application must be handled by the sidecar. UUnlike the Istio community that uses iptables for transparent traffic hijacking, MOSN currently uses a traffic takeover solution and is actively exploring a transparent hijacking solution for large amounts of traffic.</p>
+<p>MOSN 作为 Sidecar 和业务容器部署在同一个 Pod 中时，需要使得业务应用的 Inbound 和 Outbound 服务请求都能够经过 Sidecar 处理。区别于 Istio 社区使用 iptables 做流量透明劫持，MOSN 目前使用的是流量接管方案，并在积极探索适用于大规模流量下的透明劫持方案。</p>
 
-<h2 id="traffic-takeover">Traffic takeover</h2>
+<h2 id="流量接管">流量接管</h2>
 
-<p>MOSN uses the following traffic takeover solution, instead of the <a href="https://jimmysong.io/istio-handbook/concepts/sidecar-injection-deep-dive.html" target="_blank">iptables-based traffic hijacking solution</a> used by the Istio community:</p>
-
-<ol>
-<li>Assume that the server runs on a machine with an IP address of 1.2.3.4 and listens on port 20880. The server will first send a service registration request to its sidecar, to notify it of the service to be registered, as well as the IP address and port number (1.2.3.4:20880).</li>
-<li>The server&rsquo;s sidecar will send a service registration request to the service registry (for example, SOFA Registry), to notify it of the service to be registered as well as the IP address and port number. Note that the port to be registered is not the port (20880) of the business application. Instead, it should be the port (for example, 20881) on which the sidecar listens.</li>
-<li>The caller sends a service subscription request to its own sidecar, to notify it of the service to be subscribed to.</li>
-<li>The caller&rsquo;s sidecar then pushes the service endpoint to the caller. Note that the service endpoint here is the local IP address of the caller and the port (for example, 20882) on which the caller&rsquo;s sidecar listens.</li>
-<li>The caller&rsquo;s sidecar sends a service subscription request to the service registry (for example, SOFA Registry), to notify it of the service to be subscribed to.</li>
-<li>The service registry (for example, SOFA Registry) pushes the service endpoint (1.2.3.4:20881) to the caller&rsquo;s sidecar.</li>
-</ol>
-
-<p><img src="traffic-hijacking.png" alt="Traffic takeover diagram" /></p>
-
-<h3 id="service-call-procedure">Service call procedure</h3>
-
-<p>After going through the above service discovery procedure, the traffic forwarding procedure is quite easy to understand:</p>
+<p>区别于 Istio 社区的 <a href="https://jimmysong.io/istio-handbook/concepts/sidecar-injection-deep-dive.html" target="_blank">iptables 流量劫持方案</a>，MOSN 使用的流量接管的方案如下：</p>
 
 <ol>
-<li>The caller receives the so called &ldquo;service endpoint&rdquo; <code>127.0.0.1:20882</code>, and then sends a service call to this endpoint.</li>
-<li>After receiving the request from the caller, the caller&rsquo;s sidecar parses the request header to identify the service to be called. Then the sidecar retrieves the endpoint previously returned by the service registry, and then sends a real call to this endpoint: <code>1.2.3.4:20881</code>.</li>
-<li>After receiving the request from the caller&rsquo;s sidecar, the server&rsquo;s sidecar processes the request and then sends the request to the server:<code>127.0.0.1:20880</code>.</li>
+<li>假设服务端运行在 1.2.3.4 这台机器上，监听 20880 端口，首先服务端会向自己的 Sidecar 发起服务注册请求，告知 Sidecar 需要注册的服务以及 IP + 端口（1.2.3.4:20880）</li>
+<li>服务端的 Sidecar 会向服务注册中心（如 SOFA Registry）发起服务注册请求，告知需要注册的服务以及 IP + 端口，不过这里需要注意的是注册上去的并不是业务应用的端口（20880），而是 Sidecar 自己监听的一个端口（例如：20881）</li>
+<li>调用端向自己的 Sidecar 发起服务订阅请求，告知需要订阅的服务信息</li>
+<li>调用端的 Sidecar 向调用端推送服务地址，这里需要注意的是推送的 IP 是本机，端口是调用端的 Sidecar 监听的端口（例如 20882）</li>
+<li>调用端的 Sidecar 会向服务注册中心（如 SOFA Registry）发起服务订阅请求，告知需要订阅的服务信息；</li>
+<li>服务注册中心（如 SOFA Registry）向调用端的 Sidecar 推送服务地址（1.2.3.4:20881）</li>
 </ol>
 
-<p><img src="service-call-process.png" alt="Service call procedure" /></p>
+<p><img src="traffic-hijacking.png" alt="流量接管示意图" /></p>
 
-<h2 id="transparent-hijacking">Transparent hijacking</h2>
+<h3 id="服务调用过程">服务调用过程</h3>
 
-<p>In the above service registration procedure, the server endpoint is replaced with the local sidecar endpoint to implement lightweight &ldquo;traffic hijacking&rdquo;. This mode works well in scenarios where a service registry is available and both the caller and the server use the same SDK. Traffic hijacking is not possible unless both conditions are met. To solve this problem, we introduced transparent hijacking.</p>
-
-<h3 id="iptables-based-traffic-hijacking">iptables-based traffic hijacking</h3>
-
-<p>iptables redirect traffic by using the REDIRECT action of the NAT table. A new connection will be triggered at the netfilter layer through the SYN packet. When subsequent packets arrive at the netfilter layer, netfilter looks for the corresponding connections, and modifies the destination addresses and ports. The original destination address is recorded when the new connection is being established, and the application can obtain the real destination addresses of the packets through <code>SOL_IP</code> and <code>SO_ORIGINAL_DST</code>.</p>
-
-<p>The following figure shows the principle of iptables-based traffic hijacking.</p>
-
-<p><img src="iptables.png" alt="Principle of iptables-based traffic hijacking" /></p>
-
-<h3 id="drawbacks-of-iptables-based-traffic-hijacking">Drawbacks of iptables-based traffic hijacking</h3>
-
-<p>Currently, iptables-based traffic hijacking used by Istio has the following drawbacks:</p>
+<p>经过上述的服务发现过程，流量转发过程就显得非常自然了：</p>
 
 <ol>
-<li>Connections need to be tracked by the conntrack module. When there are a large number of connections, the resource consumption will be high, and the track table may become full. To address this problem, some industry practitioners, such as Alibaba, have disabled the conntrack module.</li>
-<li>iptables is a common module that takes effect globally, and related modifications cannot be explicitly prohibited, resulting in poor controllability.</li>
-<li>iptables-based traffic redirection is essentially data exchange through loopback. The outbound traffic progresses through the stack twice, degrading the forwarding performance in high-concurrency scenarios.</li>
+<li>调用端拿到的服务端地址是 <code>127.0.0.1:20882</code>，所以就会向这个地址发起服务调用</li>
+<li>调用端的 Sidecar 接收到请求后，通过解析请求头，可以得知具体要调用的服务信息，然后获取之前从服务注册中心返回的地址后就可以发起真实的调用（<code>1.2.3.4:20881</code>）</li>
+<li>服务端的 Sidecar 接收到请求后，经过一系列处理，最终会把请求发送给服务端（<code>127.0.0.1:20880</code>）</li>
 </ol>
 
-<p>The above drawbacks do not exist in every scenario. For example, iptables is a simple and desirable solution for scenarios where the number of connections is small and no NAT table is used. To adapt to more scenarios, transparent hijacking needs to be optimized to eliminate the above drawbacks.</p>
+<p><img src="service-call-process.png" alt="服务调用过程示意图" /></p>
 
-<h3 id="optimization-for-transparent-hijacking">Optimization for transparent hijacking</h3>
+<h2 id="透明劫持">透明劫持</h2>
 
-<p><strong>Use TProxy to handle inbound traffic</strong></p>
+<p>上文通过在服务注册过程中把服务端地址替换成本机监听端口实现了轻量级的“流量劫持”，在存在注册中心，且调用端和服务端同时使用特定SDK的场景中可以很好的工作，如果不满足这两个条件，则无法流量劫持。为了降低对于应用程序的要求，需要引入透明劫持。</p>
 
-<p>TProxy can be used to redirect inbound traffic without modifying the destination IP address/port number in messages. No connection needs to be tracked, and the conntrack module does not need to create large numbers of connections. TProxy is not suitable for handling outbound traffic due to the limit of the kernel version. Currently, Istio supports using TProxy to handle inbound traffic.</p>
+<h3 id="使用-iptables-做流量劫持">使用 iptables 做流量劫持</h3>
 
-<p><strong>Use hook connect to handle outbound traffic</strong></p>
+<p>iptables 通过 NAT 表的 redirect 动作执行流量重定向，通过 syn 包触发新建 nefilter 层的连接，后续报文到来时查找连接转换目的地址与端口。新建连接时同时会记录下原始目的地址，应用程序可以通过(<code>SOL_IP</code>、<code>SO_ORIGINAL_DST</code>)获取到真实的目的地址。</p>
 
-<p>To adapt to more application scenarios, hook connect is used to handle outbound traffic. The implementation principle is as follows:</p>
+<p>iptables 劫持原理如下图所示：</p>
 
-<p><img src="hook-connect.png" alt="Principle of hook connect" /></p>
+<p><img src="iptables.png" alt="iptables 劫持原理" /></p>
 
-<p>Regardless of which transparent hijacking solution is adopted, the real destination IP address/port number needs to be identified. In the iptables solution, the destination address is identified by calling the getsockopt function. TProxy can directly read the address. In the hook connect solution, the sidecar can also read the original IP/port number by calling the getsockopt function.</p>
+<h3 id="使用-iptables-做流量劫持时存在的问题">使用 iptables 做流量劫持时存在的问题</h3>
 
-<p>After implementing transparent hijacking, if the kernel version meets the requirement (4.16 or later), we can use sockmap to shorten the message processing path, and improve the forwarding performance in the outbound direction.</p>
+<p>目前 Istio 使用 iptables 实现透明劫持，主要存在以下三个问题：</p>
 
-<h2 id="summary">Summary</h2>
+<ol>
+<li>需要借助于 conntrack 模块实现连接跟踪，在连接数较多的情况下，会造成较大的消耗，同时可能会造成 track 表满的情况，为了避免这个问题，业内有关闭 conntrack 的做法。</li>
+<li>iptables 属于常用模块，全局生效，不能显式的禁止相关联的修改，可管控性比较差。</li>
+<li>iptables 重定向流量本质上是通过 loopback 交换数据，outbond 流量将两次穿越协议栈，在大并发场景下会损失转发性能。</li>
+</ol>
 
-<p>An application can hijack traffic in combination with the registry when publishing/subscribing to services through the registry. In transparent hijacking scenarios, we can use iptables to redirect traffic under low performance pressure. TProxy and hook connect can be used under high concurrency pressure.</p>
+<p>上述几个问题并非在所有场景中都存在，比方说某些场景下，连接数并不多，且 NAT 表未被使用到的情况下，iptables 是一个满足要求的简单方案。为了适配更加广泛的场景，透明劫持需要解决上述三个问题。</p>
+
+<h3 id="透明劫持方案优化">透明劫持方案优化</h3>
+
+<p><strong>使用 tproxy 处理 inbound 流量</strong></p>
+
+<p>tproxy 可以用于 inbound 流量的重定向，且无需改变报文中的目的 IP/端口，不需要执行连接跟踪，不会出现 conntrack 模块创建大量连接的问题。受限于内核版本，tproxy 应用于 outbound 存在一定缺陷。目前 Istio 支持通过 tproxy 处理 inbound 流量。</p>
+
+<p><strong>使用 hook connect 处理 outbound 流量</strong></p>
+
+<p>为了适配更多应用场景，outbound 方向通过 hook connect 来实现，实现原理如下：</p>
+
+<p><img src="hook-connect.png" alt="hook-connect 原理示意图" /></p>
+
+<p>无论采用哪种透明劫持方案，均需要解决获取真实目的 IP/端口的问题，使用 iptables 方案通过 getsockopt 方式获取，tproxy 可以直接读取目的地址，通过修改调用接口，hook connect 方案读取方式类似于tproxy。</p>
+
+<p>实现透明劫持后，在内核版本满足要求（4.16以上）的前提下，通过 sockmap 可以缩短报文穿越路径，进而改善 outbound 方向的转发性能。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>总结来看，如果应用程序通过注册中心发布/订阅服务时，可以结合注册中心劫持流量；在需要用到透明劫持的场景，如果性能压力不大，使用 iptables redirect 即可，大并发压力下使用 tproxy 与hook connect 结合的方案。</p>
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified July 10, 2020: <a  href="https://github.com/mosn/mosn.io/commit/9065f7d98999f54af9928ada3a6998df4d9ab552">update faq (9065f7d)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年7月10日: <a  href="https://github.com/mosn/mosn.io/commit/65e92406806201ea9ca61af4cd9718312072ce96">set the default language to Chinese (65e9240)</a>
 </div>
 </div>
 
@@ -761,7 +808,7 @@ if (!doNotTrack) {
         
       </div>
       <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        <small class="text-white">&copy; 2020 The MOSN Authors All Rights Reserved</small>
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
         
 	
       </div>
