@@ -2155,7 +2155,7 @@ ECDHE-ECDSA-SM4-SM3
 
 &lt;h3 id=&#34;what-version-of-istio-does-mosn-support-when-will-it-be-available-in-istio&#34;&gt;What version of Istio does MOSN support? When will it be available in Istio?&lt;/h3&gt;
 
-&lt;p&gt;MOSN currently runs the &lt;a href=&#34;https://mosn.io/docs/quick-start/istio/&#34;&gt;bookinfo example&lt;/a&gt; based on Istio 1.4.6. In September 2020, Istio is expected to fully support the capabilities of Istio and become an integral part of Istio Sidecar deployment options available. Please join the &lt;a href=&#34;https://mosn.io/docs/community&#34;&gt;MOSN community&lt;/a&gt; to learn about working with Istio.&lt;/p&gt;
+&lt;p&gt;MOSN currently runs the &lt;a href=&#34;https://mosn.io/docs/quick-start/istio/&#34;&gt;bookinfo example&lt;/a&gt; based on Istio 1.5.2. In September 2020, Istio is expected to fully support the capabilities of Istio and become an integral part of Istio Sidecar deployment options available. Please join the &lt;a href=&#34;https://mosn.io/docs/community&#34;&gt;MOSN community&lt;/a&gt; to learn about working with Istio.&lt;/p&gt;
 
 &lt;h3 id=&#34;what-service-registration-and-discovery-mechanisms-does-mosn-support&#34;&gt;What service registration and discovery mechanisms does MOSN support?&lt;/h3&gt;
 
