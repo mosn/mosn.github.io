@@ -83,7 +83,7 @@
 &lt;li&gt;链接建立后，向 Epoll 注册 oneshot 可读事件监听；并且此时不允许有协程调用 conn.read，避免与 runtime netpoll 冲突。&lt;/li&gt;
 &lt;li&gt;可读事件到达，从 goroutine pool 挑选一个协程进行读事件处理；由于使用的是 oneshot 模式，该 fd 后续可读事件不会再触发。&lt;/li&gt;
 &lt;li&gt;请求处理过程中，协程调度与经典 netpoll 模式一致。&lt;/li&gt;
-&lt;li&gt;请求处理完成，将协程归还给协程池；同时将 fd 重现添加到 RawEpoll 中。&lt;/li&gt;
+&lt;li&gt;请求处理完成，将协程归还给协程池；同时将 fd 重新添加到 RawEpoll 中。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h2 id=&#34;协程模型&#34;&gt;协程模型&lt;/h2&gt;
