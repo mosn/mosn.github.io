@@ -104,12 +104,18 @@
       &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id=&#34;开发工作&#34;&gt;开发工作&lt;/h3&gt;
 
-&lt;p&gt;接入 MOSN dubbo 时，需要进行下列准备工作。&lt;/p&gt;
+&lt;p&gt;第一步，在 MOSN 配置中增加 &lt;code&gt;dubbo_registry&lt;/code&gt; 扩展选项：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;  &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;extend&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a40000&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;[{&lt;/span&gt;
+    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;dubbo_registry&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+    &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;config&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;enable&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;server_port&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;20080&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;api_port&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;22222&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+      &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;log_path&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;/tmp&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+  &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;该配置与 tracing、admin 等为平级配置。&lt;/p&gt;
 
-&lt;p&gt;第一步，build MOSN 的 dubbo 特殊版本。&lt;/p&gt;
-
-&lt;p&gt;在 MOSN 的 cmd/mosn/main 中，执行：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;go&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;build&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;tags&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;dubbo&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;第二步，针对接入的服务，需要简单修改 sdk 中的 pub、sub 环节代码：&lt;/p&gt;
 
 &lt;ul&gt;
@@ -130,7 +136,7 @@
 
 &lt;p&gt;Service 是正常的 dubbo service，所以会自动注册到 zk 中去，不需要我们帮它 pub，这里只要 sub 就可以了，所以执行流程为：&lt;/p&gt;
 
-&lt;p&gt;第一步，build 带 dubbo tag 的 MOSN。&lt;/p&gt;
+&lt;p&gt;第一步，修改 MOSN 配置，增加 dubbo_registry 的 extend 扩展。&lt;/p&gt;
 
 &lt;p&gt;第二步，mosn start。&lt;/p&gt;
 
@@ -148,7 +154,7 @@
 
 &lt;p&gt;直连的服务不会主动对自身进行发布，直连的 client 不会主动进行订阅。因此此例子中，pub 和 sub 都是由我们来辅助进行的。&lt;/p&gt;
 
-&lt;p&gt;第一步，build 带 dubbo tag 的 MOSN&lt;/p&gt;
+&lt;p&gt;第一步，修改 MOSN 配置，增加 dubbo_registry 的 extend 扩展。&lt;/p&gt;
 
 &lt;p&gt;第二步，mosn start&lt;/p&gt;
 
@@ -168,7 +174,7 @@
 
 &lt;p&gt;Client 是正常 client，因此 client 会自己去 subscribe。我们只要正常地把服务 pub 出去即可：&lt;/p&gt;
 
-&lt;p&gt;第一步，build 带 dubbo tag 的 MOSN&lt;/p&gt;
+&lt;p&gt;第一步，修改 MOSN 配置，增加 dubbo_registry 的 extend 扩展。&lt;/p&gt;
 
 &lt;p&gt;第二步，mosn start&lt;/p&gt;
 
