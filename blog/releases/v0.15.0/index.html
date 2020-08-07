@@ -18,30 +18,27 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>MOSN v0.10.0 发布 | MOSN</title><meta property="og:title" content="MOSN v0.10.0 发布" />
-<meta property="og:description" content="MOSN v0.10.0 变更日志。
-" />
+<title>MOSN v0.15.0 发布 | MOSN</title><meta property="og:title" content="MOSN v0.15.0 发布" />
+<meta property="og:description" content="MOSN v0.15.0 变更日志。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mosn.io/blog/releases/v0.10.0/" />
-<meta property="article:published_time" content="2020-02-28T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://mosn.io/blog/releases/v0.15.0/" />
+<meta property="article:published_time" content="2020-08-05T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2020-08-07T15:22:43&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="MOSN v0.10.0 发布">
-<meta itemprop="description" content="MOSN v0.10.0 变更日志。
-">
+<meta itemprop="name" content="MOSN v0.15.0 发布">
+<meta itemprop="description" content="MOSN v0.15.0 变更日志。">
 
 
-<meta itemprop="datePublished" content="2020-02-28T00:00:00&#43;00:00" />
+<meta itemprop="datePublished" content="2020-08-05T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-08-07T15:22:43&#43;08:00" />
-<meta itemprop="wordCount" content="74">
+<meta itemprop="wordCount" content="111">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MOSN v0.10.0 发布"/>
-<meta name="twitter:description" content="MOSN v0.10.0 变更日志。
-"/>
+<meta name="twitter:title" content="MOSN v0.15.0 发布"/>
+<meta name="twitter:description" content="MOSN v0.15.0 变更日志。"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -70,7 +67,7 @@ if (!doNotTrack) {
 
 
 
-    <title>MOSN v0.10.0 发布 | MOSN</title>
+    <title>MOSN v0.15.0 发布 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -152,7 +149,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/en/blog/releases/v0.10.0/">English</a>
+	<a class="dropdown-item" href="/en/blog/releases/v0.15.0/">English</a>
 	
 </div>
 			</li>
@@ -194,7 +191,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/en/blog/releases/v0.10.0/">English</a>
+	<a class="dropdown-item" href="/en/blog/releases/v0.15.0/">English</a>
 	
 </div>
     </div>
@@ -235,7 +232,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-15-0" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blog-releases-v0-15-0" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
       
       
       
@@ -265,7 +262,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blog-releases-v0-10-0" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-10-0" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
       
       
       
@@ -528,8 +525,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/releases/v0.10.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20v0.10.0%20%e5%8f%91%e5%b8%83" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/releases/v0.15.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20v0.15.0%20%e5%8f%91%e5%b8%83" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -548,7 +545,6 @@ if (!doNotTrack) {
 <li>
 <ul>
 <li><a href="#新功能">新功能</a></li>
-<li><a href="#重构">重构</a></li>
 <li><a href="#优化">优化</a></li>
 <li><a href="#bug-修复">Bug 修复</a></li>
 </ul></li>
@@ -565,61 +561,58 @@ if (!doNotTrack) {
             </a>
             
 <div class="td-content">
-	<h1>MOSN v0.10.0 发布</h1>
-	<div class="lead">MOSN v0.10.0 变更日志。</div>
+	<h1>MOSN v0.15.0 发布</h1>
+	<div class="lead">MOSN v0.15.0 变更日志。</div>
 	<div class="td-byline mb-4">
 		作者 <b>MOSN 团队</b> |
-		<time datetime="2020-02-28" class="text-muted">2020年2月28日</time>
+		<time datetime="2020-08-05" class="text-muted">2020年8月5日</time>
 	</div>
 	
 
-<p>我们很高兴的宣布 <a href="https://github.com/mosn/mosn/releases/tag/v0.10.0" target="_blank">MOSN v0.10.0</a> 发布。以下是该版本的变更日志。</p>
+<p>我们很高兴的宣布 <a href="https://github.com/mosn/mosn/releases/tag/v0.15.0" target="_blank">MOSN v0.15.0</a> 发布，恭喜邓茜（<a href="https://github.com/dengqian" target="_blank">@dengqian</a>）成为 MOSN Committer，感谢她为 MOSN 社区所做的贡献。</p>
+
+<p>以下是该版本的变更日志。</p>
 
 <h3 id="新功能">新功能</h3>
 
 <ul>
-<li>支持多进程插件模式（<a href="https://github.com/mosn/mosn/pull/979" target="_blank">#979</a>，<a href="https://github.com/taoyuanyuan" target="_blank">@taoyuanyuan</a>）</li>
-<li>启动参数支持 service-meta参数（<a href="https://github.com/mosn/mosn/pull/952" target="_blank">#952</a>，<a href="https://github.com/trainyao" target="_blank">@trainyao</a>）</li>
-<li>支持 abstract uds 模式挂载 sds socket</li>
-</ul>
-
-<h3 id="重构">重构</h3>
-
-<ul>
-<li>分离部分 MOSN 基础库代码到 <a href="https://github.com/mosn/pkg" target="_blank">mosn.io/pkg</a></li>
-<li>分离部分 MOSN 接口定义到 <a href="https://github.com/mosn/api" target="_blank">mosn.io/api</a></li>
+<li>路由 Path Rewrite 支持按照正则表达式的方式配置 Rewrite 的内容 <a href="https://github.com/liangyuanpeng" target="_blank">@liangyuanpeng</a></li>
+<li>配置新增字段： 扩展配置字段，可通过扩展配置字段自定义启动配置；Dubbo 服务发现配置通过扩展的配置字段实现 <a href="https://github.com/cch123" target="_blank">@cch123</a></li>
+<li>支持 DSL 新特性，可以方便的对请求的处理行为进行控制 <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+<li>StreamFilter 新增流量镜像功能的扩展实现 <a href="https://github.com/champly" target="_blank">@champly</a></li>
+<li>Listener 配置新增对 UDP 的支持 <a href="https://github.com/dengqian" target="_blank">@dengqian</a></li>
+<li>配置格式支持 Yaml 格式解析 <a href="https://github.com/GLYASAI" target="_blank">@GLYASAI</a></li>
+<li>路由支持 HTTP 重定向配置 <a href="https://github.com/knight42" target="_blank">@knight42</a></li>
 </ul>
 
 <h3 id="优化">优化</h3>
 
 <ul>
-<li>日志基础模块分离到 <code>mosn.io/pkg</code>，MOSN 的日志实现优化</li>
-<li>优化 FeatureGate（<a href="https://github.com/mosn/mosn/pull/927" target="_blank">#927</a>，<a href="https://github.com/nejisama" target="_blank">@nejisama</a>）</li>
-<li>新增处理获取 SDS 配置失败时的处理</li>
-<li>CDS 动态删除 Cluster时，会同步停止对应 Cluster 的健康检查</li>
-<li>SDS 触发证书更新时的回调函数新增证书配置作为参数</li>
+<li>支持 istio 的 stats filter，可以根据匹配条件进行 metrics 的个性化记录 <a href="https://github.com/wzshiming" target="_blank">@wzshiming</a></li>
+<li>Metrics 配置支持配置 Histogram 的输出百分比 <a href="https://github.com/champly" target="_blank">@champly</a></li>
+<li>StreamFilter 新增状态用于直接中止请求，并且不响应客户端 <a href="https://github.com/taoyuanyuan" target="_blank">@taoyuanyuan</a></li>
+<li>XProtocol Hijack 响应支持携带 Body <a href="https://github.com/champly" target="_blank">@champly</a></li>
+<li>Skywalking 升级到 0.5.0 版本 <a href="https://github.com/arugal" target="_blank">arugal</a></li>
+<li>Upstream 连接 TLS 状态判断修改，支持通过 TLS 配置的 Hash 判断是否需要重新建立连接 <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>优化 DNS cache 逻辑，防止在 DNS 失效时可能引起的 DNS flood 问题 <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
 </ul>
 
 <h3 id="bug-修复">Bug 修复</h3>
 
 <ul>
-<li>修复在 SOFARPC Oneway 请求失败时，导致的内存泄漏问题</li>
-<li>修复在收到非标准的 HTTP 响应时，返回 502 错误的问题</li>
-<li>修复 DUMP 配置时可能存在的并发冲突</li>
-<li>修复 TraceLog 统计的 Request 和 Response Size 错误问题</li>
-<li>修复因为并发写连接导致写超时失效的问题</li>
-<li>修复 serialize 序列化的 bug</li>
-<li>修复连接读取时内存复用保留 buffer 过大导致内存占用过高的问题</li>
-<li>优化 XProtocol 中 Dubbo 相关实现</li>
+<li>修复开启 TLS 加密场景下，XProtocol 协议在有多个协议的场景下判断协议错误的 BUG <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>修复 AccessLog 中前缀匹配类型的变量不生效的 BUG <a href="https://github.com/dengqian" target="_blank">@dengqian</a></li>
+<li>修复 Listener 配置解析处理不正确的 BUG <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>修复 Router/Cluster 在文件持久化配置类型中，Name 字段包含路径分隔符时会保存失败的 BUG <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
 </ul>
 
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/blog/releases/mosn-0.1.0-perfermence-report/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+    <a href="/blog/releases/v0.14.0/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
   </li>
-    <a href="/blog/releases/v0.11.0/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+    <a  class="btn btn-primary  disabled">下一页 <span class="ml-1">→</span></a>
   </li>
 </ul>
 

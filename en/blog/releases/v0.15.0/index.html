@@ -18,30 +18,27 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Announcing MOSN v0.10.0 | MOSN</title><meta property="og:title" content="Announcing MOSN v0.10.0" />
-<meta property="og:description" content="MOSN v0.10.0 changelog.
-" />
+<title>Announcing MOSN v0.15.0 | MOSN</title><meta property="og:title" content="Announcing MOSN v0.15.0" />
+<meta property="og:description" content="MOSN v0.15.0 changelog." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mosn.io/en/blog/releases/v0.10.0/" />
-<meta property="article:published_time" content="2020-02-28T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://mosn.io/en/blog/releases/v0.15.0/" />
+<meta property="article:published_time" content="2020-08-05T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2020-08-07T15:22:43&#43;08:00"/><meta property="og:site_name" content="MOSN" />
 
-<meta itemprop="name" content="Announcing MOSN v0.10.0">
-<meta itemprop="description" content="MOSN v0.10.0 changelog.
-">
+<meta itemprop="name" content="Announcing MOSN v0.15.0">
+<meta itemprop="description" content="MOSN v0.15.0 changelog.">
 
 
-<meta itemprop="datePublished" content="2020-02-28T00:00:00&#43;00:00" />
+<meta itemprop="datePublished" content="2020-08-05T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-08-07T15:22:43&#43;08:00" />
-<meta itemprop="wordCount" content="196">
+<meta itemprop="wordCount" content="270">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Announcing MOSN v0.10.0"/>
-<meta name="twitter:description" content="MOSN v0.10.0 changelog.
-"/>
+<meta name="twitter:title" content="Announcing MOSN v0.15.0"/>
+<meta name="twitter:description" content="MOSN v0.15.0 changelog."/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -70,7 +67,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Announcing MOSN v0.10.0 | MOSN</title>
+    <title>Announcing MOSN v0.15.0 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -152,7 +149,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/blog/releases/v0.10.0/">中文</a>
+	<a class="dropdown-item" href="/blog/releases/v0.15.0/">中文</a>
 	
 </div>
 			</li>
@@ -194,7 +191,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/blog/releases/v0.10.0/">中文</a>
+	<a class="dropdown-item" href="/blog/releases/v0.15.0/">中文</a>
 	
 </div>
     </div>
@@ -235,7 +232,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-blog-releases-v0-15-0" href="/en/blog/releases/v0.15.0/">Announcing MOSN v0.15.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-en-blog-releases-v0-15-0" href="/en/blog/releases/v0.15.0/">Announcing MOSN v0.15.0</a>
       
       
       
@@ -265,7 +262,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-en-blog-releases-v0-10-0" href="/en/blog/releases/v0.10.0/">Announcing MOSN v0.10.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-blog-releases-v0-10-0" href="/en/blog/releases/v0.10.0/">Announcing MOSN v0.10.0</a>
       
       
     </li>
@@ -297,8 +294,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/blog/releases/v0.10.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Announcing%20MOSN%20v0.10.0" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/en/blog/releases/v0.15.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Announcing%20MOSN%20v0.15.0" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
@@ -314,10 +311,9 @@ if (!doNotTrack) {
 <ul>
 <li>
 <ul>
-<li>
+<li><a href="#v0-15-0">v0.15.0</a>
 <ul>
-<li><a href="#new-features">New features</a></li>
-<li><a href="#refactoring">Refactoring</a></li>
+<li><a href="#new-features">New Features</a></li>
 <li><a href="#optimization">Optimization</a></li>
 <li><a href="#bug-fixes">Bug fixes</a></li>
 </ul></li>
@@ -334,61 +330,58 @@ if (!doNotTrack) {
             </a>
             
 <div class="td-content">
-	<h1>Announcing MOSN v0.10.0</h1>
-	<div class="lead">MOSN v0.10.0 changelog.</div>
+	<h1>Announcing MOSN v0.15.0</h1>
+	<div class="lead">MOSN v0.15.0 changelog.</div>
 	<div class="td-byline mb-4">
 		By <b>MOSN Team</b> |
-		<time datetime="2020-02-28" class="text-muted">Feb 28, 2020</time>
+		<time datetime="2020-08-05" class="text-muted">Aug 5, 2020</time>
 	</div>
 	
 
-<p>We are happy to announce the release of <a href="https://github.com/mosn/mosn/releases/tag/v0.10.0" target="_blank">MOSN v0.10.0</a>. You can see the changelog below.</p>
+<p>We are happy to announce the release of <a href="https://github.com/mosn/mosn/releases/tag/v0.15.0" target="_blank">MOSN v0.15.0</a>, congratulations to Deng Qian (<a href="https://github.com/dengqian" target="_blank">@dengqian</a>) on becoming a MOSN Committer and thanks for her contribution to the MOSN community.</p>
 
-<h3 id="new-features">New features</h3>
+<h2 id="v0-15-0">v0.15.0</h2>
 
-<ul>
-<li>Support multi-process plugin mode (<a href="https://github.com/mosn/mosn/pull/979" target="_blank">#979</a>, <a href="https://github.com/taoyuanyuan" target="_blank">@taoyuanyuan</a>)</li>
-<li>Startup parameters support service-meta parameters (<a href="https://github.com/mosn/mosn/pull/952" target="_blank">#952</a>, <a href="https://github.com/trainyao" target="_blank">@trainyao</a>)</li>
-<li>Supports abstract UDS mode to mount SDS socket</li>
-</ul>
-
-<h3 id="refactoring">Refactoring</h3>
+<h3 id="new-features">New Features</h3>
 
 <ul>
-<li>Separate some MOSN base library code into <a href="https://github.com/mosn/pkg" target="_blank">mosn.io/pkg</a> package</li>
-<li>Separate MOSN interface definition to <a href="https://github.com/mosn/api" target="_blank">mosn.io/api</a> package</li>
+<li>Routing Path Rewrite supports configuring the content of Rewrite by regular expression <a href="https://github.com/liangyuanpeng" target="_blank">@liangyuanpeng</a></li>
+<li>Configure new fields: Extended configuration fields, you can start the configuration by extending the configuration fields; Dubbo service discovery configuration via extended configuration fields <a href="https://github.com/cch123" target="_blank">@cch123</a></li>
+<li>New DSL feature for easy control of request processing behavior <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
+<li>Extended implementation of StreamFilter with new traffic mirroring function <a href="https://github.com/champly" target="_blank">@champly</a></li>
+<li>Listener configuration adds UDP support <a href="https://github.com/dengqian" target="_blank">@dengqian</a></li>
+<li>Configuration format support YAML format parsing <a href="https://github.com/GLYASAI" target="_blank">@GLYASAI</a></li>
+<li>Routing support for HTTP redirect configuration <a href="https://github.com/knight42" target="_blank">@knight42</a></li>
 </ul>
 
 <h3 id="optimization">Optimization</h3>
 
 <ul>
-<li>The log basic module is separated into <code>mosn.io/pkg</code>, and the log of MOSN is optimized</li>
-<li>Optimize FeatureGate (<a href="https://github.com/mosn/mosn/pull/927" target="_blank">#927</a>, <a href="https://github.com/nejisama" target="_blank">@nejisama</a>)</li>
-<li>Added processing when failed to get SDS configuration</li>
-<li>When CDS deletes a cluster dynamically, it will stop the health check corresponding to the cluster</li>
-<li>The callback function when SDS triggers certificate update adds certificate configuration as a parameter</li>
+<li>Istio&rsquo;s stats filter for personalizing metrics based on matching criteria <a href="https://github.com/wzshiming" target="_blank">@wzshiming</a></li>
+<li>Metrics configuration support to configure the output percentage of the Histogram <a href="https://github.com/champly" target="_blank">@champly</a></li>
+<li>StreamFilter New state for aborting requests directly and not responding to clients <a href="https://github.com/taoyuanyuan" target="_blank">@taoyuanyuan</a></li>
+<li>XProtocol hijack response support carry body <a href="https://github.com/champly" target="_blank">@champly</a></li>
+<li>Apache SkyWalking upgrade to version 0.5.0 <a href="https://github.com/arugal" target="_blank">arugal</a></li>
+<li>Upstream Connection TLS State Determination Modification to support the determination of whether a connection needs to be re-established via a TLS-configured Hash <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>Optimize DNS cache logic to prevent DNS flooding issues that can be caused when DNS fails <a href="https://github.com/wangfakang" target="_blank">@wangfakang</a></li>
 </ul>
 
 <h3 id="bug-fixes">Bug fixes</h3>
 
 <ul>
-<li>Fixed a memory leak issue when SOFARPC Oneway request failed</li>
-<li>Fixed the issue of 502 error when receiving non-standard HTTP response</li>
-<li>Fixed possible conflicts during DUMP configuration</li>
-<li>Fixed the error of Request and Response Size of TraceLog statistics</li>
-<li>Fixed write timeout failure due to concurrent write connections</li>
-<li>Fixed serialize bug</li>
-<li>Fixed the problem that the memory reuse buffer is too large when the connection is read, causing the memory consumption to be too high</li>
-<li>Optimize Dubbo related implementation in XProtocol</li>
+<li>Fix the bug that XProtocol protocols determine protocol errors in scenarios with multiple protocols when TLS encryption is enabled <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>Fix bug in AccessLog where variables of prefix match type don&rsquo;t work <a href="https://github.com/dengqian" target="_blank">@dengqian</a></li>
+<li>Fix bug where Listener configuration parsing is not handled correctly <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
+<li>Fix Router/Cluster bug that fails to save when the Name field contains a path separator in the file persistence configuration type <a href="https://github.com/nejisama" target="_blank">@nejisama</a></li>
 </ul>
 
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a  class="btn btn-primary  disabled"><span class="mr-1">←</span> Previous</a>
+    <a href="/en/blog/releases/v0.14.0/" class="btn btn-primary "><span class="mr-1">←</span> Previous</a>
   </li>
-    <a href="/en/blog/releases/v0.11.0/" class="btn btn-primary ">Next <span class="ml-1">→</span></a>
+    <a  class="btn btn-primary  disabled">Next <span class="ml-1">→</span></a>
   </li>
 </ul>
 

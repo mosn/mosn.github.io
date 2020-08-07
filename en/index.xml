@@ -13,6 +13,57 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.15.0</title>
+      <link>https://mosn.io/en/blog/releases/v0.15.0/</link>
+      <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v0.15.0/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.15.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.15.0&lt;/a&gt;, congratulations to Deng Qian (&lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;) on becoming a MOSN Committer and thanks for her contribution to the MOSN community.&lt;/p&gt;
+
+&lt;h2 id=&#34;v0-15-0&#34;&gt;v0.15.0&lt;/h2&gt;
+
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Routing Path Rewrite supports configuring the content of Rewrite by regular expression &lt;a href=&#34;https://github.com/liangyuanpeng&#34; target=&#34;_blank&#34;&gt;@liangyuanpeng&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Configure new fields: Extended configuration fields, you can start the configuration by extending the configuration fields; Dubbo service discovery configuration via extended configuration fields &lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;New DSL feature for easy control of request processing behavior &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Extended implementation of StreamFilter with new traffic mirroring function &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Listener configuration adds UDP support &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Configuration format support YAML format parsing &lt;a href=&#34;https://github.com/GLYASAI&#34; target=&#34;_blank&#34;&gt;@GLYASAI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Routing support for HTTP redirect configuration &lt;a href=&#34;https://github.com/knight42&#34; target=&#34;_blank&#34;&gt;@knight42&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Istio&amp;rsquo;s stats filter for personalizing metrics based on matching criteria &lt;a href=&#34;https://github.com/wzshiming&#34; target=&#34;_blank&#34;&gt;@wzshiming&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Metrics configuration support to configure the output percentage of the Histogram &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;StreamFilter New state for aborting requests directly and not responding to clients &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;XProtocol hijack response support carry body &lt;a href=&#34;https://github.com/champly&#34; target=&#34;_blank&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Apache SkyWalking upgrade to version 0.5.0 &lt;a href=&#34;https://github.com/arugal&#34; target=&#34;_blank&#34;&gt;arugal&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Upstream Connection TLS State Determination Modification to support the determination of whether a connection needs to be re-established via a TLS-configured Hash &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize DNS cache logic to prevent DNS flooding issues that can be caused when DNS fails &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fix the bug that XProtocol protocols determine protocol errors in scenarios with multiple protocols when TLS encryption is enabled &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix bug in AccessLog where variables of prefix match type don&amp;rsquo;t work &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix bug where Listener configuration parsing is not handled correctly &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix Router/Cluster bug that fails to save when the Name field contains a path separator in the file persistence configuration type &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.14.0</title>
       <link>https://mosn.io/en/blog/releases/v0.14.0/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
