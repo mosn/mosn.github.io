@@ -791,7 +791,7 @@ BenchmarkNewDecoderOptimized-12 &lt;span style=&#34;color:#0000cf;font-weight:bo
 
 &lt;p&gt;在2020年伊始，MOSN 团队在社区发起了 MOSN 源码解析系列活动，本次活动旨在增强社区对 MOSN 的认知，促进开源社区的交流，是大家学习和使用 MOSN，与 MOSN 的核心开发者直接交流的一个良好契机。&lt;/p&gt;
 
-&lt;p&gt;经过十几位社区同学的参与，目前十四篇文章都已经完成，本文将做一个整体介绍，方便大家更好的了解 MOSN。查看原文解析系列文章请访问： &lt;a href=&#34;https://mosn.ioblog/code/&#34; target=&#34;_blank&#34;&gt;https://mosn.ioblog/code/&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;经过十几位社区同学的参与，目前十四篇文章都已经完成，本文将做一个整体介绍，方便大家更好的了解 MOSN。查看原文解析系列文章请访问： &lt;a href=&#34;https://mosn.io/blog/code/&#34; target=&#34;_blank&#34;&gt;https://mosn.io/blog/code/&lt;/a&gt;。&lt;/p&gt;
 
 &lt;h2 id=&#34;模块能力&#34;&gt;模块能力&lt;/h2&gt;
 
