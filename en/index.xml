@@ -13,6 +13,48 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.16.0</title>
+      <link>https://mosn.io/en/blog/releases/v0.16.0/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v0.16.0/</guid>
+      <description>
+        
+        
+        
+
+&lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.16.0&#34; target=&#34;_blank&#34;&gt;MOSN v0.16.0&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;v0-16-0&#34;&gt;v0.16.0&lt;/h2&gt;
+
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Logger Roller supports the custom Roller. &lt;a href=&#34;https://github.com/wenxuwan&#34; target=&#34;_blank&#34;&gt;@wenxuwan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add a SendHijackReplyWithBody API for streamFilter. &lt;a href=&#34;https://github.com/wenxuwan&#34; target=&#34;_blank&#34;&gt;@wenxuwan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The configuration adds option of turning off the smooth upgrade. If the smooth upgrade is turned off, different instances of MOSN can be started on the same machine. &lt;a href=&#34;https://github.com/cch123&#34; target=&#34;_blank&#34;&gt;@cch123&lt;/a&gt;+ Optimize the MOSN integration test framework and add more unit test cases. &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt; &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt; &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;DirectResponse route configuration supports the update mode of XDS. &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add a new field of TLSContext for clusterManager configuration. &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fix the bug that UDP connection timeout during the smooth upgrade will cause an endless loop. &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug that call DirectResponse in the SendFilter will cause an endless loop. &lt;a href=&#34;https://github.com/taoyuanyuan&#34; target=&#34;_blank&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix concurrency conflicts in HTTP2 stream counting. &lt;a href=&#34;https://github.com/wenxuwan&#34; target=&#34;_blank&#34;&gt;@wenxuwan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug that UDP connection read timeout cause data loss. &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug that the response StatusCode cannot be recorded correctly due to the loss of the protocol flag when doing a retry. &lt;a href=&#34;https://github.com/dengqian&#34; target=&#34;_blank&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the protocol boltv2 decode error. &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug that listener cannot be restarted automatically when listener panic. &lt;a href=&#34;https://github.com/alpha-baby&#34; target=&#34;_blank&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug that NoCache flag is invalid in variable. &lt;a href=&#34;https://github.com/wangfakang&#34; target=&#34;_blank&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix concurrency conflicts in SDS reconnect. &lt;a href=&#34;https://github.com/nejisama&#34; target=&#34;_blank&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.15.0</title>
       <link>https://mosn.io/en/blog/releases/v0.15.0/</link>
       <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
