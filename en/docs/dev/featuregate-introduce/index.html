@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.55.5" />
+<meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
 
@@ -23,17 +23,14 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/en/docs/dev/featuregate-introduce/" />
-<meta property="article:published_time" content="2020-03-13T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-09-03T15:39:14&#43;08:00"/><meta property="og:site_name" content="MOSN" />
-
+<meta property="article:published_time" content="2020-03-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-30T15:51:50+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="FeatureGate overview">
 <meta itemprop="description" content="This topic describes FeatureGate of MOSN.
 ">
-
-
-<meta itemprop="datePublished" content="2020-03-13T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-09-03T15:39:14&#43;08:00" />
-<meta itemprop="wordCount" content="1461">
+<meta itemprop="datePublished" content="2020-03-13T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-30T15:51:50+08:00" />
+<meta itemprop="wordCount" content="1459">
 
 
 
@@ -57,8 +54,8 @@ if (!doNotTrack) {
 
 
 
-<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
-<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -77,7 +74,7 @@ if (!doNotTrack) {
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
         <a class="navbar-brand" href="/en/">
-		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
         
 	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
@@ -119,7 +116,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/en/docs/community/" ><span class="active">Community</span></a>
+				<a class="nav-link" href="/en/docs/community/" ><span>Community</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -129,7 +126,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/en/docs/tutorial/" ><span class="active">Tutorial</span></a>
+				<a class="nav-link" href="/en/docs/tutorial/" ><span>Tutorial</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -139,7 +136,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/en/docs/faq/" ><span class="active">FAQ</span></a>
+				<a class="nav-link" href="/en/docs/faq/" ><span>FAQ</span></a>
 			</li>
 			
 			
@@ -211,20 +208,20 @@ if (!doNotTrack) {
     <a  href="/en/docs/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Documentation</a>
   </li>
   <ul>
-    <li class="collapse show" id="en-docs">
+    <li class="collapse show" id="endocs">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-overview" href="/en/docs/overview/">Overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsoverview" href="/en/docs/overview/">Overview</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-en-docs-dev-featuregate-introduce" href="/en/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-endocsdevfeaturegate-introduce" href="/en/docs/dev/featuregate-introduce/">FeatureGate overview</a>
       
       
       
@@ -240,20 +237,20 @@ if (!doNotTrack) {
     <a  href="/en/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Get started</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-quick-start">
+    <li class="collapse " id="endocsquick-start">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-quick-start-proxy" href="/en/docs/quick-start/proxy/">Quick start</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsquick-startproxy" href="/en/docs/quick-start/proxy/">Quick start</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-quick-start-istio" href="/en/docs/quick-start/istio/">Istio integration</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsquick-startistio" href="/en/docs/quick-start/istio/">Istio integration</a>
       
       
     </li>
@@ -275,38 +272,38 @@ if (!doNotTrack) {
     <a  href="/en/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-concept">
+    <li class="collapse " id="endocsconcept">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-core-concept" href="/en/docs/concept/core-concept/">Core concepts</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconceptcore-concept" href="/en/docs/concept/core-concept/">Core concepts</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-sidecar-pattern" href="/en/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconceptsidecar-pattern" href="/en/docs/concept/sidecar-pattern/">Sidecar pattern</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-traffic-hijack" href="/en/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconcepttraffic-hijack" href="/en/docs/concept/traffic-hijack/">Traffic hijacking</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-tls" href="/en/docs/concept/tls/">TLS connections</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconcepttls" href="/en/docs/concept/tls/">TLS connections</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-smooth-upgrade" href="/en/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconceptsmooth-upgrade" href="/en/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
       
       
     </li>
@@ -328,7 +325,7 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Configuration overview</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration">
+    <li class="collapse " id="endocsconfiguration">
       
       
       
@@ -345,14 +342,14 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-listener">
+    <li class="collapse " id="endocsconfigurationlistener">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-filter-chain" href="/en/docs/configuration/listener/filter-chain/">FilterChain</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationlistenerfilter-chain" href="/en/docs/configuration/listener/filter-chain/">FilterChain</a>
       
       
       
@@ -368,20 +365,20 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-listener-network-filter">
+    <li class="collapse " id="endocsconfigurationlistenernetwork-filter">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-network-filter-proxy" href="/en/docs/configuration/listener/network-filter/proxy/">proxy</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationlistenernetwork-filterproxy" href="/en/docs/configuration/listener/network-filter/proxy/">proxy</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-network-filter-connection-manager" href="/en/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationlistenernetwork-filterconnection-manager" href="/en/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
       
       
     </li>
@@ -409,14 +406,14 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server configurations</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-server">
+    <li class="collapse " id="endocsconfigurationserver">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-server-router" href="/en/docs/configuration/server/router/">Router configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationserverrouter" href="/en/docs/configuration/server/router/">Router configurations</a>
       
       
     </li>
@@ -438,26 +435,14 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-trace">
+    <li class="collapse " id="endocsconfigurationtrace">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-trace-skywalking" href="/en/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-custom" href="/en/docs/configuration/custom/">Custom configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationtraceskywalking" href="/en/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
       
       
     </li>
@@ -469,7 +454,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-samples" href="/en/docs/samples/">Example projects</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationcustom" href="/en/docs/configuration/custom/">Custom configurations</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocssamples" href="/en/docs/samples/">Example projects</a>
       
       
       
@@ -485,26 +482,26 @@ if (!doNotTrack) {
     <a  href="/en/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-contribute">
+    <li class="collapse " id="endocscontribute">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-github" href="/en/docs/contribute/github/">Documentation contribution guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscontributegithub" href="/en/docs/contribute/github/">Documentation contribution guide</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-creating-pages" href="/en/docs/contribute/creating-pages/">Create a page</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscontributecreating-pages" href="/en/docs/contribute/creating-pages/">Create a page</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-style-guide" href="/en/docs/contribute/style-guide/">Format guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscontributestyle-guide" href="/en/docs/contribute/style-guide/">Format guide</a>
       
       
     </li>
@@ -516,19 +513,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-faq" href="/en/docs/faq/">FAQ</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsfaq" href="/en/docs/faq/">FAQ</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-community" href="/en/docs/community/">Community</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscommunity" href="/en/docs/community/">Community</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-tutorial" href="/en/docs/tutorial/">Tutorial</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocstutorial" href="/en/docs/tutorial/">Tutorial</a>
       
       
     </li>
@@ -568,26 +565,16 @@ if (!doNotTrack) {
 
 
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#featuregate-overview">FeatureGate overview</a></li>
-<li><a href="#featuregate-based-development">FeatureGate-based development</a>
-<ul>
-<li><a href="#implementation-of-featuregate">Implementation of Featuregate</a></li>
-<li><a href="#usage">Usage</a>
-<ul>
-<li><a href="#1-basic-global-switch">1. Basic global switch</a></li>
-<li><a href="#2-initialization-operation">2. Initialization operation</a></li>
-<li><a href="#3-feature-dependency-management">3. Feature dependency management</a></li>
-</ul></li>
-<li><a href="#faq">FAQ</a>
-<ul>
-<li><a href="#why-is-featuregate-used-instead-of-configuration-files">Why is FeatureGate used instead of configuration files?</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#featuregate-overview">FeatureGate overview</a></li>
+    <li><a href="#featuregate-based-development">FeatureGate-based development</a>
+      <ul>
+        <li><a href="#implementation-of-featuregate">Implementation of Featuregate</a></li>
+        <li><a href="#usage">Usage</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
 
 
@@ -623,34 +610,25 @@ if (!doNotTrack) {
 <div class="td-content">
 	<h1>FeatureGate overview</h1>
 	<div class="lead">This topic describes FeatureGate of MOSN.</div>
-	
-
-<h2 id="featuregate-overview">FeatureGate overview</h2>
-
+	<h2 id="featuregate-overview">FeatureGate overview</h2>
 <p>When using MOSN, you may want to enable some features at startup and disable those that you do not need. To meet this requirement, MOSN provides a feature switch: FeatureGate.</p>
-
 <p>FeatureGate specifies a pair of states (enabled/disabled) for features in MOSN. Each feature has its own default state. Different MOSN versions support different features and default states. FeatureGate describes features and their states in a string in the form of <code>${feature}=${bool}</code>. Multiple features and states are separated by a comma.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">// General template
 ./mosn start -c <span style="color:#4e9a06">${</span><span style="color:#000">config</span><span style="color:#000;font-weight:bold"> path</span><span style="color:#4e9a06">}</span> -f <span style="color:#4e9a06">${</span><span style="color:#000">feature</span><span style="color:#000;font-weight:bold"> gates description</span><span style="color:#4e9a06">}</span>
 // Example
-./mosn start -c mosn_config.json -f <span style="color:#4e9a06">&#34;auto_config=true,XdsMtlsEnable=true&#34;</span></code></pre></div>
-<p>FeatureGate supports not only feature switching, but also extensible development. During MOSN-based secondary development, you can use the following FeatureGate capabilities:</p>
-
+./mosn start -c mosn_config.json -f <span style="color:#4e9a06">&#34;auto_config=true,XdsMtlsEnable=true&#34;</span>
+</code></pre></div><p>FeatureGate supports not only feature switching, but also extensible development. During MOSN-based secondary development, you can use the following FeatureGate capabilities:</p>
 <ul>
 <li>Feature switching. You can use FeatureGate to enable/disable a specific feature.</li>
 <li>Feature dependency management. This includes startup sequence and enabled/disabled state dependencies between features.
-
 <ul>
 <li>For example, we have two features A and B implemented in MOSN. Initialization of Feature B depends on the initialization result of Feature A. That is to say Feature B depends on Feature A. When Feature A is disabled, Feature B is disabled or downgraded accordingly. FeatureGate provides a simple mechanism to help you focus on feature development, without being distracted by the management of startup items and dependencies.</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>FeatureGate is mainly intended for secondary development of different features in MOSN.</p>
-
 <h2 id="featuregate-based-development">FeatureGate-based development</h2>
-
 <h3 id="implementation-of-featuregate">Implementation of Featuregate</h3>
-
 <p>FeatureGate provides the following APIs:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#8f5902;font-style:italic">// Returns the current status of a feature, where &#34;true&#34; indicates &#34;enabled&#34;, and &#34;false&#34; indicates &#34;disabled&#34;.
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">Enabled</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">key</span> <span style="color:#000">Feature</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">bool</span>
@@ -670,9 +648,8 @@ if (!doNotTrack) {
 <span style="color:#8f5902;font-style:italic">// Enables feature initialization.
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">StartInit</span><span style="color:#000;font-weight:bold">()</span>
 <span style="color:#8f5902;font-style:italic">// Waits for the initialization of all features to finish.
-</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">WaitInitFinsh</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">error</span></code></pre></div>
-<p>StartInit and WaitInitFinsh are called by MOSN and can be ignored during secondary development based on MOSN. Generally, Set and SetFromMap can also be ignored. All the above APIs are exposed by the default non-exportable global FeatureGate object. You can use the default FeatureGate object without creating a new one, unless otherwise required in special cases (for example, when writing unit tests).</p>
-
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">WaitInitFinsh</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">error</span>
+</code></pre></div><p>StartInit and WaitInitFinsh are called by MOSN and can be ignored during secondary development based on MOSN. Generally, Set and SetFromMap can also be ignored. All the above APIs are exposed by the default non-exportable global FeatureGate object. You can use the default FeatureGate object without creating a new one, unless otherwise required in special cases (for example, when writing unit tests).</p>
 <p>The following example shows how FeatureGate is implemented.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">knownFeatureSpec</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
         <span style="color:#000">FeatureSpec</span>
@@ -688,14 +665,15 @@ if (!doNotTrack) {
 </span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">inited</span> <span style="color:#204a87;font-weight:bold">bool</span>
         <span style="color:#000">wg</span>     <span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WaitGroup</span>
         <span style="color:#000">once</span>   <span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Once</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>FeatureGate consists of the following member variables:
-- <code>map</code>: records all supported features;
-- <code>inited</code>: a status indicator that indicates whether FeatureGate has been initialized;
-- <code>once</code>: used to ensure that FeatureGate is initialized only once;
-- <code>WaitGroup</code>: used to synchronize the feature initialization result;
-- <code>Mutex</code>: used for concurrency control.</p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>FeatureGate consists of the following member variables:</p>
+<ul>
+<li><code>map</code>: records all supported features;</li>
+<li><code>inited</code>: a status indicator that indicates whether FeatureGate has been initialized;</li>
+<li><code>once</code>: used to ensure that FeatureGate is initialized only once;</li>
+<li><code>WaitGroup</code>: used to synchronize the feature initialization result;</li>
+<li><code>Mutex</code>: used for concurrency control.</li>
+</ul>
 <p>According to the design of FeatureGate, you can add new features by calling the <code>Add</code> method, and modify their states by calling the <code>Set</code> method. However, initialization of all features is uniformly implemented by executing the <code>Init</code> function. After <code>Init</code> is executed, no feature can be added, and no feature state can be modified. That is why we need the <code>inited</code> status indicator to record the initialization action.
 <code>knownFeatureSpec</code> is a non-exportable structure that specifies <code>FeatureSpec</code> of different features. Both <code>once</code> and <code>channel</code> are used for subscription and initialization in FeatureGate, and are not detailed here.
 The following describes the definition of <code>FeatureSpec</code>, which is the core data structure for FeatureGate-based development.</p>
@@ -719,8 +697,8 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 </span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">InitFunc</span><span style="color:#000;font-weight:bold">()</span>
         <span style="color:#8f5902;font-style:italic">// PreRelease indicates the maturity level of the feature
 </span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">PreRelease</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000">prerelease</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<ul>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><ul>
 <li><code>prerelease</code> refers to a non-exportable type. There are only three conventional exportable variables whose type is prerelease. It is equivalent to the Enum type in conventional languages and is used to describe feature information. The role of prerelease is currently not clear.</li>
 <li><code>FeatureSpec</code> can be implemented with your own code. Generally, you can use <code>BaseFeatureSpec</code> provided by the framework or implement a new one based on <code>BaseFeatureSpec</code>. As described in the following comments, you generally only need to encapsulate an additional <code>InitFunc</code> function to implement this API.</li>
 </ul>
@@ -736,13 +714,10 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
         <span style="color:#000">PreReleaseValue</span> <span style="color:#000">prerelease</span>
         <span style="color:#000">stateValue</span>      <span style="color:#204a87;font-weight:bold">bool</span>  <span style="color:#8f5902;font-style:italic">// stateValue shoule be setted by SetState
 </span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">inited</span>          <span style="color:#204a87;font-weight:bold">int32</span> <span style="color:#8f5902;font-style:italic">// inited cannot be setted
-</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h3 id="usage">Usage</h3>
-
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h3 id="usage">Usage</h3>
 <p>After understanding the basic implementation of FeatureGate, you can use it for basic extended programming. The following describes several usage scenarios of FeatureGate and methods for writing features.</p>
-
 <h4 id="1-basic-global-switch">1. Basic global switch</h4>
-
 <p>In feature switching, the most basic usage scenario of FeatureGate, FeatureGate works like a global variable. <code>if</code> conditional judgement is used to execute different logic here. This allows FeatureGate to integrate all feature switching control parameters into the startup parameters.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">featureName</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;simple_feature&#34;</span>
 <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">init</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
@@ -758,9 +733,8 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
     <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
         <span style="color:#000">dosth2</span><span style="color:#000;font-weight:bold">()</span>
     <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h4 id="2-initialization-operation">2. Initialization operation</h4>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h4 id="2-initialization-operation">2. Initialization operation</h4>
 <p>The InitFunc function enables related initialization procedures to be uniformly performed when MOSN starts. If a feature is disabled, it will not be executed by InitFunc.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">featureName</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;init_feature&#34;</span>
 
@@ -771,11 +745,9 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">MyFeature</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">InitFunc</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">doInit</span><span style="color:#000;font-weight:bold">()</span>
 <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#ce5c00;font-weight:bold">//</span> <span style="color:#000">The</span> <span style="color:#000">rest</span> <span style="color:#000">are</span> <span style="color:#000">similar</span> <span style="color:#000">to</span> <span style="color:#000">the</span> <span style="color:#000">code</span> <span style="color:#000">example</span> <span style="color:#000">provided</span> <span style="color:#000">in</span> <span style="color:#0000cf;font-weight:bold">1.</span> <span style="color:#000">Basic</span> <span style="color:#000">global</span> <span style="color:#204a87;font-weight:bold">switch</span><span style="color:#000;font-weight:bold">.</span></code></pre></div>
-<h4 id="3-feature-dependency-management">3. Feature dependency management</h4>
-
+<span style="color:#8f5902;font-style:italic">// The rest are similar to the code example provided in 1. Basic global switch.
+</span></code></pre></div><h4 id="3-feature-dependency-management">3. Feature dependency management</h4>
 <p>This is the most important capability of FeatureGate. It easily solves the following problem.</p>
-
 <ul>
 <li>Assume that we have four independent features: A, B, C, and D.</li>
 <li>B and C depend on A, which means we must enable A before we can enable B and C. D depends on B, which means we must enable B before we can enable D.</li>
@@ -789,7 +761,8 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
         <span style="color:#000">DefaultValue</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">true</span>
     <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AddFeatureSpec</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">FeatureA</span><span style="color:#000;font-weight:bold">,</span><span style="color:#000">fs</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">FeatureB</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;B&#34;</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">FeatureB</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;B&#34;</span>
 
 <span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">FB</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">BaseFeatureSpec</span>
@@ -800,7 +773,8 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
     <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#ce5c00;font-weight:bold">||</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">enabled</span> <span style="color:#000;font-weight:bold">{</span>
         <span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetState</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">// If feature A is not enabled, feature B will not be enabled.
 </span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">FeatureC</span>  <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;C&#34;</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">FeatureC</span>  <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;C&#34;</span>
 
 <span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">FC</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">BaseFeatureSpec</span>
@@ -824,7 +798,8 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
     <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mode</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#000;font-weight:bold">{</span>
         <span style="color:#000">dosth2</span><span style="color:#000;font-weight:bold">()</span>
     <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">FeatureD</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;D&#34;</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Go" data-lang="Go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">FeatureD</span> <span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Feature</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;D&#34;</span>
 
 <span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">FD</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">BaseFeatureSpec</span>
@@ -839,11 +814,9 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 <span style="color:#000;font-weight:bold">}</span>
 
 <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">FD</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Start</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h3 id="faq">FAQ</h3>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h3 id="faq">FAQ</h3>
 <h4 id="why-is-featuregate-used-instead-of-configuration-files">Why is FeatureGate used instead of configuration files?</h4>
-
 <ul>
 <li>Unlike configuration files that must be parsed first, FeatureGate is more efficient in implementing advanced features.</li>
 <li>Decision needs to be made on some features earlier than parsing of the configuration files, and may even affect the parsing logic.</li>
@@ -851,7 +824,7 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified September 3, 2020: <a  href="https://github.com/mosn/mosn.io/commit/d18d992a848d23531b53ef4aa2c4061a0e7d7876">add release v0.16.0. (d18d992)</a>
+	<div class="text-muted mt-5 pt-3 border-top">Last modified September 30, 2020: <a  href="https://github.com/mosn/mosn.io/commit/ddae8362c786340f29c30c8a62fc31f2c9c95bef">try to fix build failed (ddae836)</a>
 </div>
 </div>
 
@@ -923,7 +896,7 @@ The following describes the definition of <code>FeatureSpec</code>, which is the
 
 
 
-<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
 
 
 

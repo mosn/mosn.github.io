@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.55.5" />
+<meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 <link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/en/docs/configuration/server/index.xml">
 
@@ -23,12 +23,9 @@
 <meta property="og:description" content="The server configurations of MOSN." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mosn.io/en/docs/configuration/server/" />
-
-<meta property="og:updated_time" content="2020-01-20T00:00:00&#43;00:00"/><meta property="og:site_name" content="MOSN" />
-
+<meta property="og:updated_time" content="2020-09-30T15:51:50+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="Server configurations">
 <meta itemprop="description" content="The server configurations of MOSN.">
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Server configurations"/>
 <meta name="twitter:description" content="The server configurations of MOSN."/>
@@ -47,8 +44,8 @@ if (!doNotTrack) {
 
 
 
-<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
-<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -67,7 +64,7 @@ if (!doNotTrack) {
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
         <a class="navbar-brand" href="/en/">
-		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
         
 	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
@@ -109,7 +106,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/en/docs/community/" ><span class="active">Community</span></a>
+				<a class="nav-link" href="/en/docs/community/" ><span>Community</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -119,7 +116,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/en/docs/tutorial/" ><span class="active">Tutorial</span></a>
+				<a class="nav-link" href="/en/docs/tutorial/" ><span>Tutorial</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -129,7 +126,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/en/docs/faq/" ><span class="active">FAQ</span></a>
+				<a class="nav-link" href="/en/docs/faq/" ><span>FAQ</span></a>
 			</li>
 			
 			
@@ -201,20 +198,20 @@ if (!doNotTrack) {
     <a  href="/en/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
   </li>
   <ul>
-    <li class="collapse show" id="en-docs">
+    <li class="collapse show" id="endocs">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-overview" href="/en/docs/overview/">Overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsoverview" href="/en/docs/overview/">Overview</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-dev-featuregate-introduce" href="/en/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsdevfeaturegate-introduce" href="/en/docs/dev/featuregate-introduce/">FeatureGate overview</a>
       
       
       
@@ -230,20 +227,20 @@ if (!doNotTrack) {
     <a  href="/en/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Get started</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-quick-start">
+    <li class="collapse " id="endocsquick-start">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-quick-start-proxy" href="/en/docs/quick-start/proxy/">Quick start</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsquick-startproxy" href="/en/docs/quick-start/proxy/">Quick start</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-quick-start-istio" href="/en/docs/quick-start/istio/">Istio integration</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsquick-startistio" href="/en/docs/quick-start/istio/">Istio integration</a>
       
       
     </li>
@@ -265,38 +262,38 @@ if (!doNotTrack) {
     <a  href="/en/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-concept">
+    <li class="collapse " id="endocsconcept">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-core-concept" href="/en/docs/concept/core-concept/">Core concepts</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconceptcore-concept" href="/en/docs/concept/core-concept/">Core concepts</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-sidecar-pattern" href="/en/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconceptsidecar-pattern" href="/en/docs/concept/sidecar-pattern/">Sidecar pattern</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-traffic-hijack" href="/en/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconcepttraffic-hijack" href="/en/docs/concept/traffic-hijack/">Traffic hijacking</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-tls" href="/en/docs/concept/tls/">TLS connections</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconcepttls" href="/en/docs/concept/tls/">TLS connections</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-smooth-upgrade" href="/en/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconceptsmooth-upgrade" href="/en/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
       
       
     </li>
@@ -318,7 +315,7 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Configuration overview</a>
   </li>
   <ul>
-    <li class="collapse show" id="en-docs-configuration">
+    <li class="collapse show" id="endocsconfiguration">
       
       
       
@@ -335,14 +332,14 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-listener">
+    <li class="collapse " id="endocsconfigurationlistener">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-filter-chain" href="/en/docs/configuration/listener/filter-chain/">FilterChain</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationlistenerfilter-chain" href="/en/docs/configuration/listener/filter-chain/">FilterChain</a>
       
       
       
@@ -358,20 +355,20 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-listener-network-filter">
+    <li class="collapse " id="endocsconfigurationlistenernetwork-filter">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-network-filter-proxy" href="/en/docs/configuration/listener/network-filter/proxy/">proxy</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationlistenernetwork-filterproxy" href="/en/docs/configuration/listener/network-filter/proxy/">proxy</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-network-filter-connection-manager" href="/en/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationlistenernetwork-filterconnection-manager" href="/en/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
       
       
     </li>
@@ -399,14 +396,14 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/server/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Server configurations</a>
   </li>
   <ul>
-    <li class="collapse show" id="en-docs-configuration-server">
+    <li class="collapse show" id="endocsconfigurationserver">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-server-router" href="/en/docs/configuration/server/router/">Router configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationserverrouter" href="/en/docs/configuration/server/router/">Router configurations</a>
       
       
     </li>
@@ -428,26 +425,14 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-trace">
+    <li class="collapse " id="endocsconfigurationtrace">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-trace-skywalking" href="/en/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-custom" href="/en/docs/configuration/custom/">Custom configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationtraceskywalking" href="/en/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
       
       
     </li>
@@ -459,7 +444,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-samples" href="/en/docs/samples/">Example projects</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationcustom" href="/en/docs/configuration/custom/">Custom configurations</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocssamples" href="/en/docs/samples/">Example projects</a>
       
       
       
@@ -475,26 +472,26 @@ if (!doNotTrack) {
     <a  href="/en/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-contribute">
+    <li class="collapse " id="endocscontribute">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-github" href="/en/docs/contribute/github/">Documentation contribution guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscontributegithub" href="/en/docs/contribute/github/">Documentation contribution guide</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-creating-pages" href="/en/docs/contribute/creating-pages/">Create a page</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscontributecreating-pages" href="/en/docs/contribute/creating-pages/">Create a page</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-style-guide" href="/en/docs/contribute/style-guide/">Format guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscontributestyle-guide" href="/en/docs/contribute/style-guide/">Format guide</a>
       
       
     </li>
@@ -506,19 +503,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-faq" href="/en/docs/faq/">FAQ</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsfaq" href="/en/docs/faq/">FAQ</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-community" href="/en/docs/community/">Community</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscommunity" href="/en/docs/community/">Community</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-tutorial" href="/en/docs/tutorial/">Tutorial</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocstutorial" href="/en/docs/tutorial/">Tutorial</a>
       
       
     </li>
@@ -558,19 +555,17 @@ if (!doNotTrack) {
 
 
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#default-log-path">default_log_path</a></li>
-<li><a href="#default-log-level">default_log_level</a></li>
-<li><a href="#global-log-roller">global_log_roller</a></li>
-<li><a href="#graceful-timeout">graceful_timeout</a>
-<ul>
-<li><a href="#processor">processor</a></li>
-</ul></li>
-<li><a href="#listeners">Listeners</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#default_log_path">default_log_path</a></li>
+    <li><a href="#default_log_level">default_log_level</a></li>
+    <li><a href="#global_log_roller">global_log_roller</a></li>
+    <li><a href="#graceful_timeout">graceful_timeout</a>
+      <ul>
+        <li><a href="#processor">processor</a></li>
+      </ul>
+    </li>
+    <li><a href="#listeners">Listeners</a></li>
+  </ul>
 </nav>
 
 
@@ -616,84 +611,61 @@ if (!doNotTrack) {
 <div class="td-content">
 	<h1>Server configurations</h1>
 	<div class="lead">The server configurations of MOSN.</div>
-	
-
-<p>This topic describes server configurations of MOSN.</p>
-
+	<p>This topic describes server configurations of MOSN.</p>
 <p>In the configuration structure of MOSN, <code>servers</code> indicates a server array, but only one server is supported currently.</p>
-
 <p><code>server</code> describes the following basic global parameters of MOSN.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-josn" data-lang="josn">{
-  &#34;default_log_path&#34;:&#34;&#34;,
-  &#34;default_log_level&#34;:&#34;&#34;,
-  &#34;global_log_roller&#34;:&#34;&#34;,
-  &#34;graceful_timeout&#34;:&#34;&#34;,
-  &#34;processor&#34;:&#34;&#34;,
-  &#34;listeners&#34;:[]
-}</code></pre></div>
-<h2 id="default-log-path">default_log_path</h2>
-
+<pre><code class="language-josn" data-lang="josn">{
+  &quot;default_log_path&quot;:&quot;&quot;,
+  &quot;default_log_level&quot;:&quot;&quot;,
+  &quot;global_log_roller&quot;:&quot;&quot;,
+  &quot;graceful_timeout&quot;:&quot;&quot;,
+  &quot;processor&quot;:&quot;&quot;,
+  &quot;listeners&quot;:[]
+}
+</code></pre><h2 id="default_log_path">default_log_path</h2>
 <p>The default error log path, which supports a complete log path, stdout, and stderr.</p>
-
 <ul>
 <li>If this field is left empty, logs are output to stderr by default.</li>
 </ul>
-
-<h2 id="default-log-level">default_log_level</h2>
-
+<h2 id="default_log_level">default_log_level</h2>
 <p>The default error log level. Valid values: <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code>, and <code>FATAL</code>.</p>
-
 <ul>
 <li>Default value: <code>INFO</code>.</li>
 </ul>
-
-<h2 id="global-log-roller">global_log_roller</h2>
-
+<h2 id="global_log_roller">global_log_roller</h2>
 <ul>
 <li>The log roller configuration, which is valid for all logs, for example, tracelog, accesslog, and defaultlog.</li>
 <li>The string type, which supports two modes: rolling by time and rolling by log size. Only one mode is valid at a time.</li>
-
-<li><p>Rolling by log size</p>
-
+<li>Rolling by log size
 <ul>
 <li><code>size</code>: The log size threshold (in MB) to start rolling.</li>
 <li><code>age</code>: The number of days during which the logs will be saved.</li>
 <li><code>keep</code>: The maximum number of logs to be saved.</li>
-
-<li><p><code>compress</code>: Specifies whether to compress logs. Valid values: on and off.</p>
-
-<pre><code>&quot;global_log_roller&quot;: &quot;size=100 age=10 keep=10 compress=off&quot;
-</code></pre></li>
-</ul></li>
-
-<li><p>Rolling by time</p>
-
-<ul>
-<li><p><code>time</code>: The time interval (hours) for rolling.</p>
-
-<pre><code>&quot;global_log_roller&quot;:&quot;time=1&quot;
-</code></pre></li>
-</ul></li>
+<li><code>compress</code>: Specifies whether to compress logs. Valid values: on and off.</li>
 </ul>
-
-<h2 id="graceful-timeout">graceful_timeout</h2>
-
+</li>
+</ul>
+<pre><code>&quot;global_log_roller&quot;: &quot;size=100 age=10 keep=10 compress=off&quot;
+</code></pre><ul>
+<li>Rolling by time
+<ul>
+<li><code>time</code>: The time interval (hours) for rolling.</li>
+</ul>
+</li>
+</ul>
+<pre><code>&quot;global_log_roller&quot;:&quot;time=1&quot;
+</code></pre><h2 id="graceful_timeout">graceful_timeout</h2>
 <ul>
 <li>The <a href="../custom#duration-string">Duration String</a> configuration. Indicates the maximum waiting time for disabling a connection in a hot upgrade of MOSN.</li>
 <li>Default value: 30s.</li>
 </ul>
-
 <h3 id="processor">processor</h3>
-
 <p>The number of <code>GOMAXPROCS</code> used by MOSN.</p>
-
 <ul>
 <li>Default value: the number of CPUs.</li>
 <li>If it is not set or is set to 0, the default value is used.</li>
 </ul>
-
 <h2 id="listeners">Listeners</h2>
-
 <p>Settings for a group of <a href="../listener">Listeners</a>.</p>
 
         <div class="section-index">
@@ -777,7 +749,7 @@ if (!doNotTrack) {
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified September 3, 2020: <a  href="https://github.com/mosn/mosn.io/commit/d18d992a848d23531b53ef4aa2c4061a0e7d7876">add release v0.16.0. (d18d992)</a>
+	<div class="text-muted mt-5 pt-3 border-top">Last modified September 30, 2020: <a  href="https://github.com/mosn/mosn.io/commit/ddae8362c786340f29c30c8a62fc31f2c9c95bef">try to fix build failed (ddae836)</a>
 </div>
 </div>
 
@@ -848,7 +820,7 @@ if (!doNotTrack) {
 
 
 
-<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
 
 
 

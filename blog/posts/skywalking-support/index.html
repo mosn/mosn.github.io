@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.55.5" />
+<meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
 
@@ -22,15 +22,12 @@
 <meta property="og:description" content="日前，观察性分析平台和应用性能管理系统 SkyWalking 完成了与云原生网络代理 MOSN 的集成，作为 MOSN 中的支持的分布式追踪系统之一，旨在实现在微服务和 Service Mesh 中的更强大的可观察性。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/posts/skywalking-support/" />
-<meta property="article:published_time" content="2020-04-28T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-09-03T15:39:14&#43;08:00"/><meta property="og:site_name" content="MOSN" />
-
+<meta property="article:published_time" content="2020-04-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-30T15:51:50+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 支持使用 SkyWalking 进行分布式追踪">
 <meta itemprop="description" content="日前，观察性分析平台和应用性能管理系统 SkyWalking 完成了与云原生网络代理 MOSN 的集成，作为 MOSN 中的支持的分布式追踪系统之一，旨在实现在微服务和 Service Mesh 中的更强大的可观察性。">
-
-
-<meta itemprop="datePublished" content="2020-04-28T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-09-03T15:39:14&#43;08:00" />
+<meta itemprop="datePublished" content="2020-04-28T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-30T15:51:50+08:00" />
 <meta itemprop="wordCount" content="271">
 
 
@@ -54,8 +51,8 @@ if (!doNotTrack) {
 
 
 
-<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
-<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -74,7 +71,7 @@ if (!doNotTrack) {
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
         <a class="navbar-brand" href="/">
-		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
         
 	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
@@ -225,62 +222,68 @@ if (!doNotTrack) {
     <a  href="/blog/releases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">发布</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-releases">
+    <li class="collapse " id="blogreleases">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-16-0" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0170" href="/blog/releases/v0.17.0/">MOSN v0.17.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-15-0" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0160" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-14-0" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0150" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-13-0" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0140" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-12-0" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0130" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-11-0" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0120" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-10-0" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0110" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-1-0-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0100" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-2-1-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-010-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-021-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
       
       
     </li>
@@ -302,20 +305,20 @@ if (!doNotTrack) {
     <a  href="/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-news">
+    <li class="collapse " id="blognews">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-mosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsmosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-announcing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsannouncing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
       
       
     </li>
@@ -337,62 +340,62 @@ if (!doNotTrack) {
     <a  href="/blog/posts/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">分享</a>
   </li>
   <ul>
-    <li class="collapse show" id="blog-posts">
+    <li class="collapse show" id="blogposts">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blog-posts-skywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogpostsskywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-multi-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmulti-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-udpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsudpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-nginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsnginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
       
       
     </li>
@@ -414,92 +417,92 @@ if (!doNotTrack) {
     <a  href="/blog/code/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">源码解析</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-code">
+    <li class="collapse " id="blogcode">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
       
       
     </li>
@@ -545,23 +548,21 @@ if (!doNotTrack) {
 
 
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#mosn-中-tracing-的架构">MOSN 中 tracing 的架构</a></li>
-<li><a href="#快速开始">快速开始</a>
-<ul>
-<li><a href="#准备">准备</a></li>
-<li><a href="#目录结构">目录结构</a></li>
-<li><a href="#运行说明">运行说明</a></li>
-<li><a href="#demo-视频">Demo 视频</a></li>
-<li><a href="#清理">清理</a></li>
-</ul></li>
-<li><a href="#未来计划">未来计划</a></li>
-<li><a href="#关于-mosn">关于 MOSN</a></li>
-<li><a href="#关于-skywalking">关于 Skywalking</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#mosn-中-tracing-的架构">MOSN 中 tracing 的架构</a></li>
+    <li><a href="#快速开始">快速开始</a>
+      <ul>
+        <li><a href="#准备">准备</a></li>
+        <li><a href="#目录结构">目录结构</a></li>
+        <li><a href="#运行说明">运行说明</a></li>
+        <li><a href="#demo-视频">Demo 视频</a></li>
+        <li><a href="#清理">清理</a></li>
+      </ul>
+    </li>
+    <li><a href="#未来计划">未来计划</a></li>
+    <li><a href="#关于-mosn">关于 MOSN</a></li>
+    <li><a href="#关于-skywalking">关于 Skywalking</a></li>
+  </ul>
 </nav>
 
 
@@ -576,57 +577,41 @@ if (!doNotTrack) {
 	<h1>MOSN 支持使用 SkyWalking 进行分布式追踪</h1>
 	<div class="lead">日前，观察性分析平台和应用性能管理系统 SkyWalking 完成了与云原生网络代理 MOSN 的集成，作为 MOSN 中的支持的分布式追踪系统之一，旨在实现在微服务和 Service Mesh 中的更强大的可观察性。</div>
 	<div class="td-byline mb-4">
-		作者 <b><a href="https://jimmysong.io" target="_blank">Jimmy Song</a>、<a href="https://github.com/arugal" target="_blank">张伟</a></b> |
+		作者 <b><a href="https://jimmysong.io">Jimmy Song</a>、<a href="https://github.com/arugal">张伟</a></b> |
 		<time datetime="2020-04-28" class="text-muted">2020年4月28日</time>
 	</div>
-	
-
-<p>相比传统的巨石（Monolith）应用，微服务的一个主要变化是将应用中的不同模块拆分为了独立的进程。在微服务架构下，原来进程内的方法调用成为了跨进程的远程方法调用。相对于单一进程内的方法调用而言，跨进程调用的调试和故障分析是非常困难的，难以使用传统的代码调试程序或者日志打印来对分布式的调用过程进行查看和分析。</p>
-
-<p><img src="tracing.jpg" alt="分布式追踪示意图" /></p>
-
+	<p>相比传统的巨石（Monolith）应用，微服务的一个主要变化是将应用中的不同模块拆分为了独立的进程。在微服务架构下，原来进程内的方法调用成为了跨进程的远程方法调用。相对于单一进程内的方法调用而言，跨进程调用的调试和故障分析是非常困难的，难以使用传统的代码调试程序或者日志打印来对分布式的调用过程进行查看和分析。</p>
+<p><img src="tracing.jpg" alt="分布式追踪示意图"></p>
 <p>如上图右边所示，微服务架构中系统中各个微服务之间存在复杂的调用关系。</p>
-
 <p>一个来自客户端的请求在其业务处理过程中经过了多个微服务进程。我们如果想要对该请求的端到端调用过程进行完整的分析，则必须将该请求经过的所有进程的相关信息都收集起来并关联在一起，这就是“分布式追踪”。</p>
-
-<p>以上关于分布式追踪的介绍引用自 <a href="https://www.servicemesher.com/istio-handbook/practice/distributed-tracing.html" target="_blank">Istio Handbook</a>。</p>
-
+<p>以上关于分布式追踪的介绍引用自 <a href="https://www.servicemesher.com/istio-handbook/practice/distributed-tracing.html">Istio Handbook</a>。</p>
 <h2 id="mosn-中-tracing-的架构">MOSN 中 tracing 的架构</h2>
-
 <p>MOSN 的 tracing 框架由 Driver、Tracer 和 Span 三个部分组成。</p>
-
 <p>Driver 是 Tracer 的容器，管理注册的 Tracer 实例，Tracer 是 tracing 的入口，根据请求信息创建一个 Span，Span 存储当前跨度的链路信息。</p>
-
-<p><img src="mosn-tracing.jpg" alt="MOSN 中的 tracing 架构" /></p>
-
-<p>目前 MOSN tracing 有 <a href="http://github.com/sofastack/sofa-tracer" target="_blank">SOFATracer</a> 和 SkyWalking 两种实现。SOFATracer 支持 http1 和 xprotocol 协议的链路追踪，将 trace 数据写入本地日志文件中。SkyWalking 支持 http1 协议的链路追踪，使用原生的 Go 语言探针 <a href="https://github.com/SkyAPM/go2sky" target="_blank">go2sky</a> 将 trace 数据通过 gRPC 上报到 SkyWalking 后端服务。</p>
-
+<p><img src="mosn-tracing.jpg" alt="MOSN 中的 tracing 架构"></p>
+<p>目前 MOSN tracing 有 <a href="http://github.com/sofastack/sofa-tracer">SOFATracer</a> 和 SkyWalking 两种实现。SOFATracer 支持 http1 和 xprotocol 协议的链路追踪，将 trace 数据写入本地日志文件中。SkyWalking 支持 http1 协议的链路追踪，使用原生的 Go 语言探针 <a href="https://github.com/SkyAPM/go2sky">go2sky</a> 将 trace 数据通过 gRPC 上报到 SkyWalking 后端服务。</p>
 <h2 id="快速开始">快速开始</h2>
-
-<p>下面将使用 Docker 和 <code>docker-compose</code> 来快速开始运行一个集成了 SkyWalking 的分布式追踪示例，该示例代码请见 <a href="https://github.com/mosn/mosn/tree/master/examples/codes/trace/skywalking/http" target="_blank">MOSN GitHub</a>。</p>
-
+<p>下面将使用 Docker 和 <code>docker-compose</code> 来快速开始运行一个集成了 SkyWalking 的分布式追踪示例，该示例代码请见 <a href="https://github.com/mosn/mosn/tree/master/examples/codes/trace/skywalking/http">MOSN GitHub</a>。</p>
 <h3 id="准备">准备</h3>
-
 <p>安装 docker 和 docker-compose。</p>
-
 <ul>
-<li><p><a href="https://docs.docker.com/install/" target="_blank">安装 docker</a></p></li>
-
-<li><p><a href="https://docs.docker.com/compose/install/" target="_blank">安装 docker-compose</a></p></li>
+<li>
+<p><a href="https://docs.docker.com/install/">安装 docker</a></p>
+</li>
+<li>
+<p><a href="https://docs.docker.com/compose/install/">安装 docker-compose</a></p>
+</li>
 </ul>
-
-<p>需要一个编译好的 MOSN 程序，您可以<a href="https://github.com/mosn/mosn" target="_blank">下载 MOSN 源码</a>自行编译，或者直接下载 <a href="https://github.com/mosn/mosn/releases/tag/v0.12.0" target="_blank">MOSN v0.12.0 发行版</a>以获取 MOSN 的运行时二进制文件。</p>
-
+<p>需要一个编译好的 MOSN 程序，您可以<a href="https://github.com/mosn/mosn">下载 MOSN 源码</a>自行编译，或者直接下载 <a href="https://github.com/mosn/mosn/releases/tag/v0.12.0">MOSN v0.12.0 发行版</a>以获取 MOSN 的运行时二进制文件。</p>
 <p>下面将以源码编译的方式演示 MOSN 如何与 SkyWalking 集成。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#204a87">cd</span> <span style="color:#4e9a06">${</span><span style="color:#000">projectpath</span><span style="color:#4e9a06">}</span>/cmd/mosn/main
-go build</code></pre></div>
-<p>获取示例代码目录。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#4e9a06">${</span><span style="color:#000">targetpath</span><span style="color:#4e9a06">}</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#4e9a06">${</span><span style="color:#000">projectpath</span><span style="color:#4e9a06">}</span>/examples/codes/trace/skywalking/http/</code></pre></div>
-<p>将编译好的程序移动到示例代码目录。</p>
+go build
+</code></pre></div><p>获取示例代码目录。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#4e9a06">${</span><span style="color:#000">targetpath</span><span style="color:#4e9a06">}</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#4e9a06">${</span><span style="color:#000">projectpath</span><span style="color:#4e9a06">}</span>/examples/codes/trace/skywalking/http/
+</code></pre></div><p>将编译好的程序移动到示例代码目录。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mv main <span style="color:#4e9a06">${</span><span style="color:#000">targetpath</span><span style="color:#4e9a06">}</span>/
-<span style="color:#204a87">cd</span> <span style="color:#4e9a06">${</span><span style="color:#000">targetpath</span><span style="color:#4e9a06">}</span></code></pre></div>
-<h3 id="目录结构">目录结构</h3>
-
+<span style="color:#204a87">cd</span> <span style="color:#4e9a06">${</span><span style="color:#000">targetpath</span><span style="color:#4e9a06">}</span>
+</code></pre></div><h3 id="目录结构">目录结构</h3>
 <p>下面是 SkyWalking 的目录结构。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">* skywalking
 └─── http
@@ -634,57 +619,41 @@ go build</code></pre></div>
 <span style="color:#000;font-weight:bold">|</span>           server.go                      <span style="color:#8f5902;font-style:italic"># 模拟的 Http Server</span>
 <span style="color:#000;font-weight:bold">|</span>           clint.go                       <span style="color:#8f5902;font-style:italic"># 模拟的 Http Client</span>
 <span style="color:#000;font-weight:bold">|</span>           config.json                    <span style="color:#8f5902;font-style:italic"># MOSN 配置</span>
-<span style="color:#000;font-weight:bold">|</span>           skywalking-docker-compose.yaml <span style="color:#8f5902;font-style:italic"># skywalking docker-compose</span></code></pre></div>
-<h3 id="运行说明">运行说明</h3>
-
+<span style="color:#000;font-weight:bold">|</span>           skywalking-docker-compose.yaml <span style="color:#8f5902;font-style:italic"># skywalking docker-compose</span>
+</code></pre></div><h3 id="运行说明">运行说明</h3>
 <p>启动 SkyWalking oap &amp; ui。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker-compose -f skywalking-docker-compose.yaml up -d</code></pre></div>
-<p>启动一个 HTTP Server。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go run server.go</code></pre></div>
-<p>启动 MOSN。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./main start -c config.json</code></pre></div>
-<p>启动一个 HTTP Client。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go run client.go</code></pre></div>
-<p>打开 <a href="http://127.0.0.1:8080/" target="_blank">http://127.0.0.1:8080</a> 查看 SkyWalking-UI，SkyWalking Dashboard 界面如下图所示。</p>
-
-<p><img src="skywalking-dashboard.png" alt="SkyWalking Dashboard" /></p>
-
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker-compose -f skywalking-docker-compose.yaml up -d
+</code></pre></div><p>启动一个 HTTP Server。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go run server.go
+</code></pre></div><p>启动 MOSN。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./main start -c config.json
+</code></pre></div><p>启动一个 HTTP Client。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go run client.go
+</code></pre></div><p>打开 <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080</a> 查看 SkyWalking-UI，SkyWalking Dashboard 界面如下图所示。</p>
+<p><img src="skywalking-dashboard.png" alt="SkyWalking Dashboard"></p>
 <p>在打开 Dashboard 后请点击右上角的 <code>Auto</code> 按钮以使页面自动刷新。</p>
-
 <h3 id="demo-视频">Demo 视频</h3>
-
 <p>下面来看一下该 Demo 的操作视频。</p>
-
-<p><a href="https://www.bilibili.com/video/BV17i4y1t7mZ/" target="_blank"><img src="demo.jpg" alt="Demo" /></a></p>
-
+<p><a href="https://www.bilibili.com/video/BV17i4y1t7mZ/"><img src="demo.jpg" alt="Demo"></a></p>
 <h3 id="清理">清理</h3>
-
 <p>要想销毁 SkyWalking 后台运行的 docker 容器只需要下面的命令。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#204a87">cd</span> <span style="color:#4e9a06">${</span><span style="color:#000">projectpath</span><span style="color:#4e9a06">}</span>/examples/codes/trace/skywalking/http/
-docker-compose -f skywalking-docker-compose.yaml down</code></pre></div>
-<h2 id="未来计划">未来计划</h2>
-
-<p>在今年五月份，SkyWalking  8.0 版本会进行一次全面升级，采用新的探针协议和分析逻辑，探针将更具互感知能力，更好的在 Service Mesh 下使用探针进行监控。同时，SkyWalking 将开放之前仅存在于内核中的 metrics 指标分析体系。Prmoetheus、Spring Cloud Sleuth、Zabbix 等常用的 metrics 监控方式，都会被统一的接入进来，进行分析。此外， SkyWalking 与 MOSN 社区将继续合作：支持追踪 Dubbo 和 <a href="https://github.com/sofastack/sofa-rpc" target="_blank">SOFARPC</a>，同时适配 sidecar 模式下的链路追踪。</p>
-
+docker-compose -f skywalking-docker-compose.yaml down
+</code></pre></div><h2 id="未来计划">未来计划</h2>
+<p>在今年五月份，SkyWalking  8.0 版本会进行一次全面升级，采用新的探针协议和分析逻辑，探针将更具互感知能力，更好的在 Service Mesh 下使用探针进行监控。同时，SkyWalking 将开放之前仅存在于内核中的 metrics 指标分析体系。Prmoetheus、Spring Cloud Sleuth、Zabbix 等常用的 metrics 监控方式，都会被统一的接入进来，进行分析。此外， SkyWalking 与 MOSN 社区将继续合作：支持追踪 Dubbo 和 <a href="https://github.com/sofastack/sofa-rpc">SOFARPC</a>，同时适配 sidecar 模式下的链路追踪。</p>
 <h2 id="关于-mosn">关于 MOSN</h2>
-
 <p>MOSN 是一款使用 Go 语言开发的网络代理软件，由蚂蚁集团开源并经过几十万容器的生产级验证。 MOSN 作为云原生的网络数据平面，旨在为服务提供多协议、模块化、智能化、安全的代理能力。 MOSN 是 Modular Open Smart Network 的简称。 MOSN 可以与任何支持 xDS API 的 Service Mesh 集成，亦可以作为独立的四、七层负载均衡，API Gateway、云原生 Ingress 等使用。</p>
-
 <ul>
-<li>GitHub：<a href="https://github.com/mosn/mosn" target="_blank">https://github.com/mosn/mosn</a></li>
-<li>官网：<a href="https://mosn.io" target="_blank">https://mosn.io</a></li>
+<li>GitHub：<a href="https://github.com/mosn/mosn">https://github.com/mosn/mosn</a></li>
+<li>官网：<a href="https://mosn.io">https://mosn.io</a></li>
 </ul>
-
 <h2 id="关于-skywalking">关于 Skywalking</h2>
-
 <p>SkyWalking 是观察性分析平台和应用性能管理系统。提供分布式追踪、服务网格遥测分析、度量聚合和可视化一体化解决方案。支持 Java、.Net Core、PHP、NodeJS、Golang、LUA 语言探针，支持 Envoy/MOSN + Istio 构建的 Service Mesh。</p>
-
 <ul>
-<li>GitHub：<a href="https://github.com/apache/skywalking" target="_blank">https://github.com/apache/skywalking</a></li>
-<li>官网：<a href="https://skywalking.apache.org" target="_blank">https://skywalking.apache.org</a></li>
+<li>GitHub：<a href="https://github.com/apache/skywalking">https://github.com/apache/skywalking</a></li>
+<li>官网：<a href="https://skywalking.apache.org">https://skywalking.apache.org</a></li>
 </ul>
-
-<p>关于本文中的示例请参考 <a href="https://github.com/mosn/mosn/tree/master/examples/cn_readme/trace/skywalking/http" target="_blank">MOSN GitHub</a> 和 <a href="https://mosn.iodocs/configuration/trace/" target="_blank">MOSN 官方文档</a>。</p>
+<p>关于本文中的示例请参考 <a href="https://github.com/mosn/mosn/tree/master/examples/cn_readme/trace/skywalking/http">MOSN GitHub</a> 和 <a href="https://mosn.iodocs/configuration/trace/">MOSN 官方文档</a>。</p>
 
 	
 
@@ -766,7 +735,7 @@ docker-compose -f skywalking-docker-compose.yaml down</code></pre></div>
 
 
 
-<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
 
 
 

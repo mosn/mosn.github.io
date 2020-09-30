@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.55.5" />
+<meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
 
@@ -22,15 +22,12 @@
 <meta property="og:description" content="本文分析的是 MOSN 的 HTTP 系能力。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/code/mosn-http/" />
-<meta property="article:published_time" content="2020-03-07T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-09-03T15:39:14&#43;08:00"/><meta property="og:site_name" content="MOSN" />
-
+<meta property="article:published_time" content="2020-03-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-30T15:51:50+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 源码解析 - HTTP 系能力">
 <meta itemprop="description" content="本文分析的是 MOSN 的 HTTP 系能力。">
-
-
-<meta itemprop="datePublished" content="2020-03-07T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-09-03T15:39:14&#43;08:00" />
+<meta itemprop="datePublished" content="2020-03-07T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-30T15:51:50+08:00" />
 <meta itemprop="wordCount" content="1148">
 
 
@@ -54,8 +51,8 @@ if (!doNotTrack) {
 
 
 
-<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
-<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -74,7 +71,7 @@ if (!doNotTrack) {
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
         <a class="navbar-brand" href="/">
-		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
         
 	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
@@ -225,62 +222,68 @@ if (!doNotTrack) {
     <a  href="/blog/releases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">发布</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-releases">
+    <li class="collapse " id="blogreleases">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-16-0" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0170" href="/blog/releases/v0.17.0/">MOSN v0.17.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-15-0" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0160" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-14-0" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0150" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-13-0" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0140" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-12-0" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0130" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-11-0" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0120" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-10-0" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0110" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-1-0-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0100" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-2-1-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-010-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-021-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
       
       
     </li>
@@ -302,20 +305,20 @@ if (!doNotTrack) {
     <a  href="/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-news">
+    <li class="collapse " id="blognews">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-mosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsmosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-announcing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsannouncing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
       
       
     </li>
@@ -337,62 +340,62 @@ if (!doNotTrack) {
     <a  href="/blog/posts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">分享</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-posts">
+    <li class="collapse " id="blogposts">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-skywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsskywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-multi-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmulti-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-udpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsudpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-nginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsnginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
       
       
     </li>
@@ -414,92 +417,92 @@ if (!doNotTrack) {
     <a  href="/blog/code/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">源码解析</a>
   </li>
   <ul>
-    <li class="collapse show" id="blog-code">
+    <li class="collapse show" id="blogcode">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blog-code-mosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogcodemosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
       
       
     </li>
@@ -545,25 +548,24 @@ if (!doNotTrack) {
 
 
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#mosn-http-报文组成">MOSN HTTP 报文组成</a></li>
-<li><a href="#mosn-http-处理流程">MOSN HTTP 处理流程</a>
-<ul>
-<li><a href="#流程注册">流程注册</a></li>
-<li><a href="#捕获请求">捕获请求</a></li>
-<li><a href="#转发请求">转发请求</a></li>
-</ul></li>
-<li><a href="#其他">其他</a>
-<ul>
-<li><a href="#连接复用">连接复用</a></li>
-<li><a href="#内存复用">内存复用</a></li>
-</ul></li>
-<li><a href="#总结">总结</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#mosn-http-报文组成">MOSN HTTP 报文组成</a></li>
+    <li><a href="#mosn-http-处理流程">MOSN HTTP 处理流程</a>
+      <ul>
+        <li><a href="#流程注册">流程注册</a></li>
+        <li><a href="#捕获请求">捕获请求</a></li>
+        <li><a href="#转发请求">转发请求</a></li>
+      </ul>
+    </li>
+    <li><a href="#其他">其他</a>
+      <ul>
+        <li><a href="#连接复用">连接复用</a></li>
+        <li><a href="#内存复用">内存复用</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
 </nav>
 
 
@@ -581,19 +583,12 @@ if (!doNotTrack) {
 		作者 <b>陈爱祥（嘀嘀打车）</b> |
 		<time datetime="2020-03-07" class="text-muted">2020年3月7日</time>
 	</div>
-	
-
-<p>本文的目的是分析 MOSN 源码中的 HTTP 系能力，内容基于 MOSN 0.9.0</p>
-
+	<p>本文的目的是分析 MOSN 源码中的 HTTP 系能力，内容基于 MOSN 0.9.0</p>
 <h2 id="概述">概述</h2>
-
 <p>HTTP 是互联网界最常用的一种协议之一，MOSN 也提供了对其强大的支持。</p>
-
 <h2 id="mosn-http-报文组成">MOSN HTTP 报文组成</h2>
-
-<p><img src="message.jpg" alt="" /></p>
-
-<p>上图是<a href="https://book.douban.com/subject/25863515/" target="_blank">图解 HTTP</a> 中关于 HTTP 报文报文的介绍。MOSN 对于 HTTP 报文的处理并没有使用go 官网 <code>net/http</code>中的结构也没有独立设计一套相关结构 而是复用了业界开源的<a href="https://github.com/valyala/fasthttp" target="_blank">fasthttp</a> 的结构。</p>
+<p><img src="message.jpg" alt=""></p>
+<p>上图是<a href="https://book.douban.com/subject/25863515/">图解 HTTP</a> 中关于 HTTP 报文报文的介绍。MOSN 对于 HTTP 报文的处理并没有使用go 官网 <code>net/http</code>中的结构也没有独立设计一套相关结构 而是复用了业界开源的<a href="https://github.com/valyala/fasthttp">fasthttp</a> 的结构。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">stream</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#000">str</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">BaseStream</span>
 
@@ -606,25 +601,19 @@ if (!doNotTrack) {
 </span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">response</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">fasthttp</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Response</span>
 
 	<span style="color:#000">receiver</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StreamReceiveListener</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h2 id="mosn-http-处理流程">MOSN HTTP 处理流程</h2>
-
-<p><img src="flow.png" alt="流程图" /></p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h2 id="mosn-http-处理流程">MOSN HTTP 处理流程</h2>
+<p><img src="flow.png" alt="流程图"></p>
 <p>上图是HTTP请求在MOSN中的流动过程，下面将具体讲解。</p>
-
 <h3 id="流程注册">流程注册</h3>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">init</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#000">str</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Register</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">protocol</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">HTTP1</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">streamConnFactory</span><span style="color:#000;font-weight:bold">{})</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>在 <code>pkg/stream/http</code> 包加载过程中将包含 HTTP 对于MOSN上下游连接的处理逻辑的结构体值注册到统一的stream处理工厂。</p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>在 <code>pkg/stream/http</code> 包加载过程中将包含 HTTP 对于MOSN上下游连接的处理逻辑的结构体值注册到统一的stream处理工厂。</p>
 <h3 id="捕获请求">捕获请求</h3>
-
-<p><img src="flow1.png" alt="捕获请求" /></p>
-
+<p><img src="flow1.png" alt="捕获请求"></p>
 <p>由上图可知，MOSN捕捉到一个请求之后会开启一个goroutine读取连接中的数据，也就是
- <code>serverStreamConnection.serve</code> 函数。</p>
+<code>serverStreamConnection.serve</code> 函数。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">conn</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">serverStreamConnection</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">serve</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">{</span>
 		<span style="color:#8f5902;font-style:italic">// 1. pre alloc stream-level ctx with bufferCtx
@@ -711,13 +700,10 @@ if (!doNotTrack) {
 
 		<span style="color:#000">conn</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">contextManager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Next</span><span style="color:#000;font-weight:bold">()</span>
 	<span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>由以上代码可以得知，因为不能判断连接是长连接还是短连接，所以MOSN调用方不主动关闭连接，MOSN也不会主动关闭，除非出现错误。</p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>由以上代码可以得知，因为不能判断连接是长连接还是短连接，所以MOSN调用方不主动关闭连接，MOSN也不会主动关闭，除非出现错误。</p>
 <h3 id="转发请求">转发请求</h3>
-
-<p><img src="flow2.png" alt="转发请求" /></p>
-
+<p><img src="flow2.png" alt="转发请求"></p>
 <p>由上图可知，MOSN在捕获请求之后，开启一个goroutine 创建对upstream的连接，并且通过这个连接和upstream进行数据交互，与此同时开启另外一个goroutine对这个连接进行监控用来处理连接返回数据。其主要处理逻辑在downStream.receive中。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">&lt;=</span> <span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitPhase</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
 		<span style="color:#000">fmt</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Println</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;yu&#34;</span><span style="color:#000;font-weight:bold">,</span><span style="color:#000">i</span><span style="color:#000;font-weight:bold">,</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">downstreamReqTrailers</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span><span style="color:#000">phase</span><span style="color:#000;font-weight:bold">,</span><span style="color:#204a87">int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span><span style="color:#ce5c00;font-weight:bold">-</span><span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitPhase</span><span style="color:#000;font-weight:bold">),</span><span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WaitNofity</span><span style="color:#000;font-weight:bold">)</span>
@@ -929,13 +915,11 @@ if (!doNotTrack) {
 
 	<span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Proxy</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Errorf</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">s</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;[proxy] [downstream] unexpected phase cycle time&#34;</span><span style="color:#000;font-weight:bold">)</span>
 	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">End</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>这个函数是处理转发逻辑的核心函数规定在处理的各个阶段需要做的事情。比如在<code>case types.UpRecvHeader</code>的时候进行连接创建以及对下游数据的初步读取。</p>
+<span style="color:#000;font-weight:bold">}</span>
 
+</code></pre></div><p>这个函数是处理转发逻辑的核心函数规定在处理的各个阶段需要做的事情。比如在<code>case types.UpRecvHeader</code>的时候进行连接创建以及对下游数据的初步读取。</p>
 <h2 id="其他">其他</h2>
-
 <h3 id="连接复用">连接复用</h3>
-
 <p>在MOSN处理 HTTP 请求的过程中我们可以很明显的看到，针对可能频繁使用的连接，MOSN实现了一套复用机制。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">connPool</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#000">MaxConn</span> <span style="color:#204a87;font-weight:bold">int</span>
@@ -975,20 +959,16 @@ if (!doNotTrack) {
 		<span style="color:#000">p</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">availableClients</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">p</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">availableClients</span><span style="color:#000;font-weight:bold">[:</span><span style="color:#000">n</span><span style="color:#000;font-weight:bold">]</span>
 		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;&#34;</span>
 	<span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>由上述代码可知，MOSN 维护了一个有效长连接的栈，当栈中还有有效连接则从栈顶取出有效的长连接，如果不存在则新建一个tcp长连接。MOSN通过这种方式维护了连接池来实现高效的连接复用。</p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>由上述代码可知，MOSN 维护了一个有效长连接的栈，当栈中还有有效连接则从栈顶取出有效的长连接，如果不存在则新建一个tcp长连接。MOSN通过这种方式维护了连接池来实现高效的连接复用。</p>
 <h3 id="内存复用">内存复用</h3>
-
 <p>HTTP 的处理过程中会频繁的申请空间来解析 HTTP 报文，为了减少频繁的内存申请，常规的做法是内存复用，MOSN也不例外，其基于sync.pool 设计了内存复用模块。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">httpBuffersByContext</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">context</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">httpBuffers</span> <span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#000">ctx</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">buffer</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">PoolContext</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">context</span><span style="color:#000;font-weight:bold">)</span>
 	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Find</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">ins</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">).(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">httpBuffers</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h2 id="总结">总结</h2>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h2 id="总结">总结</h2>
 <p>本文简单的分析了MOSN中对于HTTP请求的处理过程，其中优化方式主要如下：</p>
-
 <ol>
 <li>tcp 黏包：使用fasthttp 的request和response来解析报文。</li>
 <li>实现连接复用：连接池。</li>
@@ -1075,7 +1055,7 @@ if (!doNotTrack) {
 
 
 
-<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
 
 
 

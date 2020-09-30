@@ -23,12 +23,8 @@
       <description>
         
         
-        
-
-&lt;p&gt;本文描述的是 SkyWalking Trace  配置。&lt;/p&gt;
-
+        &lt;p&gt;本文描述的是 SkyWalking Trace  配置。&lt;/p&gt;
 &lt;p&gt;目前支持 &lt;code&gt;HTTP1&lt;/code&gt; 协议追踪。&lt;/p&gt;
-
 &lt;p&gt;SkyWalking 描述的 MOSN 的基本全局参数如下所示。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
   &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;tracing&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
@@ -46,61 +42,40 @@
       &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
     &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
   &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
-&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&#34;reporter&#34;&gt;reporter&lt;/h2&gt;
-
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reporter&#34;&gt;reporter&lt;/h2&gt;
 &lt;p&gt;trace 数据上报模式， 支持 &lt;code&gt;log&lt;/code&gt;（仅用于测试） 和 &lt;code&gt;gRPC&lt;/code&gt; 两种模式 。&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;如果配置为空，则默认为 &lt;code&gt;log&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h2 id=&#34;backend-service&#34;&gt;backend_service&lt;/h2&gt;
-
+&lt;h2 id=&#34;backend_service&#34;&gt;backend_service&lt;/h2&gt;
 &lt;p&gt;SkyWalking 后端服务地址，仅在上报模式为 &lt;code&gt;gRPC&lt;/code&gt; 模式时使用 。&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;示例：&lt;code&gt;127.0.0.1:11800&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h2 id=&#34;service-name&#34;&gt;service_name&lt;/h2&gt;
-
+&lt;h2 id=&#34;service_name&#34;&gt;service_name&lt;/h2&gt;
 &lt;p&gt;注册到 SkyWalking 的服务名称，仅在上报模式为 &lt;code&gt;gRPC&lt;/code&gt; 模式时使用 。&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;如果配置为空，则默认为 &lt;code&gt;mosn&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h2 id=&#34;max-send-queue-size&#34;&gt;max_send_queue_size&lt;/h2&gt;
-
+&lt;h2 id=&#34;max_send_queue_size&#34;&gt;max_send_queue_size&lt;/h2&gt;
 &lt;p&gt;trace 数据缓冲队列大小，仅在上报模式为 &lt;code&gt;gRPC&lt;/code&gt; 模式时使用 。&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;如果配置为空，则默认为 &lt;code&gt;30000&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;authentication&#34;&gt;authentication&lt;/h2&gt;
-
 &lt;p&gt;&lt;code&gt;gRPC&lt;/code&gt; 身份认证参数，仅在上报模式为 &lt;code&gt;gRPC&lt;/code&gt; 模式时使用 。&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;如果配置不为空，在与 SkyWalking 后端服务建立连接时会使用此参数进行身份认证。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;tls&#34;&gt;tls&lt;/h2&gt;
-
 &lt;p&gt;仅在上报模式为 &lt;code&gt;gRPC&lt;/code&gt; 模式时使用 。&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;如果配置不为空，将使用 TLS 连接 SkyWalking 后端服务。&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h3 id=&#34;cert-file&#34;&gt;cert_file&lt;/h3&gt;
-
+&lt;h3 id=&#34;cert_file&#34;&gt;cert_file&lt;/h3&gt;
 &lt;p&gt;TLS 客户端证书。&lt;/p&gt;
-
-&lt;h3 id=&#34;server-name-override&#34;&gt;server_name_override&lt;/h3&gt;
-
+&lt;h3 id=&#34;server_name_override&#34;&gt;server_name_override&lt;/h3&gt;
 &lt;p&gt;服务名称。&lt;/p&gt;
 
       </description>

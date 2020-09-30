@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.55.5" />
+<meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
 
@@ -23,16 +23,13 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/en/docs/concept/smooth-upgrade/" />
-<meta property="article:published_time" content="2020-01-20T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-09-03T15:39:14&#43;08:00"/><meta property="og:site_name" content="MOSN" />
-
+<meta property="article:published_time" content="2020-01-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-30T15:51:50+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN hot upgrade">
 <meta itemprop="description" content="This topic describes how to upgrade the sidecar (MOSN) without affecting the business and how to migrate existing persistent connections.
 ">
-
-
-<meta itemprop="datePublished" content="2020-01-20T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-09-03T15:39:14&#43;08:00" />
+<meta itemprop="datePublished" content="2020-01-20T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-30T15:51:50+08:00" />
 <meta itemprop="wordCount" content="2628">
 
 
@@ -57,8 +54,8 @@ if (!doNotTrack) {
 
 
 
-<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
-<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -77,7 +74,7 @@ if (!doNotTrack) {
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
         <a class="navbar-brand" href="/en/">
-		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
         
 	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
@@ -119,7 +116,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/en/docs/community/" ><span class="active">Community</span></a>
+				<a class="nav-link" href="/en/docs/community/" ><span>Community</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -129,7 +126,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/en/docs/tutorial/" ><span class="active">Tutorial</span></a>
+				<a class="nav-link" href="/en/docs/tutorial/" ><span>Tutorial</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -139,7 +136,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/en/docs/faq/" ><span class="active">FAQ</span></a>
+				<a class="nav-link" href="/en/docs/faq/" ><span>FAQ</span></a>
 			</li>
 			
 			
@@ -211,20 +208,20 @@ if (!doNotTrack) {
     <a  href="/en/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Documentation</a>
   </li>
   <ul>
-    <li class="collapse show" id="en-docs">
+    <li class="collapse show" id="endocs">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-overview" href="/en/docs/overview/">Overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsoverview" href="/en/docs/overview/">Overview</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-dev-featuregate-introduce" href="/en/docs/dev/featuregate-introduce/">FeatureGate overview</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsdevfeaturegate-introduce" href="/en/docs/dev/featuregate-introduce/">FeatureGate overview</a>
       
       
       
@@ -240,20 +237,20 @@ if (!doNotTrack) {
     <a  href="/en/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Get started</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-quick-start">
+    <li class="collapse " id="endocsquick-start">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-quick-start-proxy" href="/en/docs/quick-start/proxy/">Quick start</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsquick-startproxy" href="/en/docs/quick-start/proxy/">Quick start</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-quick-start-istio" href="/en/docs/quick-start/istio/">Istio integration</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsquick-startistio" href="/en/docs/quick-start/istio/">Istio integration</a>
       
       
     </li>
@@ -275,38 +272,38 @@ if (!doNotTrack) {
     <a  href="/en/docs/concept/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Architecture and principle</a>
   </li>
   <ul>
-    <li class="collapse show" id="en-docs-concept">
+    <li class="collapse show" id="endocsconcept">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-core-concept" href="/en/docs/concept/core-concept/">Core concepts</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconceptcore-concept" href="/en/docs/concept/core-concept/">Core concepts</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-sidecar-pattern" href="/en/docs/concept/sidecar-pattern/">Sidecar pattern</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconceptsidecar-pattern" href="/en/docs/concept/sidecar-pattern/">Sidecar pattern</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-traffic-hijack" href="/en/docs/concept/traffic-hijack/">Traffic hijacking</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconcepttraffic-hijack" href="/en/docs/concept/traffic-hijack/">Traffic hijacking</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-concept-tls" href="/en/docs/concept/tls/">TLS connections</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconcepttls" href="/en/docs/concept/tls/">TLS connections</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-en-docs-concept-smooth-upgrade" href="/en/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-endocsconceptsmooth-upgrade" href="/en/docs/concept/smooth-upgrade/">MOSN hot upgrade</a>
       
       
     </li>
@@ -328,7 +325,7 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Configuration overview</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration">
+    <li class="collapse " id="endocsconfiguration">
       
       
       
@@ -345,14 +342,14 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener configurations</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-listener">
+    <li class="collapse " id="endocsconfigurationlistener">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-filter-chain" href="/en/docs/configuration/listener/filter-chain/">FilterChain</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationlistenerfilter-chain" href="/en/docs/configuration/listener/filter-chain/">FilterChain</a>
       
       
       
@@ -368,20 +365,20 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-listener-network-filter">
+    <li class="collapse " id="endocsconfigurationlistenernetwork-filter">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-network-filter-proxy" href="/en/docs/configuration/listener/network-filter/proxy/">proxy</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationlistenernetwork-filterproxy" href="/en/docs/configuration/listener/network-filter/proxy/">proxy</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-listener-network-filter-connection-manager" href="/en/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationlistenernetwork-filterconnection-manager" href="/en/docs/configuration/listener/network-filter/connection-manager/">connection_manager</a>
       
       
     </li>
@@ -409,14 +406,14 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server configurations</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-server">
+    <li class="collapse " id="endocsconfigurationserver">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-server-router" href="/en/docs/configuration/server/router/">Router configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationserverrouter" href="/en/docs/configuration/server/router/">Router configurations</a>
       
       
     </li>
@@ -438,26 +435,14 @@ if (!doNotTrack) {
     <a  href="/en/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace configurations</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-configuration-trace">
+    <li class="collapse " id="endocsconfigurationtrace">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-trace-skywalking" href="/en/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
-      
-      
-    </li>
-  </ul>
-</ul>
-
-      
-      
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-configuration-custom" href="/en/docs/configuration/custom/">Custom configurations</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationtraceskywalking" href="/en/docs/configuration/trace/skywalking/">SkyWalking configurations</a>
       
       
     </li>
@@ -469,7 +454,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-samples" href="/en/docs/samples/">Example projects</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsconfigurationcustom" href="/en/docs/configuration/custom/">Custom configurations</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocssamples" href="/en/docs/samples/">Example projects</a>
       
       
       
@@ -485,26 +482,26 @@ if (!doNotTrack) {
     <a  href="/en/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Document contribution</a>
   </li>
   <ul>
-    <li class="collapse " id="en-docs-contribute">
+    <li class="collapse " id="endocscontribute">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-github" href="/en/docs/contribute/github/">Documentation contribution guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscontributegithub" href="/en/docs/contribute/github/">Documentation contribution guide</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-creating-pages" href="/en/docs/contribute/creating-pages/">Create a page</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscontributecreating-pages" href="/en/docs/contribute/creating-pages/">Create a page</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-contribute-style-guide" href="/en/docs/contribute/style-guide/">Format guide</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscontributestyle-guide" href="/en/docs/contribute/style-guide/">Format guide</a>
       
       
     </li>
@@ -516,19 +513,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-faq" href="/en/docs/faq/">FAQ</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsfaq" href="/en/docs/faq/">FAQ</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-community" href="/en/docs/community/">Community</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocscommunity" href="/en/docs/community/">Community</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-en-docs-tutorial" href="/en/docs/tutorial/">Tutorial</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocstutorial" href="/en/docs/tutorial/">Tutorial</a>
       
       
     </li>
@@ -568,23 +565,21 @@ if (!doNotTrack) {
 
 
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#background">Background</a></li>
-<li><a href="#normal-procedure">Normal procedure</a></li>
-<li><a href="#hot-upgrade-procedure">Hot upgrade procedure</a>
-<ul>
-<li><a href="#trigger-conditions">Trigger conditions</a></li>
-<li><a href="#interaction-procedure">Interaction procedure</a></li>
-<li><a href="#persistent-connection-migration-procedure">Persistent-connection migration procedure</a></li>
-<li><a href="#residual-response-migration-procedure">Residual-response migration procedure</a></li>
-<li><a href="#connection-status-data">Connection status data</a></li>
-</ul></li>
-<li><a href="#summary">Summary</a></li>
-<li><a href="#feedback">Feedback</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#normal-procedure">Normal procedure</a></li>
+    <li><a href="#hot-upgrade-procedure">Hot upgrade procedure</a>
+      <ul>
+        <li><a href="#trigger-conditions">Trigger conditions</a></li>
+        <li><a href="#interaction-procedure">Interaction procedure</a></li>
+        <li><a href="#persistent-connection-migration-procedure">Persistent-connection migration procedure</a></li>
+        <li><a href="#residual-response-migration-procedure">Residual-response migration procedure</a></li>
+        <li><a href="#connection-status-data">Connection status data</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#feedback">Feedback</a></li>
+  </ul>
 </nav>
 
 
@@ -630,52 +625,32 @@ if (!doNotTrack) {
 <div class="td-content">
 	<h1>MOSN hot upgrade</h1>
 	<div class="lead">This topic describes how to upgrade the sidecar (MOSN) without affecting the business and how to migrate existing persistent connections.</div>
-	
-
-<p>Sidecar O&amp;M is always challenging for a service mesh, while sidecar upgrades are common at the data plane. This topic describes how to upgrade the sidecar (MOSN) without affecting the business and how to migrate existing persistent connections.</p>
-
+	<p>Sidecar O&amp;M is always challenging for a service mesh, while sidecar upgrades are common at the data plane. This topic describes how to upgrade the sidecar (MOSN) without affecting the business and how to migrate existing persistent connections.</p>
 <h2 id="background">Background</h2>
-
 <p>This topic describes why and how MOSN supports hot upgrade. For details about the basic concepts of hot upgrade, see the <a href="/zh/blog/posts/nginx-envoy-mosn-hot-upgrade/">NGINX vs Envoy vs MOSN hot upgrade</a>.</p>
-
 <p>First, why don&rsquo;t NGINX and Envoy require a connection-lossless migration solution like MOSN does? This depends on their business scenarios. NGINX and Envoy mainly support the HTTP1 and HTTP2 protocols. The <code>connection: Close</code> request/response header in HTTP1 and GOAWAY frame in HTTP2 allow a client to actively close a connection and establish a new one to a new process. However, common multiplexing protocols such as Dubbo and SOFARPC do not provide control frames, and a request will fail if the connection to the old process is closed.</p>
-
 <p>A common upgrade approach is to: cut off the application&rsquo;s traffic, for example, by unpublishing the service; upgrade MOSN when no new request is received; and then publish the service again. This process takes a rather long time, and the service is unavailable during this period of time. In addition, the application usage also needs to be considered. Achieving a balance between service availability and the upgrade in a large-scale scenario is difficult. To adapt to business scenarios of MOSN, a persistent-connection migration solution is developed to migrate persistent connections to new processes. The entire procedure is transparent to the client, and no connection needs to be re-established, implementing a request-lossless hot upgrade.</p>
-
-<p><img src="reqeust-smooth-upgrade-process.png" alt="Request-lossless hot upgrade procedure of MOSN" /></p>
-
+<p><img src="reqeust-smooth-upgrade-process.png" alt="Request-lossless hot upgrade procedure of MOSN"></p>
 <h2 id="normal-procedure">Normal procedure</h2>
-
-<p><img src="normal-process.png" alt="Normal procedure" /></p>
-
+<p><img src="normal-process.png" alt="Normal procedure"></p>
 <ol>
 <li>A client sends a request to MOSN.</li>
 <li>MOSN forwards the request to a server.</li>
 <li>The server returns a response to MOSN.</li>
 <li>MOSN returns the response to the client.</li>
 </ol>
-
 <p>The preceding figure briefly shows a normal request procedure. Next, we need to migrate TCP1 connections between the client and MOSN. TCP2 connections between MOSN and the server do not need to be migrated, because the server accessed by MOSN is selected through load balancing. The connection/disconnection with the server is not our concern.</p>
-
 <h2 id="hot-upgrade-procedure">Hot upgrade procedure</h2>
-
 <h3 id="trigger-conditions">Trigger conditions</h3>
-
 <p>We can trigger a hot upgrade through either of the following methods:</p>
-
 <ol>
 <li>Register a SIGHUP event listener with MOSN, and send a SIGHUP signal to the MOSN process to call ForkExec to generate a new MOSN process.</li>
 <li>Directly start a new MOSN process.</li>
 </ol>
-
 <p>Why do we provide two methods? In the beginning, only the first method was supported, which is used by NGINX and Envoy. In this method, we can replace the old MOSN binary file in a virtual machine or container for an upgrade. However, our scenarios require cross-container upgrades. We need to start a new container (a new MOSN process) to implement a hot upgrade. That is why the second method is provided. Cross-container upgrades also require support from operators, but this will not be discussed in detail here.</p>
-
 <h3 id="interaction-procedure">Interaction procedure</h3>
-
-<p><img src="interaction-process.png" alt="Interaction procedure" /></p>
-
-<p><img src="interaction-process-timeline.png" alt="Sequence diagram of an interaction procedure" /></p>
-
+<p><img src="interaction-process.png" alt="Interaction procedure"></p>
+<p><img src="interaction-process-timeline.png" alt="Sequence diagram of an interaction procedure"></p>
 <p>The old MOSN process will start a goroutine to run the <code>ReconfigureHandler()</code> function to listen to a domain socket (<code>reconfig.sock</code>) in the last stage. This operation enables the new MOSN process to detect whether an old MOSN process exists.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">ReconfigureHandler</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">l</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Listen</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;unix&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ReconfigureDomainSocket</span><span style="color:#000;font-weight:bold">)</span>
@@ -685,8 +660,8 @@ if (!doNotTrack) {
         <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">uc</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Write</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#204a87;font-weight:bold">byte</span><span style="color:#000;font-weight:bold">{</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">})</span>
         <span style="color:#000">reconfigure</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>Both hot upgrade triggering methods start a new MOSN process at last. The new MOSN process will then successively call the <code>GetInheritListeners()</code> and <code>isReconfigure()</code> functions to verify whether an old MOSN process exists (whether the <code>reconfig.sock</code> listener exists). If yes, MOSN starts the migration procedure; otherwise, MOSN starts a normal startup procedure.</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>Both hot upgrade triggering methods start a new MOSN process at last. The new MOSN process will then successively call the <code>GetInheritListeners()</code> and <code>isReconfigure()</code> functions to verify whether an old MOSN process exists (whether the <code>reconfig.sock</code> listener exists). If yes, MOSN starts the migration procedure; otherwise, MOSN starts a normal startup procedure.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// The core procedure is kept.
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">GetInheritListeners</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">([]</span><span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Listener</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Conn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">isReconfigure</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
@@ -699,8 +674,8 @@ if (!doNotTrack) {
     <span style="color:#000">file</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">os</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NewFile</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">fd</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#000">fileListener</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">FileListener</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">file</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">listeners</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">uc</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>If the migration procedure starts, the new MOSN process will listen to a new domain socket (<code>listen.sock</code>). This ensures that the old MOSN process can transfer the listen FD to the new MOSN process. sendMsg and recvMsg are used to transfer the listen FD. After receiving the listen FD, the new MOSN process calls the <code>net.FileListener()</code> function to generate a listener. In this case, the new and old MOSN processes have the same listen socket.</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>If the migration procedure starts, the new MOSN process will listen to a new domain socket (<code>listen.sock</code>). This ensures that the old MOSN process can transfer the listen FD to the new MOSN process. sendMsg and recvMsg are used to transfer the listen FD. After receiving the listen FD, the new MOSN process calls the <code>net.FileListener()</code> function to generate a listener. In this case, the new and old MOSN processes have the same listen socket.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// FileListener returns a copy of the network listener corresponding
 </span><span style="color:#8f5902;font-style:italic">// to the open file f.
 </span><span style="color:#8f5902;font-style:italic">// It is the caller&#39;s responsibility to close ln when finished.
@@ -711,18 +686,14 @@ if (!doNotTrack) {
         <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">OpError</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">Op</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;file&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Net</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;file+net&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Source</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Addr</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">fileAddr</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Name</span><span style="color:#000;font-weight:bold">()),</span> <span style="color:#000">Err</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">err</span><span style="color:#000;font-weight:bold">}</span>
     <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#204a87;font-weight:bold">return</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>The migration procedure of MOSN is different from that of NGINX. In NGINX, after the forking is done, the child process automatically inherits the listen FD. However, MOSN starts a new process that is independent from the old one, without a parent-child relationship. Therefore, sendMsg is required for transferring the listen FD.</p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>The migration procedure of MOSN is different from that of NGINX. In NGINX, after the forking is done, the child process automatically inherits the listen FD. However, MOSN starts a new process that is independent from the old one, without a parent-child relationship. Therefore, sendMsg is required for transferring the listen FD.</p>
 <p>A total of two domain sockets are used to start the migration and transfer the listen FD.</p>
-
 <ul>
 <li><code>reconfig.sock</code> is the old MOSN listener used by the new MOSN process to verify whether an old MOSN process exists.</li>
 <li><code>listen.sock</code> is the new MOSN listener used by the old MOSN process to transfer the listen FD.</li>
 </ul>
-
 <p>These two sockets are actually interchangeable. For example, <code>reconfig.sock</code> can also be used for transferring the listen FD. These two sockets are used for some historical reasons. They can be merged into one later on, to make the code simpler and easier to read.</p>
-
 <p>Let us take a look at the handling procedure of the old MOSN process. After receiving the notification from the new MOSN process, the old MOSN process starts the <code>reconfigure(false)</code> procedure. It first calls <code>sendInheritListeners()</code> to transfer the listen FD to the new MOSN process as described above, and then calls <code>WaitConnectionsDone()</code> to migrate existing persistent connections.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// The core procedure is kept.
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">reconfigure</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">start</span> <span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
@@ -738,8 +709,8 @@ if (!doNotTrack) {
 </span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">WaitConnectionsDone</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">GracefulTimeout</span><span style="color:#000;font-weight:bold">)</span>
 
     <span style="color:#000">os</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Exit</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>After receiving the listen FD, the new MOSN process starts the migration process based on the configurations. Then the new MOSN process starts a goroutine to run <code>TransferServer()</code> to listen to a new <code>domain socket (conn.sock)</code>, for receiving persistent connections from the old MOSN process subsequently. The migration function is <code>transferHandler().</code></p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>After receiving the listen FD, the new MOSN process starts the migration process based on the configurations. Then the new MOSN process starts a goroutine to run <code>TransferServer()</code> to listen to a new <code>domain socket (conn.sock)</code>, for receiving persistent connections from the old MOSN process subsequently. The migration function is <code>transferHandler().</code></p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">TransferServer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">handler</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ConnectionHandler</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">l</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Listen</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;unix&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TransferConnDomainSocket</span><span style="color:#000;font-weight:bold">)</span>
 
@@ -750,15 +721,11 @@ if (!doNotTrack) {
 
         <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#000;font-weight:bold">},</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>The old MOSN process starts persistent-connection migration through <code>transferRead()</code> and <code>transferWrite()</code>. This is analyzed as follows.</p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>The old MOSN process starts persistent-connection migration through <code>transferRead()</code> and <code>transferWrite()</code>. This is analyzed as follows.</p>
 <h3 id="persistent-connection-migration-procedure">Persistent-connection migration procedure</h3>
-
-<p><img src="long-connection-migrating-process.png" alt="Persistent-connection migration procedure" /></p>
-
+<p><img src="long-connection-migrating-process.png" alt="Persistent-connection migration procedure"></p>
 <p>First, let us take a look at the migration procedure of a new request.</p>
-
 <ol>
 <li>A client sends a request to MOSN.</li>
 <li>MOSN (the old MOSN process) sends the FD and connection status data of TCP1 to New MOSN (the new MOSN process).</li>
@@ -767,7 +734,6 @@ if (!doNotTrack) {
 <li>The server returns a response to New MOSN.</li>
 <li>New MOSN returns a response to the client based on the copy of TCP1 connection transferred from MOSN.</li>
 </ol>
-
 <p>In the original <code>WaitConnectionsDone()</code> function, <code>s.stopChan</code> has been disabled. In ReadLoop of the connection, a <code>[TransferTimeout, 2 * TransferTimeout]</code> random time interval will be set for the migration procedure. The random interval is intended to discretize the migration time for TCP connections of each client, to ensure smooth migration.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">connection</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">startReadLoop</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">transferTime</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Time</span>
@@ -790,14 +756,14 @@ if (!doNotTrack) {
                     <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">transfer</span><span style="color:#000;font-weight:bold">()</span>
                     <span style="color:#204a87;font-weight:bold">return</span>
                 <span style="color:#000;font-weight:bold">}</span>
-            <span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>After one random interval elapses, the <code>c.transfer()</code> function is called. <code>c.notifyTransfer()</code> is used for suspending write operations. No write operation is allowed during migration of read operations, because data confusion will occur if write operations are performed simultaneously in the old and new MOSN processes.</p>
+            <span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>After one random interval elapses, the <code>c.transfer()</code> function is called. <code>c.notifyTransfer()</code> is used for suspending write operations. No write operation is allowed during migration of read operations, because data confusion will occur if write operations are performed simultaneously in the old and new MOSN processes.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">connection</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">transfer</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">notifyTransfer</span><span style="color:#000;font-weight:bold">()</span>
     <span style="color:#000">id</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferRead</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">transferWrite</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">id</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>Then the <code>transferRead()</code> function is called to transfer the FD and status data of a connection to New MOSN through <code>conn.sock</code>. Similar to migrating the listen FD, New MOSN returns an ID after successful processing. This ID identifies the new connection established by New MOSN and will be used later.</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>Then the <code>transferRead()</code> function is called to transfer the FD and status data of a connection to New MOSN through <code>conn.sock</code>. Similar to migrating the listen FD, New MOSN returns an ID after successful processing. This ID identifies the new connection established by New MOSN and will be used later.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// old mosn transfer readloop
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">transferRead</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">connection</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">uint64</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">unixConn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Dial</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;unix&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TransferConnDomainSocket</span><span style="color:#000;font-weight:bold">)</span>
@@ -815,8 +781,8 @@ if (!doNotTrack) {
     <span style="color:#8f5902;font-style:italic">// recv ID
 </span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">id</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">transferRecvID</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">uc</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">id</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>We constructed a simple read transfer protocol, which mainly involves the length of the TCP raw data, the length of the TLS data, the TCP raw data, and the TLS data.</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>We constructed a simple read transfer protocol, which mainly involves the length of the TCP raw data, the length of the TLS data, the TCP raw data, and the TLS data.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ce5c00;font-weight:bold">/**</span>
  <span style="color:#ce5c00;font-weight:bold">*</span>  <span style="color:#000">transfer</span> <span style="color:#000">read</span> <span style="color:#000">protocol</span>
  <span style="color:#ce5c00;font-weight:bold">*</span>  <span style="color:#000">header</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">8</span> <span style="color:#000">bytes</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">readBuffer</span> <span style="color:#000">data</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">TLS</span>
@@ -829,9 +795,8 @@ if (!doNotTrack) {
  <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#ce5c00;font-weight:bold">+-----+-----+-----+-----+-----+-----+-----+-----+</span>
  <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">|</span>                     <span style="color:#000">TLS</span>                       <span style="color:#000;font-weight:bold">|</span>
  <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#ce5c00;font-weight:bold">+-----+-----+-----+-----+-----+-----+-----+-----+</span>
- <span style="color:#ce5c00;font-weight:bold">*</span></code></pre></div>
-<p>Now, let us take a look at the handling procedure of the new MOSN process. After receiving migration requests, the new MOSN process starts a goroutine for each migration request to run the <code>transferHandler()</code> function. The function distinguishes read and write transfer requests based on the protocol read. Read transfer is described first. The new MOSN process calls transferNewConn to generate a new connection structure based on the FD and packets transferred from the old MOSN process. Then the new MOSN process transfers the new connection ID to the old MOSN process.</p>
-
+ <span style="color:#ce5c00;font-weight:bold">*</span>
+</code></pre></div><p>Now, let us take a look at the handling procedure of the new MOSN process. After receiving migration requests, the new MOSN process starts a goroutine for each migration request to run the <code>transferHandler()</code> function. The function distinguishes read and write transfer requests based on the protocol read. Read transfer is described first. The new MOSN process calls transferNewConn to generate a new connection structure based on the FD and packets transferred from the old MOSN process. Then the new MOSN process transfers the new connection ID to the old MOSN process.</p>
 <p>The new MOSN process starts to read data from the new TCP connection, and proceeds with a normal business request procedure.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">transferHandler</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#000">net</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Conn</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">handler</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ConnectionHandler</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">transferMap</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Map</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#8f5902;font-style:italic">// recv type
@@ -873,21 +838,16 @@ if (!doNotTrack) {
             <span style="color:#204a87;font-weight:bold">return</span>
         <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>Then the new MOSN process replaces the old MOSN process, to read data from the TCP1 connection and process the data. For the new request, the entire migration procedure is completed.</p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>Then the new MOSN process replaces the old MOSN process, to read data from the TCP1 connection and process the data. For the new request, the entire migration procedure is completed.</p>
 <h3 id="residual-response-migration-procedure">Residual-response migration procedure</h3>
-
-<p><img src="remaining-responses-migrating-process.png" alt="Residual-response migration procedure" /></p>
-
+<p><img src="remaining-responses-migrating-process.png" alt="Residual-response migration procedure"></p>
 <p>Why is a residual-response migration procedure required? Because of the multiplexing protocol, during the previous migration of read connections, residual responses for TCP2 connections are waiting to be returned to the client. The data may go out of order if both the old and new MOSN processes simultaneously write data to TCP1 connections. Therefore, we want the new MOSN process to uniformly handle the residual responses for TCP2 connections.</p>
-
 <ol>
 <li>The server returns a residual response to MOSN.</li>
 <li>MOSN transfers the connection ID and response data previously obtained from New MOSN back to New MOSN through domain socket (conn.sock).</li>
 <li>New MOSN queries the TCP1 connection based on the ID and returns the response to the client.</li>
 </ol>
-
 <p>After the <code>transferRead()</code> (the read transfer) ends, the <code>transferWrite()</code> (the write transfer) starts. In this stage, packets to be written and the connection ID previously obtained from New MOSN are sent to New MOSN.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// old mosn transfer writeloop
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">transferWrite</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">connection</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">id</span> <span style="color:#204a87;font-weight:bold">uint64</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#000;font-weight:bold">{</span>
@@ -906,8 +866,8 @@ if (!doNotTrack) {
         <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">err</span>
     <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>We constructed a simple write transfer protocol, which mainly involves the length of the TCP raw data, the connection ID, and the TCP raw data.</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>We constructed a simple write transfer protocol, which mainly involves the length of the TCP raw data, the connection ID, and the TCP raw data.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">/*
 </span><span style="color:#8f5902;font-style:italic"> *  transfer write protocol
 </span><span style="color:#8f5902;font-style:italic"> *  header (8 bytes) + (writeBuffer data)
@@ -919,29 +879,18 @@ if (!doNotTrack) {
 </span><span style="color:#8f5902;font-style:italic"> * |                     data                      |
 </span><span style="color:#8f5902;font-style:italic"> * +-----+-----+-----+-----+-----+-----+-----+-----+
 </span><span style="color:#8f5902;font-style:italic"> *
-</span><span style="color:#8f5902;font-style:italic">**/</span></code></pre></div>
-<p>The new MOSN process calls the transferHandler() function to identify the write transfer protocol. Then the new MOSN process calls the <code>transferFindConnection()</code> function to locate the TCP1 connection based on the connection ID, and directly write the data.</p>
-
+</span><span style="color:#8f5902;font-style:italic">**/</span>
+</code></pre></div><p>The new MOSN process calls the transferHandler() function to identify the write transfer protocol. Then the new MOSN process calls the <code>transferFindConnection()</code> function to locate the TCP1 connection based on the connection ID, and directly write the data.</p>
 <p>Note that new requests are now forwarded to the server through TCP3 connections, and only responses to previous requests will be returned through TCP2 connections. If no response is returned within 2 * TransferTimeout during the entire migration, the requests will time out and fail.</p>
-
 <h3 id="connection-status-data">Connection status data</h3>
-
 <p>During the connection migration, both the TCP FD and the connection status are migrated so that the new MOSN process knows how to initialize the new connection.</p>
-
 <p>The following status data is involved:</p>
-
 <p><strong>Read buffer</strong></p>
-
 <p>The data that has been read from TCP but has not been processed at the application layer during migration.</p>
-
 <p><strong>Write data</strong></p>
-
 <p>The response data received by MOSN after migration.</p>
-
 <p><strong>TLS status data migration</strong></p>
-
 <p>In case of a TLS encrypted request, the following TLS status data must to be migrated:</p>
-
 <ol>
 <li>Encryption key</li>
 <li>Sequence</li>
@@ -959,24 +908,18 @@ if (!doNotTrack) {
     <span style="color:#000">OutSeq</span>       <span style="color:#000;font-weight:bold">[</span><span style="color:#0000cf;font-weight:bold">8</span><span style="color:#000;font-weight:bold">]</span><span style="color:#204a87;font-weight:bold">byte</span>
     <span style="color:#000">RawInput</span>     <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">byte</span>
     <span style="color:#000">Input</span>        <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">byte</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h2 id="summary">Summary</h2>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h2 id="summary">Summary</h2>
 <p>FD migration is a common operation for persistent connection migration, and can be performed through either sendMsg or connection repair.</p>
-
 <p>The most challenging part in the entire procedure is the migration of the application layer data. The general idea is to migrate all data structures of the application layer to the new process, for example, structures such as protocol headers that have been read. However, this increases the migration complexity, because each protocol needs to be handled separately.</p>
-
 <p>To address this problem, MOSN moves migration to the I/O layer, regardless of the protocols used at the application layer. The original TCP packets are migrated, and then the new MOSN process encodes/decodes the packets to assemble the header and other structures. This is a standard procedure that enables migration without parsing protocols. This migration framework can automatically support any stateless protocols.</p>
-
 <p>You may doubt about the residual-response migration procedure. Why don&rsquo;t we start migration after all responses are returned? This procedure seems to be unnecessary. The reason is that when we use a multiplexing protocol, requests are being sent all the time. You cannot always find a time point when all responses are returned.</p>
-
 <h2 id="feedback">Feedback</h2>
-
-<p>For more information about discussions on this issue, go to Github Issue at <a href="https://github.com/mosn/mosn/issues/866" target="_blank">MOSN smooth upgrade problem #866</a>.</p>
+<p>For more information about discussions on this issue, go to Github Issue at <a href="https://github.com/mosn/mosn/issues/866">MOSN smooth upgrade problem #866</a>.</p>
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified September 3, 2020: <a  href="https://github.com/mosn/mosn.io/commit/d18d992a848d23531b53ef4aa2c4061a0e7d7876">add release v0.16.0. (d18d992)</a>
+	<div class="text-muted mt-5 pt-3 border-top">Last modified September 30, 2020: <a  href="https://github.com/mosn/mosn.io/commit/ddae8362c786340f29c30c8a62fc31f2c9c95bef">try to fix build failed (ddae836)</a>
 </div>
 </div>
 
@@ -1048,7 +991,7 @@ if (!doNotTrack) {
 
 
 
-<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
 
 
 

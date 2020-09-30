@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	
-	<sitemap>
-	   	<loc>https://mosn.io/zh/sitemap.xml</loc>
-		
-	   	<lastmod>2020-09-03T15:39:14+08:00</lastmod>
-		
-	</sitemap>
-	
-	<sitemap>
-	   	<loc>https://mosn.io/en/sitemap.xml</loc>
-		
-	   	<lastmod>2020-09-03T15:39:14+08:00</lastmod>
-		
-	</sitemap>
-	
+  
+  <sitemap>
+    <loc>https://mosn.io/en/sitemap.xml</loc>
+    
+      <lastmod>2020-09-30T15:51:50+08:00</lastmod>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>https://mosn.io/zh/sitemap.xml</loc>
+    
+      <lastmod>2020-09-30T15:51:50+08:00</lastmod>
+    
+  </sitemap>
+  
 </sitemapindex>

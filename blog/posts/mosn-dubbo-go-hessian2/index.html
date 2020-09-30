@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.55.5" />
+<meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
 
@@ -22,15 +22,12 @@
 <meta property="og:description" content="本文会重点描述在基于 Go 语言库 dubbo-go-hessian2 、Dubbo 协议中对 MOSN 所做的性能优化。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/posts/mosn-dubbo-go-hessian2/" />
-<meta property="article:published_time" content="2020-06-02T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-09-03T15:39:14&#43;08:00"/><meta property="og:site_name" content="MOSN" />
-
+<meta property="article:published_time" content="2020-06-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-30T15:51:50+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化">
 <meta itemprop="description" content="本文会重点描述在基于 Go 语言库 dubbo-go-hessian2 、Dubbo 协议中对 MOSN 所做的性能优化。">
-
-
-<meta itemprop="datePublished" content="2020-06-02T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-09-03T15:39:14&#43;08:00" />
+<meta itemprop="datePublished" content="2020-06-02T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-30T15:51:50+08:00" />
 <meta itemprop="wordCount" content="1733">
 
 
@@ -54,8 +51,8 @@ if (!doNotTrack) {
 
 
 
-<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
-<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -74,7 +71,7 @@ if (!doNotTrack) {
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
         <a class="navbar-brand" href="/">
-		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
         
 	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
@@ -225,62 +222,68 @@ if (!doNotTrack) {
     <a  href="/blog/releases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">发布</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-releases">
+    <li class="collapse " id="blogreleases">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-16-0" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0170" href="/blog/releases/v0.17.0/">MOSN v0.17.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-15-0" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0160" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-14-0" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0150" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-13-0" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0140" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-12-0" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0130" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-11-0" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0120" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-10-0" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0110" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-1-0-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0100" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-2-1-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-010-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-021-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
       
       
     </li>
@@ -302,20 +305,20 @@ if (!doNotTrack) {
     <a  href="/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-news">
+    <li class="collapse " id="blognews">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-mosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsmosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-announcing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsannouncing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
       
       
     </li>
@@ -337,62 +340,62 @@ if (!doNotTrack) {
     <a  href="/blog/posts/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">分享</a>
   </li>
   <ul>
-    <li class="collapse show" id="blog-posts">
+    <li class="collapse show" id="blogposts">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blog-posts-mosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogpostsmosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-skywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsskywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-multi-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmulti-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-udpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsudpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-nginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsnginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
       
       
     </li>
@@ -414,92 +417,92 @@ if (!doNotTrack) {
     <a  href="/blog/code/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">源码解析</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-code">
+    <li class="collapse " id="blogcode">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
       
       
     </li>
@@ -545,34 +548,18 @@ if (!doNotTrack) {
 
 
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#性能优化概述">性能优化概述</a></li>
-<li><a href="#性能优化工具-pprof">性能优化工具 pprof</a></li>
-<li><a href="#性能优化思路">性能优化思路</a>
-<ul>
-<li><a href="#1-优化-dubbo-解码-getmetas">1. 优化 dubbo 解码 GetMetas</a></li>
-<li><a href="#2-优化-dubbo-解码参数">2. 优化 dubbo 解码参数</a></li>
-<li><a href="#3-优化-dubbo-hessian-go-解码-string-性能">3. 优化 dubbo hessian go 解码 string 性能</a></li>
-<li><a href="#4-优化-hessian-库编解码对象">4. 优化 hessian 库编解码对象</a></li>
-<li><a href="#5-优化重复解码-service-和-methodname-值">5. 优化重复解码 service 和 methodName 值</a></li>
-<li><a href="#6-优化-streamid-类型转换">6. 优化 streamID 类型转换</a></li>
-<li><a href="#7-优化昂贵的系统调用">7. 优化昂贵的系统调用</a></li>
-<li><a href="#8-优化-slice-和-map-触发扩容和-rehash">8. 优化 slice 和 map 触发扩容和 rehash</a></li>
-<li><a href="#9-优化-trace-日志级别输出">9. 优化 trace 日志级别输出</a></li>
-<li><a href="#10-优化-tracer-log-和-metrics">10. 优化 tracer、log 和 metrics</a></li>
-<li><a href="#11-优化-route-header-解析">11. 优化 route header 解析</a></li>
-<li><a href="#12-优化-featuregate-调用">12. 优化 featuregate 调用</a></li>
-</ul></li>
-<li><a href="#未来性能优化思考">未来性能优化思考</a></li>
-<li><a href="#其他">其他</a></li>
-<li><a href="#关于作者">关于作者</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#性能优化概述">性能优化概述</a></li>
+        <li><a href="#性能优化工具-pprof">性能优化工具 pprof</a></li>
+        <li><a href="#性能优化思路">性能优化思路</a></li>
+        <li><a href="#未来性能优化思考">未来性能优化思考</a></li>
+        <li><a href="#其他">其他</a></li>
+        <li><a href="#关于作者">关于作者</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
 
 
@@ -587,124 +574,98 @@ if (!doNotTrack) {
 	<h1>记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</h1>
 	<div class="lead">本文会重点描述在基于 Go 语言库 dubbo-go-hessian2 、Dubbo 协议中对 MOSN 所做的性能优化。</div>
 	<div class="td-byline mb-4">
-		作者 <b><a href="https://github.com/zonghaishang" target="_blank">商宗海</a></b> |
+		作者 <b><a href="https://github.com/zonghaishang">商宗海</a></b> |
 		<time datetime="2020-06-02" class="text-muted">2020年6月2日</time>
 	</div>
-	
-
-<p>蚂蚁集团内部对 Service Mesh 的稳定性和性能要求是比较高的，内部 MOSN 广泛用于生产环境。在云上和开源社区，RPC 领域 Dubbo 和 Spring Cloud 同样广泛用于生产环境，我们在 MOSN 基础上，支持了 Dubbo 和 spring cloud 流量代理。我们发现在支持 Dubbo 协议过程中，经过 Mesh 流量代理后，性能有非常大的性能损耗，在大商户落地 Mesh 中也对性能有较高要求，因此本文会重点描述在基于 Go 语言库 <a href="https://github.com/apache/dubbo-go-hessian2" target="_blank">dubbo-go-hessian2</a> 、Dubbo 协议中对 <a href="https://github.com/mosn/mosn" target="_blank">MOSN</a> 所做的性能优化。</p>
-
+	<p>蚂蚁集团内部对 Service Mesh 的稳定性和性能要求是比较高的，内部 MOSN 广泛用于生产环境。在云上和开源社区，RPC 领域 Dubbo 和 Spring Cloud 同样广泛用于生产环境，我们在 MOSN 基础上，支持了 Dubbo 和 spring cloud 流量代理。我们发现在支持 Dubbo 协议过程中，经过 Mesh 流量代理后，性能有非常大的性能损耗，在大商户落地 Mesh 中也对性能有较高要求，因此本文会重点描述在基于 Go 语言库 <a href="https://github.com/apache/dubbo-go-hessian2">dubbo-go-hessian2</a> 、Dubbo 协议中对 <a href="https://github.com/mosn/mosn">MOSN</a> 所做的性能优化。</p>
 <h3 id="性能优化概述">性能优化概述</h3>
-
 <p>根据实际业务部署场景，并没有选用高性能机器，使用普通 linux 机器，配置和压测参数如下：</p>
-
 <ul>
-<li>Intel &reg; Xeon &reg; Platinum 8163 CPU @ 2.50GHz 4 核 16G 。</li>
+<li>Intel (R) Xeon (R) Platinum 8163 CPU @ 2.50GHz 4 核 16G 。</li>
 <li>pod 配置 <code>2c、1g</code>，JVM 参数 <code>-server -Xms1024m -Xmx1024m</code>。</li>
-<li>网络延迟 0.23 ms, 2 台 linux 机器，分别部署 server + mosn, 压测程序 <a href="https://github.com/zonghaishang/rpc-performance" target="_blank">rpc-perfomance</a>。</li>
+<li>网络延迟 0.23 ms, 2 台 linux 机器，分别部署 server + mosn, 压测程序 <a href="https://github.com/zonghaishang/rpc-performance">rpc-perfomance</a>。</li>
 </ul>
-
 <p>经过 3 轮性能优化后，使用优化版本 MOSN 将会获得以下性能收益（框架随机 512 和 1k 字节压测）：</p>
-
 <ul>
 <li>512 字节数据：MOSN + Dubbo 服务调用 TPS 整体提升 55-82.8%，RT 降低 45% 左右，内存占用 40M，</li>
 <li>1k 数据：MOSN + Dubbo 服务调用 TPS 整体提升 51.1-69.3%，RT 降低 41% 左右，内存占用 41M。</li>
 </ul>
-
 <h3 id="性能优化工具-pprof">性能优化工具 pprof</h3>
-
-<p>磨刀不误砍柴工，在性能优化前首先要找到性能卡点，找到性能卡点后，另一个难点就是如何用高效代码优化替代 slow code。因为蚂蚁集团 Service Mesh 是基于 go 语言实现的，我们首选 go 自带的 pprof 性能工具，我们简要介绍这个工具如何使用。如果我们 go 库自带 http.Server 时并且在 main 头部导入 <code>import _ &quot;net/http/pprof&quot;</code>，go 会帮我们挂载对应的 handler , 详细可以参考 <a href="https://pkg.go.dev/net/http/pprof?tab=doc" target="_blank">godoc</a> 。</p>
-
+<p>磨刀不误砍柴工，在性能优化前首先要找到性能卡点，找到性能卡点后，另一个难点就是如何用高效代码优化替代 slow code。因为蚂蚁集团 Service Mesh 是基于 go 语言实现的，我们首选 go 自带的 pprof 性能工具，我们简要介绍这个工具如何使用。如果我们 go 库自带 http.Server 时并且在 main 头部导入 <code>import _ &quot;net/http/pprof&quot;</code>，go 会帮我们挂载对应的 handler , 详细可以参考 <a href="https://pkg.go.dev/net/http/pprof?tab=doc">godoc</a> 。</p>
 <p>因为 mosn 默认会在 <code>34902</code> 端口暴露 http 服务，通过以下命令轻松获取 mosn 的性能诊断文件：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go tool pprof -seconds <span style="color:#0000cf;font-weight:bold">60</span> http://benchmark-server-ip:34902/debug/pprof/profile
 <span style="color:#8f5902;font-style:italic"># 会生成类似以下文件，该命令采样cpu 60秒</span>
-<span style="color:#8f5902;font-style:italic"># pprof.mosn.samples.cpu.001.pb.gz</span></code></pre></div>
-<p>然后继续用 pprof 打开诊断文件，方便在浏览器查看，在图 1-1 给出压测后 profiler 火焰图：</p>
+<span style="color:#8f5902;font-style:italic"># pprof.mosn.samples.cpu.001.pb.gz</span>
+</code></pre></div><p>然后继续用 pprof 打开诊断文件，方便在浏览器查看，在图 1-1 给出压测后 profiler 火焰图：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8f5902;font-style:italic"># http=:8000代表pprof打开8000端口然后用于web浏览器分析</span>
 <span style="color:#8f5902;font-style:italic"># mosnd代表mosn的二进制可执行文件，用于分析代码符号</span>
 <span style="color:#8f5902;font-style:italic"># pprof.mosn.samples.cpu.001.pb.gz是cpu诊断文件</span>
-go tool pprof -http<span style="color:#ce5c00;font-weight:bold">=</span>:8000 mosnd pprof.mosn.samples.cpu.001.pb.gz</code></pre></div>
-<p><img src="007S8ZIlgy1gfm13iq7twj315g0fajxp.jpg" alt="img" /></p>
-
+go tool pprof -http<span style="color:#ce5c00;font-weight:bold">=</span>:8000 mosnd pprof.mosn.samples.cpu.001.pb.gz
+</code></pre></div><p><img src="007S8ZIlgy1gfm13iq7twj315g0fajxp.jpg" alt="img"></p>
 <p>图 1-1 MOSN 性能压测火焰图</p>
-
 <p>在获得诊断数据后，可以切到浏览器 Flame Graph（火焰图，go 1.11 以上版本自带），火焰图的 x 轴坐标代表 CPU 消耗情况， y 轴代码方法调用堆栈。在优化开始之前，我们借助 go 工具 pprof 可以诊断出大致的性能卡点在以下几个方面（直接压 server 端 MOSN）：</p>
-
 <ul>
 <li>MOSN 在接收 Dubbo 请求，CPU 卡点在 streamConnection.Dispatch</li>
 <li>MOSN 在转发 Dubbo 请求，CPU 卡点在 downStream.Receive</li>
 </ul>
-
 <p>可以点击火焰图任意横条，进去查看长方块耗时和堆栈明细（请参考图 1-2 和 1-3 所示）：</p>
-
-<p><img src="007S8ZIlgy1gfm13gy31ij31hc0kfdms.jpg" alt="img" /></p>
-
+<p><img src="007S8ZIlgy1gfm13gy31ij31hc0kfdms.jpg" alt="img"></p>
 <p>图 1-2 Dispatch 火焰图明细</p>
-
-<p><img src="007S8ZIlgy1gfm13hwtidj31hc0gy474.jpg" alt="" /></p>
-
+<p><img src="007S8ZIlgy1gfm13hwtidj31hc0gy474.jpg" alt=""></p>
 <p>图 1-3 Receive 火焰图明细</p>
-
 <h3 id="性能优化思路">性能优化思路</h3>
-
 <p>本文重点记录优化了哪些 case 才能提升 50% 以上的吞吐量和降低 RT，因此后面直接分析当前优化了哪些 case。在此之前，我们以 Dispatch 为例，看下它为甚么那么吃性能 。在 terminal 中通过以下命令可以查看代码行耗费 CPU 数据（代码有删减）：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go tool pprof mosnd pprof.mosn.samples.cpu.001.pb.gz
 <span style="color:#ce5c00;font-weight:bold">(</span>pprof<span style="color:#ce5c00;font-weight:bold">)</span> list Dispatch
-Total: <span style="color:#0000cf;font-weight:bold">1</span>.75mins
-     370ms     <span style="color:#0000cf;font-weight:bold">37</span>.15s <span style="color:#ce5c00;font-weight:bold">(</span>flat, cum<span style="color:#ce5c00;font-weight:bold">)</span> <span style="color:#0000cf;font-weight:bold">35</span>.46% of Total
-      10ms       10ms    <span style="color:#0000cf;font-weight:bold">123</span>:func <span style="color:#ce5c00;font-weight:bold">(</span>conn *streamConnection<span style="color:#ce5c00;font-weight:bold">)</span> Dispatch<span style="color:#ce5c00;font-weight:bold">(</span>buffer types.IoBuffer<span style="color:#ce5c00;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">{</span>
-      40ms      630ms    <span style="color:#0000cf;font-weight:bold">125</span>:   log.DefaultLogger.Tracef<span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#4e9a06">&#34;stream connection dispatch data string = %v&#34;</span>, buffer.String<span style="color:#ce5c00;font-weight:bold">())</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">126</span>:
-         .          .    <span style="color:#0000cf;font-weight:bold">127</span>:   // get sub protocol codec
-         .      250ms    <span style="color:#0000cf;font-weight:bold">128</span>:   requestList :<span style="color:#ce5c00;font-weight:bold">=</span> conn.codec.SplitFrame<span style="color:#ce5c00;font-weight:bold">(</span>buffer.Bytes<span style="color:#ce5c00;font-weight:bold">())</span>
-      20ms       20ms    <span style="color:#0000cf;font-weight:bold">129</span>:   <span style="color:#204a87;font-weight:bold">for</span> _, request :<span style="color:#ce5c00;font-weight:bold">=</span> range requestList <span style="color:#ce5c00;font-weight:bold">{</span>
-      10ms      160ms    <span style="color:#0000cf;font-weight:bold">134</span>:       headers :<span style="color:#ce5c00;font-weight:bold">=</span> make<span style="color:#ce5c00;font-weight:bold">(</span>map<span style="color:#ce5c00;font-weight:bold">[</span>string<span style="color:#ce5c00;font-weight:bold">]</span>string<span style="color:#ce5c00;font-weight:bold">)</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">135</span>:       // support dynamic route
-      50ms      920ms    <span style="color:#0000cf;font-weight:bold">136</span>:       headers<span style="color:#ce5c00;font-weight:bold">[</span>strings.ToLower<span style="color:#ce5c00;font-weight:bold">(</span>protocol.MosnHeaderHostKey<span style="color:#ce5c00;font-weight:bold">)]</span> <span style="color:#ce5c00;font-weight:bold">=</span> conn.connection.RemoteAddr<span style="color:#ce5c00;font-weight:bold">()</span>.String<span style="color:#ce5c00;font-weight:bold">()</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">149</span>:
-         .          .    <span style="color:#0000cf;font-weight:bold">150</span>:       // get stream id
-      10ms      440ms    <span style="color:#0000cf;font-weight:bold">151</span>:       streamID :<span style="color:#ce5c00;font-weight:bold">=</span> conn.codec.GetStreamID<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">156</span>:       // request route
-         .       50ms    <span style="color:#0000cf;font-weight:bold">157</span>:       requestRouteCodec, ok :<span style="color:#ce5c00;font-weight:bold">=</span> conn.codec.<span style="color:#ce5c00;font-weight:bold">(</span>xprotocol.RequestRouting<span style="color:#ce5c00;font-weight:bold">)</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">158</span>:       <span style="color:#204a87;font-weight:bold">if</span> ok <span style="color:#ce5c00;font-weight:bold">{</span>
-         .     <span style="color:#0000cf;font-weight:bold">20</span>.11s    <span style="color:#0000cf;font-weight:bold">159</span>:           routeHeaders :<span style="color:#ce5c00;font-weight:bold">=</span> requestRouteCodec.GetMetas<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">165</span>:       <span style="color:#ce5c00;font-weight:bold">}</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">166</span>:
-         .          .    <span style="color:#0000cf;font-weight:bold">167</span>:       // tracing
-      10ms       80ms    <span style="color:#0000cf;font-weight:bold">168</span>:       tracingCodec, ok :<span style="color:#ce5c00;font-weight:bold">=</span> conn.codec.<span style="color:#ce5c00;font-weight:bold">(</span>xprotocol.Tracing<span style="color:#ce5c00;font-weight:bold">)</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">169</span>:       var span types.Span
-         .          .    <span style="color:#0000cf;font-weight:bold">170</span>:       <span style="color:#204a87;font-weight:bold">if</span> ok <span style="color:#ce5c00;font-weight:bold">{</span>
-      10ms      <span style="color:#0000cf;font-weight:bold">1</span>.91s    <span style="color:#0000cf;font-weight:bold">171</span>:           serviceName :<span style="color:#ce5c00;font-weight:bold">=</span> tracingCodec.GetServiceName<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
-         .      <span style="color:#0000cf;font-weight:bold">2</span>.17s    <span style="color:#0000cf;font-weight:bold">172</span>:           methodName :<span style="color:#ce5c00;font-weight:bold">=</span> tracingCodec.GetMethodName<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">176</span>:
-         .          .    <span style="color:#0000cf;font-weight:bold">177</span>:           <span style="color:#204a87;font-weight:bold">if</span> trace.IsEnabled<span style="color:#ce5c00;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">{</span>
-         .       50ms    <span style="color:#0000cf;font-weight:bold">179</span>:               tracer :<span style="color:#ce5c00;font-weight:bold">=</span> trace.Tracer<span style="color:#ce5c00;font-weight:bold">(</span>protocol.Xprotocol<span style="color:#ce5c00;font-weight:bold">)</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">180</span>:               <span style="color:#204a87;font-weight:bold">if</span> tracer !<span style="color:#ce5c00;font-weight:bold">=</span> nil <span style="color:#ce5c00;font-weight:bold">{</span>
-      20ms      <span style="color:#0000cf;font-weight:bold">1</span>.66s    <span style="color:#0000cf;font-weight:bold">181</span>:                   <span style="color:#000">span</span> <span style="color:#ce5c00;font-weight:bold">=</span> tracer.Start<span style="color:#ce5c00;font-weight:bold">(</span>conn.context, headers, time.Now<span style="color:#ce5c00;font-weight:bold">())</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">182</span>:               <span style="color:#ce5c00;font-weight:bold">}</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">183</span>:           <span style="color:#ce5c00;font-weight:bold">}</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">184</span>:       <span style="color:#ce5c00;font-weight:bold">}</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">185</span>:
-         .      110ms    <span style="color:#0000cf;font-weight:bold">186</span>:       reqBuf :<span style="color:#ce5c00;font-weight:bold">=</span> networkbuffer.NewIoBufferBytes<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">188</span>:       // append sub protocol header
-      10ms      950ms    <span style="color:#0000cf;font-weight:bold">189</span>:       headers<span style="color:#ce5c00;font-weight:bold">[</span>types.HeaderXprotocolSubProtocol<span style="color:#ce5c00;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">=</span> string<span style="color:#ce5c00;font-weight:bold">(</span>conn.subProtocol<span style="color:#ce5c00;font-weight:bold">)</span>
-      10ms      <span style="color:#0000cf;font-weight:bold">4</span>.96s    <span style="color:#0000cf;font-weight:bold">190</span>:       conn.OnReceive<span style="color:#ce5c00;font-weight:bold">(</span>ctx, streamID, protocol.CommonHeader<span style="color:#ce5c00;font-weight:bold">(</span>headers<span style="color:#ce5c00;font-weight:bold">)</span>, reqBuf, span, isHearbeat<span style="color:#ce5c00;font-weight:bold">)</span>
-      30ms       60ms    <span style="color:#0000cf;font-weight:bold">191</span>:       buffer.Drain<span style="color:#ce5c00;font-weight:bold">(</span>requestLen<span style="color:#ce5c00;font-weight:bold">)</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">192</span>:   <span style="color:#ce5c00;font-weight:bold">}</span>
-         .          .    <span style="color:#0000cf;font-weight:bold">193</span>:<span style="color:#ce5c00;font-weight:bold">}</span></code></pre></div>
-<p>通过上面 <code>list Dispatch</code> 命令，性能卡点主要分布在 <code>159</code> 、 <code>171</code> 、<code>172</code> 、 <code>181</code> 、和 <code>190</code> 等行，主要卡点在解码 dubbo 参数、重复解参数、tracer、发序列化和 log 等。</p>
-
+Total: 1.75mins
+     370ms     37.15s <span style="color:#ce5c00;font-weight:bold">(</span>flat, cum<span style="color:#ce5c00;font-weight:bold">)</span> 35.46% of Total
+      10ms       10ms    123:func <span style="color:#ce5c00;font-weight:bold">(</span>conn *streamConnection<span style="color:#ce5c00;font-weight:bold">)</span> Dispatch<span style="color:#ce5c00;font-weight:bold">(</span>buffer types.IoBuffer<span style="color:#ce5c00;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+      40ms      630ms    125:   log.DefaultLogger.Tracef<span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#4e9a06">&#34;stream connection dispatch data string = %v&#34;</span>, buffer.String<span style="color:#ce5c00;font-weight:bold">())</span>
+         .          .    126:
+         .          .    127:   // get sub protocol codec
+         .      250ms    128:   requestList :<span style="color:#ce5c00;font-weight:bold">=</span> conn.codec.SplitFrame<span style="color:#ce5c00;font-weight:bold">(</span>buffer.Bytes<span style="color:#ce5c00;font-weight:bold">())</span>
+      20ms       20ms    129:   <span style="color:#204a87;font-weight:bold">for</span> _, request :<span style="color:#ce5c00;font-weight:bold">=</span> range requestList <span style="color:#ce5c00;font-weight:bold">{</span>
+      10ms      160ms    134:       headers :<span style="color:#ce5c00;font-weight:bold">=</span> make<span style="color:#ce5c00;font-weight:bold">(</span>map<span style="color:#ce5c00;font-weight:bold">[</span>string<span style="color:#ce5c00;font-weight:bold">]</span>string<span style="color:#ce5c00;font-weight:bold">)</span>
+         .          .    135:       // support dynamic route
+      50ms      920ms    136:       headers<span style="color:#ce5c00;font-weight:bold">[</span>strings.ToLower<span style="color:#ce5c00;font-weight:bold">(</span>protocol.MosnHeaderHostKey<span style="color:#ce5c00;font-weight:bold">)]</span> <span style="color:#ce5c00;font-weight:bold">=</span> conn.connection.RemoteAddr<span style="color:#ce5c00;font-weight:bold">()</span>.String<span style="color:#ce5c00;font-weight:bold">()</span>
+         .          .    149:
+         .          .    150:       // get stream id
+      10ms      440ms    151:       streamID :<span style="color:#ce5c00;font-weight:bold">=</span> conn.codec.GetStreamID<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
+         .          .    156:       // request route
+         .       50ms    157:       requestRouteCodec, ok :<span style="color:#ce5c00;font-weight:bold">=</span> conn.codec.<span style="color:#ce5c00;font-weight:bold">(</span>xprotocol.RequestRouting<span style="color:#ce5c00;font-weight:bold">)</span>
+         .          .    158:       <span style="color:#204a87;font-weight:bold">if</span> ok <span style="color:#ce5c00;font-weight:bold">{</span>
+         .     20.11s    159:           routeHeaders :<span style="color:#ce5c00;font-weight:bold">=</span> requestRouteCodec.GetMetas<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
+         .          .    165:       <span style="color:#ce5c00;font-weight:bold">}</span>
+         .          .    166:
+         .          .    167:       // tracing
+      10ms       80ms    168:       tracingCodec, ok :<span style="color:#ce5c00;font-weight:bold">=</span> conn.codec.<span style="color:#ce5c00;font-weight:bold">(</span>xprotocol.Tracing<span style="color:#ce5c00;font-weight:bold">)</span>
+         .          .    169:       var span types.Span
+         .          .    170:       <span style="color:#204a87;font-weight:bold">if</span> ok <span style="color:#ce5c00;font-weight:bold">{</span>
+      10ms      1.91s    171:           serviceName :<span style="color:#ce5c00;font-weight:bold">=</span> tracingCodec.GetServiceName<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
+         .      2.17s    172:           methodName :<span style="color:#ce5c00;font-weight:bold">=</span> tracingCodec.GetMethodName<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
+         .          .    176:
+         .          .    177:           <span style="color:#204a87;font-weight:bold">if</span> trace.IsEnabled<span style="color:#ce5c00;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+         .       50ms    179:               tracer :<span style="color:#ce5c00;font-weight:bold">=</span> trace.Tracer<span style="color:#ce5c00;font-weight:bold">(</span>protocol.Xprotocol<span style="color:#ce5c00;font-weight:bold">)</span>
+         .          .    180:               <span style="color:#204a87;font-weight:bold">if</span> tracer !<span style="color:#ce5c00;font-weight:bold">=</span> nil <span style="color:#ce5c00;font-weight:bold">{</span>
+      20ms      1.66s    181:                   <span style="color:#000">span</span> <span style="color:#ce5c00;font-weight:bold">=</span> tracer.Start<span style="color:#ce5c00;font-weight:bold">(</span>conn.context, headers, time.Now<span style="color:#ce5c00;font-weight:bold">())</span>
+         .          .    182:               <span style="color:#ce5c00;font-weight:bold">}</span>
+         .          .    183:           <span style="color:#ce5c00;font-weight:bold">}</span>
+         .          .    184:       <span style="color:#ce5c00;font-weight:bold">}</span>
+         .          .    185:
+         .      110ms    186:       reqBuf :<span style="color:#ce5c00;font-weight:bold">=</span> networkbuffer.NewIoBufferBytes<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
+         .          .    188:       // append sub protocol header
+      10ms      950ms    189:       headers<span style="color:#ce5c00;font-weight:bold">[</span>types.HeaderXprotocolSubProtocol<span style="color:#ce5c00;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">=</span> string<span style="color:#ce5c00;font-weight:bold">(</span>conn.subProtocol<span style="color:#ce5c00;font-weight:bold">)</span>
+      10ms      4.96s    190:       conn.OnReceive<span style="color:#ce5c00;font-weight:bold">(</span>ctx, streamID, protocol.CommonHeader<span style="color:#ce5c00;font-weight:bold">(</span>headers<span style="color:#ce5c00;font-weight:bold">)</span>, reqBuf, span, isHearbeat<span style="color:#ce5c00;font-weight:bold">)</span>
+      30ms       60ms    191:       buffer.Drain<span style="color:#ce5c00;font-weight:bold">(</span>requestLen<span style="color:#ce5c00;font-weight:bold">)</span>
+         .          .    192:   <span style="color:#ce5c00;font-weight:bold">}</span>
+         .          .    193:<span style="color:#ce5c00;font-weight:bold">}</span>
+</code></pre></div><p>通过上面 <code>list Dispatch</code> 命令，性能卡点主要分布在 <code>159</code> 、 <code>171</code> 、<code>172</code> 、 <code>181</code> 、和 <code>190</code> 等行，主要卡点在解码 dubbo 参数、重复解参数、tracer、发序列化和 log 等。</p>
 <h4 id="1-优化-dubbo-解码-getmetas">1. 优化 dubbo 解码 GetMetas</h4>
-
-<p>我们通过解码 dubbo 的 body 可以获得以下信息，调用的目标接口（ interface ）和调用方法的服务分组（ group ）等信息，但是需要跳过所有业务方法参数，目前使用开源的 <a href="https://github.com/apache/dubbo-go-hessian2" target="_blank">dubbo-go-hessian2</a> 库，解析 string 和 map 性能较差，提升 hessian 库解码性能，会在本文后面讲解。</p>
-
+<p>我们通过解码 dubbo 的 body 可以获得以下信息，调用的目标接口（ interface ）和调用方法的服务分组（ group ）等信息，但是需要跳过所有业务方法参数，目前使用开源的 <a href="https://github.com/apache/dubbo-go-hessian2">dubbo-go-hessian2</a> 库，解析 string 和 map 性能较差，提升 hessian 库解码性能，会在本文后面讲解。</p>
 <p><strong>优化思路：</strong></p>
-
 <p>在 mosn 的 ingress 端（ mosn 直接转发请求给本地 java server 进程）, 我们根据请求的 path 和 version 窥探用户使用的 interface 和 group , 构建正确的 dataID 可以进行无脑转发，无需解码 body，榨取性能提升。</p>
-
 <p>我们可以在服务注册时，构建服务发布的 path 、version 和 group 到 interface 、group 映射。在 mosn 转发 dubbo 请求时可以通过读锁查 cache + 跳过解码 body，加速 mosn 性能。</p>
-
-<p>因此我们构建以下 cache 实现（数组 + 链表数据结构）, 可参见 <a href="https://github.com/mosn/mosn/pull/1174/commits/9020ee9995cd15a7a4321a375a9506cf94dc70a8#diff-f5ff30debd68b8318c8236a0b5ccde07R6" target="_blank">优化代码 diff</a> ：</p>
+<p>因此我们构建以下 cache 实现（数组 + 链表数据结构）, 可参见 <a href="https://github.com/mosn/mosn/pull/1174/commits/9020ee9995cd15a7a4321a375a9506cf94dc70a8#diff-f5ff30debd68b8318c8236a0b5ccde07R6">优化代码 diff</a> ：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// metadata.go
 </span><span style="color:#8f5902;font-style:italic">// DubboPubMetadata dubbo pub cache metadata
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">DubboPubMetadata</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">Metadata</span><span style="color:#000;font-weight:bold">{}</span>
@@ -815,8 +776,8 @@ Total: <span style="color:#0000cf;font-weight:bold">1</span>.75mins
     <span style="color:#8f5902;font-style:italic">// update last element
 </span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">head</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">last</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">insert</span>
     <span style="color:#000">m</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">mu</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Unlock</span><span style="color:#000;font-weight:bold">()</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>通过服务注册时构建好的 cache，可以在 MOSN 的 stream 做解码时命中 cache , 无需解码参数获取接口和 group 信息，可参见<a href="https://github.com/mosn/mosn/pull/1174/commits/9020ee9995cd15a7a4321a375a9506cf94dc70a8#diff-73d1153005841c788c91116915f460a5R188" target="_blank">优化代码 diff</a> :</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>通过服务注册时构建好的 cache，可以在 MOSN 的 stream 做解码时命中 cache , 无需解码参数获取接口和 group 信息，可参见<a href="https://github.com/mosn/mosn/pull/1174/commits/9020ee9995cd15a7a4321a375a9506cf94dc70a8#diff-73d1153005841c788c91116915f460a5R188">优化代码 diff</a> :</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// decoder.go
 </span><span style="color:#8f5902;font-style:italic">// for better performance.
 </span><span style="color:#8f5902;font-style:italic">// If the ingress scenario is not using group,
@@ -834,18 +795,15 @@ Total: <span style="color:#0000cf;font-weight:bold">1</span>.75mins
         <span style="color:#000">meta</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">ServiceNameHeader</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">node</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Service</span>
         <span style="color:#000">meta</span><span style="color:#000;font-weight:bold">[</span><span style="color:#000">GroupNameHeader</span><span style="color:#000;font-weight:bold">]</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">node</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Group</span>
     <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>在 MOSN 的 egress 端（ mosn 直接转发请求给本地 java client 进程）, 我们采用类似的思路，我们根据请求的 path 和 version 去窥探用户使用的 interface 和 group , 构建正确的 dataID 可以进行无脑转发，无需解码 body，榨取性能提升。</p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>在 MOSN 的 egress 端（ mosn 直接转发请求给本地 java client 进程）, 我们采用类似的思路，我们根据请求的 path 和 version 去窥探用户使用的 interface 和 group , 构建正确的 dataID 可以进行无脑转发，无需解码 body，榨取性能提升。</p>
 <h4 id="2-优化-dubbo-解码参数">2. 优化 dubbo 解码参数</h4>
-
 <p>在 dubbo 解码参数值的时候 ，MOSN 采用的是 hessian 的正则表达式查找，非常耗费性能。我们先看下优化前后 benchmark 对比，性能提升 50 倍。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go <span style="color:#204a87">test</span> -bench<span style="color:#ce5c00;font-weight:bold">=</span>BenchmarkCountArgCount -run<span style="color:#ce5c00;font-weight:bold">=</span>^$ -benchmem
 BenchmarkCountArgCountByRegex-12    <span style="color:#0000cf;font-weight:bold">200000</span>  <span style="color:#0000cf;font-weight:bold">6236</span> ns/op  <span style="color:#0000cf;font-weight:bold">1472</span> B/op   <span style="color:#0000cf;font-weight:bold">24</span> allocs/op
-BenchmarkCountArgCountOptimized-12  <span style="color:#0000cf;font-weight:bold">10000000</span>    <span style="color:#0000cf;font-weight:bold">124</span> ns/op   <span style="color:#0000cf;font-weight:bold">0</span> B/op  <span style="color:#0000cf;font-weight:bold">0</span> allocs/op</code></pre></div>
-<p><strong>优化思路：</strong></p>
-
-<p>可以消除正则表达式，采用简单字符串解析识别参数类型个数， <a href="https://github.com/zonghaishang/dubbo/blob/e0fd702825a274379fb609229bdb06ca0586122e/dubbo-common/src/main/java/org/apache/dubbo/common/utils/ReflectUtils.java#L370" target="_blank">Dubbo 编码参数个数字符串实现</a> 并不复杂，主要给对象加 L 前缀、数组加 [、primitive 类型有单字符代替。采用 go 可以实现同等解析，可以参考<a href="https://github.com/mosn/mosn/pull/1174/commits/9020ee9995cd15a7a4321a375a9506cf94dc70a8#diff-73d1153005841c788c91116915f460a5R245" target="_blank">优化代码 diff</a> ：</p>
+BenchmarkCountArgCountOptimized-12  <span style="color:#0000cf;font-weight:bold">10000000</span>    <span style="color:#0000cf;font-weight:bold">124</span> ns/op   <span style="color:#0000cf;font-weight:bold">0</span> B/op  <span style="color:#0000cf;font-weight:bold">0</span> allocs/op
+</code></pre></div><p><strong>优化思路：</strong></p>
+<p>可以消除正则表达式，采用简单字符串解析识别参数类型个数， <a href="https://github.com/zonghaishang/dubbo/blob/e0fd702825a274379fb609229bdb06ca0586122e/dubbo-common/src/main/java/org/apache/dubbo/common/utils/ReflectUtils.java#L370">Dubbo 编码参数个数字符串实现</a> 并不复杂，主要给对象加 L 前缀、数组加 [、primitive 类型有单字符代替。采用 go 可以实现同等解析，可以参考<a href="https://github.com/mosn/mosn/pull/1174/commits/9020ee9995cd15a7a4321a375a9506cf94dc70a8#diff-73d1153005841c788c91116915f460a5R245">优化代码 diff</a> ：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">getArgumentCount</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">desc</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">int</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">len</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87">len</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">desc</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">len</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#0000cf;font-weight:bold">0</span> <span style="color:#000;font-weight:bold">{</span>
@@ -889,37 +847,30 @@ BenchmarkCountArgCountOptimized-12  <span style="color:#0000cf;font-weight:bold"
 
     <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">args</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h4 id="3-优化-dubbo-hessian-go-解码-string-性能">3. 优化 dubbo hessian go 解码 string 性能</h4>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h4 id="3-优化-dubbo-hessian-go-解码-string-性能">3. 优化 dubbo hessian go 解码 string 性能</h4>
 <p>在图 1-2 中可以看到 dubbo hessian go 在解码 string 占比 CPU 采样较高，我们在解码 dubbo 请求时，会解析 dubbo 框架版本、调用 path 、接口版本和方法名，这些都是 string 类型，dubbo hessian go 解析 string 会影响 RPC 性能。</p>
-
 <p>我们首先跑一下 benchmar k 前后解码 string 性能对比，性能提升 56.11%， 对应到 RPC 中有 5% 左右提升。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">BenchmarkDecodeStringOriginal-12     <span style="color:#0000cf;font-weight:bold">1967202</span>     <span style="color:#0000cf;font-weight:bold">613</span> ns/op     <span style="color:#0000cf;font-weight:bold">272</span> B/op     <span style="color:#0000cf;font-weight:bold">6</span> allocs/op
-BenchmarkDecodeStringOptimized-12     <span style="color:#0000cf;font-weight:bold">4477216</span>     <span style="color:#0000cf;font-weight:bold">269</span> ns/op     <span style="color:#0000cf;font-weight:bold">224</span> B/op     <span style="color:#0000cf;font-weight:bold">5</span> allocs/op</code></pre></div>
-<p><strong>优化思路：</strong></p>
-
-<p>直接使用 UTF-8 byte 解码，性能最高，之前先解码 byte 成 rune , 对 rune 解码成 string ，及其耗费性能。增加批量 string chunk copy ，降低 read 调用，并且使用 unsafe 转换 string （避免一些校验），因为代码优化 diff 较多，这里给出<a href="https://github.com/apache/dubbo-go-hessian2/pull/188" target="_blank">优化代码 PR</a> 。</p>
-
+BenchmarkDecodeStringOptimized-12     <span style="color:#0000cf;font-weight:bold">4477216</span>     <span style="color:#0000cf;font-weight:bold">269</span> ns/op     <span style="color:#0000cf;font-weight:bold">224</span> B/op     <span style="color:#0000cf;font-weight:bold">5</span> allocs/op
+</code></pre></div><p><strong>优化思路：</strong></p>
+<p>直接使用 UTF-8 byte 解码，性能最高，之前先解码 byte 成 rune , 对 rune 解码成 string ，及其耗费性能。增加批量 string chunk copy ，降低 read 调用，并且使用 unsafe 转换 string （避免一些校验），因为代码优化 diff 较多，这里给出<a href="https://github.com/apache/dubbo-go-hessian2/pull/188">优化代码 PR</a> 。</p>
 <p>go SDK 代码 <code>runtime/string.go#slicerunetostring</code>（ rune 转换成 string ）， 同样是把 rune 转成 byte 数组，这里给了我优化思路启发。</p>
-
 <h4 id="4-优化-hessian-库编解码对象">4. 优化 hessian 库编解码对象</h4>
-
 <p>虽然消除了 dubbo 的 body 解码部分，但是 MOSN 在处理 dubbo 请求时，必须要借助 hessian 去 decode 请求头部的框架版本、请求 path 和接口版本值。但是每次在解码的时候都会创建序列化对象，开销非常高，因为 hessian 每次在创建 reader 的时候会 allocate 4k 数据并 reset。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">      10ms       10ms     <span style="color:#0000cf;font-weight:bold">75</span>:func unSerialize<span style="color:#ce5c00;font-weight:bold">(</span>serializeId int, data <span style="color:#ce5c00;font-weight:bold">[]</span>byte, parseCtl unserializeCtl<span style="color:#ce5c00;font-weight:bold">)</span> *dubboAttr <span style="color:#ce5c00;font-weight:bold">{</span>
-      10ms      140ms     <span style="color:#0000cf;font-weight:bold">82</span>:   attr :<span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">&amp;</span>dubboAttr<span style="color:#ce5c00;font-weight:bold">{}</span>
-      80ms      <span style="color:#0000cf;font-weight:bold">2</span>.56s     <span style="color:#0000cf;font-weight:bold">83</span>:   decoder :<span style="color:#ce5c00;font-weight:bold">=</span> hessian.NewDecoderWithSkip<span style="color:#ce5c00;font-weight:bold">(</span>data<span style="color:#ce5c00;font-weight:bold">[</span>:<span style="color:#ce5c00;font-weight:bold">])</span>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">      10ms       10ms     75:func unSerialize<span style="color:#ce5c00;font-weight:bold">(</span>serializeId int, data <span style="color:#ce5c00;font-weight:bold">[]</span>byte, parseCtl unserializeCtl<span style="color:#ce5c00;font-weight:bold">)</span> *dubboAttr <span style="color:#ce5c00;font-weight:bold">{</span>
+      10ms      140ms     82:   attr :<span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">&amp;</span>dubboAttr<span style="color:#ce5c00;font-weight:bold">{}</span>
+      80ms      2.56s     83:   decoder :<span style="color:#ce5c00;font-weight:bold">=</span> hessian.NewDecoderWithSkip<span style="color:#ce5c00;font-weight:bold">(</span>data<span style="color:#ce5c00;font-weight:bold">[</span>:<span style="color:#ce5c00;font-weight:bold">])</span>
 <span style="color:#000">ROUTINE</span> <span style="color:#ce5c00;font-weight:bold">========================</span> bufio.NewReaderSize in /usr/local/go/src/bufio/bufio.go
-      50ms      <span style="color:#0000cf;font-weight:bold">2</span>.44s <span style="color:#ce5c00;font-weight:bold">(</span>flat, cum<span style="color:#ce5c00;font-weight:bold">)</span>  <span style="color:#0000cf;font-weight:bold">2</span>.33% of Total
-         .      220ms     <span style="color:#0000cf;font-weight:bold">55</span>:   r :<span style="color:#ce5c00;font-weight:bold">=</span> new<span style="color:#ce5c00;font-weight:bold">(</span>Reader<span style="color:#ce5c00;font-weight:bold">)</span>
-      50ms      <span style="color:#0000cf;font-weight:bold">2</span>.22s     <span style="color:#0000cf;font-weight:bold">56</span>:   r.reset<span style="color:#ce5c00;font-weight:bold">(</span>make<span style="color:#ce5c00;font-weight:bold">([]</span>byte, size<span style="color:#ce5c00;font-weight:bold">)</span>, rd<span style="color:#ce5c00;font-weight:bold">)</span>
-         .          .     <span style="color:#0000cf;font-weight:bold">57</span>:   <span style="color:#204a87;font-weight:bold">return</span> r
-         .          .     <span style="color:#0000cf;font-weight:bold">58</span>:<span style="color:#ce5c00;font-weight:bold">}</span></code></pre></div>
-<p>我们可以写个池化内存前后性能对比，性能提升 85.4% , <a href="https://github.com/zonghaishang/dubbo-go-hessian2/blob/9b418c4e2700964f244e6b982855b4e89b45990d/string_test.go#L161" target="_blank">benchmark 用例</a> ：</p>
+      50ms      2.44s <span style="color:#ce5c00;font-weight:bold">(</span>flat, cum<span style="color:#ce5c00;font-weight:bold">)</span>  2.33% of Total
+         .      220ms     55:   r :<span style="color:#ce5c00;font-weight:bold">=</span> new<span style="color:#ce5c00;font-weight:bold">(</span>Reader<span style="color:#ce5c00;font-weight:bold">)</span>
+      50ms      2.22s     56:   r.reset<span style="color:#ce5c00;font-weight:bold">(</span>make<span style="color:#ce5c00;font-weight:bold">([]</span>byte, size<span style="color:#ce5c00;font-weight:bold">)</span>, rd<span style="color:#ce5c00;font-weight:bold">)</span>
+         .          .     57:   <span style="color:#204a87;font-weight:bold">return</span> r
+         .          .     58:<span style="color:#ce5c00;font-weight:bold">}</span>
+</code></pre></div><p>我们可以写个池化内存前后性能对比，性能提升 85.4% , <a href="https://github.com/zonghaishang/dubbo-go-hessian2/blob/9b418c4e2700964f244e6b982855b4e89b45990d/string_test.go#L161">benchmark 用例</a> ：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">BenchmarkNewDecoder-12  <span style="color:#0000cf;font-weight:bold">1487685</span> <span style="color:#0000cf;font-weight:bold">803</span> ns/op   <span style="color:#0000cf;font-weight:bold">4528</span> B/op   <span style="color:#0000cf;font-weight:bold">9</span> allocs/op
-BenchmarkNewDecoderOptimized-12 <span style="color:#0000cf;font-weight:bold">10564024</span>    <span style="color:#0000cf;font-weight:bold">117</span> ns/op   <span style="color:#0000cf;font-weight:bold">128</span> B/op    <span style="color:#0000cf;font-weight:bold">3</span> allocs/op</code></pre></div>
-<p><strong>优化思路：</strong></p>
-
+BenchmarkNewDecoderOptimized-12 <span style="color:#0000cf;font-weight:bold">10564024</span>    <span style="color:#0000cf;font-weight:bold">117</span> ns/op   <span style="color:#0000cf;font-weight:bold">128</span> B/op    <span style="color:#0000cf;font-weight:bold">3</span> allocs/op
+</code></pre></div><p><strong>优化思路：</strong></p>
 <p>在每次编解码时，池化 hessian 的 decoder 对象，新增 NewCheapDecoderWithSkip 并支持 reset 复用 decoder 。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">var</span> <span style="color:#000">decodePool</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Pool</span><span style="color:#000;font-weight:bold">{</span>
     <span style="color:#000">New</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">interface</span><span style="color:#000;font-weight:bold">{}</span> <span style="color:#000;font-weight:bold">{</span>
@@ -931,100 +882,62 @@ BenchmarkNewDecoderOptimized-12 <span style="color:#0000cf;font-weight:bold">105
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">decoder</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">decodePool</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Get</span><span style="color:#000;font-weight:bold">().(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">hessian</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Decoder</span><span style="color:#000;font-weight:bold">)</span>
 <span style="color:#8f5902;font-style:italic">// fill decode data
 </span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">decoder</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Reset</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">[:])</span>
-<span style="color:#000">hessianPool</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Put</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">decoder</span><span style="color:#000;font-weight:bold">)</span></code></pre></div>
-<h4 id="5-优化重复解码-service-和-methodname-值">5. 优化重复解码 service 和 methodName 值</h4>
-
+<span style="color:#000">hessianPool</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Put</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">decoder</span><span style="color:#000;font-weight:bold">)</span>
+</code></pre></div><h4 id="5-优化重复解码-service-和-methodname-值">5. 优化重复解码 service 和 methodName 值</h4>
 <p>xprotocol 在实现 xprotocol.Tracing 获取服务名称和方法时，会触发调用并解析 2 次，调用开销比较大。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">10ms      <span style="color:#0000cf;font-weight:bold">1</span>.91s    <span style="color:#0000cf;font-weight:bold">171</span>:           serviceName :<span style="color:#ce5c00;font-weight:bold">=</span> tracingCodec.GetServiceName<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
-   .      <span style="color:#0000cf;font-weight:bold">2</span>.17s    <span style="color:#0000cf;font-weight:bold">172</span>:           methodName :<span style="color:#ce5c00;font-weight:bold">=</span> tracingCodec.GetMethodName<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span></code></pre></div>
-<p><strong>优化思路：</strong></p>
-
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">10ms      1.91s    171:           serviceName :<span style="color:#ce5c00;font-weight:bold">=</span> tracingCodec.GetServiceName<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
+   .      2.17s    172:           methodName :<span style="color:#ce5c00;font-weight:bold">=</span> tracingCodec.GetMethodName<span style="color:#ce5c00;font-weight:bold">(</span>request<span style="color:#ce5c00;font-weight:bold">)</span>
+</code></pre></div><p><strong>优化思路：</strong></p>
 <p>因为在 GetMetas 里面已经解析过一次了，可以把解析过的 headers 传进去，如果 headers 有了就不用再去解析了，并且重构接口名称为一个，返回值为二元组，消除一次调用。</p>
-
 <h4 id="6-优化-streamid-类型转换">6. 优化 streamID 类型转换</h4>
-
 <p>在 go 中将 byte 数组和 streamID 进行互转的时候，比较费性能。</p>
-
 <p><strong>优化思路：</strong></p>
-
 <p>生产代码中，尽量不要使用 fmt.Sprintf 和 fmt.Printf 去做类型转换和打印信息。可以使用 strconv 去转换。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">   .      430ms    <span style="color:#0000cf;font-weight:bold">147</span>: reqIDStr :<span style="color:#ce5c00;font-weight:bold">=</span> fmt.Sprintf<span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#4e9a06">&#34;%d&#34;</span>, reqID<span style="color:#ce5c00;font-weight:bold">)</span>
-60ms      <span style="color:#0000cf;font-weight:bold">4</span>.10s    <span style="color:#0000cf;font-weight:bold">168</span>: fmt.Printf<span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#4e9a06">&#34;src=%s, len=%d, reqid:%v\n&#34;</span>, streamID, reqIDStrLen, reqIDStr<span style="color:#ce5c00;font-weight:bold">)</span></code></pre></div>
-<h4 id="7-优化昂贵的系统调用">7. 优化昂贵的系统调用</h4>
-
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">   .      430ms    147: reqIDStr :<span style="color:#ce5c00;font-weight:bold">=</span> fmt.Sprintf<span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#4e9a06">&#34;%d&#34;</span>, reqID<span style="color:#ce5c00;font-weight:bold">)</span>
+60ms      4.10s    168: fmt.Printf<span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#4e9a06">&#34;src=%s, len=%d, reqid:%v\n&#34;</span>, streamID, reqIDStrLen, reqIDStr<span style="color:#ce5c00;font-weight:bold">)</span>
+</code></pre></div><h4 id="7-优化昂贵的系统调用">7. 优化昂贵的系统调用</h4>
 <p>mosn 在解码 dubbo 的请求时，会在 header 中塞一份远程 host 的地址，并且在 for 循环中获取 remote IP，系统调用开销比较高。</p>
-
 <p><strong>优化思路：</strong></p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">50ms      920ms    <span style="color:#0000cf;font-weight:bold">136</span>:        headers<span style="color:#ce5c00;font-weight:bold">[</span>strings.ToLower<span style="color:#ce5c00;font-weight:bold">(</span>protocol.MosnHeaderHostKey<span style="color:#ce5c00;font-weight:bold">)]</span> <span style="color:#ce5c00;font-weight:bold">=</span> conn.connection.RemoteAddr<span style="color:#ce5c00;font-weight:bold">()</span>.String<span style="color:#ce5c00;font-weight:bold">()</span></code></pre></div>
-<p>在获取远程地址时，尽可能在 streamConnection 中 cache 远程 IP 值，不要每次都去调用 RemoteAddr。</p>
-
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">50ms      920ms    136:        headers<span style="color:#ce5c00;font-weight:bold">[</span>strings.ToLower<span style="color:#ce5c00;font-weight:bold">(</span>protocol.MosnHeaderHostKey<span style="color:#ce5c00;font-weight:bold">)]</span> <span style="color:#ce5c00;font-weight:bold">=</span> conn.connection.RemoteAddr<span style="color:#ce5c00;font-weight:bold">()</span>.String<span style="color:#ce5c00;font-weight:bold">()</span>
+</code></pre></div><p>在获取远程地址时，尽可能在 streamConnection 中 cache 远程 IP 值，不要每次都去调用 RemoteAddr。</p>
 <h4 id="8-优化-slice-和-map-触发扩容和-rehash">8. 优化 slice 和 map 触发扩容和 rehash</h4>
-
 <p>在 mosn 处理 dubbo 请求时，会根据接口、版本和分组去构建 dataID ，然后匹配 cluster , 会创建默认 slice 和 map 对象，经过性能诊断，导致不断 allocate slice 和 grow map 容量比较费性能。</p>
-
 <p><strong>优化思路：</strong></p>
-
 <p>使用 slice 和 map 时，尽可能预估容量大小，使用 make (type, capacity) 去指定初始大小。</p>
-
 <h4 id="9-优化-trace-日志级别输出">9. 优化 trace 日志级别输出</h4>
-
 <p>mosn 中不少代码在处理逻辑时，会打很多 trace 级别的日志，并且会传递不少参数值。</p>
-
 <p><strong>优化思路：</strong></p>
-
 <p>调用 trace 输出前，尽量判断一下日志级别，如果有多个 trace 调用，尽可能把所有字符串写到 buf 中，然后把 buf 内容写到日志中，并且尽可能少的调用 trace 日志方法。</p>
-
-<h4 id="10-优化-tracer-log-和-metrics">10. 优化 tracer、log 和 metrics</h4>
-
+<h4 id="10-优化-tracerlog-和-metrics">10. 优化 tracer、log 和 metrics</h4>
 <p>在大促期间，对机器的性能要求较高，经过性能诊断，tracer、mosn log 和 cloud metrics 写日志（ IO 操作）非常耗费性能。</p>
-
 <p><strong>优化思路：</strong></p>
-
 <p>通过配置中心下发配置或者增加大促开关，允许 API 调用这些 feature 的开关。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/api/v1/downgrade/on
-/api/v1/downgrade/off</code></pre></div>
-<h4 id="11-优化-route-header-解析">11. 优化 route header 解析</h4>
-
+/api/v1/downgrade/off
+</code></pre></div><h4 id="11-优化-route-header-解析">11. 优化 route header 解析</h4>
 <p>MOSN 中在做路由前，需要做大量的 header 的 map 访问，比如 IDC、antvip 等逻辑判断，商业版或者开源 mosn 不需要这些逻辑，这些也会占用一些开销。</p>
-
 <p><strong>优化思路：</strong></p>
-
 <p>如果是云上逻辑，主站的逻辑都不走。</p>
-
 <h4 id="12-优化-featuregate-调用">12. 优化 featuregate 调用</h4>
-
 <p>在 MOSN 中处理请求时，为了区分主站和商业版路由逻辑，会通过 featuregate 判断逻辑走哪部分。通过 featuregate 调用开销较大，需要频繁的做类型转换和多层 map 去获取。</p>
-
 <p><strong>优化思路：</strong></p>
-
 <p>通过一个 bool 变量记录 featuregate 对应开关，如果没有初始化过，就主动调用一下 featuregate。</p>
-
 <h3 id="未来性能优化思考">未来性能优化思考</h3>
-
 <p>经过几轮性能优化 ，目前看火焰图，卡点都在 connection 的 read 和 write ，可以优化的空间比较小了。但是可能从以下场景中获得收益：</p>
-
 <ul>
 <li>减少 connection 的 read 和 write 次数 (syscall) 。</li>
 <li>优化 IO 线程模型，减少携程和上下文切换等。</li>
 </ul>
-
 <p>作为结束，给出了最终优化后的火焰图 ，大部分卡点都在系统调用和网络读写，请参考图 1-4。</p>
-
-<p><img src="007S8ZIlgy1gfm13ju486j31hc0kfdms.jpg" alt="" /></p>
-
+<p><img src="007S8ZIlgy1gfm13ju486j31hc0kfdms.jpg" alt=""></p>
 <p>图 1-4 优化版本 MOSN + Dubbo 火线图</p>
-
 <h3 id="其他">其他</h3>
-
-<p>pprof 工具异常强大，可以诊断 CPU、memory、go 协程、tracer 和死锁等，该工具可以参考 <a href="https://blog.golang.org/pprof" target="_blank">godoc</a>，性能优化参考：</p>
-
+<p>pprof 工具异常强大，可以诊断 CPU、memory、go 协程、tracer 和死锁等，该工具可以参考 <a href="https://blog.golang.org/pprof">godoc</a>，性能优化参考：</p>
 <ul>
-<li><a href="https://blog.golang.org/pprof" target="_blank">https://blog.golang.org/pprof</a></li>
-<li><a href="https://www.cnblogs.com/Dr-wei/p/11742414.html" target="_blank">https://www.cnblogs.com/Dr-wei/p/11742414.html</a></li>
+<li><a href="https://blog.golang.org/pprof">https://blog.golang.org/pprof</a></li>
+<li><a href="https://www.cnblogs.com/Dr-wei/p/11742414.html">https://www.cnblogs.com/Dr-wei/p/11742414.html</a></li>
 </ul>
-
 <h3 id="关于作者">关于作者</h3>
-
 <p>商宗海（诣极），GitHub ID zonghaishang，Apache Dubbo PMC，目前就职于蚂蚁集团金服中间件团队，主攻 RPC 和 Service Mesh 方向。 《深入理解 Apache Dubbo 与实战》一书作者。</p>
 
 	
@@ -1107,7 +1020,7 @@ BenchmarkNewDecoderOptimized-12 <span style="color:#0000cf;font-weight:bold">105
 
 
 
-<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
 
 
 

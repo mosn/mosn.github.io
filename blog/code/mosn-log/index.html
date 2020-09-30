@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.55.5" />
+<meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
 
@@ -22,15 +22,12 @@
 <meta property="og:description" content="对 MOSN Log系统的源码解析。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/code/mosn-log/" />
-<meta property="article:published_time" content="2020-03-03T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-09-03T15:39:14&#43;08:00"/><meta property="og:site_name" content="MOSN" />
-
+<meta property="article:published_time" content="2020-03-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-30T15:51:50+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 源码解析 - log 系统">
 <meta itemprop="description" content="对 MOSN Log系统的源码解析。">
-
-
-<meta itemprop="datePublished" content="2020-03-03T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-09-03T15:39:14&#43;08:00" />
+<meta itemprop="datePublished" content="2020-03-03T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-30T15:51:50+08:00" />
 <meta itemprop="wordCount" content="529">
 
 
@@ -54,8 +51,8 @@ if (!doNotTrack) {
 
 
 
-<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
-<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -74,7 +71,7 @@ if (!doNotTrack) {
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
         <a class="navbar-brand" href="/">
-		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
         
 	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
@@ -225,62 +222,68 @@ if (!doNotTrack) {
     <a  href="/blog/releases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">发布</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-releases">
+    <li class="collapse " id="blogreleases">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-16-0" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0170" href="/blog/releases/v0.17.0/">MOSN v0.17.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-15-0" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0160" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-14-0" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0150" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-13-0" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0140" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-12-0" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0130" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-11-0" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0120" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-10-0" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0110" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-1-0-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0100" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-2-1-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-010-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-021-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
       
       
     </li>
@@ -302,20 +305,20 @@ if (!doNotTrack) {
     <a  href="/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-news">
+    <li class="collapse " id="blognews">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-mosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsmosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-announcing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsannouncing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
       
       
     </li>
@@ -337,62 +340,62 @@ if (!doNotTrack) {
     <a  href="/blog/posts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">分享</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-posts">
+    <li class="collapse " id="blogposts">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-skywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsskywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-multi-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmulti-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-udpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsudpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-nginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsnginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
       
       
     </li>
@@ -414,92 +417,92 @@ if (!doNotTrack) {
     <a  href="/blog/code/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">源码解析</a>
   </li>
   <ul>
-    <li class="collapse show" id="blog-code">
+    <li class="collapse show" id="blogcode">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blog-code-mosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogcodemosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
       
       
     </li>
@@ -545,37 +548,24 @@ if (!doNotTrack) {
 
 
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#日志">日志</a>
-<ul>
-<li><a href="#errorlog">errorlog</a></li>
-<li><a href="#accesslog">accesslog</a></li>
-<li><a href="#log-的具体实现">log 的具体实现</a>
-<ul>
-<li><a href="#start">start</a></li>
-</ul></li>
-<li><a href="#handler">handler</a>
-<ul>
-<li><a href="#reopenchan-https-github-com-mosn-pkg-blob-1e4184714e744895968339725cc2dc34f5116dcb-log-logger-go-l260"><a href="https://github.com/mosn/pkg/blob/1e4184714e744895968339725cc2dc34f5116dcb/log/logger.go#L260" target="_blank">reopenChan</a></a></li>
-<li><a href="#closechan">closeChan</a></li>
-<li><a href="#writebufferchan">writeBufferChan</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#metrics">Metrics</a>
-<ul>
-<li><a href="#sink">sink</a>
-<ul>
-<li><a href="#prometheus">prometheus</a></li>
-<li><a href="#console">console</a></li>
-</ul></li>
-<li><a href="#shm">shm</a></li>
-</ul></li>
-<li><a href="#总结">总结</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#日志">日志</a>
+      <ul>
+        <li><a href="#errorlog">errorlog</a></li>
+        <li><a href="#accesslog">accesslog</a></li>
+        <li><a href="#log-的具体实现">log 的具体实现</a></li>
+        <li><a href="#handler">handler</a></li>
+      </ul>
+    </li>
+    <li><a href="#metrics">Metrics</a>
+      <ul>
+        <li><a href="#sink">sink</a></li>
+        <li><a href="#shm">shm</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
 </nav>
 
 
@@ -590,39 +580,29 @@ if (!doNotTrack) {
 	<h1>MOSN 源码解析 - log 系统</h1>
 	<div class="lead">对 MOSN Log系统的源码解析。</div>
 	<div class="td-byline mb-4">
-		作者 <b><a href="https://github.com/champly" target="_blank">陈鹏（多点生活）</a></b> |
+		作者 <b><a href="https://github.com/champly">陈鹏（多点生活）</a></b> |
 		<time datetime="2020-03-03" class="text-muted">2020年3月3日</time>
 	</div>
-	
-
-<p>本文的目的是分析 MOSN 源码中的<code>Log系统</code>。</p>
-
+	<p>本文的目的是分析 MOSN 源码中的<code>Log系统</code>。</p>
 <p>本文的内容基于 MOSN v0.10.0。</p>
-
 <h2 id="概述">概述</h2>
-
 <p>MOSN 日志系统分为<code>日志</code>和<code>Metric</code>两大部分，其中<code>日志</code>主要包括<code>errorlog</code>和<code>accesslog</code>，<code>Metrics</code>主要包括<code>console数据</code>和<code>prometheus数据</code></p>
-
 <h2 id="日志">日志</h2>
-
 <h3 id="errorlog">errorlog</h3>
-
-<p>errorlog 主要是用来记录<code>MOSN</code>运行时候的日志信息，<a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/config/v2/server.go#L28" target="_blank">配置结构</a>:</p>
+<p>errorlog 主要是用来记录<code>MOSN</code>运行时候的日志信息，<a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/config/v2/server.go#L28">配置结构</a>:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">ServerConfig</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
 <span style="color:#ce5c00;font-weight:bold">......</span>
 	<span style="color:#000">DefaultLogPath</span>  <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#4e9a06">`json:&#34;default_log_path,omitempty&#34;`</span>
 	<span style="color:#000">DefaultLogLevel</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#4e9a06">`json:&#34;default_log_level,omitempty&#34;`</span>
 	<span style="color:#000">GlobalLogRoller</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#4e9a06">`json:&#34;global_log_roller,omitempty&#34;`</span>
 <span style="color:#ce5c00;font-weight:bold">......</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>初始化 errorlog 包括两个对象<code>StartLogger</code>和<code>DefaultLogger</code></p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>初始化 errorlog 包括两个对象<code>StartLogger</code>和<code>DefaultLogger</code></p>
 <ul>
 <li>StartLogger 主要用来记录 mosn 启动的日志信息，日志级别是 INFO</li>
 <li>DefaultLogger 主要是用来记录<code>MOSN</code>启动之后的运行日志信息，默认和 StartLogger 一样，可以通过配置文件覆盖</li>
 </ul>
-
-<p><a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/log/logger_manager.go#L37" target="_blank">代码如下：</a></p>
+<p><a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/log/logger_manager.go#L37">代码如下：</a></p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">init</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#ce5c00;font-weight:bold">......</span>
 	<span style="color:#8f5902;font-style:italic">// use console as start logger
@@ -641,15 +621,14 @@ if (!doNotTrack) {
 	<span style="color:#8f5902;font-style:italic">// 使用配置文件来覆盖默认配置
 </span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">DefaultLogger</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">err</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">GetOrCreateDefaultErrorLogger</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">output</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">level</span><span style="color:#000;font-weight:bold">)</span>
 	<span style="color:#ce5c00;font-weight:bold">......</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h3 id="accesslog">accesslog</h3>
-
-<p><code>accesslog</code> 主要用来记录上下游请求的数据信息，<a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/config/v2/server.go#L76" target="_blank">配置结构</a>:</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h3 id="accesslog">accesslog</h3>
+<p><code>accesslog</code> 主要用来记录上下游请求的数据信息，<a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/config/v2/server.go#L76">配置结构</a>:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">AccessLog</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#000">Path</span>   <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#4e9a06">`json:&#34;log_path,omitempty&#34;`</span>
 	<span style="color:#000">Format</span> <span style="color:#204a87;font-weight:bold">string</span> <span style="color:#4e9a06">`json:&#34;log_format,omitempty&#34;`</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>每个配置文件下面 <code>servers</code>-&gt;<code>listener</code>-&gt;<code>access_logs</code>，具体配置示例如下：</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>每个配置文件下面 <code>servers</code>-&gt;<code>listener</code>-&gt;<code>access_logs</code>，具体配置示例如下：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#204a87;font-weight:bold">&#34;servers&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
 		<span style="color:#000;font-weight:bold">{</span>
@@ -671,63 +650,50 @@ if (!doNotTrack) {
 			<span style="color:#000;font-weight:bold">]</span>
 		<span style="color:#000;font-weight:bold">}</span>
 	<span style="color:#000;font-weight:bold">]</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>accesslog 实现如下<a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/log/accesslog.go#L105" target="_blank">接口</a>:</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>accesslog 实现如下<a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/log/accesslog.go#L105">接口</a>:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">AccessLog</span> <span style="color:#204a87;font-weight:bold">interface</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#8f5902;font-style:italic">// Log write the access info.
 </span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">Log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ctx</span> <span style="color:#000">context</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">reqHeaders</span> <span style="color:#000">HeaderMap</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">respHeaders</span> <span style="color:#000">HeaderMap</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">requestInfo</span> <span style="color:#000">RequestInfo</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>调用 Log 记录日志的时候，通过使用 <a href="https://mosn.ioblog/code/mosn-variable" target="_blank">变量机制</a> 来填充<code>log_format</code>里面的变量，相关信息保存在 ctx 里面。用于保存变量信息的 <code>entries</code> 通过 <code>NewAccessLog</code> 初始化的时候，调用 <code>parseFormat</code> 方法来初始化的，<a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/log/accesslog.go#L79" target="_blank">参考相关代码</a>。</p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>调用 Log 记录日志的时候，通过使用 <a href="https://mosn.ioblog/code/mosn-variable">变量机制</a> 来填充<code>log_format</code>里面的变量，相关信息保存在 ctx 里面。用于保存变量信息的 <code>entries</code> 通过 <code>NewAccessLog</code> 初始化的时候，调用 <code>parseFormat</code> 方法来初始化的，<a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/log/accesslog.go#L79">参考相关代码</a>。</p>
 <h3 id="log-的具体实现">log 的具体实现</h3>
-
-<p>log 的具体实现已经分离到了 <a href="https://github.com/mosn/pkg/tree/1e4184714e744895968339725cc2dc34f5116dcb/log" target="_blank">mosn/pkg/log</a> 下面，<code>errorlog</code> 和 <code>accesslog</code> 的具体实现都是通过 <a href="https://github.com/mosn/pkg/blob/1e4184714e744895968339725cc2dc34f5116dcb/log/logger.go#L122" target="_blank">log.GetOrCreateLogger</a> 来初始化的。当 <code>roller</code> 为空的时候使用默认的 <code>defaultRoller</code>，默认每天轮转。</p>
+<p>log 的具体实现已经分离到了 <a href="https://github.com/mosn/pkg/tree/1e4184714e744895968339725cc2dc34f5116dcb/log">mosn/pkg/log</a> 下面，<code>errorlog</code> 和 <code>accesslog</code> 的具体实现都是通过 <a href="https://github.com/mosn/pkg/blob/1e4184714e744895968339725cc2dc34f5116dcb/log/logger.go#L122">log.GetOrCreateLogger</a> 来初始化的。当 <code>roller</code> 为空的时候使用默认的 <code>defaultRoller</code>，默认每天轮转。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">defaultRoller</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">Roller</span><span style="color:#000;font-weight:bold">{</span><span style="color:#000">MaxTime</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000">defaultRotateTime</span><span style="color:#000;font-weight:bold">}</span>
 <span style="color:#ce5c00;font-weight:bold">......</span>
-<span style="color:#000">defaultRotateTime</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0000cf;font-weight:bold">24</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#0000cf;font-weight:bold">60</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#0000cf;font-weight:bold">60</span></code></pre></div>
-<h4 id="start">start</h4>
-
-<p>根据不同的输出方式，初始化不同的 <code>io.Writer</code> 对象， <a href="https://github.com/mosn/pkg/blob/1e4184714e744895968339725cc2dc34f5116dcb/log/logger.go#L146" target="_blank">详情</a></p>
-
+<span style="color:#000">defaultRotateTime</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0000cf;font-weight:bold">24</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#0000cf;font-weight:bold">60</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#0000cf;font-weight:bold">60</span>
+</code></pre></div><h4 id="start">start</h4>
+<p>根据不同的输出方式，初始化不同的 <code>io.Writer</code> 对象， <a href="https://github.com/mosn/pkg/blob/1e4184714e744895968339725cc2dc34f5116dcb/log/logger.go#L146">详情</a></p>
 <table>
 <thead>
 <tr>
-<th align="left">type</th>
-<th align="left">io.Writer</th>
+<th style="text-align:left">type</th>
+<th style="text-align:left">io.Writer</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
-<td align="left">&rdquo;&ldquo;, &ldquo;stderr&rdquo;, &ldquo;/dev/stderr&rdquo;</td>
-<td align="left">os.Stderr</td>
+<td style="text-align:left">&ldquo;&rdquo;, &ldquo;stderr&rdquo;, &ldquo;/dev/stderr&rdquo;</td>
+<td style="text-align:left">os.Stderr</td>
 </tr>
-
 <tr>
-<td align="left">&ldquo;stdout&rdquo;, &ldquo;/dev/stdout&rdquo;</td>
-<td align="left">os.Stdout</td>
+<td style="text-align:left">&ldquo;stdout&rdquo;, &ldquo;/dev/stdout&rdquo;</td>
+<td style="text-align:left">os.Stdout</td>
 </tr>
-
 <tr>
-<td align="left">&ldquo;syslog&rdquo;</td>
-<td align="left"><a href="github.com/hashicorp/go-syslog" target="_blank">gsyslog</a>本地对象</td>
+<td style="text-align:left">&ldquo;syslog&rdquo;</td>
+<td style="text-align:left"><a href="github.com/hashicorp/go-syslog">gsyslog</a>本地对象</td>
 </tr>
-
 <tr>
-<td align="left">其他</td>
-<td align="left"><a href="github.com/hashicorp/go-syslog" target="_blank">gsyslog</a>远程对象</td>
+<td style="text-align:left">其他</td>
+<td style="text-align:left"><a href="github.com/hashicorp/go-syslog">gsyslog</a>远程对象</td>
 </tr>
 </tbody>
 </table>
-
-<p>创建好 log 对象之后，通过 <code>loggers</code> 保存起来，避免创建多个对象，<code>loggers</code> 是一个 <a href="https://blog.csdn.net/ChamPly/article/details/77622328" target="_blank">sync.Map</a>对象，是 <code>golang1.9</code> 之后加入的一个新的线程安全的 <code>map</code>。</p>
-
+<p>创建好 log 对象之后，通过 <code>loggers</code> 保存起来，避免创建多个对象，<code>loggers</code> 是一个 <a href="https://blog.csdn.net/ChamPly/article/details/77622328">sync.Map</a>对象，是 <code>golang1.9</code> 之后加入的一个新的线程安全的 <code>map</code>。</p>
 <p><code>start</code> 启动之后会 创建一个一直循环读取的协程 <code>handler</code></p>
-
 <h3 id="handler">handler</h3>
-
-<p><a href="https://github.com/mosn/pkg/blob/1e4184714e744895968339725cc2dc34f5116dcb/log/logger.go#L198" target="_blank">相关代码</a></p>
-
+<p><a href="https://github.com/mosn/pkg/blob/1e4184714e744895968339725cc2dc34f5116dcb/log/logger.go#L198">相关代码</a></p>
 <p>在初始化的时候，创建了一个 500 大小的 <code>chan</code> <code>writeBufferChan</code>，并且在 <code>handler</code> 里面处理需要记录的日志、重命名的事件、关闭的事件。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000">lg</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">Logger</span><span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#000">output</span><span style="color:#000;font-weight:bold">:</span>          <span style="color:#000">output</span><span style="color:#000;font-weight:bold">,</span>
@@ -747,15 +713,11 @@ if (!doNotTrack) {
 	<span style="color:#204a87;font-weight:bold">case</span> <span style="color:#000">buf</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#ce5c00;font-weight:bold">&lt;-</span><span style="color:#000">l</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">writeBufferChan</span><span style="color:#000;font-weight:bold">:</span>
 	<span style="color:#ce5c00;font-weight:bold">......</span>
 	<span style="color:#000">runtime</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Gosched</span><span style="color:#000;font-weight:bold">()</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h4 id="reopenchan-https-github-com-mosn-pkg-blob-1e4184714e744895968339725cc2dc34f5116dcb-log-logger-go-l260"><a href="https://github.com/mosn/pkg/blob/1e4184714e744895968339725cc2dc34f5116dcb/log/logger.go#L260" target="_blank">reopenChan</a></h4>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h4 id="reopenchanhttpsgithubcommosnpkgblob1e4184714e744895968339725cc2dc34f5116dcblogloggergol260"><a href="https://github.com/mosn/pkg/blob/1e4184714e744895968339725cc2dc34f5116dcb/log/logger.go#L260">reopenChan</a></h4>
 <p>通过重命名文件之后，重新调用 <code>start</code> 方法创建新文件，主要使用在文件轮转的时候。<code>os.Stdout</code> <code>os.Stderr</code> 不支持操作，会报错。</p>
-
 <h4 id="closechan">closeChan</h4>
-
 <p>把当前 <code>writeBufferChan</code> 需要写入的数据写入到对象中，然后退出当前协程。</p>
-
 <h4 id="writebufferchan">writeBufferChan</h4>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">i</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span> <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#000">i</span><span style="color:#ce5c00;font-weight:bold">++</span> <span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#204a87;font-weight:bold">select</span> <span style="color:#000;font-weight:bold">{</span>
@@ -767,30 +729,21 @@ if (!doNotTrack) {
 	<span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000">buf</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteTo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">l</span><span style="color:#000;font-weight:bold">)</span>
-<span style="color:#000">buffer</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">PutIoBuffer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buf</span><span style="color:#000;font-weight:bold">)</span></code></pre></div>
-<p>当收到第一次写数据的时候不是立刻写入数据到 <code>log</code> 对象，而是在等待 20 次读取信息，一起写入到对 <code>log</code> 象中，在大量写日志的时候不会导致调用太频繁。如频繁写入文件、频繁调用写日志接口，相反，这会增加内存分配，最好的其实是使用 <code>writev</code>，但是 <code>go runtime</code> 的 <code>io</code> 库没有这个实现。可以采用 <a href="https://mosn.ioblog/code/mosn-plugin/" target="_blank">plugin 机制</a> 来接管日志的打印，减少 <code>io</code> 卡顿对 <code>go runtime</code> 的调度影响</p>
-
+<span style="color:#000">buffer</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">PutIoBuffer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buf</span><span style="color:#000;font-weight:bold">)</span>
+</code></pre></div><p>当收到第一次写数据的时候不是立刻写入数据到 <code>log</code> 对象，而是在等待 20 次读取信息，一起写入到对 <code>log</code> 象中，在大量写日志的时候不会导致调用太频繁。如频繁写入文件、频繁调用写日志接口，相反，这会增加内存分配，最好的其实是使用 <code>writev</code>，但是 <code>go runtime</code> 的 <code>io</code> 库没有这个实现。可以采用 <a href="https://mosn.ioblog/code/mosn-plugin/">plugin 机制</a> 来接管日志的打印，减少 <code>io</code> 卡顿对 <code>go runtime</code> 的调度影响</p>
 <p>*<em>当一次循环处理完之后，会调用 <code>runtime.Gosched()</code> 主动让出当前协程的 <code>cpu</code> 资源</em></p>
-
 <h2 id="metrics">Metrics</h2>
-
-<p><code>Metrics</code> 是一种规范的度量，分为如下类型，摘抄至 <a href="https://prometheus.io/docs/concepts/metric_types/" target="_blank">METRIC TYPES</a></p>
-
+<p><code>Metrics</code> 是一种规范的度量，分为如下类型，摘抄至 <a href="https://prometheus.io/docs/concepts/metric_types/">METRIC TYPES</a></p>
 <ul>
 <li>Gauges: 代表可以任意上下波动的单个数值，通常用来表示测量值。比如内存，cpu，磁盘等信息。</li>
 <li>Counters: 累计度量，代表单调递增的计数器，只有在重启或者重置的时候数量为 0，其他时候一般不使用减少。可以用来表示请求的数量。</li>
 <li>Histograms: 直方图，对观察值(通常是请求持续时间或返回大小之类的数据)进行采样，并将其计数放到对应的配置桶中，也提供所有观测值总和信息。</li>
 <li>Summary: 类似于直方图，摘要采样的观测结果，可以计算滑动时间窗口内的可配置分位数。</li>
 </ul>
-
 <p>主要代码在 <code>pkg/metrics</code> 下面包括 <code>pkg/metrics/sink</code> 和 <code>pkg/metrics/shm</code>。</p>
-
 <h3 id="sink">sink</h3>
-
-<p><code>pkg/metrics/sink</code> 包含 <code>console</code> 和 <code>prometheus</code>，两者都实现了 <a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/types/metrics.go#L58" target="_blank">types.MetricsSink</a> 接口。<code>prometheus</code> 是通过工厂方法 <a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/metrics/sink/prometheus/prometheus.go#L57" target="_blank">注册</a> 进去使用的；<code>console</code> 是通过直接调用 <code>console.NewConsoleSink()</code> 来使用的。</p>
-
+<p><code>pkg/metrics/sink</code> 包含 <code>console</code> 和 <code>prometheus</code>，两者都实现了 <a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/types/metrics.go#L58">types.MetricsSink</a> 接口。<code>prometheus</code> 是通过工厂方法 <a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/metrics/sink/prometheus/prometheus.go#L57">注册</a> 进去使用的；<code>console</code> 是通过直接调用 <code>console.NewConsoleSink()</code> 来使用的。</p>
 <h4 id="prometheus">prometheus</h4>
-
 <p>主要是通过 <code>prometheus</code> 的 <code>metrics</code> 统计请求的信息，配置文件示例:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#204a87;font-weight:bold">&#34;metrics&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
@@ -804,14 +757,11 @@ if (!doNotTrack) {
 			<span style="color:#000;font-weight:bold">}</span>
 		<span style="color:#000;font-weight:bold">]</span>
 	<span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p><em>其中 <code>type</code> 目前只支持 <code>prometheus</code></em></p>
-
-<p>通过 <a href="https://github.com/prometheus/client_golang" target="_blank">prometheus 库</a> 提供的 http 能力，使用配置信息启动一个 http 服务，把 <code>Metrics</code> 信息通过 <code>http://host:port/metrics</code> 的方式供<code>prometheus</code>收集或展示。</p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p><em>其中 <code>type</code> 目前只支持 <code>prometheus</code></em></p>
+<p>通过 <a href="https://github.com/prometheus/client_golang">prometheus 库</a> 提供的 http 能力，使用配置信息启动一个 http 服务，把 <code>Metrics</code> 信息通过 <code>http://host:port/metrics</code> 的方式供<code>prometheus</code>收集或展示。</p>
 <h4 id="console">console</h4>
-
-<p>主要用于 <code>admin api</code> 的 <code>/api/v1/stats</code> <a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/admin/server/server.go#L45" target="_blank">展示</a>。所以必须配置 <code>admin</code> 相关信息，示例：</p>
+<p>主要用于 <code>admin api</code> 的 <code>/api/v1/stats</code> <a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/admin/server/server.go#L45">展示</a>。所以必须配置 <code>admin</code> 相关信息，示例：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
   <span style="color:#204a87;font-weight:bold">&#34;admin&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#204a87;font-weight:bold">&#34;address&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
@@ -821,11 +771,9 @@ if (!doNotTrack) {
       <span style="color:#000;font-weight:bold">}</span>
     <span style="color:#000;font-weight:bold">}</span>
   <span style="color:#000;font-weight:bold">}</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>如果不配置会打印 <code>no admin config, no admin api served</code> 告警信息，<a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/admin/server/server.go#L59" target="_blank">参考</a></p>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>如果不配置会打印 <code>no admin config, no admin api served</code> 告警信息，<a href="https://github.com/mosn/mosn/blob/07cd4afe4d76619fdfbdff858239885f9a358bb2/pkg/admin/server/server.go#L59">参考</a></p>
 <p><code>admin api</code> 中还包括如下接口</p>
-
 <ul>
 <li>/api/v1/config_dump</li>
 <li>/api/v1/stats</li>
@@ -836,26 +784,18 @@ if (!doNotTrack) {
 <li>/api/v1/plugin</li>
 <li>/</li>
 </ul>
-
 <p>其中 <code>update_loglevel</code> 用于更新 <code>errorlog</code> 日志的输出级别，<code>enable_log</code> 和 <code>disbale_log</code> 用于启用/禁用 <code>errorlog</code> 的输出</p>
-
 <h3 id="shm">shm</h3>
-
-<p><code>pkg/metrics/shm</code> 主要是通过 <code>mmap</code> 将一个文件或者其它对象映射进内存，让多个进程共用，可以让 <code>MOSN</code> 在热升级的过程中 <code>metrics</code> 数据不会出现 <code>&quot;断崖&quot;</code>，关于 <code>shm</code> 的分析内容可以参考 <a href="https://mosn.ioblog/code/mosn-shm/" target="_blank">共享内存模型</a>。</p>
-
+<p><code>pkg/metrics/shm</code> 主要是通过 <code>mmap</code> 将一个文件或者其它对象映射进内存，让多个进程共用，可以让 <code>MOSN</code> 在热升级的过程中 <code>metrics</code> 数据不会出现 <code>&quot;断崖&quot;</code>，关于 <code>shm</code> 的分析内容可以参考 <a href="https://mosn.ioblog/code/mosn-shm/">共享内存模型</a>。</p>
 <ul>
 <li><strong>不鼓励在 Go 里面使用共享内存，除非你有明确的使用场景</strong></li>
 </ul>
-
 <h2 id="总结">总结</h2>
-
 <p>通过分析 <code>MOSN</code> 源码的 <code>log系统</code> 模块，不单单是了解了日志部分，从配置、启动流程，到上下游请求都有所涉及。学习了很多，希望 <code>MOSN</code> 越来越强大。</p>
-
-<hr />
-
+<hr>
 <ul>
-<li><a href="https://github.com/mosn/mosn/tree/v0.10.0" target="_blank">MOSN 源码 v0.10.0</a></li>
-<li><a href="https://github.com/mosn/pkg/tree/1e4184714e744895968339725cc2dc34f5116dcb" target="_blank">pkg 源码</a> commit 1e41847</li>
+<li><a href="https://github.com/mosn/mosn/tree/v0.10.0">MOSN 源码 v0.10.0</a></li>
+<li><a href="https://github.com/mosn/pkg/tree/1e4184714e744895968339725cc2dc34f5116dcb">pkg 源码</a> commit 1e41847</li>
 </ul>
 
 	
@@ -938,7 +878,7 @@ if (!doNotTrack) {
 
 
 
-<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
 
 
 

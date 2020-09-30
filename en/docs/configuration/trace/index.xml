@@ -23,12 +23,8 @@
       <description>
         
         
-        
-
-&lt;p&gt;This topic describes the SkyWalking configurations of MOSN.&lt;/p&gt;
-
+        &lt;p&gt;This topic describes the SkyWalking configurations of MOSN.&lt;/p&gt;
 &lt;p&gt;Currently, support &lt;code&gt;HTTP1&lt;/code&gt; protocol.&lt;/p&gt;
-
 &lt;p&gt;The SkyWalking configuration structure is shown as follows.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
   &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;tracing&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
@@ -46,61 +42,40 @@
       &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
     &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
   &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
-&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&#34;reporter&#34;&gt;reporter&lt;/h2&gt;
-
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reporter&#34;&gt;reporter&lt;/h2&gt;
 &lt;p&gt;Reporter mode, support &lt;code&gt;log&lt;/code&gt; (only test) and &lt;code&gt;gRPC&lt;/code&gt;.&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;If this field is left empty, &lt;code&gt;log&lt;/code&gt; by default.&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h2 id=&#34;backend-service&#34;&gt;backend_service&lt;/h2&gt;
-
+&lt;h2 id=&#34;backend_service&#34;&gt;backend_service&lt;/h2&gt;
 &lt;p&gt;SkyWalking backend service address, used only if the reporter is &lt;code&gt;gRCP&lt;/code&gt;.&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;eg: &lt;code&gt;127.0.0.1:11800&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h2 id=&#34;service-name&#34;&gt;service_name&lt;/h2&gt;
-
+&lt;h2 id=&#34;service_name&#34;&gt;service_name&lt;/h2&gt;
 &lt;p&gt;To register the service name to SkyWalking, used only if the reporter is &lt;code&gt;gRCP&lt;/code&gt;.&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;If this field is left empty, &lt;code&gt;mosn&lt;/code&gt; by default.&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h2 id=&#34;max-send-queue-size&#34;&gt;max_send_queue_size&lt;/h2&gt;
-
+&lt;h2 id=&#34;max_send_queue_size&#34;&gt;max_send_queue_size&lt;/h2&gt;
 &lt;p&gt;Trace data cache queue size, used only if the reporter is &lt;code&gt;gRCP&lt;/code&gt;.&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;If this field is left empty, &lt;code&gt;30000&lt;/code&gt; by default.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;authentication&#34;&gt;authentication&lt;/h2&gt;
-
 &lt;p&gt;&lt;code&gt;gRPC&lt;/code&gt; authentication, used only if the reporter is &lt;code&gt;gRCP&lt;/code&gt;.&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;If the field is not empty, this parameter is used for authentication when establishing a connection with the SkyWalking backend service.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;tls&#34;&gt;tls&lt;/h2&gt;
-
 &lt;p&gt;Used only if the reporter is &lt;code&gt;gRCP&lt;/code&gt;.&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;If the field is not empty, TLS will be used to connect to the SkyWalking backend service.&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h3 id=&#34;cert-file&#34;&gt;cert_file&lt;/h3&gt;
-
+&lt;h3 id=&#34;cert_file&#34;&gt;cert_file&lt;/h3&gt;
 &lt;p&gt;TLS client certificate.&lt;/p&gt;
-
-&lt;h3 id=&#34;server-name-override&#34;&gt;server_name_override&lt;/h3&gt;
-
+&lt;h3 id=&#34;server_name_override&#34;&gt;server_name_override&lt;/h3&gt;
 &lt;p&gt;Service name.&lt;/p&gt;
 
       </description>

@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.75.1" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>版本发布 介绍 | MOSN</title><meta property="og:title" content="版本发布 介绍" />
+<meta property="og:description" content="本页介绍了 MOSN 的 版本发布步骤。
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/docs/dev/release/" />
+<meta property="article:published_time" content="2020-09-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-30T15:51:50+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta itemprop="name" content="版本发布 介绍">
+<meta itemprop="description" content="本页介绍了 MOSN 的 版本发布步骤。
+">
+<meta itemprop="datePublished" content="2020-09-28T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-30T15:51:50+08:00" />
+<meta itemprop="wordCount" content="94">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="版本发布 介绍"/>
+<meta name="twitter:description" content="本页介绍了 MOSN 的 版本发布步骤。
+"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+    <title>版本发布 介绍 | MOSN</title>
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
+        
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/mosn/mosn/" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/docs/" ><span class="active">文档</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/blog/" ><span>博客</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/tutorial/" ><span>教程</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/community/" ><span>社区</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/faq/" ><span>FAQ</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/en/">English</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/en/">English</a>
+	
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">文档</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docs">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsoverview" href="/docs/overview/">简介</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开始</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsquick-start">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsquick-startproxy" href="/docs/quick-start/proxy/">快速开始</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsquick-startistio" href="/docs/quick-start/istio/">集成 Istio</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">架构原理</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconcept">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptcore-concept" href="/docs/concept/core-concept/">核心概念</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptsidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar 模式</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconcepttraffic-hijack" href="/docs/concept/traffic-hijack/">流量劫持</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconcepttls" href="/docs/concept/tls/">TLS 安全链路</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptsmooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN 平滑升级原理解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptmulti-protocol" href="/docs/concept/multi-protocol/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptextensions" href="/docs/concept/extensions/">MOSN 扩展机制解析</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docssamples" href="/docs/samples/">工程示例</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">配置概览</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconfiguration">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationclustermanager" href="/docs/configuration/clustermanager/">ClusterManager 配置</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconfigurationserver">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationserverrouter" href="/docs/configuration/server/router/">Router 配置</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconfigurationserverlistener">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationserverlistenerfilter-chain" href="/docs/configuration/server/listener/filter-chain/">FilterChain</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/server/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconfigurationserverlistenernetwork-filter">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationserverlistenernetwork-filterproxy" href="/docs/configuration/server/listener/network-filter/proxy/">proxy</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationserverlistenernetwork-filterconnection-manager" href="/docs/configuration/server/listener/network-filter/connection-manager/">connection_manager</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace 配置</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docsconfigurationtrace">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationtraceskywalking" href="/docs/configuration/trace/skywalking/">SkyWalking 配置</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationcustom" href="/docs/configuration/custom/">自定义配置</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/dev/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">开发指南</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="docsdev">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsdevrelease" href="/docs/dev/release/">版本发布 介绍</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsdevdubbo-integrate" href="/docs/dev/dubbo-integrate/">Dubbo 集成</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsdevfeaturegate-introduce" href="/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">贡献文档</a>
+  </li>
+  <ul>
+    <li class="collapse " id="docscontribute">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docscontributegithub" href="/docs/contribute/github/">文档贡献指南</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docscontributecreating-pages" href="/docs/contribute/creating-pages/">创建页面</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docscontributestyle-guide" href="/docs/contribute/style-guide/">样式指南</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsfaq" href="/docs/faq/">FAQ</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorial" href="/docs/tutorial/">教程</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docscommunity" href="/docs/community/">社区</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/dev/release/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=%e7%89%88%e6%9c%ac%e5%8f%91%e5%b8%83%20%e4%bb%8b%e7%bb%8d" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+
+
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#mosn-版本发布步骤">MOSN 版本发布步骤</a>
+      <ul>
+        <li><a href="#一冻结代码">一、冻结代码</a></li>
+        <li><a href="#二整理-release-notes">二、整理 Release notes</a></li>
+        <li><a href="#三测试报告">三、测试报告</a></li>
+        <li><a href="#四版本发布">四、版本发布</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="/docs/">文档</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="/docs/dev/">开发指南</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="/docs/dev/release/">版本发布 介绍</a>
+</li>
+
+	</ol>
+</nav	>
+
+
+            
+<div class="td-content">
+	<h1>版本发布 介绍</h1>
+	<div class="lead">本页介绍了 MOSN 的 版本发布步骤。</div>
+	<h2 id="mosn-版本发布步骤">MOSN 版本发布步骤</h2>
+<h3 id="一冻结代码">一、冻结代码</h3>
+<ul>
+<li>在准备一个版本发布期间，停止代码往 master 分支的合并</li>
+</ul>
+<h3 id="二整理-release-notes">二、整理 Release notes</h3>
+<ul>
+<li>基于 Github 的 PullRequest 记录，整理本次发布的内容与上一个版本之间的差异，需要注意仅统计目标分支是 master 且正常合并的 PullRequest</li>
+<li>首先记录原始的信息，统一记录在 <a href="https://docs.google.com/document/d/15wu2Ug4nN38A_odKv3ubmfu1OxmxqlUUFnvN4mbKtIc/edit?usp=sharing">MOSN Release notes 整理文档</a>
+<ul>
+<li>文档打开需要权限</li>
+</ul>
+</li>
+<li>整理完原始信息以后，进行提炼和总结
+<ul>
+<li>通常情况下，一个 PullRequest 对应一个改动记录</li>
+<li>存在部分特殊情况是一个 PullRequest 包含多个改动的情况，可以请 PullRequest 提供者提供详细信息</li>
+<li>也可能存在多个 PullRequest 是针对同一个改动的情况（如新功能，分开提 PullRequest，或者在同一个版本迭代中不断优化）</li>
+</ul>
+</li>
+<li>提炼后的完整 Release notes 记录格式可以参考 <a href="https://github.com/mosn/mosn/blob/master/CHANGELOG_ZH.md">CHANGELOG</a></li>
+<li>提炼后的 Release notes 需要有英文版本的记录</li>
+</ul>
+<h3 id="三测试报告">三、测试报告</h3>
+<ul>
+<li>所有的改动点都需要有对应的测试记录，测试方式可以有多种，包括但不限于
+<ul>
+<li>完整的单元测试覆盖，确保基本的功能场景正确，默认代码合并的时候会执行</li>
+<li>性能测试 Benchmark，针对可能对性能有影响的改动，需要执行性能测试。</li>
+<li>手动模拟测试，主要针对一些单元测试无法很好覆盖的场景（如涉及网络 IO、Proxy 转发等多模块交互），通过手动搭建测试环境（配置、模拟 Server 与 Client）进行场景复现与验证
+<ul>
+<li>手动模拟测试完成以后记录详细的测试步骤，包括：模拟的场景、使用的配置、使用的 Server、使用的 Client 等；后续可以考虑将手动场景实现为 integrate 测试</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>测试完成以后，产出测试报告，说明对应的功能点使用哪种测试方式测试与测试的结果</li>
+</ul>
+<h3 id="四版本发布">四、版本发布</h3>
+<ul>
+<li>
+<p>版本发布 PullRequest</p>
+<ul>
+<li>修改<code>VERSION</code></li>
+<li>修改<code>CHANGELOG.md</code>、<code>CHNAGELOH_ZH.md</code></li>
+<li>上传测试报告<code>reports/${VERSION}.md</code></li>
+</ul>
+</li>
+<li>
+<p>官网文档的同步修改</p>
+<ul>
+<li>github.com/mosn/mosn.io/content/zh/blog/releases 下新增对应的 release notes.</li>
+<li>英文版 release notes 也需要做一样的更新</li>
+</ul>
+</li>
+<li>
+<p>正式 release</p>
+<ul>
+<li>合并完<code>版本发布 PullRequest</code>后，基于 master 分支完成 release</li>
+<li>release 时的描述内容填写英文版 release notes 的内容</li>
+<li>通过<code>make build</code>命令编译出对应的二进制并且上传</li>
+<li>完成 release</li>
+</ul>
+</li>
+</ul>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年9月30日: <a  href="https://github.com/mosn/mosn.io/commit/ddae8362c786340f29c30c8a62fc31f2c9c95bef">try to fix build failed (ddae836)</a>
+</div>
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-12 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://twitter.com/MosnProxy">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Slack" aria-label="Slack">
+    <a class="text-white" target="_blank" href="https://join.slack.com/t/istio/shared_invite/zt-dhww29on-SvP1~DBvtrk3UdjjbO0SGQ">
+      <i class="fab fa-slack"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Mailing list" aria-label="Mailing list">
+    <a class="text-white" target="_blank" href="https://groups.google.com/d/forum/mosn-dev">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/mosn/mosn">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2020 The MOSN Authors 保留所有权利</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>

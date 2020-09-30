@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.55.5" />
+<meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
 
@@ -23,16 +23,13 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/posts/nginx-envoy-mosn-hot-upgrade/" />
-<meta property="article:published_time" content="2019-12-28T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2020-09-03T15:39:14&#43;08:00"/><meta property="og:site_name" content="MOSN" />
-
+<meta property="article:published_time" content="2019-12-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-30T15:51:50+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="Nginx vs Envoy vs MOSN 平滑升级原理解析">
 <meta itemprop="description" content="本文是对 Nginx、Envoy 及 MOSN 的平滑升级原理区别的分析，适合对 Nginx 实现原理比较感兴趣的同学阅读，需要具备一定的网络编程知识。
 ">
-
-
-<meta itemprop="datePublished" content="2019-12-28T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-09-03T15:39:14&#43;08:00" />
+<meta itemprop="datePublished" content="2019-12-28T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-30T15:51:50+08:00" />
 <meta itemprop="wordCount" content="494">
 
 
@@ -57,8 +54,8 @@ if (!doNotTrack) {
 
 
 
-<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
-<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -77,7 +74,7 @@ if (!doNotTrack) {
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
         <a class="navbar-brand" href="/">
-		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
         
 	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
@@ -228,62 +225,68 @@ if (!doNotTrack) {
     <a  href="/blog/releases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">发布</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-releases">
+    <li class="collapse " id="blogreleases">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-16-0" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0170" href="/blog/releases/v0.17.0/">MOSN v0.17.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-15-0" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0160" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-14-0" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0150" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-13-0" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0140" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-12-0" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0130" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-11-0" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0120" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-v0-10-0" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0110" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-1-0-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0100" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-releases-mosn-0-2-1-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-010-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-021-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
       
       
     </li>
@@ -305,20 +308,20 @@ if (!doNotTrack) {
     <a  href="/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-news">
+    <li class="collapse " id="blognews">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-mosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsmosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-news-announcing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsannouncing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
       
       
     </li>
@@ -340,62 +343,62 @@ if (!doNotTrack) {
     <a  href="/blog/posts/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">分享</a>
   </li>
   <ul>
-    <li class="collapse show" id="blog-posts">
+    <li class="collapse show" id="blogposts">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-overview" href="/blog/posts/mosn-overview/">MOSN 源码解析 - 总览</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-skywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsskywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-multi-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmulti-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-udpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsudpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-posts-mosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blog-posts-nginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogpostsnginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
       
       
     </li>
@@ -417,92 +420,92 @@ if (!doNotTrack) {
     <a  href="/blog/code/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">源码解析</a>
   </li>
   <ul>
-    <li class="collapse " id="blog-code">
+    <li class="collapse " id="blogcode">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blog-code-mosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
       
       
     </li>
@@ -548,16 +551,13 @@ if (!doNotTrack) {
 
 
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#nginx">Nginx</a></li>
-<li><a href="#envoy">Envoy</a></li>
-<li><a href="#mosn">MOSN</a></li>
-<li><a href="#对比">对比</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#nginx">Nginx</a></li>
+    <li><a href="#envoy">Envoy</a></li>
+    <li><a href="#mosn">MOSN</a></li>
+    <li><a href="#对比">对比</a></li>
+  </ul>
 </nav>
 
 
@@ -572,29 +572,18 @@ if (!doNotTrack) {
 	<h1>Nginx vs Envoy vs MOSN 平滑升级原理解析</h1>
 	<div class="lead">本文是对 Nginx、Envoy 及 MOSN 的平滑升级原理区别的分析，适合对 Nginx 实现原理比较感兴趣的同学阅读，需要具备一定的网络编程知识。</div>
 	<div class="td-byline mb-4">
-		作者 <b><a href="https://ms2008.github.io" target="_blank">@ms2008</a></b> |
+		作者 <b><a href="https://ms2008.github.io">@ms2008</a></b> |
 		<time datetime="2019-12-28" class="text-muted">2019年12月28日</time>
 	</div>
-	
-
-<h2 id="前言">前言</h2>
-
+	<h2 id="前言">前言</h2>
 <p>本文是对 Nginx、Envoy 及 MOSN 的平滑升级原理区别的分析，适合对 Nginx 实现原理比较感兴趣的同学阅读，需要具备一定的网络编程知识。</p>
-
 <p><strong>平滑升级的本质就是 listener fd 的迁移</strong>，虽然 Nginx、Envoy、MOSN 都提供了平滑升级支持，但是鉴于它们进程模型的差异，反映在实现上还是有些区别的。这里来探讨下它们其中的区别，并着重介绍 Nginx 的实现。</p>
-
 <h2 id="nginx">Nginx</h2>
-
 <p>相信有很多人认为 Nginx 的 reload 操作就能完成平滑升级，其实这是个典型的理解错误。实际上 reload 操作仅仅是平滑重启，并没有真正的升级新的二进制文件，也就是说其运行的依然是老的二进制文件。</p>
-
-<p>Nginx 自身也并没有提供平滑升级的命令选项，其只能靠手动触发信号来完成。具体正确的操作步骤可以参考这里：<a href="http://nginx.org/en/docs/control.html#upgrade" target="_blank">Upgrading Executable on the Fly</a>，这里只分析下其实现原理。</p>
-
+<p>Nginx 自身也并没有提供平滑升级的命令选项，其只能靠手动触发信号来完成。具体正确的操作步骤可以参考这里：<a href="http://nginx.org/en/docs/control.html#upgrade">Upgrading Executable on the Fly</a>，这里只分析下其实现原理。</p>
 <p><strong>Nginx 的平滑升级是通过 <code>fork</code> + <code>execve</code> 这种经典的处理方式来实现的</strong>。准备升级时，Old Master 进程收到信号然后 <code>fork</code> 出一个子进程，注意此时这个子进程运行的依然是老的镜像文件。紧接着这个子进程会通过 <code>execve</code> 调用执行新的二进制文件来替换掉自己，成为 New Master。</p>
-
 <p>那么问题来了：New Master 启动时按理说会执行 <code>bind</code> + <code>listen</code> 等操作来初始化监听，而这时候 Old Master 还没有退出，端口未释放，执行 <code>execve</code> 时理论上应该会报：<code>Address already in use</code> 错误，但是实际上这里却没有任何问题，这是为什么？</p>
-
 <p>因为 Nginx 在 <code>execve</code> 的时候压根就没有重新 <code>bind</code> + <code>listen</code>，而是直接把 listener fd 添加到 <code>epoll</code> 的事件表。因为这个 New Master 本来就是从 Old Master 继承而来，自然就继承了 Old Master 的 listener fd，但是这里依然有一个问题：该怎么通知 New Master 呢？</p>
-
 <p><strong>环境变量</strong>。<code>execve</code> 在执行的时候可以传入环境变量。实际上 Old Master 在 <code>fork</code> 之前会将所有 listener fd 添加到 <code>NGINX</code> 环境变量：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#204a87;font-weight:bold">ngx_pid_t</span>
 <span style="color:#4e9a06">ngx_exec_new_binary(ngx_cycle_t</span> <span style="color:#4e9a06">*cycle,</span> <span style="color:#4e9a06">char</span> <span style="color:#4e9a06">*const</span> <span style="color:#4e9a06">*argv)</span>
@@ -622,8 +611,8 @@ if (!doNotTrack) {
     <span style="color:#204a87;font-weight:bold">pid</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">ngx_execute(cycle,</span> <span style="color:#4e9a06">&amp;ctx)</span><span style="color:#000;font-weight:bold">;</span>
 
     <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#4e9a06">pid</span><span style="color:#000;font-weight:bold">;</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>Nginx 在启动的时候，会解析 <code>NGINX</code> 环境变量：</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>Nginx 在启动的时候，会解析 <code>NGINX</code> 环境变量：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#204a87;font-weight:bold">static</span> <span style="color:#4e9a06">ngx_int_t</span>
 <span style="color:#4e9a06">ngx_add_inherited_sockets(ngx_cycle_t</span> <span style="color:#4e9a06">*cycle)</span>
 <span style="color:#000;font-weight:bold">{</span>
@@ -659,8 +648,8 @@ if (!doNotTrack) {
     <span style="color:#4e9a06">ngx_inherited</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">;</span>
 
     <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#4e9a06">ngx_set_inherited_sockets(cycle)</span><span style="color:#000;font-weight:bold">;</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<p>一旦检测到是继承而来的 socket，那就说明已经打开了，不会再继续 <code>bind</code> + <code>listen</code> 了：</p>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>一旦检测到是继承而来的 socket，那就说明已经打开了，不会再继续 <code>bind</code> + <code>listen</code> 了：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#204a87;font-weight:bold">ngx_int_t</span>
 <span style="color:#4e9a06">ngx_open_listening_sockets(ngx_cycle_t</span> <span style="color:#4e9a06">*cycle)</span>
 <span style="color:#000;font-weight:bold">{</span>
@@ -701,30 +690,21 @@ if (!doNotTrack) {
     <span style="color:#000;font-weight:bold">}</span>
 
     <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#4e9a06">NGX_OK</span><span style="color:#000;font-weight:bold">;</span>
-<span style="color:#000;font-weight:bold">}</span></code></pre></div>
-<h2 id="envoy">Envoy</h2>
-
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h2 id="envoy">Envoy</h2>
 <p>Envoy 使用的是单进程多线程模型，其局限就是无法通过环境变量来传递 listener fd。因此 Envoy 采用的是 UDS（unix domain sockets）方案。当 New Envoy 启动完成后，会通过 UDS 向 Old Envoy 请求 listener fd 副本，拿到 listener fd 之后开始接管新来的连接，并通知 Old Envoy 终止运行。</p>
-
 <blockquote>
 <p>file descriptor 是可以通过 <code>sendmsg/recvmsg</code> 来传递的。</p>
 </blockquote>
-
 <h2 id="mosn">MOSN</h2>
-
 <p>MOSN 的方案和 Envoy 类似，都是通过 UDS 来传递 listener fd。但是其比 Envoy 更厉害的地方在于它可以把老的连接从 Old MOSN 上迁移到 New MOSN 上。<strong>也就是说把一个连接从进程 A 迁移到进程 B，而保持连接不断</strong>！！！厉不厉害？听起来很简单，但是实现起来却没那么容易，比如数据已经被拷贝到了应用层，但是还没有被处理，怎么办？这里面有很多细节需要处理。它子所以能做到这种层面，靠的也是内核的 <code>sendmsg/recvmsg</code> 技术。</p>
-
 <blockquote>
-<p>SCM_RIGHTS - Send or receive a set of open file descriptors from another process. The data portion contains an integer array of the file descriptors. The passed file descriptors behave as though they have been created with dup(2). <a href="http://linux.die.net/man/7/unix" target="_blank">http://linux.die.net/man/7/unix</a></p>
+<p>SCM_RIGHTS - Send or receive a set of open file descriptors from another process. The data portion contains an integer array of the file descriptors. The passed file descriptors behave as though they have been created with dup(2). <a href="http://linux.die.net/man/7/unix">http://linux.die.net/man/7/unix</a></p>
 </blockquote>
-
-<p>这里有一个 Go 实现的小 Demo: <a href="https://zhuanlan.zhihu.com/p/97340154" target="_blank">tcp链接迁移</a>。</p>
-
+<p>这里有一个 Go 实现的小 Demo: <a href="https://zhuanlan.zhihu.com/p/97340154">tcp链接迁移</a>。</p>
 <h2 id="对比">对比</h2>
-
 <p>Nginx 的实现是兼容性最强的，因为 Envoy 和 MOSN 都依赖 <code>sendmsg/recvmsg</code> 系统调用，需要内核 3.5+ 支持。MOSN 的难度最高，算得上是真正的无损升级，而 Nginx 和 Envoy 对于老的连接，仅仅是实现 graceful shutdown，严格来说是有损的。这对于 HTTP(通过 <code>Connection: close</code>) 和 gRPC(GoAway Frame) 协议支持很友好，但是遇到自定义的 TCP 协议就抓瞎了。如果遇到客户端没有处理 <code>close</code> 异常，很容易发生 socket fd 泄露问题。</p>
-
-<p>本文作者 ms2008，转载自<a href="https://ms2008.github.io/2019/12/28/hot-upgrade/" target="_blank">Nginx vs Envoy vs Mosn 平滑升级原理解析</a>。</p>
+<p>本文作者 ms2008，转载自<a href="https://ms2008.github.io/2019/12/28/hot-upgrade/">Nginx vs Envoy vs Mosn 平滑升级原理解析</a>。</p>
 
 	
 
@@ -806,7 +786,7 @@ if (!doNotTrack) {
 
 
 
-<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
 
 
 

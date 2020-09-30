@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.55.5" />
+<meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 <link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/docs/concept/index.xml">
 
@@ -24,13 +24,10 @@
 " />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mosn.io/docs/concept/" />
-
-<meta property="og:updated_time" content="2017-01-04T00:00:00&#43;00:00"/><meta property="og:site_name" content="MOSN" />
-
+<meta property="og:updated_time" content="2020-09-30T15:51:50+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="架构原理">
 <meta itemprop="description" content="MOSN 的架构和原理解析。
 ">
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="架构原理"/>
 <meta name="twitter:description" content="MOSN 的架构和原理解析。
@@ -50,8 +47,8 @@ if (!doNotTrack) {
 
 
 
-<link rel="preload" href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" as="style">
-<link href="/scss/main.min.f897137c56df993ddbdc2fae663b8500c5b673f0aa583536195bce7e28a80d63.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -70,7 +67,7 @@ if (!doNotTrack) {
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
         <a class="navbar-brand" href="/">
-		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path d="M273.9 79.91 273.88 49.09 242.34 49.11V36.9H273.78L273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56V70.77H231.34L231.37 79.91H273.9z" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><path d="M165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7H114.66L114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29V79.91L165.54 79.82z" style="fill:#fff"/><path d="M53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41z" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 0 0-1 0L51.13 55.47a2 2 0 0 0-1 1.75v45.85a1 1 0 0 0 .52.89 1 1 0 0 0 .52.14 1 1 0 0 0 .51-.14L91.93 80.78a2 2 0 0 0 1-1.74V33.49A1 1 0 0 0 92.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 0 0-2 0L1 25.94a2 2 0 0 0-1 1.74V79a2 2 0 0 0 1 1.73L37.77 102a1 1 0 0 0 .52.14 1 1 0 0 0 .52-.14 1 1 0 0 0 .52-.89V93.48a1.6 1.6.0 0 0-.79-1.38L9.33 75.24a.76.76.0 0 1-.39-.66V32.13a.77.77.0 0 1 .39-.67L46.09 10.24a.76.76.0 0 1 .77.0l30 17.32a1.61 1.61.0 0 0 1.59.0l6.64-3.78a1 1 0 0 0 .52-.9A1 1 0 0 0 85.09 22z" style="fill:#fff"/></g></g></svg></span>
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
         
 	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
@@ -112,7 +109,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/tutorial/" ><span class="active">教程</span></a>
+				<a class="nav-link" href="/docs/tutorial/" ><span>教程</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -122,7 +119,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/community/" ><span class="active">社区</span></a>
+				<a class="nav-link" href="/docs/community/" ><span>社区</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -132,7 +129,7 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link active" href="/docs/faq/" ><span class="active">FAQ</span></a>
+				<a class="nav-link" href="/docs/faq/" ><span>FAQ</span></a>
 			</li>
 			
 			
@@ -211,7 +208,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-overview" href="/docs/overview/">简介</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsoverview" href="/docs/overview/">简介</a>
       
       
       
@@ -227,20 +224,20 @@ if (!doNotTrack) {
     <a  href="/docs/quick-start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开始</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-quick-start">
+    <li class="collapse " id="docsquick-start">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-proxy" href="/docs/quick-start/proxy/">快速开始</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsquick-startproxy" href="/docs/quick-start/proxy/">快速开始</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-quick-start-istio" href="/docs/quick-start/istio/">集成 Istio</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsquick-startistio" href="/docs/quick-start/istio/">集成 Istio</a>
       
       
     </li>
@@ -262,50 +259,50 @@ if (!doNotTrack) {
     <a  href="/docs/concept/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">架构原理</a>
   </li>
   <ul>
-    <li class="collapse show" id="docs-concept">
+    <li class="collapse show" id="docsconcept">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-core-concept" href="/docs/concept/core-concept/">核心概念</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptcore-concept" href="/docs/concept/core-concept/">核心概念</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-sidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar 模式</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptsidecar-pattern" href="/docs/concept/sidecar-pattern/">Sidecar 模式</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-traffic-hijack" href="/docs/concept/traffic-hijack/">流量劫持</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconcepttraffic-hijack" href="/docs/concept/traffic-hijack/">流量劫持</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-tls" href="/docs/concept/tls/">TLS 安全链路</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconcepttls" href="/docs/concept/tls/">TLS 安全链路</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-smooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN 平滑升级原理解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptsmooth-upgrade" href="/docs/concept/smooth-upgrade/">MOSN 平滑升级原理解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-multi-protocol" href="/docs/concept/multi-protocol/">MOSN 多协议机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptmulti-protocol" href="/docs/concept/multi-protocol/">MOSN 多协议机制解析</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-concept-extensions" href="/docs/concept/extensions/">MOSN 扩展机制解析</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconceptextensions" href="/docs/concept/extensions/">MOSN 扩展机制解析</a>
       
       
     </li>
@@ -317,7 +314,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-samples" href="/docs/samples/">工程示例</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docssamples" href="/docs/samples/">工程示例</a>
       
       
       
@@ -333,14 +330,14 @@ if (!doNotTrack) {
     <a  href="/docs/configuration/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">配置概览</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-configuration">
+    <li class="collapse " id="docsconfiguration">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-clustermanager" href="/docs/configuration/clustermanager/">ClusterManager 配置</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationclustermanager" href="/docs/configuration/clustermanager/">ClusterManager 配置</a>
       
       
       
@@ -356,14 +353,14 @@ if (!doNotTrack) {
     <a  href="/docs/configuration/server/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Server 配置</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-configuration-server">
+    <li class="collapse " id="docsconfigurationserver">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-router" href="/docs/configuration/server/router/">Router 配置</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationserverrouter" href="/docs/configuration/server/router/">Router 配置</a>
       
       
       
@@ -379,14 +376,14 @@ if (!doNotTrack) {
     <a  href="/docs/configuration/server/listener/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Listener 配置</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-configuration-server-listener">
+    <li class="collapse " id="docsconfigurationserverlistener">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-filter-chain" href="/docs/configuration/server/listener/filter-chain/">FilterChain</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationserverlistenerfilter-chain" href="/docs/configuration/server/listener/filter-chain/">FilterChain</a>
       
       
       
@@ -402,20 +399,20 @@ if (!doNotTrack) {
     <a  href="/docs/configuration/server/listener/network-filter/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Network Filter</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-configuration-server-listener-network-filter">
+    <li class="collapse " id="docsconfigurationserverlistenernetwork-filter">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-proxy" href="/docs/configuration/server/listener/network-filter/proxy/">proxy</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationserverlistenernetwork-filterproxy" href="/docs/configuration/server/listener/network-filter/proxy/">proxy</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-server-listener-network-filter-connection-manager" href="/docs/configuration/server/listener/network-filter/connection-manager/">connection_manager</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationserverlistenernetwork-filterconnection-manager" href="/docs/configuration/server/listener/network-filter/connection-manager/">connection_manager</a>
       
       
     </li>
@@ -449,14 +446,14 @@ if (!doNotTrack) {
     <a  href="/docs/configuration/trace/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Trace 配置</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-configuration-trace">
+    <li class="collapse " id="docsconfigurationtrace">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-trace-skywalking" href="/docs/configuration/trace/skywalking/">SkyWalking 配置</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationtraceskywalking" href="/docs/configuration/trace/skywalking/">SkyWalking 配置</a>
       
       
     </li>
@@ -468,7 +465,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-configuration-custom" href="/docs/configuration/custom/">自定义配置</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsconfigurationcustom" href="/docs/configuration/custom/">自定义配置</a>
       
       
     </li>
@@ -490,20 +487,26 @@ if (!doNotTrack) {
     <a  href="/docs/dev/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开发指南</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-dev">
+    <li class="collapse " id="docsdev">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-dubbo-integrate" href="/docs/dev/dubbo-integrate/">Dubbo 集成</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsdevrelease" href="/docs/dev/release/">版本发布 介绍</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-dev-featuregate-introduce" href="/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsdevdubbo-integrate" href="/docs/dev/dubbo-integrate/">Dubbo 集成</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsdevfeaturegate-introduce" href="/docs/dev/featuregate-introduce/">Featuregate 介绍</a>
       
       
     </li>
@@ -525,26 +528,26 @@ if (!doNotTrack) {
     <a  href="/docs/contribute/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">贡献文档</a>
   </li>
   <ul>
-    <li class="collapse " id="docs-contribute">
+    <li class="collapse " id="docscontribute">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-github" href="/docs/contribute/github/">文档贡献指南</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docscontributegithub" href="/docs/contribute/github/">文档贡献指南</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-creating-pages" href="/docs/contribute/creating-pages/">创建页面</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docscontributecreating-pages" href="/docs/contribute/creating-pages/">创建页面</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-contribute-style-guide" href="/docs/contribute/style-guide/">样式指南</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docscontributestyle-guide" href="/docs/contribute/style-guide/">样式指南</a>
       
       
     </li>
@@ -556,19 +559,19 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-faq" href="/docs/faq/">FAQ</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsfaq" href="/docs/faq/">FAQ</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-tutorial" href="/docs/tutorial/">教程</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docstutorial" href="/docs/tutorial/">教程</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docs-community" href="/docs/community/">社区</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docscommunity" href="/docs/community/">社区</a>
       
       
     </li>
@@ -601,6 +604,8 @@ if (!doNotTrack) {
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
 
 </div>
+
+
 
 
 
@@ -665,6 +670,8 @@ if (!doNotTrack) {
                     </h5>
                     <p>MOSN 的核心概念解析。</p>
                 </div>
+            
+        
             
         
             
@@ -772,7 +779,7 @@ if (!doNotTrack) {
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年9月3日: <a  href="https://github.com/mosn/mosn.io/commit/d18d992a848d23531b53ef4aa2c4061a0e7d7876">add release v0.16.0. (d18d992)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年9月30日: <a  href="https://github.com/mosn/mosn.io/commit/ddae8362c786340f29c30c8a62fc31f2c9c95bef">try to fix build failed (ddae836)</a>
 </div>
 </div>
 
@@ -843,7 +850,7 @@ if (!doNotTrack) {
 
 
 
-<script src="/js/main.min.4e95c929fcc5d1ae1c122429c4cddb74176be1e58cc1e30d5b89fc8914cd322a.js" integrity="sha256-TpXJKfzF0a4cEiQpxM3bdBdr4eWMweMNW4n8iRTNMio=" crossorigin="anonymous"></script>
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
 
 
 
