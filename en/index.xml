@@ -13,6 +13,49 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.18.0</title>
+      <link>https://mosn.io/en/blog/releases/v0.18.0/</link>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v0.18.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.18.0&#34;&gt;MOSN v0.18.0&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;v0180&#34;&gt;v0.18.0&lt;/h2&gt;
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Add MOSN configure extension &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add MOSN configuration tool &lt;a href=&#34;https://github.com/mosn/configure&#34;&gt;mosn/configure&lt;/a&gt;, improve user configure experience &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Avoid copying http response body &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Upgrade &lt;code&gt;github.com/TarsCloud/TarsGo&lt;/code&gt; package, to v1.1.4 &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add test for various connpool &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Use sync.Pool to reduce memory cost by TLS connection outBuf &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Reduce xprotocol lock area &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Remove useless parameter of &lt;code&gt;network.NewClientConnection&lt;/code&gt; method, remove ALPN detection in &lt;code&gt;Dispatch&lt;/code&gt; method of struct &lt;code&gt;streamConn&lt;/code&gt; &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add &lt;code&gt;TerminateStream&lt;/code&gt; API to &lt;code&gt;StreamReceiverFilterHandler&lt;/code&gt;, with which stream can be reset during handling &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add client TLS fallback &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix TLS HashValue in host &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix disable_log admin api typo &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix &lt;code&gt;go mod tidy&lt;/code&gt; failing &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix &lt;code&gt;ResourceExhausted: grpc: received message larger than max&lt;/code&gt; when MOSN receive &amp;gt; 4M XDS messages &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix fault tolerance unit-test &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix MOSN reconfig fails when &lt;code&gt;MOSNConfig.servers[].listeners[].bind_port&lt;/code&gt; is &lt;code&gt;false&lt;/code&gt; &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Set timeout for local write buffer send, avoid goroutine leak &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix deadloop when TLS timeout &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix data isn&amp;rsquo;t modified by &lt;code&gt;SetData&lt;/code&gt; method in &lt;code&gt;dubbo.Frame&lt;/code&gt; struct &lt;a href=&#34;https://github.com/lxd5866&#34;&gt;@lxd5866&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.17.0</title>
       <link>https://mosn.io/en/blog/releases/v0.17.0/</link>
       <pubDate>Wed, 30 Sep 2020 00:00:00 +0000</pubDate>

@@ -13,6 +13,50 @@
     
     
     <item>
+      <title>Blog: MOSN v0.18.0 发布</title>
+      <link>https://mosn.io/blog/releases/v0.18.0/</link>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.18.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.18.0&#34;&gt;MOSN v0.18.0&lt;/a&gt; 发布。&lt;/p&gt;
+&lt;p&gt;以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v0180&#34;&gt;v0.18.0&lt;/h2&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;新增 MOSN 配置文件扩展机制 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 MOSN 配置工具，提升用户配置体验 &lt;a href=&#34;https://github.com/mosn/configure&#34;&gt;mosn/configure&lt;/a&gt; &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;HTTP 协议 stream 处理过程中，避免多次拷贝 HTTP body &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;升级了 &lt;code&gt;github.com/TarsCloud/TarsGo&lt;/code&gt; 包到 v1.1.4 版本 &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;补充了连接池的单元测试 &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;使用内存池减少了 TLS 连接的内存占用 &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;减少 xprotocol stream 处理过程的临界区大小，提升性能 &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;删除 &lt;code&gt;network.NewClientConnection&lt;/code&gt; 方法冗余参数，删除 &lt;code&gt;streamConn&lt;/code&gt; 结构体 &lt;code&gt;Dispatch&lt;/code&gt; 方法 &lt;code&gt;ALPN&lt;/code&gt; 检查 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;StreamReceiverFilterHandler&lt;/code&gt; 增加 &lt;code&gt;TerminateStream&lt;/code&gt; API，可在处理流的时候传入 HTTP code 异步关闭流 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;client 端 TLS handshake 失败时增加降级逻辑 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修改 TLS hashvalue 计算方式 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修正 disable_log admin api typo &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复执行 &lt;code&gt;go mod tidy&lt;/code&gt; 失败 &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 MOSN 接收 XDS 消息大于 4M 时的 &lt;code&gt;ResourceExhausted: grpc: received message larger than max&lt;/code&gt; 错误 &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复容错单元测试用例 &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 &lt;code&gt;MOSNConfig.servers[].listeners[].bind_port&lt;/code&gt; 设置为 &lt;code&gt;false&lt;/code&gt; 时热重启出错 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;本地写 buffer 增加超时时间，避免本地写失败导致 goroutine 过多 OOM &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 TLS 超时导致死循环 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 &lt;code&gt;dubbo.Frame&lt;/code&gt; struct 使用 &lt;code&gt;SetData&lt;/code&gt; 方法之后数据没有被修改的问题 &lt;a href=&#34;https://github.com/lxd5866&#34;&gt;@lxd5866&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN v0.17.0 发布</title>
       <link>https://mosn.io/blog/releases/v0.17.0/</link>
       <pubDate>Wed, 30 Sep 2020 00:00:00 +0000</pubDate>
