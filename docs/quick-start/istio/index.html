@@ -24,13 +24,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/quick-start/istio/" />
 <meta property="article:published_time" content="2020-03-19T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-11-05T13:43:08+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2020-11-12T18:03:31+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 作为 Istio 的数据平面">
 <meta itemprop="description" content="本文将介绍如何使用 MOSN 在 Istio 框架下搭建 Service Mesh 的开发环境，并验证 MOSN 的一些基础路由能力、负载均衡能力等。
 ">
 <meta itemprop="datePublished" content="2020-03-19T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2020-11-05T13:43:08+08:00" />
-<meta itemprop="wordCount" content="892">
+<meta itemprop="dateModified" content="2020-11-12T18:03:31+08:00" />
+<meta itemprop="wordCount" content="878">
 
 
 
@@ -625,16 +625,21 @@ if (!doNotTrack) {
         <li></li>
       </ul>
     </li>
-    <li><a href="#源码方式部署-istio">源码方式部署 Istio</a>
+    <li><a href="#部署istio与mosn">部署Istio与MOSN</a>
       <ul>
-        <li></li>
+        <li><a href="#安装-istio">安装 Istio</a></li>
+        <li><a href="#设置-mosn-作为-istio-的-sidecar">设置 MOSN 作为 Istio 的 Sidecar</a></li>
+        <li><a href="#修改-prometheus-deployment">修改 prometheus deployment</a></li>
+        <li><a href="#验证安装">验证安装</a></li>
       </ul>
     </li>
-    <li><a href="#bookinfo-实验">BookInfo 实验</a>
+    <li><a href="#bookinfo-示例">Bookinfo 示例</a>
       <ul>
-        <li></li>
+        <li><a href="#bookinfo-实验">BookInfo 实验</a></li>
+        <li><a href="#卸载-bookinfo">卸载 BookInfo</a></li>
       </ul>
     </li>
+    <li><a href="#卸载-istio">卸载 Istio</a></li>
   </ul>
 </nav>
 
@@ -684,7 +689,7 @@ if (!doNotTrack) {
 	
 
 <div class="pageinfo pageinfo-primary">
-<p>MOSN 已通过 Istio 1.4.6 的 <code>BookInfo</code> 测试，关于最新版 Istio 的支持情况可关注 <a href="https://github.com/mosn/community/blob/master/wg-istio.md">MOSN Istio WG</a>。</p>
+<p>MOSN 已通过 Istio 1.5.2 的 <code>BookInfo</code> 测试，关于最新版 Istio 的支持情况可关注 <a href="https://github.com/mosn/community/blob/master/wg-istio.md">MOSN Istio WG</a>。</p>
 
 </div>
 
@@ -692,13 +697,13 @@ if (!doNotTrack) {
 <ul>
 <li>MOSN 与 Istio 的关系</li>
 <li>准备工作</li>
-<li>源码方式部署 Istio</li>
+<li>部署 Istio 与 MOSN</li>
 <li>Bookinfo 实验</li>
 </ul>
 <h2 id="mosn-与-istio-的关系">MOSN 与 Istio 的关系</h2>
 <p>我们曾在 <a href="../../overview">MOSN 介绍</a>中介绍过，MOSN 是一款采用 Go 语言开发的 Service Mesh 数据平面代理。</p>
 <p>下图是 Istio 整体框架下，MOSN 的工作示意图。</p>
-<div align=center><img src="mosn-with-service-mesh.png" width = "450" height = "400" alt="MOSN 介绍" /></div>
+<div align=center><img src="mosn-with-service-mesh.svg" width = "450" height = "400" alt="MOSN 介绍" /></div>
 <h2 id="准备工作">准备工作</h2>
 <p>本文以 macOS 为例，其他环境可以安装对应版本的软件。</p>
 <h4 id="安装-hyperkit">安装 hyperkit</h4>
@@ -719,54 +724,52 @@ if (!doNotTrack) {
 <p>注意，pilot 至少需要 2G 内存，所以在启动的时候，可以通过加参数的方法给 minikube 添加分配的资源，如果你机器的资源不够，推荐使用商业版本的 Kubernetes 集群。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ minikube start --memory<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">8192</span> --cpus<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">4</span> --kubernetes-version<span style="color:#ce5c00;font-weight:bold">=</span>v1.15.0 --vm-driver<span style="color:#ce5c00;font-weight:bold">=</span>hyperkit
 </code></pre></div><p>创建 istio 命名空间</p>
-<pre><code>$ kubectl create namespace istio-system
-</code></pre><h4 id="安装-kubectl-命令行工具">安装 kubectl 命令行工具</h4>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl create namespace istio-system
+</code></pre></div><h4 id="安装-kubectl-命令行工具">安装 kubectl 命令行工具</h4>
 <p>kubectl 是用于针对 Kubernetes 集群运行命令的命令行接口，安装参考 <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl">kubectl doc</a>。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install kubernetes-cli
-</code></pre></div><h4 id="安装-helm">安装 Helm</h4>
-<p>Helm 是一个 Kubernetes 的包管理工具，安装参考 <a href="https://docs.helm.sh/using_helm/#installing-helm">helm doc</a>：</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew install kubernetes-helm
-</code></pre></div><h2 id="源码方式部署-istio">源码方式部署 Istio</h2>
-<p>MOSN 已通过 Istio 1.4.6 的 <code>BookInfo</code> 测试，相关支持动态请关注 <a href="https://github.com/mosn/community/blob/master/wg-istio.md">MOSN Istio WG</a>。</p>
-<h4 id="下载适配过-mosn-的-istio-源码">下载适配过 MOSN 的 Istio 源码</h4>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone -b feature-mosn_adapter https://github.com/mosn/istio.git
-</code></pre></div><h4 id="通过-helm-安装-istio">通过 Helm 安装 Istio</h4>
-<p><strong>使用 <code>helm template</code> 安装</strong></p>
-<p>首先需要切换到 Istio 源码所在目录，然后使用 helm 安装 Istio CRD 以及各个组件：</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#204a87">cd</span> istio
-$ helm template install/kubernetes/helm/istio-init --set global.hub<span style="color:#ce5c00;font-weight:bold">=</span>docker.io/istio --set global.tag<span style="color:#ce5c00;font-weight:bold">=</span>1.4.6  --name istio-init --namespace istio-system &gt;istio_init.yaml
-
-$ helm template install/kubernetes/helm/istio --set global.sidecar.binaryPath<span style="color:#ce5c00;font-weight:bold">=</span>/usr/local/bin/mosn  --set global.hub<span style="color:#ce5c00;font-weight:bold">=</span>docker.io/istio --set global.tag<span style="color:#ce5c00;font-weight:bold">=</span>1.4.6  --set global.sidecar.image<span style="color:#ce5c00;font-weight:bold">=</span>mosnio/proxyv2:1.4.6-mosn  --name istio --namespace istio-system &gt;istio.yaml
-
-$ kubectl apply -f istio_init.yaml
-$ kubectl apply -f istio.yaml
-
-</code></pre></div><h4 id="验证安装">验证安装</h4>
-<p><code>istio-system</code> 命名空间下的 pod 状态都是 Running 时，说明已经部署成功。
-如果仅仅是为了运行 <code>BookInfo</code>，只需要 pilot、injector、citadel 这三个 pod 运行成功就可以满足最低要求。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pods -n istio-system
-NAME                                        READY   STATUS      RESTARTS   AGE
-istio-citadel-6b7796cbc7-8q72s              1/1     Running     <span style="color:#0000cf;font-weight:bold">0</span>          9d
-istio-galley-5545dff574-6qls6               1/1     Running     <span style="color:#0000cf;font-weight:bold">0</span>          9d
-istio-ingressgateway-79b75c4db-8w646        1/1     Running     <span style="color:#0000cf;font-weight:bold">0</span>          9d
-istio-init-crd-10-1.4-dev-9m7g6             0/1     Completed   <span style="color:#0000cf;font-weight:bold">0</span>          9d
-istio-init-crd-11-1.4-dev-j27vt             0/1     Completed   <span style="color:#0000cf;font-weight:bold">0</span>          9d
-istio-init-crd-14-1.4-dev-4h9ts             0/1     Completed   <span style="color:#0000cf;font-weight:bold">0</span>          9d
-istio-pilot-6654897fc6-vh299                2/2     Running     <span style="color:#0000cf;font-weight:bold">0</span>          9d
-istio-policy-68774796b8-qq5kz               2/2     Running     <span style="color:#0000cf;font-weight:bold">0</span>          9d
-istio-security-post-install-1.4-dev-g98ws   0/1     Completed   <span style="color:#0000cf;font-weight:bold">0</span>          9d
-istio-sidecar-injector-f7b64d984-hw8p4      1/1     Running     <span style="color:#0000cf;font-weight:bold">0</span>          9d
-istio-telemetry-5f5d94c78-zw847             2/2     Running     <span style="color:#0000cf;font-weight:bold">0</span>          9d
-prometheus-6c9c8f9c97-mkcnp                 1/1     Running     <span style="color:#0000cf;font-weight:bold">0</span>          9d
-</code></pre></div><p>我们可以登录到 <code>istio-ingressgateway-79b75c4db-8w646</code> pod 上查看该网关已经成功使用MOSN作为 <code>ingress-gateway</code>：</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8f5902;font-style:italic">#kubectl -n istio-system exec -it  istio-ingressgateway-79b75c4db-8w646  bash </span>
-
-root@istio-ingressgateway-79b75c4db-8w646:/# ps aux <span style="color:#000;font-weight:bold">|</span> grep mosn
-root          <span style="color:#0000cf;font-weight:bold">1</span>  0.0  0.6 <span style="color:#0000cf;font-weight:bold">131232</span>  <span style="color:#0000cf;font-weight:bold">6360</span> ?        Ssl  Mar10   0:23 /usr/local/bin/pilot-agent proxy router --domain istio-system.svc.cluster.local --log_output_level<span style="color:#ce5c00;font-weight:bold">=</span>default:info --binaryPath /usr/local/bin/mosn --drainDuration 45s --parentShutdownDuration 1m0s --connectTimeout 10s --serviceCluster istio-ingressgateway --zipkinAddress zipkin:9411 --proxyAdminPort <span style="color:#0000cf;font-weight:bold">15000</span> --statusPort <span style="color:#0000cf;font-weight:bold">15020</span> --controlPlaneAuthPolicy NONE --discoveryAddress istio-pilot:15010
-root         <span style="color:#0000cf;font-weight:bold">24</span>  0.0  1.4 <span style="color:#0000cf;font-weight:bold">128068</span> <span style="color:#0000cf;font-weight:bold">15356</span> ?        Sl   Mar10   4:37 /usr/local/bin/mosn start --config /etc/istio/proxy/envoy-rev0.json --service-cluster istio-ingressgateway --service-node router~192.168.5.18~istio-ingressgateway-79b75c4db-8w646.istio-system~istio-system.svc.cluster.local
-root        <span style="color:#0000cf;font-weight:bold">175</span>  0.0  0.1  <span style="color:#0000cf;font-weight:bold">11468</span>  <span style="color:#0000cf;font-weight:bold">1056</span> pts/1    S+   13:06   0:00 grep --color<span style="color:#ce5c00;font-weight:bold">=</span>auto mosn
-
-</code></pre></div><h2 id="bookinfo-实验">BookInfo 实验</h2>
+</code></pre></div><h2 id="部署istio与mosn">部署Istio与MOSN</h2>
+<h3 id="安装-istio">安装 Istio</h3>
+<p>您可以在 <a href="https://github.com/istio/istio/releases/tag/1.5.2">Istio release</a> 页面下载与您操作系统匹配的压缩文件，该文件中包含：安装文件、示例和 istioctl 命令行工具。使用如下命令来下载 Istio（本文示例使用的是 Istio 1.5.2）：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#204a87">export</span> <span style="color:#000">ISTIO_VERSION</span><span style="color:#ce5c00;font-weight:bold">=</span>1.5.2 <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> curl -L https://istio.io/downloadIstio <span style="color:#000;font-weight:bold">|</span> sh -
+</code></pre></div><p>下载的 Istio 包名为 <code>istio-1.5.2</code>，包含：</p>
+<ul>
+<li><code>install/kubernetes</code>：包含 Kubernetes 相关的 YAML 安装文件;</li>
+<li><code>examples/</code>：包含示例应用程序;</li>
+<li><code>bin/</code>：包含 istioctl 的客户端文件;</li>
+</ul>
+<p>切换到 Istio 包所在目录：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#204a87">cd</span> istio-<span style="color:#000">$ISTIO_VERSION</span>/
+</code></pre></div><p>使用如下命令将 istioctl 客户端路径加入 $PATH 中：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#204a87">export</span> <span style="color:#000">PATH</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#000">$PATH</span>:<span style="color:#204a87;font-weight:bold">$(</span><span style="color:#204a87">pwd</span><span style="color:#204a87;font-weight:bold">)</span>/bin
+</code></pre></div><p>截止目前，我们已经可以通过 istioctl 命令行工具来灵活的自定义 Istio 控制平面和数据平面配置参数。</p>
+<h3 id="设置-mosn-作为-istio-的-sidecar">设置 MOSN 作为 Istio 的 Sidecar</h3>
+<p>通过 istioctl 命令的参数指定 MOSN 作为 Istio 中的数据面：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ istioctl manifest apply  --set .values.global.proxy.image<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;mosnio/proxyv2:1.5.2-mosn&#34;</span>   --set meshConfig.defaultConfig.binaryPath<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;/usr/local/bin/mosn&#34;</span>
+</code></pre></div><h3 id="修改-prometheus-deployment">修改 prometheus deployment</h3>
+<p>当前版本的部署的 istio 自带的 <code>prometheus</code>，有2个小问题需要手动调整下。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl edit deployments -n istio-system prometheus
+</code></pre></div><ol>
+<li>将容器 <code>istio-proxy</code> 的镜像改为 <code>mosnio/proxyv2:1.5.2-mosn</code></li>
+<li>将容器 <code>istio-proxy</code> 启动参数中的 <code>--binaryPath</code> 的值改为 <code>/usr/local/bin/mosn</code></li>
+</ol>
+<h3 id="验证安装">验证安装</h3>
+<p>检查 Istio 相关 pod 服务是否部署成功：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pod -n istio-system
+NAME                                    READY   STATUS    RESTARTS   AGE
+istio-ingressgateway-6f68796974-mtp2q   1/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          6h10m
+istiod-768488f855-c7bf6                 1/1     Running   <span style="color:#0000cf;font-weight:bold">0</span>          6h35m
+prometheus-6cd5bb8f99-8szvt             2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          13m
+</code></pre></div><p>如果服务状态 STATUS 为 Running，则表示 Istio 已经成功安装，后面就可以部署 Bookinfo 示例了。</p>
+<p>我们可以登录到 <code>istio-ingressgateway-6f68796974-mtp2q</code> pod 上查看该网关已经成功使用MOSN作为 <code>ingress-gateway</code>：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl -n istio-system <span style="color:#204a87">exec</span> -it istio-ingressgateway-6f68796974-mtp2q -- bash
+root@istio-ingressgateway-6f68796974-mtp2q:/# ps aux <span style="color:#000;font-weight:bold">|</span> grep mosn
+root        <span style="color:#0000cf;font-weight:bold">21</span>  0.1  0.3 <span style="color:#0000cf;font-weight:bold">129588</span> <span style="color:#0000cf;font-weight:bold">26080</span> ?        Sl   10:47   0:38 /usr/local/bin/mosn start --config /etc/istio/proxy/envoy-rev0.json --service-cluster istio-ingressgateway --service-node router~172.17.0.5~istio-ingressgateway-6f68796974-mtp2q.istio-system~istio-system.svc.cluster.local
+root        <span style="color:#0000cf;font-weight:bold">57</span>  0.0  0.0  <span style="color:#0000cf;font-weight:bold">11468</span>  <span style="color:#0000cf;font-weight:bold">1012</span> pts/0    S+   16:58   0:00 grep --color<span style="color:#ce5c00;font-weight:bold">=</span>auto mosn
+</code></pre></div><h2 id="bookinfo-示例">Bookinfo 示例</h2>
+<p>MOSN 已通过 Istio 1.5.2 的 <code>BookInfo</code> 测试，相关支持动态请关注 <a href="https://github.com/mosn/community/blob/master/wg-istio.md">MOSN Istio WG</a>。</p>
+<p>可以通过 <a href="https://katacoda.com/mosn/courses/istio/mosn-with-istio">MOSN with Istio</a> 的教程来进行 Bookinfo 示例的演示操作，另外在该教程中您也可以找到更多关于使用 MOSN 和 Istio 的说明。</p>
+<h3 id="bookinfo-实验">BookInfo 实验</h3>
 <p><code>BookInfo</code> 是一个类似豆瓣的图书应用，它包含四个基础服务：</p>
 <ul>
 <li>Product Page：主页，由 python 开发，展示所有图书信息，它会调用 Reviews 和 Details 服务</li>
@@ -779,36 +782,35 @@ root        <span style="color:#0000cf;font-weight:bold">175</span>  0.0  0.1  <
 <blockquote>
 <p>详细过程可以参考 <a href="https://istio.io/docs/examples/bookinfo/">BookInfo doc</a></p>
 </blockquote>
-<p>注入 MOSN。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl label namespace default istio-injection<span style="color:#ce5c00;font-weight:bold">=</span>enabled
-</code></pre></div><p>部署 <code>Bookinfo</code>。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
-</code></pre></div><p>验证部署是否成功。</p>
+<p>通过 kube-inject 的方式实现Sidecar注入：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml &gt; bookinfo.yaml <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> sed -i <span style="color:#4e9a06">&#34;s/\/usr\/local\/bin\/envoy/\/usr\/local\/bin\/mosn/g&#34;</span> ./bookinfo.yaml
+</code></pre></div><p>部署注入 Sidecar 后的 Bookinfo 应用：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl apply -f bookinfo.yaml
+</code></pre></div><p>验证部署是否成功：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get services
-NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ce5c00;font-weight:bold">(</span>S<span style="color:#ce5c00;font-weight:bold">)</span>    AGE
-details       ClusterIP   10.103.220.246   &lt;none&gt;        9080/TCP   9d
-kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP    9d
-productpage   ClusterIP   10.110.90.147    &lt;none&gt;        9080/TCP   9d
-ratings       ClusterIP   10.105.187.190   &lt;none&gt;        9080/TCP   9d
-reviews       ClusterIP   10.101.193.74    &lt;none&gt;        9080/TCP   9d
-
-</code></pre></div><p>等待所有的 pod 等成功运行起来。</p>
+NAME          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span style="color:#ce5c00;font-weight:bold">(</span>S<span style="color:#ce5c00;font-weight:bold">)</span>    AGE
+details       ClusterIP   10.107.154.89   &lt;none&gt;        9080/TCP   65m
+kubernetes    ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP    10h
+productpage   ClusterIP   10.101.154.61   &lt;none&gt;        9080/TCP   65m
+ratings       ClusterIP   10.103.70.21    &lt;none&gt;        9080/TCP   65m
+reviews       ClusterIP   10.96.56.145    &lt;none&gt;        9080/TCP   65m
+</code></pre></div><p>等待所有的 pod 等成功运行起来：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pods
-NAME                             READY   STATUS    RESTARTS   AGE
-details-v1-794574bdfc-hskqt      2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          9d
-productpage-v1-7b8fdcd7f-vcbwg   2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          9d
-ratings-v1-57fb894f57-gmff7      2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          9d
-reviews-v1-6b6688d988-h4qgv      2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          9d
-reviews-v2-58bfbbb44-ktrcs       2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          9d
-reviews-v3-86876fd564-z4kdb      2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          9d
-
+NAME                              READY   STATUS    RESTARTS   AGE
+details-v1-547d75b975-zrhtf       2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          66m
+productpage-v1-84b8bbd5bb-pc2hc   2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          66m
+ratings-v1-b78b5cb7-hvtwv         2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          66m
+reviews-v1-576d4b46f4-84cw9       2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          66m
+reviews-v2-68b67dcd98-d286b       2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          66m
+reviews-v3-784c6444b-blbgr        2/2     Running   <span style="color:#0000cf;font-weight:bold">0</span>          66m
+</code></pre></div><p>当上述状态为 Running 后，可通过如下方式确认 Bookinfo 应用是否正常运行：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl <span style="color:#204a87">exec</span> -it <span style="color:#204a87;font-weight:bold">$(</span>kubectl get pod -l <span style="color:#000">app</span><span style="color:#ce5c00;font-weight:bold">=</span>ratings -o <span style="color:#000">jsonpath</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;{.items[0].metadata.name}&#39;</span><span style="color:#204a87;font-weight:bold">)</span> -c ratings -- curl productpage:9080/productpage <span style="color:#000;font-weight:bold">|</span> grep -o <span style="color:#4e9a06">&#34;&lt;title&gt;.*&lt;/title&gt;&#34;</span>
 </code></pre></div><p>同样我们可以查看此时 <code>BookInfo</code> 应用的每一个 pod 都运行了 2 个容器，一个容器是 <code>BookInfo</code> 自身业务容器，另一个容器是Istio注入的 sidecar MOSN 容器。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8f5902;font-style:italic">#kubectl exec -it productpage-v1-7b8fdcd7f-vcbwg  -c istio-proxy  bash </span>
-
-istio-proxy@productpage-v1-7b8fdcd7f-vcbwg:/$ ps aux <span style="color:#000;font-weight:bold">|</span> grep mosn
-istio-p+      <span style="color:#0000cf;font-weight:bold">1</span>  0.0  0.6 <span style="color:#0000cf;font-weight:bold">131224</span>  <span style="color:#0000cf;font-weight:bold">6744</span> ?        Ssl  Mar10   0:23 /usr/local/bin/pilot-agent proxy sidecar --domain default.svc.cluster.local --configPath /etc/istio/proxy --binaryPath /usr/local/bin/mosn --serviceCluster productpage.default --drainDuration 45s --parentShutdownDuration 1m0s --discoveryAddress istio-pilot.istio-system:15010 --zipkinAddress zipkin.istio-system:9411 --dnsRefreshRate 300s --connectTimeout 10s --proxyAdminPort <span style="color:#0000cf;font-weight:bold">15000</span> --concurrency <span style="color:#0000cf;font-weight:bold">2</span> --controlPlaneAuthPolicy NONE --statusPort <span style="color:#0000cf;font-weight:bold">15020</span> --applicationPorts <span style="color:#0000cf;font-weight:bold">9080</span>
-istio-p+     <span style="color:#0000cf;font-weight:bold">13</span>  0.0  2.0 <span style="color:#0000cf;font-weight:bold">128060</span> <span style="color:#0000cf;font-weight:bold">21344</span> ?        Sl   Mar10   5:12 /usr/local/bin/mosn start --config /etc/istio/proxy/envoy-rev0.json --service-cluster productpage.default --service-node sidecar~192.168.5.14~productpage-v1-7b8fdcd7f-vcbwg.default~default.svc.cluster.local
-istio-p+     <span style="color:#0000cf;font-weight:bold">95</span>  0.0  0.0  <span style="color:#0000cf;font-weight:bold">11460</span>  <span style="color:#0000cf;font-weight:bold">1036</span> pts/0    S+   13:15   0:00 grep --color<span style="color:#ce5c00;font-weight:bold">=</span>auto mosn
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl <span style="color:#204a87">exec</span> -it productpage-v1-84b8bbd5bb-pc2hc -c istio-proxy -- bash
+istio-proxy@productpage-v1-84b8bbd5bb-pc2hc:/$ ps aux <span style="color:#000;font-weight:bold">|</span> grep mosn
+istio-p+     <span style="color:#0000cf;font-weight:bold">1</span>  0.1  0.5 <span style="color:#0000cf;font-weight:bold">153964</span> <span style="color:#0000cf;font-weight:bold">41372</span> ?        Ssl  16:59   0:04 /usr/local/bin/pilot-agent proxy sidecar --domain default.svc.cluster.local --configPath /etc/istio/proxy --binaryPath /usr/local/bin/mosn --serviceCluster productpage.default --drainDuration 45s --parentShutdownDuration 1m0s --discoveryAddress istiod.istio-system.svc:15012 --zipkinAddress zipkin.istio-system:9411 --proxyLogLevel<span style="color:#ce5c00;font-weight:bold">=</span>warning --proxyComponentLogLevel<span style="color:#ce5c00;font-weight:bold">=</span>misc:error --connectTimeout 10s --proxyAdminPort <span style="color:#0000cf;font-weight:bold">15000</span> --concurrency <span style="color:#0000cf;font-weight:bold">2</span> --controlPlaneAuthPolicy NONE --dnsRefreshRate 300s --statusPort <span style="color:#0000cf;font-weight:bold">15020</span> --trust-domain<span style="color:#ce5c00;font-weight:bold">=</span>cluster.local --controlPlaneBootstrap<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87">false</span>
+istio-p+    <span style="color:#0000cf;font-weight:bold">18</span>  0.1  0.3 <span style="color:#0000cf;font-weight:bold">129584</span> <span style="color:#0000cf;font-weight:bold">25904</span> ?        Sl   16:59   0:05 /usr/local/bin/mosn start --config /etc/istio/proxy/envoy-rev0.json --service-cluster productpage.default --service-node sidecar~172.17.0.14~productpage-v1-84b8bbd5bb-pc2hc.default~default.svc.cluster.local
+istio-p+    <span style="color:#0000cf;font-weight:bold">59</span>  0.0  0.0  <span style="color:#0000cf;font-weight:bold">11464</span>  <span style="color:#0000cf;font-weight:bold">1156</span> pts/0    S+   17:54   0:00 grep --color<span style="color:#ce5c00;font-weight:bold">=</span>auto mosn
 </code></pre></div><h4 id="访问-bookinfo-服务">访问 BookInfo 服务</h4>
 <p>开启 gateway 模式。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
@@ -820,8 +822,8 @@ bookinfo-gateway   24m
 $ <span style="color:#204a87">export</span> <span style="color:#000">SECURE_INGRESS_PORT</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87;font-weight:bold">$(</span>kubectl -n istio-system get service istio-ingressgateway -o <span style="color:#000">jsonpath</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;{.spec.ports[?(@.name==&#34;https&#34;)].nodePort}&#39;</span><span style="color:#204a87;font-weight:bold">)</span>
 $ <span style="color:#204a87">export</span> <span style="color:#000">INGRESS_HOST</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87;font-weight:bold">$(</span>minikube ip<span style="color:#204a87;font-weight:bold">)</span>
 $ <span style="color:#204a87">export</span> <span style="color:#000">GATEWAY_URL</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#000">$INGRESS_HOST</span>:<span style="color:#000">$INGRESS_PORT</span>
-</code></pre></div><p>验证 gateway 是否生效。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -o /dev/null -s -w <span style="color:#4e9a06">&#34;%{http_code}\n&#34;</span>  http://<span style="color:#000">$GATEWAY_URL</span>/productpage   //输出 <span style="color:#0000cf;font-weight:bold">200</span> 表示成功 
+</code></pre></div><p>验证 gateway 是否生效，输出 <code>200</code> 表示成功。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -o /dev/null -s -w <span style="color:#4e9a06">&#34;%{http_code}\n&#34;</span>  http://<span style="color:#000">$GATEWAY_URL</span>/productpage
 <span style="color:#0000cf;font-weight:bold">200</span>
 </code></pre></div><p><strong>观察页面情况</strong></p>
 <p>访问 <code>http://$GATEWAY_URL/productpage</code> (注意： <code>$GATEWAY_URL</code> 需要替换成你设置的地址)，正常的话通过刷新会看到如下所示 <code>BookInfo</code> 的界面，其中 Book Reviews 有三个版本，刷新后依次会看到(可以查看 samples/bookinfo/platform/kube/bookinfo.yaml 中的配置发现为什么是这三个版本)版本一的界面。</p>
@@ -849,7 +851,7 @@ $ <span style="color:#204a87">export</span> <span style="color:#000">GATEWAY_URL
 <p><img src="login.png" alt="登录"></p>
 <p>以其他身份登录，始终在 v1 版本。</p>
 <p><img src="v1.png" alt="版本一"></p>
-<h4 id="卸载-bookinfo">卸载 BookInfo</h4>
+<h3 id="卸载-bookinfo">卸载 BookInfo</h3>
 <p>可以使用下面的命令来完成应用的删除和清理工作：</p>
 <p>删除路由规则，并销毁应用的 Pod。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sh samples/bookinfo/platform/kube/cleanup.sh
@@ -858,17 +860,15 @@ $ <span style="color:#204a87">export</span> <span style="color:#000">GATEWAY_URL
 $ kubectl get destinationrules  <span style="color:#8f5902;font-style:italic">#-- there should be no destination rules</span>
 $ kubectl get gateway           <span style="color:#8f5902;font-style:italic">#-- there should be no gateway</span>
 $ kubectl get pods              <span style="color:#8f5902;font-style:italic">#-- the Bookinfo pods should be deleted</span>
-</code></pre></div><h4 id="卸载-istio">卸载 Istio</h4>
+</code></pre></div><h2 id="卸载-istio">卸载 Istio</h2>
 <p>执行如下命令，删除 Istio 相关 CRD 以及 pod 等资源：</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl delete -f istio_init.yaml
-$ kubectl delete -f istio.yaml
-$ kubectl delete namespace istio-system
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">istioctl manifest generate --set .values.global.proxy.image<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;mosnio/proxyv2:1.5.2-mosn&#34;</span> --set meshConfig.defaultConfig.binaryPath<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;/usr/local/bin/mosn&#34;</span> <span style="color:#000;font-weight:bold">|</span> kubectl delete -f -
 </code></pre></div><p>确认 Istio 是否成功卸载：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get namespace istio-system
 </code></pre></div>
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年11月5日: <a  href="https://github.com/mosn/mosn.io/commit/edf3a3bf8114ecdd9184093a94e93e6be695ef95">update dingtalk (#120) (edf3a3b)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2020年11月12日: <a  href="https://github.com/mosn/mosn.io/commit/3bbc5fcafa9bd2f57cc63efd171900b177adaa05">更新文档&#39;MOSN 作为 Istio 的数据平面&#39;，适配Istio 1.5.2 版本 (#117) (3bbc5fc)</a>
 </div>
 </div>
 
