@@ -13,6 +13,47 @@
     
     
     <item>
+      <title>Blog: MOSN v0.19.0 发布</title>
+      <link>https://mosn.io/blog/releases/v0.19.0/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.19.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.19.0&#34;&gt;MOSN v0.19.0&lt;/a&gt; 发布。&lt;/p&gt;
+&lt;p&gt;以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v0190&#34;&gt;v0.19.0&lt;/h2&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;使用最新的 TLS 内存优化方案 &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;proxy log 优化，减少内存逃逸 &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;增加最大连接数限制 &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;AccessLog 获取变量失败时，使用”-”代替 &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;MaxProcs 支持配置基于 CPU 使用限制自动识别 &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持指定 Istio cluster 的网络 &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;重构了 StreamFilter 框架，减少 streamfilter 框架与 proxy 的耦合，支持其他 network filter 可复用 stream filter 框架 &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复 HTTP Trace 获取 URL 错误 &lt;a href=&#34;https://github.com/wzshiming&#34;&gt;@wzshiming&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 xds 配置解析时没有解析连接超时的错误 &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复变量获取 Hostname 的错误 &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 tcp proxy 没有正确关闭连接的错误 &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 mixer filter 缺少默认配置，导致空指针问题 &lt;a href=&#34;https://github.com/glyasai&#34;&gt;@glyasai&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 HTTP2 直接响应没有正确地设置 &lt;code&gt;Content-length&lt;/code&gt; 的问题 &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 getAPISourceEndpoint 方法空指针问题 &lt;a href=&#34;https://github.com/dylandee&#34;&gt;@dylandee&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 Write 堆积时，过多的 Timer 申请导致内存上涨的问题 &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 Dubbo Filter 收到非法响应时，stats 统计缺失的问题 &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN v0.18.0 发布</title>
       <link>https://mosn.io/blog/releases/v0.18.0/</link>
       <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>

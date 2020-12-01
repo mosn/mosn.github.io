@@ -18,27 +18,24 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>MOSN v0.12.0 发布 | MOSN</title><meta property="og:title" content="MOSN v0.12.0 发布" />
-<meta property="og:description" content="MOSN v0.12.0 变更日志。
-" />
+<title>MOSN v0.19.0 发布 | MOSN</title><meta property="og:title" content="MOSN v0.19.0 发布" />
+<meta property="og:description" content="MOSN v0.19.0 变更日志。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mosn.io/blog/releases/v0.12.0/" />
-<meta property="article:published_time" content="2020-04-28T00:00:00+00:00" />
+<meta property="og:url" content="https://mosn.io/blog/releases/v0.19.0/" />
+<meta property="article:published_time" content="2020-12-01T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-12-01T19:45:55+08:00" /><meta property="og:site_name" content="MOSN" />
-<meta itemprop="name" content="MOSN v0.12.0 发布">
-<meta itemprop="description" content="MOSN v0.12.0 变更日志。
-">
-<meta itemprop="datePublished" content="2020-04-28T00:00:00+00:00" />
+<meta itemprop="name" content="MOSN v0.19.0 发布">
+<meta itemprop="description" content="MOSN v0.19.0 变更日志。">
+<meta itemprop="datePublished" content="2020-12-01T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-12-01T19:45:55+08:00" />
-<meta itemprop="wordCount" content="113">
+<meta itemprop="wordCount" content="94">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MOSN v0.12.0 发布"/>
-<meta name="twitter:description" content="MOSN v0.12.0 变更日志。
-"/>
+<meta name="twitter:title" content="MOSN v0.19.0 发布"/>
+<meta name="twitter:description" content="MOSN v0.19.0 变更日志。"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -67,7 +64,7 @@ if (!doNotTrack) {
 
 
 
-    <title>MOSN v0.12.0 发布 | MOSN</title>
+    <title>MOSN v0.19.0 发布 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -149,7 +146,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/en/blog/releases/v0.12.0/">English</a>
+	<a class="dropdown-item" href="/en/blog/releases/v0.19.0/">English</a>
 	
 </div>
 			</li>
@@ -191,7 +188,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/en/blog/releases/v0.12.0/">English</a>
+	<a class="dropdown-item" href="/en/blog/releases/v0.19.0/">English</a>
 	
 </div>
     </div>
@@ -232,7 +229,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0190" href="/blog/releases/v0.19.0/">MOSN v0.19.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogreleasesv0190" href="/blog/releases/v0.19.0/">MOSN v0.19.0 发布</a>
       
       
       
@@ -274,7 +271,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogreleasesv0120" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0120" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
       
       
       
@@ -549,8 +546,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/releases/v0.12.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20v0.12.0%20%e5%8f%91%e5%b8%83" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/releases/v0.19.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20v0.19.0%20%e5%8f%91%e5%b8%83" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -564,10 +561,10 @@ if (!doNotTrack) {
 
 <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#v0190">v0.19.0</a>
       <ul>
-        <li><a href="#新功能">新功能</a></li>
         <li><a href="#优化">优化</a></li>
+        <li><a href="#重构">重构</a></li>
         <li><a href="#bug-修复">Bug 修复</a></li>
       </ul>
     </li>
@@ -583,59 +580,48 @@ if (!doNotTrack) {
             </a>
             
 <div class="td-content">
-	<h1>MOSN v0.12.0 发布</h1>
-	<div class="lead">MOSN v0.12.0 变更日志。</div>
+	<h1>MOSN v0.19.0 发布</h1>
+	<div class="lead">MOSN v0.19.0 变更日志。</div>
 	<div class="td-byline mb-4">
 		作者 <b>MOSN 团队</b> |
-		<time datetime="2020-04-28" class="text-muted">2020年4月28日</time>
+		<time datetime="2020-12-01" class="text-muted">2020年12月1日</time>
 	</div>
-	<p>我们很高兴的宣布 <a href="https://github.com/mosn/mosn/releases/tag/v0.12.0">MOSN v0.12.0</a> 发布，感谢<a href="https://github.com/peacocktrain">孙福泽（@peacocktrain）</a>对该版本做出的巨大贡献，经 MOSN 社区 Lead 们认证为 <a href="https://github.com/mosn/community/issues/6">commiter</a> 🎉。</p>
+	<p>我们很高兴的宣布 <a href="https://github.com/mosn/mosn/releases/tag/v0.19.0">MOSN v0.19.0</a> 发布。</p>
 <p>以下是该版本的变更日志。</p>
-<h3 id="新功能">新功能</h3>
-<ul>
-<li><a href="blog/posts/skywalking-support">支持 Skywalking</a> <a href="https://github.com/arugal">@arugal</a></li>
-<li>Stream Filter 新增了一个 Receive Filter 执行的阶段，可在 MOSN 路由选择完 Host 以后，再次执行 Receive Filter <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>HTTP2 支持流式 <a href="https://github.com/peacocktrain">@peacocktrain</a> <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
-<li>FeatureGate 新增接口 KnownFeatures，可输出当前 FeatureGate 状态 <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>提供一种协议透明的方式获取请求资源（PATH、URI、ARG），对于资源的定义由各个协议自身定义 <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>新增负载均衡算法
-<ul>
-<li>支持 ActiveRequest LB <a href="https://github.com/CodingSinger">@CodingSinger</a></li>
-<li>支持 WRR LB <a href="https://github.com/nejisama">@nejisama</a></li>
-</ul>
-</li>
-</ul>
+<h2 id="v0190">v0.19.0</h2>
 <h3 id="优化">优化</h3>
 <ul>
-<li>XProtocol 协议引擎优化 <a href="https://github.com/neverhook">@neverhook</a>
-<ul>
-<li>修改 XProtocol 心跳响应接口，支持协议的心跳响应可返回更多的信息</li>
-<li>优化 connpool 的心跳触发，只有实现了心跳的协议才会发心跳</li>
+<li>使用最新的 TLS 内存优化方案 <a href="https://github.com/cch123">@cch123</a></li>
+<li>proxy log 优化，减少内存逃逸 <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
+<li>增加最大连接数限制 <a href="https://github.com/champly">@champly</a></li>
+<li>AccessLog 获取变量失败时，使用”-”代替 <a href="https://github.com/champly">@champly</a></li>
+<li>MaxProcs 支持配置基于 CPU 使用限制自动识别 <a href="https://github.com/champly">@champly</a></li>
+<li>支持指定 Istio cluster 的网络 <a href="https://github.com/champly">@champly</a></li>
 </ul>
-</li>
-<li>Dubbo 库依赖版本从 v1.5.0-rc1 更新到 v1.5.0 <a href="https://github.com/cch123">@cch123</a></li>
-<li>API 调整，HostInfo 新增健康检查相关的接口 <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>熔断功能实现优化 <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>负责均衡选择逻辑简化，同样地址的 Host 复用相同的健康检查标记 <a href="https://github.com/nejisama">@nejisama</a> <a href="https://github.com/cch123">@cch123</a></li>
-<li>优化 HTTP 建连逻辑，提升 HTTP 建立性能 <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>日志轮转逻辑从写日志触发，调整为定时触发 <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>typo 调整 <a href="https://github.com/xujianhai666">@xujianhai666</a> <a href="https://github.com/candyleer">@candyleer</a></li>
+<h3 id="重构">重构</h3>
+<ul>
+<li>重构了 StreamFilter 框架，减少 streamfilter 框架与 proxy 的耦合，支持其他 network filter 可复用 stream filter 框架 <a href="https://github.com/antJack">@antJack</a></li>
 </ul>
 <h3 id="bug-修复">Bug 修复</h3>
 <ul>
-<li>修复 xDS 解析故障注入配置的错误 <a href="https://github.com/champly">@champly</a></li>
-<li>修复 MOSN HTTP HEAD 方法导致的请求 Hold 问题 <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>修复 XProtocol 引擎对于 StatusCode 映射缺失的问题 <a href="https://github.com/neverhook">@neverhook</a></li>
-<li>修复 DirectReponse 触发重试的 BUG <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
+<li>修复 HTTP Trace 获取 URL 错误 <a href="https://github.com/wzshiming">@wzshiming</a></li>
+<li>修复 xds 配置解析时没有解析连接超时的错误 <a href="https://github.com/dengqian">@dengqian</a></li>
+<li>修复变量获取 Hostname 的错误 <a href="https://github.com/dengqian">@dengqian</a></li>
+<li>修复 tcp proxy 没有正确关闭连接的错误 <a href="https://github.com/dengqian">@dengqian</a></li>
+<li>修复 mixer filter 缺少默认配置，导致空指针问题 <a href="https://github.com/glyasai">@glyasai</a></li>
+<li>修复 HTTP2 直接响应没有正确地设置 <code>Content-length</code> 的问题 <a href="https://github.com/wangfakang">@wangfakang</a></li>
+<li>修复 getAPISourceEndpoint 方法空指针问题 <a href="https://github.com/dylandee">@dylandee</a></li>
+<li>修复 Write 堆积时，过多的 Timer 申请导致内存上涨的问题 <a href="https://github.com/champly">@champly</a></li>
+<li>修复 Dubbo Filter 收到非法响应时，stats 统计缺失的问题 <a href="https://github.com/champly">@champly</a></li>
 </ul>
 
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/blog/releases/v0.11.0/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+    <a href="/blog/releases/v0.18.0/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
   </li>
-    <a href="/blog/releases/v0.13.0/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+    <a  class="btn btn-primary  disabled">下一页 <span class="ml-1">→</span></a>
   </li>
 </ul>
 
