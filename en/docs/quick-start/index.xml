@@ -95,7 +95,8 @@ git clone git@github.com:mosn/mosn.git
         
 
 &lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
-&lt;p&gt;MOSN succeeded in the Bookinfo test for Istio 1.1.4. For more information about the support from the latest version of Istio, see &lt;a href=&#34;https://github.com/mosn/mosn/issues/933&#34;&gt;Issue #933&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;MOSN succeeded in the Bookinfo test for Istio 1.1.4. For more information about the support from the latest version of Istio, see &lt;a href=&#34;https://github.com/mosn/mosn/issues/933&#34;&gt;Issue #933&lt;/a&gt;.
+&lt;code&gt;Note: After the MOSN 0.14.0 or later can supports xDS, And tested pass all the sample of bookinfo in istio 1.5.2, here is a [MOSN with Istio](https://katacoda.com/mosn/courses/istio/mosn-with-istio) tutorial.&lt;/code&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 
