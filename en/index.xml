@@ -13,6 +13,58 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.20.0</title>
+      <link>https://mosn.io/en/blog/releases/v0.20.0/</link>
+      <pubDate>Tue, 05 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v0.20.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.20.0&#34;&gt;MOSN v0.20.0&lt;/a&gt;, congratulations to Huang Runhao(&lt;a href=&#34;https://github.com/GLYASAI&#34;&gt;@GLYASAI&lt;/a&gt;) on becoming a MOSN Committer and thanks for his contribution to the MOSN community.&lt;/p&gt;
+&lt;h2 id=&#34;v0200&#34;&gt;v0.20.0&lt;/h2&gt;
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Add UDS address prefix check before UDS resolution when TCP address resolution fails &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimized the retrial interval for connection pool acquisition &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add global switch for write loop mode &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize auto protocol matching and add test cases &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Replace the headers with more efficient variables &lt;a href=&#34;https://github.com/CodingSinger&#34;&gt;@CodingSinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Pool the writeBufferChan timer to reduce overhead &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add MOSN failure detail info into TraceLog &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;New read done channel in HTTP protocol processing &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Enhance logger rotator &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Upgrade to golang 1.14.13 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Refactor router chain extension mode to the route handler extension mode, support different router handler configuration &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Refactor MOSN extended configuration, support load config according to configuration order &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix the bug no provider available occurred after dubbo2.7.3 &lt;a href=&#34;https://github.com/cadeeper&#34;&gt;@cadeeper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug that UDS connections were treated as TCP connections in netpoll mode &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the problem that the HTTP Header cannot be obtained correctly when it is set to an empty value &lt;a href=&#34;https://github.com/ianwoolf&#34;&gt;@ianwoolf&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Support old Mosn transfer configuration to new Mosn through UDS to solve the issue that Mosn in XDS mode cannot be smoothly upgraded &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Automatic protocol identification supports the identification of XProtocol &lt;a href=&#34;https://github.com/cadeeper&#34;&gt;@cadeeper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support configuration of the keepalive parameters for XProtocol &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support more detailed time tracking &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support metrics lazy registration to optimize metrics memory when number of service in cluster is too large &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add setter function for default XProtocol multiplex connection pool size &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support netpoll &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support broadcast &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support get tls configurations from LDS response &lt;a href=&#34;https://github.com/wZH-CN&#34;&gt;@wZH-CN&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add ACK response for SDS &lt;a href=&#34;https://github.com/wZH-CN&#34;&gt;@wZH-CN&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.19.0</title>
       <link>https://mosn.io/en/blog/releases/v0.19.0/</link>
       <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
