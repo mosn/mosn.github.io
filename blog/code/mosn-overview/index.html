@@ -23,11 +23,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/code/mosn-overview/" />
 <meta property="article:published_time" content="2020-05-08T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-01-05T16:01:22+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2021-01-08T03:31:47-06:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 源码解析 - 总览">
 <meta itemprop="description" content="MOSN 源码解析文章总览。">
 <meta itemprop="datePublished" content="2020-05-08T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-01-05T16:01:22+08:00" />
+<meta itemprop="dateModified" content="2021-01-08T03:31:47-06:00" />
 <meta itemprop="wordCount" content="124">
 
 
@@ -587,7 +587,7 @@ if (!doNotTrack) {
 <p>首先是 MOSN 的 <a href="../mosn-startup/">启动流程</a>，通过这篇文章，你可以了解 MOSN 的启动过程，包括配置解析，日志初始化，Xds 初始化，各子模块启动，AdminApi 初始化等能力，也介绍了普通启动和热升级启动的区别，对 MOSN 的平滑升级能力有一个初步的了解。</p>
 <p><a href="../mosn-router/">路由</a> 这个章节，你可以了解路由的配置解析，运行方式和动态路由等能力。</p>
 <p>在 <a href="../mosn-tls/">TLS</a> 你可以了解 MOSN 怎样集成 Go Runtime 的 TLS 能力，并在此基础上我们进行了那些能力的加强，比如明文密文自动识别能力，SDS 能力支持，对 TLS 握手进行自定义校验的扩展能力等。</p>
-<p><a href="docs/concept/multi-protocol/">多协议机制</a> 是 MOSN 比较重要的一部分，你可以了解多协议机制产生的背景与实践痛点，一些常见的协议扩展思路初探，SOFABolt 协议接入实践，以及 MOSN 多协议机制设计解读。通过阅读本文，你可以很容易的实现一个自己的协议了。</p>
+<p><a href="../multi-protocol/">多协议机制</a> 是 MOSN 比较重要的一部分，你可以了解多协议机制产生的背景与实践痛点，一些常见的协议扩展思路初探，SOFABolt 协议接入实践，以及 MOSN 多协议机制设计解读。通过阅读本文，你可以很容易的实现一个自己的协议了。</p>
 <p><a href="../mosn-variable/">变量机制</a> 是 MOSN 的一个核心能力，通过该机制，MOSN 可以方便的获取和设置一些自定义的值，来满足打印日志，路由规则，请求自定变量等能力。</p>
 <p><a href="../mosn-shm/">共享内存模型</a> 讲解了 MOSN 的共享内存框架，MOSN 通过这个框架实现了共享内存 metrics 实现，用于平滑升级时保证 metric 数据的准确性。</p>
 <p>为了支持 MOSN 跨语言的扩展机制能力，我们开发了 <a href="../mosn-plugin/">plugin机制</a>，通过独立进程进行GRPC交互，让用户可以用任何语言来开发插件。</p>
