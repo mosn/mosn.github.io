@@ -14,6 +14,48 @@
     
     
     <item>
+      <title>Blog: MOSN v0.21.0 发布</title>
+      <link>https://mosn.io/blog/releases/v0.21.0/</link>
+      <pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.21.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.21.0&#34;&gt;MOSN v0.21.0&lt;/a&gt; 发布，恭喜郑泽超（&lt;a href=&#34;https://github.com/CodingSinger&#34;&gt;@CodingSinger&lt;/a&gt;）成为 MOSN Committer，感谢他为 MOSN 社区所做的贡献。&lt;/p&gt;
+&lt;p&gt;以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v0210&#34;&gt;v0.21.0&lt;/h2&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;升级sentinel版本到v1.0.2 &lt;a href=&#34;https://github.com/ansiz&#34;&gt;@ansiz&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;读超时收缩tls的read buffer，降低tls内存消耗 &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;增加注释，简化xprotocol协议连接池实现 &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;更新mosn registry版本 &lt;a href=&#34;https://github.com/cadeeper&#34;&gt;@cadeeper&lt;/a&gt; &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;优化路由Header匹配逻辑,支持通用的RPC路由匹配 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;删除原有部分常量，新增用于描述变量机制的常量 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;限流模块重构，支持自定义回调扩展，可实现自定义的过滤条件，上下文信息修改等能力 &lt;a href=&#34;https://github.com/ansiz&#34;&gt;@ansiz&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug修复&#34;&gt;Bug修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复请求异常时metrics统计错误 &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复http场景转发前没有对url进行转义的问题 &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复HTTP协议中变量注入错误的问题, 修复HTTP2协议中不支持路由Rewrite的bug &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;支持Domain-Specific Language路由实现 &lt;a href=&#34;https://github.com/CodingSinger&#34;&gt;@CodingSinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;StreamFilter支持go编写的动态链接库加载的方式 &lt;a href=&#34;https://github.com/CodingSinger&#34;&gt;@CodingSinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;路由配置中VirtualHost支持per_filter_config配置 &lt;a href=&#34;https://github.com/machine3&#34;&gt;@machine3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持dubbo thrift协议 &lt;a href=&#34;https://github.com/cadeeper&#34;&gt;@cadeeper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN v0.20.0 发布</title>
       <link>https://mosn.io/blog/releases/v0.20.0/</link>
       <pubDate>Tue, 05 Jan 2021 00:00:00 +0000</pubDate>

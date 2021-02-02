@@ -13,6 +13,47 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.21.0</title>
+      <link>https://mosn.io/en/blog/releases/v0.21.0/</link>
+      <pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v0.21.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.21.0&#34;&gt;MOSN v0.21.0&lt;/a&gt;, congratulations to Zechao Zheng(&lt;a href=&#34;https://github.com/CodingSinger&#34;&gt;@CodingSinger&lt;/a&gt;) on becoming a MOSN Committer and thanks for his contribution to the MOSN community.&lt;/p&gt;
+&lt;h2 id=&#34;v0210&#34;&gt;v0.21.0&lt;/h2&gt;
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Upgrade sentinel version to v1.0.2 &lt;a href=&#34;https://github.com/ansiz&#34;&gt;@ansiz&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Shrink the read buffer of tls when read timeout, reduce tls memory consumption &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add comments and simplify the implementation of the xprotocol protocol connpool &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Update the mosn registry version &lt;a href=&#34;https://github.com/cadeeper&#34;&gt;@cadeeper&lt;/a&gt; &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Optimize header matching logic when routing, support general RPC routing matching implementation &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Delete some of the original constants and add constants used to describe the mechanism of variables &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Refactor flow control module, support custom callback extension, realize the ability to customize filter conditions and modify context information, etc &lt;a href=&#34;https://github.com/ansiz&#34;&gt;@ansiz&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix metrics statistics error when request is abnormal &lt;a href=&#34;https://github.com/cch123&#34;&gt;@cch123&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug that the URL is not escaping before forwarding HTTP request &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the variable injection errors in HTTP protocol, Fix the bug that routing rewrite is not supported in the HTTP2 protocol &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Support Domain-Specific Language route implementation &lt;a href=&#34;https://github.com/CodingSinger&#34;&gt;@CodingSinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;StreamFilter supports the dynamic link libraries written in Go &lt;a href=&#34;https://github.com/CodingSinger&#34;&gt;@CodingSinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;VirtualHost supports per_filter_config configuration in routing configuration &lt;a href=&#34;https://github.com/machine3&#34;&gt;@machine3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Xprotocol supports dubbo thrift protocol &lt;a href=&#34;https://github.com/cadeeper&#34;&gt;@cadeeper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.20.0</title>
       <link>https://mosn.io/en/blog/releases/v0.20.0/</link>
       <pubDate>Tue, 05 Jan 2021 00:00:00 +0000</pubDate>

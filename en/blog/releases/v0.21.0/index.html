@@ -18,27 +18,24 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Announcing MOSN v0.12.0 | MOSN</title><meta property="og:title" content="Announcing MOSN v0.12.0" />
-<meta property="og:description" content="MOSN v0.12.0 changelog.
-" />
+<title>Announcing MOSN v0.21.0 | MOSN</title><meta property="og:title" content="Announcing MOSN v0.21.0" />
+<meta property="og:description" content="MOSN v0.21.0 changelog." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mosn.io/en/blog/releases/v0.12.0/" />
-<meta property="article:published_time" content="2020-04-28T00:00:00+00:00" />
+<meta property="og:url" content="https://mosn.io/en/blog/releases/v0.21.0/" />
+<meta property="article:published_time" content="2021-02-02T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-02-02T11:53:39+08:00" /><meta property="og:site_name" content="MOSN" />
-<meta itemprop="name" content="Announcing MOSN v0.12.0">
-<meta itemprop="description" content="MOSN v0.12.0 changelog.
-">
-<meta itemprop="datePublished" content="2020-04-28T00:00:00+00:00" />
+<meta itemprop="name" content="Announcing MOSN v0.21.0">
+<meta itemprop="description" content="MOSN v0.21.0 changelog.">
+<meta itemprop="datePublished" content="2021-02-02T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-02-02T11:53:39+08:00" />
-<meta itemprop="wordCount" content="267">
+<meta itemprop="wordCount" content="200">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Announcing MOSN v0.12.0"/>
-<meta name="twitter:description" content="MOSN v0.12.0 changelog.
-"/>
+<meta name="twitter:title" content="Announcing MOSN v0.21.0"/>
+<meta name="twitter:description" content="MOSN v0.21.0 changelog."/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -67,7 +64,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Announcing MOSN v0.12.0 | MOSN</title>
+    <title>Announcing MOSN v0.21.0 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -149,7 +146,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/blog/releases/v0.12.0/">中文</a>
+	<a class="dropdown-item" href="/blog/releases/v0.21.0/">中文</a>
 	
 </div>
 			</li>
@@ -191,7 +188,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/blog/releases/v0.12.0/">中文</a>
+	<a class="dropdown-item" href="/blog/releases/v0.21.0/">中文</a>
 	
 </div>
     </div>
@@ -232,7 +229,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-enblogreleasesv0210" href="/en/blog/releases/v0.21.0/">Announcing MOSN v0.21.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-enblogreleasesv0210" href="/en/blog/releases/v0.21.0/">Announcing MOSN v0.21.0</a>
       
       
       
@@ -286,7 +283,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-enblogreleasesv0120" href="/en/blog/releases/v0.12.0/">Announcing MOSN v0.12.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-enblogreleasesv0120" href="/en/blog/releases/v0.12.0/">Announcing MOSN v0.12.0</a>
       
       
       
@@ -330,8 +327,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/blog/releases/v0.12.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Announcing%20MOSN%20v0.12.0" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/en/blog/releases/v0.21.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Announcing%20MOSN%20v0.21.0" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
@@ -345,11 +342,12 @@ if (!doNotTrack) {
 
 <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#v0210">v0.21.0</a>
       <ul>
+        <li><a href="#optimization">Optimization</a></li>
+        <li><a href="#refactoring">Refactoring</a></li>
+        <li><a href="#bug-fixes">Bug fixes</a></li>
         <li><a href="#new-features">New Features</a></li>
-        <li><a href="#optimize">Optimize</a></li>
-        <li><a href="#bug-fix">Bug Fix</a></li>
       </ul>
     </li>
   </ul>
@@ -364,59 +362,48 @@ if (!doNotTrack) {
             </a>
             
 <div class="td-content">
-	<h1>Announcing MOSN v0.12.0</h1>
-	<div class="lead">MOSN v0.12.0 changelog.</div>
+	<h1>Announcing MOSN v0.21.0</h1>
+	<div class="lead">MOSN v0.21.0 changelog.</div>
 	<div class="td-byline mb-4">
 		By <b>MOSN Team</b> |
-		<time datetime="2020-04-28" class="text-muted">Apr 28, 2020</time>
+		<time datetime="2021-02-02" class="text-muted">Feb 2, 2021</time>
 	</div>
-	<p>We are happy to announce the release of <a href="https://github.com/mosn/mosn/releases/tag/v0.12.0">MOSN v0.12.0</a>. Thanks to <a href="https://github.com/peacocktrain">Sun Fuze (@peacocktrain)</a> for his great contribution to this release, certified as <a href="https://github.com/mosn/community/issues/6">commiter</a>🎉 by MOSN Community Leaders.</p>
-<p>You can see the changelog below.</p>
+	<p>We are happy to announce the release of <a href="https://github.com/mosn/mosn/releases/tag/v0.21.0">MOSN v0.21.0</a>, congratulations to Zechao Zheng(<a href="https://github.com/CodingSinger">@CodingSinger</a>) on becoming a MOSN Committer and thanks for his contribution to the MOSN community.</p>
+<h2 id="v0210">v0.21.0</h2>
+<h3 id="optimization">Optimization</h3>
+<ul>
+<li>Upgrade sentinel version to v1.0.2 <a href="https://github.com/ansiz">@ansiz</a></li>
+<li>Shrink the read buffer of tls when read timeout, reduce tls memory consumption <a href="https://github.com/cch123">@cch123</a></li>
+<li>Add comments and simplify the implementation of the xprotocol protocol connpool <a href="https://github.com/cch123">@cch123</a></li>
+<li>Update the mosn registry version <a href="https://github.com/cadeeper">@cadeeper</a> <a href="https://github.com/cch123">@cch123</a></li>
+</ul>
+<h3 id="refactoring">Refactoring</h3>
+<ul>
+<li>Optimize header matching logic when routing, support general RPC routing matching implementation <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Delete some of the original constants and add constants used to describe the mechanism of variables <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Refactor flow control module, support custom callback extension, realize the ability to customize filter conditions and modify context information, etc <a href="https://github.com/ansiz">@ansiz</a></li>
+</ul>
+<h3 id="bug-fixes">Bug fixes</h3>
+<ul>
+<li>Fix metrics statistics error when request is abnormal <a href="https://github.com/cch123">@cch123</a></li>
+<li>Fix the bug that the URL is not escaping before forwarding HTTP request <a href="https://github.com/antJack">@antJack</a></li>
+<li>Fix the variable injection errors in HTTP protocol, Fix the bug that routing rewrite is not supported in the HTTP2 protocol <a href="https://github.com/nejisama">@nejisama</a></li>
+</ul>
 <h3 id="new-features">New Features</h3>
 <ul>
-<li>Support Skywalking <a href="https://github.com/arugal">@arugal</a></li>
-<li>Stream Filter adds a new phase of Receive Filter execution, which allows you to execute Receive Filter <a href="https://github.com/wangfakang">@wangfakang</a> again after MOSN has finished routing Host</li>
-<li>HTTP2 supports streaming  <a href="https://github.com/peacocktrain">@peacocktrain</a> <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
-<li>FeatureGate adds interface KnownFeatures to output current FeatureGate status <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Provide a protocol-transparent way to obtain requested resources (PATH, URI, ARG), with the definition of resources defined by each protocol itself <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>New load balancing algorithm
-<ul>
-<li>Support for ActiveRequest LB <a href="https://github.com/CodingSinger">@CodingSinger</a></li>
-<li>Support WRR LB  <a href="https://github.com/nejisama">@nejisama</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="optimize">Optimize</h3>
-<ul>
-<li>XProtocol protocol engine optimization <a href="https://github.com/neverhook">@neverhook</a>
-<ul>
-<li>Modifies the XProtocol heartbeat response interface to support the protocol&rsquo;s heartbeat response to return more information</li>
-<li>Optimize connpool for heartbeat triggering, only heartbeats will be triggered if the protocol for heartbeats is implemented</li>
-</ul>
-</li>
-<li>Dubbo library dependency version updated from v1.5.0-rc1 to v1.5.0 <a href="https://github.com/cch123">@cch123</a></li>
-<li>API Adjustments, HostInfo added health check related interface <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>Optimize circuit breaking function  <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>Responsible for balanced selection logic simplification, Hosts of the same address multiplex the same health check mark <a href="https://github.com/nejisama">@nejisama</a> <a href="https://github.com/cch123">@cch123</a></li>
-<li>Optimize HTTP building logic and improve HTTP building performance <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>Log rotation logic triggered from writing logs, adjusted to timed trigger <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Typo fixes <a href="https://github.com/xujianhai666">@xujianhai666</a> <a href="https://github.com/candyleer">@candyleer</a></li>
-</ul>
-<h3 id="bug-fix">Bug Fix</h3>
-<ul>
-<li>Fix the xDS parsing fault injection configuration error  <a href="https://github.com/champly">@champly</a></li>
-<li>Fix the request hold issue caused by the MOSN HTTP HEAD method <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>Fix a problem with missing StatusCode mappings in the XProtocol engine <a href="https://github.com/neverhook">@neverhook</a></li>
-<li>Fix the bug for DirectReponse triggering retries <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
+<li>Support Domain-Specific Language route implementation <a href="https://github.com/CodingSinger">@CodingSinger</a></li>
+<li>StreamFilter supports the dynamic link libraries written in Go <a href="https://github.com/CodingSinger">@CodingSinger</a></li>
+<li>VirtualHost supports per_filter_config configuration in routing configuration <a href="https://github.com/machine3">@machine3</a></li>
+<li>Xprotocol supports dubbo thrift protocol <a href="https://github.com/cadeeper">@cadeeper</a></li>
 </ul>
 
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/en/blog/releases/v0.11.0/" class="btn btn-primary "><span class="mr-1">←</span> Previous</a>
+    <a href="/en/blog/releases/v0.20.0/" class="btn btn-primary "><span class="mr-1">←</span> Previous</a>
   </li>
-    <a href="/en/blog/releases/v0.13.0/" class="btn btn-primary ">Next <span class="ml-1">→</span></a>
+    <a  class="btn btn-primary  disabled">Next <span class="ml-1">→</span></a>
   </li>
 </ul>
 
