@@ -24,13 +24,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/quick-start/istio/" />
 <meta property="article:published_time" content="2020-03-19T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-02-02T11:53:39+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2021-02-08T19:15:45-06:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 作为 Istio 的数据平面">
 <meta itemprop="description" content="本文将介绍如何使用 MOSN 在 Istio 框架下搭建 Service Mesh 的开发环境，并验证 MOSN 的一些基础路由能力、负载均衡能力等。
 ">
 <meta itemprop="datePublished" content="2020-03-19T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-02-02T11:53:39+08:00" />
-<meta itemprop="wordCount" content="878">
+<meta itemprop="dateModified" content="2021-02-08T19:15:45-06:00" />
+<meta itemprop="wordCount" content="1038">
 
 
 
@@ -620,6 +620,10 @@ if (!doNotTrack) {
 <nav id="TableOfContents">
   <ul>
     <li><a href="#mosn-与-istio-的关系">MOSN 与 Istio 的关系</a></li>
+    <li><a href="#mosn-与-istio-的-proxyv2-镜像-build-方法">MOSN 与 Istio 的 proxyv2 镜像 build 方法</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#准备工作">准备工作</a>
       <ul>
         <li></li>
@@ -696,6 +700,7 @@ if (!doNotTrack) {
 <p>本文介绍的内容将包括 :</p>
 <ul>
 <li>MOSN 与 Istio 的关系</li>
+<li>MOSN 与 Istio 的 proxyv2 镜像 build 方法</li>
 <li>准备工作</li>
 <li>部署 Istio 与 MOSN</li>
 <li>Bookinfo 实验</li>
@@ -704,6 +709,33 @@ if (!doNotTrack) {
 <p>我们曾在 <a href="../../overview">MOSN 介绍</a>中介绍过，MOSN 是一款采用 Go 语言开发的 Service Mesh 数据平面代理。</p>
 <p>下图是 Istio 整体框架下，MOSN 的工作示意图。</p>
 <div align=center><img src="mosn-with-service-mesh.svg" width = "450" height = "400" alt="MOSN 介绍" /></div>
+<h2 id="mosn-与-istio-的-proxyv2-镜像-build-方法">MOSN 与 Istio 的 proxyv2 镜像 build 方法</h2>
+<p>MOSN 提供了如下两种方式来构建 Istio 的 proxyv2 镜像，如果只有 MOSN 代码发生变化，则推荐使用方式二。</p>
+<h1 id="方式一更新-istio-版本">方式一（更新 Istio 版本）</h1>
+<p>1、下载对应的 Istio 版本，当前 MOSN 的 <a href="https://github.com/mosn/mosn">master</a> 分支是支持 istio 1.5.2 ，<a href="https://github.com/mosn/mosn/tree/feature-istio_adapter">feature-istio_adapter</a> 分支是支持 istio 1.7.x。
+2、下载完 Istio 代码后，进入到 istio 目录执行如下命令：
+注意：在执行如下命令前，还需要做一些准备工作，将对应的 <code>mosn</code> 版本编译为二进制后压缩为 <code>mosn.tgz</code> 并上传至对应的存储服务中（如 github），另外 macos 的也得编译一份 <code>mosn-macos.tar.gz</code> ：</p>
+<pre><code>ISTIO_ENVOY_VERSION=v0.15.0                                                                            # 对应 mosn 的版本
+ISTIO_ENVOY_RELEASE_URL=https://github.com/mosn/mosn/releases/download/0.15.0/mosn.tgz                 # 对应 Linux 环境下的二进制压缩包下载路径（存储路径需自定义）
+ISTIO_ENVOY_MACOS_RELEASE_URL=https://github.com/mosn/mosn/releases/download/0.15.0/mosn-macos.tar.gz  # 对应 Macos 环境下的二进制压缩包下载路径
+ISTIO_ENVOY_MACOS_RELEASE_NAME=mosn-0.15.0                                                             # 设置 macos 的 sidecar 名称
+SIDECAR=mosn                                                                                           # 设置 istio 的 sidecar 为 mosn
+make docker.proxyv2                                                                                    # 编译构建 proxv2 镜像
+</code></pre><p>另外由于目前 istio 默认在构建 <code>proxyv2</code> image 的时候会默认加载 <code>wasm</code>，所以需要显示的在其编译脚本里面注释掉 <code>wasm</code> 相关的编译内容：</p>
+<pre><code>bin/init.sh
+bin/update_proxy.sh
+tools/istio-docker.mk
+</code></pre><p>3、将新构建的 proxyv2 镜像打上对应的版本 tag</p>
+<pre><code>docker images | grep proxyv2                                                                           # 找到上一步 build 出来的 image，如名称为${PROXYV2} 版本为 ${TAG}
+docker tag ${PROXYV2}:${TAG}  mosnio/proxyv2:${MOSNVERSION}                                            # ${MOSNVERSION}代码 MOSN 版本 ，其值是 `cat ./VERSION` 的输出
+
+</code></pre><h1 id="方式二更新-mosn-版本">方式二（更新 MOSN 版本）</h1>
+<p>将编译好的 <code>mosn</code> 二进制拷贝到当前目录并在当前目录增加 <code>Dockerfile</code> 文件,其文件内容如下：</p>
+<pre><code>FROM mosnio/proxyv2:1.5.2-mosn
+COPY mosn /usr/local/bin/mosn
+</code></pre><p>然后在当前目录执行如下命令：</p>
+<pre><code>docker build --no-cache --rm -t mosnio/proxyv2:${MOSNVERSION} ./
+</code></pre><p>其中 <code>${MOSNVERSION}</code> 的值是 <code>cat ./VERSION</code> 的输出，当执行完成后就会在本地生成一个 <code>mosnio/proxyv2</code> 镜像。</p>
 <h2 id="准备工作">准备工作</h2>
 <p>本文以 macOS 为例，其他环境可以安装对应版本的软件。</p>
 <h4 id="安装-hyperkit">安装 hyperkit</h4>
@@ -868,7 +900,7 @@ $ kubectl get pods              <span style="color:#8f5902;font-style:italic">#-
 </code></pre></div>
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2021年2月2日: <a  href="https://github.com/mosn/mosn.io/commit/6a44e2460fd0c54d01517bae06a1e29499a51037">add 0.21.0 release log (#130) (6a44e24)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2021年2月8日: <a  href="https://github.com/mosn/mosn.io/commit/5f9db5dcfae8d85b9765ef0899627903d2990fe3">add build proxyv2 docs. (#131) (5f9db5d)</a>
 </div>
 </div>
 

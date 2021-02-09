@@ -102,6 +102,7 @@ git clone git@github.com:mosn/mosn.git
 &lt;p&gt;本文介绍的内容将包括 :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;MOSN 与 Istio 的关系&lt;/li&gt;
+&lt;li&gt;MOSN 与 Istio 的 proxyv2 镜像 build 方法&lt;/li&gt;
 &lt;li&gt;准备工作&lt;/li&gt;
 &lt;li&gt;部署 Istio 与 MOSN&lt;/li&gt;
 &lt;li&gt;Bookinfo 实验&lt;/li&gt;
@@ -110,6 +111,33 @@ git clone git@github.com:mosn/mosn.git
 &lt;p&gt;我们曾在 &lt;a href=&#34;../../overview&#34;&gt;MOSN 介绍&lt;/a&gt;中介绍过，MOSN 是一款采用 Go 语言开发的 Service Mesh 数据平面代理。&lt;/p&gt;
 &lt;p&gt;下图是 Istio 整体框架下，MOSN 的工作示意图。&lt;/p&gt;
 &lt;div align=center&gt;&lt;img src=&#34;mosn-with-service-mesh.svg&#34; width = &#34;450&#34; height = &#34;400&#34; alt=&#34;MOSN 介绍&#34; /&gt;&lt;/div&gt;
+&lt;h2 id=&#34;mosn-与-istio-的-proxyv2-镜像-build-方法&#34;&gt;MOSN 与 Istio 的 proxyv2 镜像 build 方法&lt;/h2&gt;
+&lt;p&gt;MOSN 提供了如下两种方式来构建 Istio 的 proxyv2 镜像，如果只有 MOSN 代码发生变化，则推荐使用方式二。&lt;/p&gt;
+&lt;h1 id=&#34;方式一更新-istio-版本&#34;&gt;方式一（更新 Istio 版本）&lt;/h1&gt;
+&lt;p&gt;1、下载对应的 Istio 版本，当前 MOSN 的 &lt;a href=&#34;https://github.com/mosn/mosn&#34;&gt;master&lt;/a&gt; 分支是支持 istio 1.5.2 ，&lt;a href=&#34;https://github.com/mosn/mosn/tree/feature-istio_adapter&#34;&gt;feature-istio_adapter&lt;/a&gt; 分支是支持 istio 1.7.x。
+2、下载完 Istio 代码后，进入到 istio 目录执行如下命令：
+注意：在执行如下命令前，还需要做一些准备工作，将对应的 &lt;code&gt;mosn&lt;/code&gt; 版本编译为二进制后压缩为 &lt;code&gt;mosn.tgz&lt;/code&gt; 并上传至对应的存储服务中（如 github），另外 macos 的也得编译一份 &lt;code&gt;mosn-macos.tar.gz&lt;/code&gt; ：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ISTIO_ENVOY_VERSION=v0.15.0                                                                            # 对应 mosn 的版本
+ISTIO_ENVOY_RELEASE_URL=https://github.com/mosn/mosn/releases/download/0.15.0/mosn.tgz                 # 对应 Linux 环境下的二进制压缩包下载路径（存储路径需自定义）
+ISTIO_ENVOY_MACOS_RELEASE_URL=https://github.com/mosn/mosn/releases/download/0.15.0/mosn-macos.tar.gz  # 对应 Macos 环境下的二进制压缩包下载路径
+ISTIO_ENVOY_MACOS_RELEASE_NAME=mosn-0.15.0                                                             # 设置 macos 的 sidecar 名称
+SIDECAR=mosn                                                                                           # 设置 istio 的 sidecar 为 mosn
+make docker.proxyv2                                                                                    # 编译构建 proxv2 镜像
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;另外由于目前 istio 默认在构建 &lt;code&gt;proxyv2&lt;/code&gt; image 的时候会默认加载 &lt;code&gt;wasm&lt;/code&gt;，所以需要显示的在其编译脚本里面注释掉 &lt;code&gt;wasm&lt;/code&gt; 相关的编译内容：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bin/init.sh
+bin/update_proxy.sh
+tools/istio-docker.mk
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3、将新构建的 proxyv2 镜像打上对应的版本 tag&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker images | grep proxyv2                                                                           # 找到上一步 build 出来的 image，如名称为${PROXYV2} 版本为 ${TAG}
+docker tag ${PROXYV2}:${TAG}  mosnio/proxyv2:${MOSNVERSION}                                            # ${MOSNVERSION}代码 MOSN 版本 ，其值是 `cat ./VERSION` 的输出
+
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;方式二更新-mosn-版本&#34;&gt;方式二（更新 MOSN 版本）&lt;/h1&gt;
+&lt;p&gt;将编译好的 &lt;code&gt;mosn&lt;/code&gt; 二进制拷贝到当前目录并在当前目录增加 &lt;code&gt;Dockerfile&lt;/code&gt; 文件,其文件内容如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FROM mosnio/proxyv2:1.5.2-mosn
+COPY mosn /usr/local/bin/mosn
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后在当前目录执行如下命令：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker build --no-cache --rm -t mosnio/proxyv2:${MOSNVERSION} ./
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中 &lt;code&gt;${MOSNVERSION}&lt;/code&gt; 的值是 &lt;code&gt;cat ./VERSION&lt;/code&gt; 的输出，当执行完成后就会在本地生成一个 &lt;code&gt;mosnio/proxyv2&lt;/code&gt; 镜像。&lt;/p&gt;
 &lt;h2 id=&#34;准备工作&#34;&gt;准备工作&lt;/h2&gt;
 &lt;p&gt;本文以 macOS 为例，其他环境可以安装对应版本的软件。&lt;/p&gt;
 &lt;h4 id=&#34;安装-hyperkit&#34;&gt;安装 hyperkit&lt;/h4&gt;

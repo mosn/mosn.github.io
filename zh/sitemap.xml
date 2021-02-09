@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://mosn.io/docs/configuration/trace/skywalking/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -21,7 +21,7 @@
   
   <url>
     <loc>https://mosn.io/docs/contribute/github/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -38,21 +38,21 @@
   
   <url>
     <loc>https://mosn.io/docs/configuration/server/listener/filter-chain/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/configuration/server/listener/network-filter/proxy/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/quick-start/proxy/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -69,7 +69,7 @@
   
   <url>
     <loc>https://mosn.io/docs/overview/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -86,7 +86,7 @@
   
   <url>
     <loc>https://mosn.io/docs/concept/core-concept/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -103,21 +103,21 @@
   
   <url>
     <loc>https://mosn.io/docs/dev/release/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/dev/dubbo-integrate/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/quick-start/istio/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -134,7 +134,7 @@
   
   <url>
     <loc>https://mosn.io/docs/dev/featuregate-introduce/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -151,7 +151,7 @@
   
   <url>
     <loc>https://mosn.io/docs/configuration/server/router/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -168,7 +168,7 @@
   
   <url>
     <loc>https://mosn.io/docs/contribute/creating-pages/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -185,7 +185,7 @@
   
   <url>
     <loc>https://mosn.io/docs/contribute/style-guide/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -202,35 +202,35 @@
   
   <url>
     <loc>https://mosn.io/docs/configuration/clustermanager/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/configuration/server/listener/network-filter/connection-manager/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/configuration/server/listener/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/configuration/server/listener/network-filter/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/configuration/server/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -247,7 +247,7 @@
   
   <url>
     <loc>https://mosn.io/docs/quick-start/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -264,7 +264,7 @@
   
   <url>
     <loc>https://mosn.io/docs/concept/sidecar-pattern/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -281,7 +281,7 @@
   
   <url>
     <loc>https://mosn.io/docs/configuration/trace/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -298,7 +298,7 @@
   
   <url>
     <loc>https://mosn.io/docs/concept/traffic-hijack/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -315,7 +315,7 @@
   
   <url>
     <loc>https://mosn.io/docs/configuration/custom/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -332,7 +332,7 @@
   
   <url>
     <loc>https://mosn.io/docs/concept/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -349,7 +349,7 @@
   
   <url>
     <loc>https://mosn.io/docs/concept/tls/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -366,7 +366,7 @@
   
   <url>
     <loc>https://mosn.io/docs/samples/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -383,7 +383,7 @@
   
   <url>
     <loc>https://mosn.io/docs/configuration/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -400,7 +400,7 @@
   
   <url>
     <loc>https://mosn.io/docs/concept/smooth-upgrade/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -417,21 +417,21 @@
   
   <url>
     <loc>https://mosn.io/docs/concept/multi-protocol/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/dev/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/contribute/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -448,7 +448,7 @@
   
   <url>
     <loc>https://mosn.io/blog/releases/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -465,7 +465,7 @@
   
   <url>
     <loc>https://mosn.io/docs/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -482,28 +482,28 @@
   
   <url>
     <loc>https://mosn.io/blog/news/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/posts/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.21.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -520,7 +520,7 @@
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.20.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -537,7 +537,7 @@
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.19.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -554,7 +554,7 @@
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.18.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -571,7 +571,7 @@
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.17.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -588,7 +588,7 @@
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.16.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -605,7 +605,7 @@
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.15.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -622,7 +622,7 @@
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.14.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -639,21 +639,21 @@
   
   <url>
     <loc>https://mosn.io/blog/posts/mosn-dubbo-integrate/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/posts/mosn-dubbo-go-hessian2/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.13.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -670,14 +670,14 @@
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-overview/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.12.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -694,49 +694,49 @@
   
   <url>
     <loc>https://mosn.io/blog/posts/skywalking-support/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-tls/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-router/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/concept/extensions/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/posts/mosn-extensions/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-connection-pool/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.11.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -753,35 +753,35 @@
   
   <url>
     <loc>https://mosn.io/blog/posts/multi-protocol-deep-dive/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-http/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-log/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/news/mosn-channel-1/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/docs/faq/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -798,7 +798,7 @@
   
   <url>
     <loc>https://mosn.io/blog/releases/v0.10.0/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -815,112 +815,112 @@
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-startup/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-eventloop/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/posts/udpa-follow-up/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-shm/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-variable/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-buffer/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-plugin/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-xds/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-filters/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/posts/mosn-source-code-brief/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/news/announcing-mosn-communtiy/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/posts/nginx-envoy-mosn-hot-upgrade/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/releases/mosn-0.1.0-perfermence-report/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/releases/mosn-0.2.1-performance-report/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/blog/code/mosn-reconfig-mechanism/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://mosn.io/index.json</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -937,7 +937,7 @@
   
   <url>
     <loc>https://mosn.io/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -954,7 +954,7 @@
   
   <url>
     <loc>https://mosn.io/blog/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -971,7 +971,7 @@
   
   <url>
     <loc>https://mosn.io/search/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -988,7 +988,7 @@
   
   <url>
     <loc>https://mosn.io/docs/tutorial/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -1005,7 +1005,7 @@
   
   <url>
     <loc>https://mosn.io/docs/community/</loc>
-    <lastmod>2021-02-02T11:53:39+08:00</lastmod>
+    <lastmod>2021-02-08T19:15:45-06:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
