@@ -13,6 +13,50 @@
     
     
     <item>
+      <title>Blog: MOSN v0.22.0 发布</title>
+      <link>https://mosn.io/blog/releases/v0.22.0/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.22.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.22.0&#34;&gt;MOSN v0.22.0&lt;/a&gt; 发布&lt;/p&gt;
+&lt;p&gt;以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v0220&#34;&gt;v0.22.0&lt;/h2&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;新增 Wasm 扩展框架 &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;XProtocol 协议新增 x-bolt 子协议，支持基于 Wasm 的协议编解码能力 &lt;a href=&#34;https://github.com/zonghaishang&#34;&gt;@zonghaishang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持自动协议识别失败时根据 SO_ORIGINAL_DST 进行自动转发报文的能力 &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;XProtocol 支持 Go Plugin 模式扩展 &lt;a href=&#34;https://github.com/fdingiit&#34;&gt;@fdingiit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增网络扩展层 &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持 Istio xDS v3 API &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt; 所属分支: &lt;a href=&#34;https://github.com/mosn/mosn/tree/istio-1.7.7&#34;&gt;istio-1.7.7&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;去除 StreamFilter 配置解析中多余的路径清洗 &lt;a href=&#34;https://github.com/eliasyaoyc&#34;&gt;@eliasyaoyc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持为 StreamFilterChain 设置统一的回调接口 &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;FeatureGate 支持不同启动阶段执行, 去除 FeatureGate 状态判断的全局锁 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Http2 模块新增对 trace 能力的支持 &lt;a href=&#34;https://github.com/OrezzerO&#34;&gt;@OrezzerO&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;新增 StageManager，将 MOSN 启动流程划分为四个可自定义的阶段 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;统一 XProtocol 模块的类型定义，移动至 mosn.io/api 包 &lt;a href=&#34;https://github.com/fdingiit&#34;&gt;@fdingiit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;XProtocol 接口新增 GetTimeout 方法，取代原有的变量获取方式 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug修复&#34;&gt;Bug修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复 Proxy 中请求信息的并发冲突问题 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 URL 处理时的安全漏洞 &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复配置持久化时 Router 配置的并发冲突问题 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: WebAssembly 在 MOSN 中的实践 - 基础框架篇</title>
       <link>https://mosn.io/blog/posts/mosn-wasm-framework/</link>
       <pubDate>Mon, 22 Mar 2021 00:00:00 +0000</pubDate>

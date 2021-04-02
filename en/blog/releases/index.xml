@@ -14,6 +14,49 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.22.0</title>
+      <link>https://mosn.io/en/blog/releases/v0.22.0/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v0.22.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.21.0&#34;&gt;MOSN v0.22.0&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;v0220&#34;&gt;v0.22.0&lt;/h2&gt;
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Add Wasm extension framework &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add x-bolt sub-protocol to allow wasm-based codec for XProtocol &lt;a href=&#34;https://github.com/zonghaishang&#34;&gt;@zonghaishang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support fallback through SO_ORIGINAL_DST when protocol auto-matching got failed &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support Go Plugin mode for XProtocol &lt;a href=&#34;https://github.com/fdingiit&#34;&gt;@fdingiit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support for network extension &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Update to Istio xDS v3 API &lt;a href=&#34;https://github.com/champly&#34;&gt;@champly&lt;/a&gt;  Branch: &lt;a href=&#34;https://github.com/mosn/mosn/tree/istio-1.7.7&#34;&gt;istio-1.7.7&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Remove redundant file path clean when resolving StreamFilter configs &lt;a href=&#34;https://github.com/eliasyaoyc&#34;&gt;@eliasyaoyc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Allow setting a unified callback handler for the StreamFilterChain &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support multi-stage execution and remove state lock for the FeatureGate &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add trace support for HTTP2 &lt;a href=&#34;https://github.com/OrezzerO&#34;&gt;@OrezzerO&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Add StageManger to divide the bootstrap procedure of MOSN into four configurable stages &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Unify the type definitions of XProtocol and move into mosn.io/api package &lt;a href=&#34;https://github.com/fdingiit&#34;&gt;@fdingiit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add GetTimeout method for XProtocol to replace the variable getter &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix concurrent read and write for RequestInfo in Proxy &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the safety bug when forwarding the request URI &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix concurrent slice read and write for Router configurations when doing persistence &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.21.0</title>
       <link>https://mosn.io/en/blog/releases/v0.21.0/</link>
       <pubDate>Tue, 02 Feb 2021 00:00:00 +0000</pubDate>
