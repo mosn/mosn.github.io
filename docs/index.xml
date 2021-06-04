@@ -2311,7 +2311,7 @@ ECDHE-ECDSA-SM4-SM3
 &lt;h3 id=&#34;mosn-的开源版本和商业版本的区别是什么&#34;&gt;MOSN 的开源版本和商业版本的区别是什么？&lt;/h3&gt;
 &lt;p&gt;蚂蚁集团有 Mesh 商业产品，商业产品主要是提供从开发到部署再到运行时的一套完整的解决方案，同时为了满足商业用户自身的业务需求会对 MOSN 进行扩展，所以所谓的 MOSN 商业版本主要是承载了商业用户自身业务模块的版本。&lt;/p&gt;
 &lt;h3 id=&#34;mosn-的开源计划是什么&#34;&gt;MOSN 的开源计划是什么？&lt;/h3&gt;
-&lt;p&gt;MOSN 开源的发布周期是一个月，我们即将公布 2020 年的 Roadmap，期待与更多企业共建。&lt;/p&gt;
+&lt;p&gt;MOSN 开源的发布周期是一个月，我们即将公布 2021 年的 Roadmap，期待与更多企业共建。&lt;/p&gt;
 &lt;h3 id=&#34;mosn-支持-istio-的什么版本什么时候可以在-istio-中可用&#34;&gt;MOSN 支持 Istio 的什么版本？什么时候可以在 Istio 中可用？&lt;/h3&gt;
 &lt;p&gt;目前 MOSN 可基于 Istio 1.5.2  跑通 &lt;a href=&#34;https://mosn.io/docs/quick-start/istio/&#34;&gt;bookinfo example&lt;/a&gt;，预计 2020 年 9 月份将完整支持 Istio 的能力，并成为 Istio 中可用的 Sidecar 部署选项。请加入 &lt;a href=&#34;https://mosn.io/docs/community&#34;&gt;MOSN 社区&lt;/a&gt; 了解适配 Istio 的工作。&lt;/p&gt;
 &lt;h3 id=&#34;mosn-支持哪些服务注册和发现机制&#34;&gt;MOSN 支持哪些服务注册和发现机制？&lt;/h3&gt;
