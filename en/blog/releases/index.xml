@@ -14,6 +14,51 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v0.23.0</title>
+      <link>https://mosn.io/en/blog/releases/v0.23.0/</link>
+      <pubDate>Fri, 04 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v0.23.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.23.0&#34;&gt;MOSN v0.23.0&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;v0230&#34;&gt;v0.23.0&lt;/h2&gt;
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Add new networkfilter:grpc. A grpc server can be extended by networkfilter and implemented in the MOSN, reuse MOSN capabilities. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt; &lt;a href=&#34;https://github.com/zhenjunMa&#34;&gt;@zhenjunMa&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add a new extended function for traversal calls in the StreamFilterChain. &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add HTTP 403 status code mapping in the bolt protocol. &lt;a href=&#34;https://github.com/pxzero&#34;&gt;@pxzero&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add the ability to shutdown the upstream connections.  &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Optimize the networkfilter configuration parsed.  &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support extend proxy config by protocol, optimize the proxy configuration parse timing. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add tls conenction&amp;rsquo;s certificate cache, reduce the memory usage. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize Quick Start Sample. &lt;a href=&#34;https://github.com/nobodyiam&#34;&gt;@nobodyiam&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Reuse context when router handler check available. &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Modify the NewSubsetLoadBalancer&amp;rsquo;s input parameter to interface instead of the determined structure. &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add an example of using so plugin to implement a protocol. &lt;a href=&#34;https://github.com/yichouchou&#34;&gt;@yichouchou&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;Optimize the method of get environment variable &lt;code&gt;GOPATH&lt;/code&gt; in the &lt;code&gt;MAKEFILE&lt;/code&gt;. &lt;a href=&#34;https://github.com/bincherry&#34;&gt;@bincherry&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support darwin &amp;amp; aarch64 architecture. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;Optimize the logger file flag. &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix the bug of HTTP1 URL encoding. &lt;a href=&#34;https://github.com/morefreeze&#34;&gt;@morefreeze&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug of HTTP1 URL case-sensitive process. &lt;a href=&#34;https://github.com/GLYASAI&#34;&gt;@GLYASAI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug of memory leak in error handling when the tls cipher suite is SM4. &lt;a href=&#34;https://github.com/william-zk&#34;&gt;@william-zk&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.22.0</title>
       <link>https://mosn.io/en/blog/releases/v0.22.0/</link>
       <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
@@ -22,7 +67,7 @@
       <description>
         
         
-        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.21.0&#34;&gt;MOSN v0.22.0&lt;/a&gt;&lt;/p&gt;
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.22.0&#34;&gt;MOSN v0.22.0&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;v0220&#34;&gt;v0.22.0&lt;/h2&gt;
 &lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
 &lt;ul&gt;

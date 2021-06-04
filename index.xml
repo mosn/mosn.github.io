@@ -13,6 +13,48 @@
     
     
     <item>
+      <title>Blog: MOSN v0.23.0 发布</title>
+      <link>https://mosn.io/blog/releases/v0.23.0/</link>
+      <pubDate>Fri, 04 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.23.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.23.0&#34;&gt;MOSN v0.23.0&lt;/a&gt; 发布&lt;/p&gt;
+&lt;p&gt;以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v0230&#34;&gt;v0.23.0&lt;/h2&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;新增 networkfilter:grpc，支持通过 networkfilter 扩展方式在 MOSN 中实现可复用 MOSN 其他能力的 grpc server &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt; &lt;a href=&#34;https://github.com/zhenjunMa&#34;&gt;@zhenjunMa&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;StreamFilterChain 新增遍历调用的扩展接口 &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;bolt 协议新增 HTTP 403 状态码的映射 &lt;a href=&#34;https://github.com/pxzero&#34;&gt;@pxzero&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增主动关闭 upstream 连接的能力 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;networkfilter 配置解析能力优化 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;proxy 配置解析支持按照协议扩展，配置解析时机优化 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;TLS 连接新增证书缓存，减少重复证书的内存占用 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 Quick Start Sample &lt;a href=&#34;https://github.com/nobodyiam&#34;&gt;@nobodyiam&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化默认路由处理时的 context 对象生成 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 Subset LoadBalancer 的创建函数接口 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增使用 so plugin 扩展方式接入协议扩展的示例 &lt;a href=&#34;https://github.com/yichouchou&#34;&gt;@yichouchou&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 makefile 中获取 GOPATH 环境变量的方式 &lt;a href=&#34;https://github.com/bincherry&#34;&gt;@bincherry&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持 darwin + arrch64 架构的编译 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化日志打开方式 &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;HTTP1 修复 URL 处理编码问题 &lt;a href=&#34;https://github.com/morefreeze&#34;&gt;@morefreeze&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;HTTP1 修复 URL 处理大小写敏感错误问题 &lt;a href=&#34;https://github.com/GLYASAI&#34;&gt;@GLYASAI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;TLS 修复 SM4 套件异常处理时存在的内存泄漏问题 &lt;a href=&#34;https://github.com/william-zk&#34;&gt;@william-zk&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN v0.22.0 发布</title>
       <link>https://mosn.io/blog/releases/v0.22.0/</link>
       <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
