@@ -2582,10 +2582,8 @@ ECDHE-ECDSA-SM4-SM3
 &lt;li&gt;参与 issue 列表的维护及重要功能的讨论；&lt;/li&gt;
 &lt;li&gt;积极参与 code review 和社区会议；&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;roadmap&#34;&gt;Roadmap&lt;/h2&gt;
-&lt;p&gt;MOSN with Istio 路线图如下。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;mosn-with-istio-roadmap.png&#34; alt=&#34;MOSN with Istio 路线图&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Roadmap 详情见 &lt;a href=&#34;https://docs.google.com/spreadsheets/d/1fALompY9nKZNImOuxQw23xtMD-5rCBrXWziJZkj76bo/edit#gid=0&#34;&gt;Google Sheet&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;meetup&#34;&gt;Meetup&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/mosn/meetup&#34;&gt;https://github.com/mosn/meetup&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;教程&#34;&gt;教程&lt;/h2&gt;
 &lt;p&gt;MOSN 提供线上教程，见&lt;a href=&#34;https://mosn.io/docs/tutorial/&#34;&gt;教程页面&lt;/a&gt;。&lt;/p&gt;
 &lt;h2 id=&#34;加入社区&#34;&gt;加入社区&lt;/h2&gt;
