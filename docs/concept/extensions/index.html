@@ -23,11 +23,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/concept/extensions/" />
 <meta property="article:published_time" content="2020-04-09T21:00:00+08:00" />
-<meta property="article:modified_time" content="2021-06-16T22:28:10-05:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2021-07-21T17:15:57+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 扩展机制解析">
 <meta itemprop="description" content="本文介绍的是 MOSN 的扩展机制。">
 <meta itemprop="datePublished" content="2020-04-09T21:00:00+08:00" />
-<meta itemprop="dateModified" content="2021-06-16T22:28:10-05:00" />
+<meta itemprop="dateModified" content="2021-07-21T17:15:57+08:00" />
 <meta itemprop="wordCount" content="700">
 
 
@@ -671,13 +671,13 @@ if (!doNotTrack) {
 <div class="td-content">
 	<h1>MOSN 扩展机制解析</h1>
 	<div class="lead">本文介绍的是 MOSN 的扩展机制。</div>
-	<p>本文将才从以下几个方面介绍 MOSN 的扩展机制：</p>
+	<p>本文将从以下几个方面介绍 MOSN 的扩展机制：</p>
 <ul>
 <li>MOSN 扩展能力和扩展机制的详细介绍；</li>
 <li>结合示例对 MOSN 的 Filter 扩展机制与插件扩展机制进行详细介绍；</li>
 <li>MOSN 后续扩展能力规划与展望；</li>
 </ul>
-<p>本问中的示例在 MOSN 的 Github 的 <code>examples/codes/mosn-extensions</code> 目录下，大家也可以下载下来运行一下。</p>
+<p>本文中的示例在 MOSN 的 Github 的 <code>examples/codes/mosn-extensions</code> 目录下，大家也可以下载下来运行一下。</p>
 <h3 id="mosn-简介">MOSN 简介</h3>
 <p>MOSN 作为云原生的网络代理，旨在为服务提供多协议、模块化、智能化、安全的代理能力。在实际生产使用中，不同的厂商会有不同的使用场景，通用的网络代理能力面对具体的业务场景会显得有些不足，通常都需要进行二次开发以满足业务需求。MOSN 在核心框架中，提供了一系列的扩展机制和扩展点，就是为了满足需要基于业务进行二次开发的场景，同时 MOSN 提供的部分通用逻辑也是基于扩展机制和扩展点的实现。</p>
 <p><img src="1586436268765-2c1afc84-0142-4217-b666-0cc9cbdf7e78.png" alt="image.png"></p>
@@ -704,7 +704,7 @@ if (!doNotTrack) {
 <h4 id="stream-filter-在-mosn-中是如何工作的">Stream Filter 在 MOSN 中是如何工作的</h4>
 <p>接下来，我们看下 Stream Filter 在 MOSN 中是如何工作的。</p>
 <p><img src="1586436269017-a78ea077-adea-4e5c-bb19-48843553362d.png" alt="image.png"></p>
-<p>当 MOSN 经过协议解析，收到一个完整的请求时，会创建一个 Stream。此时收到请求的 Listener 中每存在 StreamFilterFactory，就会生成一个 StreamFilter 对象，随后进入到 proxy 流程。</p>
+<p>当 MOSN 经过协议解析，收到一个完整的请求时，会创建一个 Stream。此时收到请求的 Listener 中每存在一个 StreamFilterFactory，就会生成一个 StreamFilter 对象，随后进入到 proxy 流程。</p>
 <p>进入 proxy 流程以后，如果存在 ReceiverFilter，那么就会执行对应的逻辑，ReceiverFilter 包括两个阶段，“路由前”和“路由后”，在每个 Filter 处理完成以后，会返回一个状态，如果是 Stop 则会中止后续尚未执行的 ReceiverFilter，通常情况下，返回 Stop 状态的 Filter 都会回写一个响应。如果是 Continue 则会执行下一个 ReceiverFilter，直到本阶段的 ReceiverFilter 都执行完成或中止；路由前阶段的 ReceiverFIlter 执行完成后，就会执行路由后阶段，其逻辑和路由前一致。如果是正常转发，那么随后 MOSN 会收到一个响应或者发现其他异常直接回写一个响应，此时就会进入到 SenderFilter 的流程中，完成 SenderFilter 的处理。SenderFilter 处理完成以后，MOSN 会写响应给 Client，并且完成最后的收尾工作，收尾工作包括一些数据的回收、日志的记录，以及 StreamFilter 的“销毁”（调用 OnDestroy）。</p>
 <h4 id="stream-filter-demo">Stream Filter Demo</h4>
 <p>对 StreamFilter 有了一个基本的认识以后，我们来看一个实际的 Demo 代码来看下如何实现一个 StreamFilter 并且让它在 MOSN 中发挥作用。</p>
@@ -835,7 +835,7 @@ if (!doNotTrack) {
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2021年6月16日: <a  href="https://github.com/mosn/mosn.io/commit/f2acbbd9b8f618a8aef0c97e2dfe5e6ff452135b">try (#149) (f2acbbd)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2021年7月21日: <a  href="https://github.com/mosn/mosn.io/commit/30dfc3a95c826c345f0e1cf5881c26e896547846">fix typo (#150) (30dfc3a)</a>
 </div>
 </div>
 
