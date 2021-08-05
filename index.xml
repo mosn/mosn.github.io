@@ -13,6 +13,53 @@
     
     
     <item>
+      <title>Blog: MOSN v0.24.0 发布</title>
+      <link>https://mosn.io/blog/releases/v0.24.0/</link>
+      <pubDate>Thu, 05 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.24.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.24.0&#34;&gt;MOSN v0.24.0&lt;/a&gt; 发布，恭喜付建豪（&lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;）成为 MOSN Committer，感谢他为 MOSN 社区所做的贡献。&lt;/p&gt;
+&lt;p&gt;以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v0240&#34;&gt;v0.24.0&lt;/h2&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;支持使用 jaeger 收集 OpenTracing 信息 &lt;a href=&#34;https://github.com/Magiczml&#34;&gt;@Roger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;路由配置新增变量配置模式，可通过修改变量的方式修改路由结果 &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;路由 virtualhost 匹配支持端口匹配模式 &lt;a href=&#34;https://github.com/jiebinzhuang&#34;&gt;@jiebin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;实现 envoy 中的 filter: &lt;a href=&#34;https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/header_to_metadata_filter&#34;&gt;header_to_metadata&lt;/a&gt; &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持 UDS 的热升级 &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 subset 负载均衡逻辑，在没有元数据匹配的场景下使用全量机器列表进行负载均衡 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;MOSN 的 gRPC 框架支持优雅关闭 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;优化 Cluster 配置更新时的健康检查更新模式 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;api.Connection 新增 OnConnectionEvent 接口 &lt;a href=&#34;https://github.com/CodingSinger&#34;&gt;@CodingSinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;权重轮询负载均衡兜底策略调整为普通轮询负载均衡 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;在 MOSN 变量模块中增加 interface 值类型 &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Subset 判断机器个数与是否存在时，同样遵循兜底策略 &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;dubbo stream filter 支持协议自动识别 &lt;a href=&#34;https://github.com/Thiswang&#34;&gt;@Thiswang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复轮询负载均衡在并发情况下结果异常 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 unix 地址解析异常 &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 HTTP1 短连接无法生效的异常 &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复国密 TLS SM3 套件在连接断开后存在的内存泄漏 &lt;a href=&#34;https://github.com/william-zk&#34;&gt;@ZengKe&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;当连接被对端重置或管道断裂时 HTTP2 支持重试 &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复从连接池中获取到的 host 信息错误 &lt;a href=&#34;https://github.com/Sharember&#34;&gt;@Sharember&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复在 route 模块中选择权重集群的数据竞争 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;如果 host 不健康时，在Edf负载均衡算法中不能正确返回 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 XProtocol 路由配置超时无效的问题 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN v0.23.0 发布</title>
       <link>https://mosn.io/blog/releases/v0.23.0/</link>
       <pubDate>Fri, 04 Jun 2021 00:00:00 +0000</pubDate>
