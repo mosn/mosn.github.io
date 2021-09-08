@@ -15,6 +15,21 @@
     
     
     <item>
+      <title>Docs: 编码规范</title>
+      <link>https://mosn.io/docs/dev/code-review/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/dev/code-review/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;mosn编码规范&#34;&gt;MOSN编码规范&lt;/h2&gt;
+&lt;p&gt;Go Code Review Comments &lt;a href=&#34;https://github.com/golang/go/wiki/CodeReviewComments&#34;&gt;https://github.com/golang/go/wiki/CodeReviewComments&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: 版本发布 介绍</title>
       <link>https://mosn.io/docs/dev/release/</link>
       <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
