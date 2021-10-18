@@ -2864,11 +2864,11 @@ Demo Readme：&lt;a href=&#34;https://github.com/mosn/mosn/tree/master/examples/
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style=&#34;text-align:left&#34;&gt;&amp;ldquo;syslog&amp;rdquo;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;a href=&#34;github.com/hashicorp/go-syslog&#34;&gt;gsyslog&lt;/a&gt;本地对象&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;a href=&#34;https://github.com/hashicorp/go-syslog&#34;&gt;gsyslog&lt;/a&gt;本地对象&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style=&#34;text-align:left&#34;&gt;其他&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;a href=&#34;github.com/hashicorp/go-syslog&#34;&gt;gsyslog&lt;/a&gt;远程对象&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;a href=&#34;https://github.com/hashicorp/go-syslog&#34;&gt;gsyslog&lt;/a&gt;远程对象&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -2912,7 +2912,7 @@ Demo Readme：&lt;a href=&#34;https://github.com/mosn/mosn/tree/master/examples/
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color:#000&#34;&gt;buf&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;WriteTo&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;l&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
 &lt;span style=&#34;color:#000&#34;&gt;buffer&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;PutIoBuffer&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;buf&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当收到第一次写数据的时候不是立刻写入数据到 &lt;code&gt;log&lt;/code&gt; 对象，而是在等待 20 次读取信息，一起写入到对 &lt;code&gt;log&lt;/code&gt; 象中，在大量写日志的时候不会导致调用太频繁。如频繁写入文件、频繁调用写日志接口，相反，这会增加内存分配，最好的其实是使用 &lt;code&gt;writev&lt;/code&gt;，但是 &lt;code&gt;go runtime&lt;/code&gt; 的 &lt;code&gt;io&lt;/code&gt; 库没有这个实现。可以采用 &lt;a href=&#34;https://mosn.ioblog/code/mosn-plugin/&#34;&gt;plugin 机制&lt;/a&gt; 来接管日志的打印，减少 &lt;code&gt;io&lt;/code&gt; 卡顿对 &lt;code&gt;go runtime&lt;/code&gt; 的调度影响&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当收到第一次写数据的时候不是立刻写入数据到 &lt;code&gt;log&lt;/code&gt; 对象，而是在等待 20 次读取信息，一起写入到对 &lt;code&gt;log&lt;/code&gt; 象中，在大量写日志的时候不会导致调用太频繁。如频繁写入文件、频繁调用写日志接口，相反，这会增加内存分配，最好的其实是使用 &lt;code&gt;writev&lt;/code&gt;，但是 &lt;code&gt;go runtime&lt;/code&gt; 的 &lt;code&gt;io&lt;/code&gt; 库没有这个实现。可以采用 &lt;a href=&#34;https://mosn.io/blog/code/mosn-plugin/&#34;&gt;plugin 机制&lt;/a&gt; 来接管日志的打印，减少 &lt;code&gt;io&lt;/code&gt; 卡顿对 &lt;code&gt;go runtime&lt;/code&gt; 的调度影响&lt;/p&gt;
 &lt;p&gt;*&lt;em&gt;当一次循环处理完之后，会调用 &lt;code&gt;runtime.Gosched()&lt;/code&gt; 主动让出当前协程的 &lt;code&gt;cpu&lt;/code&gt; 资源&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;metrics&#34;&gt;Metrics&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Metrics&lt;/code&gt; 是一种规范的度量，分为如下类型，摘抄至 &lt;a href=&#34;https://prometheus.io/docs/concepts/metric_types/&#34;&gt;METRIC TYPES&lt;/a&gt;&lt;/p&gt;

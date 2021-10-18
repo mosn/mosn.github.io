@@ -23,11 +23,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/code/mosn-log/" />
 <meta property="article:published_time" content="2020-03-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-09-08T21:05:39+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2021-10-18T19:46:00+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 源码解析 - log 系统">
 <meta itemprop="description" content="对 MOSN Log系统的源码解析。">
 <meta itemprop="datePublished" content="2020-03-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-09-08T21:05:39+08:00" />
+<meta itemprop="dateModified" content="2021-10-18T19:46:00+08:00" />
 <meta itemprop="wordCount" content="529">
 
 
@@ -730,11 +730,11 @@ if (!doNotTrack) {
 </tr>
 <tr>
 <td style="text-align:left">&ldquo;syslog&rdquo;</td>
-<td style="text-align:left"><a href="github.com/hashicorp/go-syslog">gsyslog</a>本地对象</td>
+<td style="text-align:left"><a href="https://github.com/hashicorp/go-syslog">gsyslog</a>本地对象</td>
 </tr>
 <tr>
 <td style="text-align:left">其他</td>
-<td style="text-align:left"><a href="github.com/hashicorp/go-syslog">gsyslog</a>远程对象</td>
+<td style="text-align:left"><a href="https://github.com/hashicorp/go-syslog">gsyslog</a>远程对象</td>
 </tr>
 </tbody>
 </table>
@@ -778,7 +778,7 @@ if (!doNotTrack) {
 <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000">buf</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WriteTo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">l</span><span style="color:#000;font-weight:bold">)</span>
 <span style="color:#000">buffer</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">PutIoBuffer</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">buf</span><span style="color:#000;font-weight:bold">)</span>
-</code></pre></div><p>当收到第一次写数据的时候不是立刻写入数据到 <code>log</code> 对象，而是在等待 20 次读取信息，一起写入到对 <code>log</code> 象中，在大量写日志的时候不会导致调用太频繁。如频繁写入文件、频繁调用写日志接口，相反，这会增加内存分配，最好的其实是使用 <code>writev</code>，但是 <code>go runtime</code> 的 <code>io</code> 库没有这个实现。可以采用 <a href="https://mosn.ioblog/code/mosn-plugin/">plugin 机制</a> 来接管日志的打印，减少 <code>io</code> 卡顿对 <code>go runtime</code> 的调度影响</p>
+</code></pre></div><p>当收到第一次写数据的时候不是立刻写入数据到 <code>log</code> 对象，而是在等待 20 次读取信息，一起写入到对 <code>log</code> 象中，在大量写日志的时候不会导致调用太频繁。如频繁写入文件、频繁调用写日志接口，相反，这会增加内存分配，最好的其实是使用 <code>writev</code>，但是 <code>go runtime</code> 的 <code>io</code> 库没有这个实现。可以采用 <a href="https://mosn.io/blog/code/mosn-plugin/">plugin 机制</a> 来接管日志的打印，减少 <code>io</code> 卡顿对 <code>go runtime</code> 的调度影响</p>
 <p>*<em>当一次循环处理完之后，会调用 <code>runtime.Gosched()</code> 主动让出当前协程的 <code>cpu</code> 资源</em></p>
 <h2 id="metrics">Metrics</h2>
 <p><code>Metrics</code> 是一种规范的度量，分为如下类型，摘抄至 <a href="https://prometheus.io/docs/concepts/metric_types/">METRIC TYPES</a></p>
