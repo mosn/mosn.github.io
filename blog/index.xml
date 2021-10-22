@@ -14,6 +14,59 @@
     
     
     <item>
+      <title>Blog: MOSN v0.25.0 发布</title>
+      <link>https://mosn.io/blog/releases/v0.25.0/</link>
+      <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.25.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.25.0&#34;&gt;MOSN v0.25.0&lt;/a&gt; 发布，以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v0250&#34;&gt;v0.25.0&lt;/h2&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;路由支持删除请求头指定字段的配置 &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;WASM 支持 Reload &lt;a href=&#34;https://github.com/zu1k&#34;&gt;@zu1k&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;集成 SEATA TCC 模式，支持 HTTP 协议 [@dk-lockdown]((&lt;a href=&#34;https://github.com/dk-lockdown&#34;&gt;https://github.com/dk-lockdown&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;新增 boltv2 协议的 tracelog 支持 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;gRPC 框架新增 Metrics 统计相关 Filter 扩展 &lt;a href=&#34;https://github.com/wenxuwan&#34;&gt;@wenxuwan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 xds cluster 解析支持 DNS 相关字段 &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;MOSN 核心代码和 Istio 引入相关 xDS 代码解耦合 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;更新 proxy-wasm-go-host 版本 &lt;a href=&#34;https://github.com/zhenjunMa&#34;&gt;@zhenjunMa&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修改 networkfilter 配置解析逻辑，支持更新添加接口、查询接口 &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Makefile 中执行模式使用&lt;code&gt;mod vendor&lt;/code&gt;代替&lt;code&gt;GO111MODULE=off&lt;/code&gt; &lt;a href=&#34;https://github.com/scaat&#34;&gt;@scaat&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转移部分 archived 到 mosn.io/pkg 路径下 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 EDF 负载均衡：在首次选择时的机器进行随机选择 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;提升 EDF 负载均衡函数的性能 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;调整 boltv2 心跳请求和心跳响应的处理 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 HTTP2 在 Stream 模式下的重试处理和 Unary 请求优化 &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;当通过环境变量设置 GOMAXPROCS 时，无视 CPU 数量的限制 &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 subset 创建时的内存使用 &lt;a href=&#34;https://github.com/dzdx&#34;&gt;@dzdx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 gRPC 框架，支持不同的 Listener 可以支持同名 Server 独立运行 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复重试时如果返回的机器地址为空会导致卡死的问题 &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复消息连接池处理连接事件的 BUG &lt;a href=&#34;https://github.com/RayneHwang&#34;&gt;@RayneHwang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复没有初始化 Trace Driver 时调用 Enable Trace 导致的 panic 问题 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 boltv2 协议在构造异常响应时数据错误的问题 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 HTTP2 连接失败时异常处理的问题 &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;typo 错误修复 &lt;a href=&#34;https://github.com/jxd134&#34;&gt;@jxd134&lt;/a&gt; &lt;a href=&#34;https://github.com/yannsun&#34;&gt;@yannsun&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 &lt;code&gt;RequestInfo&lt;/code&gt; 输出 &lt;code&gt;ResponseFlag&lt;/code&gt; 的错误 &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 bolt/boltv2 协议编码时，在空数据时没有重新计算长度位的问题 &lt;a href=&#34;https://github.com/hui-cha&#34;&gt;@hui-cha&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: MOSN v0.24.0 发布</title>
       <link>https://mosn.io/blog/releases/v0.24.0/</link>
       <pubDate>Thu, 05 Aug 2021 00:00:00 +0000</pubDate>

@@ -18,24 +18,24 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Announcing MOSN v0.15.0 | MOSN</title><meta property="og:title" content="Announcing MOSN v0.15.0" />
-<meta property="og:description" content="MOSN v0.15.0 changelog." />
+<title>Announcing MOSN v0.25.0 | MOSN</title><meta property="og:title" content="Announcing MOSN v0.25.0" />
+<meta property="og:description" content="MOSN v0.25.0 changelog." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mosn.io/en/blog/releases/v0.15.0/" />
-<meta property="article:published_time" content="2020-08-05T00:00:00+00:00" />
+<meta property="og:url" content="https://mosn.io/en/blog/releases/v0.25.0/" />
+<meta property="article:published_time" content="2021-10-12T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-10-22T17:18:05+08:00" /><meta property="og:site_name" content="MOSN" />
-<meta itemprop="name" content="Announcing MOSN v0.15.0">
-<meta itemprop="description" content="MOSN v0.15.0 changelog.">
-<meta itemprop="datePublished" content="2020-08-05T00:00:00+00:00" />
+<meta itemprop="name" content="Announcing MOSN v0.25.0">
+<meta itemprop="description" content="MOSN v0.25.0 changelog.">
+<meta itemprop="datePublished" content="2021-10-12T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-10-22T17:18:05+08:00" />
-<meta itemprop="wordCount" content="270">
+<meta itemprop="wordCount" content="241">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Announcing MOSN v0.15.0"/>
-<meta name="twitter:description" content="MOSN v0.15.0 changelog."/>
+<meta name="twitter:title" content="Announcing MOSN v0.25.0"/>
+<meta name="twitter:description" content="MOSN v0.25.0 changelog."/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -64,7 +64,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Announcing MOSN v0.15.0 | MOSN</title>
+    <title>Announcing MOSN v0.25.0 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -146,7 +146,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/blog/releases/v0.15.0/">中文</a>
+	<a class="dropdown-item" href="/blog/releases/v0.25.0/">中文</a>
 	
 </div>
 			</li>
@@ -188,7 +188,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/blog/releases/v0.15.0/">中文</a>
+	<a class="dropdown-item" href="/blog/releases/v0.25.0/">中文</a>
 	
 </div>
     </div>
@@ -229,7 +229,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-enblogreleasesv0250" href="/en/blog/releases/v0.25.0/">Announcing MOSN v0.25.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-enblogreleasesv0250" href="/en/blog/releases/v0.25.0/">Announcing MOSN v0.25.0</a>
       
       
       
@@ -289,7 +289,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-enblogreleasesv0150" href="/en/blog/releases/v0.15.0/">Announcing MOSN v0.15.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-enblogreleasesv0150" href="/en/blog/releases/v0.15.0/">Announcing MOSN v0.15.0</a>
       
       
       
@@ -351,8 +351,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/blog/releases/v0.15.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Announcing%20MOSN%20v0.15.0" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/en/blog/releases/v0.25.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Announcing%20MOSN%20v0.25.0" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
@@ -366,9 +366,10 @@ if (!doNotTrack) {
 
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#v0150">v0.15.0</a>
+    <li><a href="#v0250">v0.25.0</a>
       <ul>
         <li><a href="#new-features">New Features</a></li>
+        <li><a href="#refactoring">Refactoring</a></li>
         <li><a href="#optimization">Optimization</a></li>
         <li><a href="#bug-fixes">Bug fixes</a></li>
       </ul>
@@ -385,49 +386,60 @@ if (!doNotTrack) {
             </a>
             
 <div class="td-content">
-	<h1>Announcing MOSN v0.15.0</h1>
-	<div class="lead">MOSN v0.15.0 changelog.</div>
+	<h1>Announcing MOSN v0.25.0</h1>
+	<div class="lead">MOSN v0.25.0 changelog.</div>
 	<div class="td-byline mb-4">
 		By <b>MOSN Team</b> |
-		<time datetime="2020-08-05" class="text-muted">Aug 5, 2020</time>
+		<time datetime="2021-10-12" class="text-muted">Oct 12, 2021</time>
 	</div>
-	<p>We are happy to announce the release of <a href="https://github.com/mosn/mosn/releases/tag/v0.15.0">MOSN v0.15.0</a>, congratulations to Deng Qian (<a href="https://github.com/dengqian">@dengqian</a>) on becoming a MOSN Committer and thanks for her contribution to the MOSN community.</p>
-<h2 id="v0150">v0.15.0</h2>
+	<p>We are happy to announce the release of <a href="https://github.com/mosn/mosn/releases/tag/v0.25.0">MOSN v0.25.0</a>.</p>
+<h2 id="v0250">v0.25.0</h2>
 <h3 id="new-features">New Features</h3>
 <ul>
-<li>Routing Path Rewrite supports configuring the content of Rewrite by regular expression <a href="https://github.com/liangyuanpeng">@liangyuanpeng</a></li>
-<li>Configure new fields: Extended configuration fields, you can start the configuration by extending the configuration fields; Dubbo service discovery configuration via extended configuration fields <a href="https://github.com/cch123">@cch123</a></li>
-<li>New DSL feature for easy control of request processing behavior <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>Extended implementation of StreamFilter with new traffic mirroring function <a href="https://github.com/champly">@champly</a></li>
-<li>Listener configuration adds UDP support <a href="https://github.com/dengqian">@dengqian</a></li>
-<li>Configuration format support YAML format parsing <a href="https://github.com/GLYASAI">@GLYASAI</a></li>
-<li>Routing support for HTTP redirect configuration <a href="https://github.com/knight42">@knight42</a></li>
+<li>Routing configuration supports remove request headers. <a href="https://github.com/wangfakang">@wangfakang</a></li>
+<li>Support WASM Reload. <a href="https://github.com/zu1k">@zu1k</a></li>
+<li>Integrated SEATA TCC mode, support HTTP protocol. [@dk-lockdown]((<a href="https://github.com/dk-lockdown">https://github.com/dk-lockdown</a>)</li>
+<li>Support boltv2 protocol tracelog. <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>New metrics stream filter for gRPC framework.  <a href="https://github.com/wenxuwan">@wenxuwan</a></li>
+<li>Support DNS related configuration in xDS cluster config. <a href="https://github.com/antJack">@antJack</a></li>
+</ul>
+<h3 id="refactoring">Refactoring</h3>
+<ul>
+<li>Decouple MOSN core and Istio related xDS code. <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Upgrade proxy-wasm-go-host version. <a href="https://github.com/zhenjunMa">@zhenjunMa</a></li>
+<li>Refactor networkfilter configuration parse functions, support <code>AddOrUpdate</code> and <code>Get</code>. <a href="https://github.com/antJack">@antJack</a></li>
 </ul>
 <h3 id="optimization">Optimization</h3>
 <ul>
-<li>Istio&rsquo;s stats filter for personalizing metrics based on matching criteria <a href="https://github.com/wzshiming">@wzshiming</a></li>
-<li>Metrics configuration support to configure the output percentage of the Histogram <a href="https://github.com/champly">@champly</a></li>
-<li>StreamFilter New state for aborting requests directly and not responding to clients <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
-<li>XProtocol hijack response support carry body <a href="https://github.com/champly">@champly</a></li>
-<li>Apache SkyWalking upgrade to version 0.5.0 <a href="https://github.com/arugal">arugal</a></li>
-<li>Upstream Connection TLS State Determination Modification to support the determination of whether a connection needs to be re-established via a TLS-configured Hash <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Optimize DNS cache logic to prevent DNS flooding issues that can be caused when DNS fails <a href="https://github.com/wangfakang">@wangfakang</a></li>
+<li>Use <code>mod vendor</code> instead of <code>GO111MODULE=off</code> in Makefile. <a href="https://github.com/scaat">@scaat</a></li>
+<li>Move some archived repo code into <code>mosn.io/pkg</code>. <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Optimize EDF loadbalancer: random pick host at the first select time. <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
+<li>Optimize EDF loadbalancer performance. <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
+<li>Optimize boltv2 protocol heartbeat&rsquo;s trigger and reply. <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Optimize HTTP2 retry processing in stream mode, optimize HTTP2 unary request processing in stream mode. <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>Ignore CPU numbers limit when use environment variable to set GOMAXPROCS. <a href="https://github.com/wangfakang">@wangfakang</a></li>
+<li>Reduce memory alloc when create subset loadbalancer.  <a href="https://github.com/dzdx">@dzdx</a></li>
+<li>Support different listener can independent run same name gRPC Server. <a href="https://github.com/nejisama">@nejisama</a></li>
 </ul>
 <h3 id="bug-fixes">Bug fixes</h3>
 <ul>
-<li>Fix the bug that XProtocol protocols determine protocol errors in scenarios with multiple protocols when TLS encryption is enabled <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Fix bug in AccessLog where variables of prefix match type don&rsquo;t work <a href="https://github.com/dengqian">@dengqian</a></li>
-<li>Fix bug where Listener configuration parsing is not handled correctly <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Fix Router/Cluster bug that fails to save when the Name field contains a path separator in the file persistence configuration type <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Fix MOSN hangs up when host is empty when retry. <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>Fix connections in <code>msgconnpool</code> cannot handle connect event. <a href="https://github.com/RayneHwang">@RayneHwang</a></li>
+<li>Fix MOSN panic when tracer driver is not inited and someone calls tracer <code>Enable</code>. <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Fix boltv2 protocol constructs hijack response version wrong. <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Fix HTTP2 handle connection termination event. <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>Fix typo.  <a href="https://github.com/jxd134">@jxd134</a> <a href="https://github.com/yannsun">@yannsun</a></li>
+<li>Fix <code>ResponseFlag</code> outputs in <code>RequestInfo</code>. <a href="https://github.com/wangfakang">@wangfakang</a></li>
+<li>Fix bolt/boltv2 protocol not recalculated the empty data&rsquo;s length. <a href="https://github.com/hui-cha">@hui-cha</a></li>
 </ul>
 
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/en/blog/releases/v0.14.0/" class="btn btn-primary "><span class="mr-1">←</span> Previous</a>
+    <a href="/en/blog/releases/v0.24.0/" class="btn btn-primary "><span class="mr-1">←</span> Previous</a>
   </li>
-    <a href="/en/blog/releases/v0.16.0/" class="btn btn-primary ">Next <span class="ml-1">→</span></a>
+    <a  class="btn btn-primary  disabled">Next <span class="ml-1">→</span></a>
   </li>
 </ul>
 
