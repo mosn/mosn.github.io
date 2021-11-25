@@ -2039,7 +2039,8 @@ ECDHE-ECDSA-SM4-SM3
 &lt;h2 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h2&gt;
 &lt;p&gt;See MOSN &lt;a href=&#34;https://mosn.io/en/docs/tutorial/&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;communication&#34;&gt;Communication&lt;/h2&gt;
-&lt;p&gt;Communicate with MOSN developers on &lt;a href=&#34;https://join.slack.com/t/istio/shared_invite/zt-dhww29on-SvP1~DBvtrk3UdjjbO0SGQ&#34;&gt;Slack&lt;/a&gt; workspace.&lt;/p&gt;
+&lt;p&gt;Communicate with MOSN developers on DingTalk, scan the the QR code below
+&lt;img alt=&#34;MOSN Users Communication Group&#34; src=&#34;https://github.com/mosn/mosn.io/blob/master/assets/img/dingtalk.jpg?raw=true&#34;  width=&#34;128px&#34; /&gt;&lt;/p&gt;
 
       </description>
     </item>
