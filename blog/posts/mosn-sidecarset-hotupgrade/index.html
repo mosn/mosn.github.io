@@ -23,11 +23,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/posts/mosn-sidecarset-hotupgrade/" />
 <meta property="article:published_time" content="2021-12-10T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-12-17T09:41:19+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2021-12-17T11:42:39+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="利用 SidecarSet 实现 MOSN 容器原地热升级">
 <meta itemprop="description" content="本文描述如何利用 SidecarSet 实现 MOSN Sidecar 容器热升级">
 <meta itemprop="datePublished" content="2021-12-10T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-12-17T09:41:19+08:00" />
+<meta itemprop="dateModified" content="2021-12-17T11:42:39+08:00" />
 <meta itemprop="wordCount" content="280">
 
 
@@ -666,7 +666,7 @@ if (!doNotTrack) {
     &quot;inherit_old_mosnconfig&quot;: true,
     ...
 }
-</code></pre><p>其中<code>udx_dir</code>为 MOSN <code>reconfig.sock</code>存储目录，该目录需要挂载为共享卷，使得热升级过程中两个容器之间可以相互访问。</p>
+</code></pre><p>其中<code>uds_dir</code>为 MOSN <code>reconfig.sock</code>存储目录，该目录需要挂载为共享卷，使得热升级过程中两个容器之间可以相互访问。</p>
 <p>如果从pilot获取动态下发的配置，则需要添加<code>inherit_old_mosnconfig</code>配置项，新的 MOSN 进程启动之后继承老的 MOSN 进程监听的fd，避免端口冲突导致进程启动失败。</p>
 <ul>
 <li>构建镜像，并上传至可访问的镜像仓库</li>

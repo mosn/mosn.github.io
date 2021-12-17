@@ -45,7 +45,7 @@
     &amp;quot;inherit_old_mosnconfig&amp;quot;: true,
     ...
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中&lt;code&gt;udx_dir&lt;/code&gt;为 MOSN &lt;code&gt;reconfig.sock&lt;/code&gt;存储目录，该目录需要挂载为共享卷，使得热升级过程中两个容器之间可以相互访问。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中&lt;code&gt;uds_dir&lt;/code&gt;为 MOSN &lt;code&gt;reconfig.sock&lt;/code&gt;存储目录，该目录需要挂载为共享卷，使得热升级过程中两个容器之间可以相互访问。&lt;/p&gt;
 &lt;p&gt;如果从pilot获取动态下发的配置，则需要添加&lt;code&gt;inherit_old_mosnconfig&lt;/code&gt;配置项，新的 MOSN 进程启动之后继承老的 MOSN 进程监听的fd，避免端口冲突导致进程启动失败。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;构建镜像，并上传至可访问的镜像仓库&lt;/li&gt;
