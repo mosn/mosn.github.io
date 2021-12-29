@@ -18,24 +18,24 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Announcing MOSN v0.18.0 | MOSN</title><meta property="og:title" content="Announcing MOSN v0.18.0" />
-<meta property="og:description" content="MOSN v0.18.0 changelog." />
+<title>Announcing MOSN v0.26.0 | MOSN</title><meta property="og:title" content="Announcing MOSN v0.26.0" />
+<meta property="og:description" content="MOSN v0.26.0 changelog." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mosn.io/en/blog/releases/v0.18.0/" />
-<meta property="article:published_time" content="2020-11-02T00:00:00+00:00" />
+<meta property="og:url" content="https://mosn.io/en/blog/releases/v0.26.0/" />
+<meta property="article:published_time" content="2021-10-12T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-12-29T13:54:50+08:00" /><meta property="og:site_name" content="MOSN" />
-<meta itemprop="name" content="Announcing MOSN v0.18.0">
-<meta itemprop="description" content="MOSN v0.18.0 changelog.">
-<meta itemprop="datePublished" content="2020-11-02T00:00:00+00:00" />
+<meta itemprop="name" content="Announcing MOSN v0.26.0">
+<meta itemprop="description" content="MOSN v0.26.0 changelog.">
+<meta itemprop="datePublished" content="2021-10-12T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-12-29T13:54:50+08:00" />
-<meta itemprop="wordCount" content="176">
+<meta itemprop="wordCount" content="526">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Announcing MOSN v0.18.0"/>
-<meta name="twitter:description" content="MOSN v0.18.0 changelog."/>
+<meta name="twitter:title" content="Announcing MOSN v0.26.0"/>
+<meta name="twitter:description" content="MOSN v0.26.0 changelog."/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -64,7 +64,7 @@ if (!doNotTrack) {
 
 
 
-    <title>Announcing MOSN v0.18.0 | MOSN</title>
+    <title>Announcing MOSN v0.26.0 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -146,7 +146,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/blog/releases/v0.18.0/">中文</a>
+	<a class="dropdown-item" href="/blog/releases/v0.26.0/">中文</a>
 	
 </div>
 			</li>
@@ -188,7 +188,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/blog/releases/v0.18.0/">中文</a>
+	<a class="dropdown-item" href="/blog/releases/v0.26.0/">中文</a>
 	
 </div>
     </div>
@@ -235,7 +235,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-enblogreleasesv0260" href="/en/blog/releases/v0.26.0/">Announcing MOSN v0.26.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-enblogreleasesv0260" href="/en/blog/releases/v0.26.0/">Announcing MOSN v0.26.0</a>
       
       
       
@@ -277,7 +277,7 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-enblogreleasesv0180" href="/en/blog/releases/v0.18.0/">Announcing MOSN v0.18.0</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-enblogreleasesv0180" href="/en/blog/releases/v0.18.0/">Announcing MOSN v0.18.0</a>
       
       
       
@@ -357,8 +357,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/blog/releases/v0.18.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=Announcing%20MOSN%20v0.18.0" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/en/blog/releases/v0.26.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Announcing%20MOSN%20v0.26.0" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
@@ -372,10 +372,11 @@ if (!doNotTrack) {
 
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#v0180">v0.18.0</a>
+    <li><a href="#v0260">v0.26.0</a>
       <ul>
+        <li><a href="#incompatible-change">Incompatible Change</a></li>
         <li><a href="#new-features">New Features</a></li>
-        <li><a href="#optimization">Optimization</a></li>
+        <li><a href="#changes">Changes</a></li>
         <li><a href="#bug-fixes">Bug fixes</a></li>
       </ul>
     </li>
@@ -391,50 +392,68 @@ if (!doNotTrack) {
             </a>
             
 <div class="td-content">
-	<h1>Announcing MOSN v0.18.0</h1>
-	<div class="lead">MOSN v0.18.0 changelog.</div>
+	<h1>Announcing MOSN v0.26.0</h1>
+	<div class="lead">MOSN v0.26.0 changelog.</div>
 	<div class="td-byline mb-4">
 		By <b>MOSN Team</b> |
-		<time datetime="2020-11-02" class="text-muted">Nov 2, 2020</time>
+		<time datetime="2021-10-12" class="text-muted">Oct 12, 2021</time>
 	</div>
-	<p>We are happy to announce the release of <a href="https://github.com/mosn/mosn/releases/tag/v0.18.0">MOSN v0.18.0</a>.</p>
-<h2 id="v0180">v0.18.0</h2>
+	<p>We are happy to announce the release of <a href="https://github.com/mosn/mosn/releases/tag/v0.26.0">MOSN v0.26.0</a>.</p>
+<h2 id="v0260">v0.26.0</h2>
+<h3 id="incompatible-change">Incompatible Change</h3>
+<p>For implementing new protocols more nature, XProtocol is no longer as a protocol and no subprotocol any more.
+XProtocol is a framework to implement protocol easier now.
+So, the old existing code for implementing new protocols need some changes,
+please see <a href="reports/xprotocol_0.26.0.md">this doc</a>(In Chinese) for changing the old existing code suit for the new release.</p>
 <h3 id="new-features">New Features</h3>
 <ul>
-<li>Add MOSN configure extension <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Add MOSN configuration tool <a href="https://github.com/mosn/configure">mosn/configure</a>, improve user configure experience <a href="https://github.com/cch123">@cch123</a></li>
+<li>Added the ip_access new filter to manage access control based on IP (#1797). <a href="https://github.com/Bryce-huang">@Bryce-huang</a></li>
+<li>Support admin api extends auth functions (#1834). <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>The transcode filter module support dynamic phase (#1815). <a href="https://github.com/YIDWang">@YIDWang</a></li>
+<li>Added the SetConnectionState method for tls connection in pkg/mtls/crypto/tls.Conn (#1804). <a href="https://github.com/antJack">@antJack</a></li>
+<li>Added the after-start and after-stop two new stages, and allow to register handler during these stages. <a href="https://github.com/doujiang24">@doujiang24</a></li>
+<li>Support specify the unix domain socket directory by adding the new &ldquo;uds_dir&rdquo; configuration (#1829). <a href="https://github.com/dengqian">@dengqian</a></li>
+<li>Support choose dynamic protocol convert dynamically and allow register transcoder through go-plugin. <a href="https://github.com/Tanc010">@Tanc010</a></li>
+<li>Added more HTTP protocol method to make protocol matcher work properly (#1870). <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>Support to set upstream protocol dynamically (#1808). <a href="https://github.com/YIDWang">@YIDWang</a></li>
+<li>Support set default HTTP stream config #1886. <a href="https://github.com/nejisama">@nejisama</a></li>
 </ul>
-<h3 id="optimization">Optimization</h3>
+<h3 id="changes">Changes</h3>
 <ul>
-<li>Avoid copying http response body <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>Upgrade <code>github.com/TarsCloud/TarsGo</code> package, to v1.1.4 <a href="https://github.com/champly">@champly</a></li>
-<li>Add test for various connpool <a href="https://github.com/cch123">@cch123</a></li>
-<li>Use sync.Pool to reduce memory cost by TLS connection outBuf <a href="https://github.com/cch123">@cch123</a></li>
-<li>Reduce xprotocol lock area <a href="https://github.com/cch123">@cch123</a></li>
-<li>Remove useless parameter of <code>network.NewClientConnection</code> method, remove ALPN detection in <code>Dispatch</code> method of struct <code>streamConn</code> <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Add <code>TerminateStream</code> API to <code>StreamReceiverFilterHandler</code>, with which stream can be reset during handling <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Add client TLS fallback <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Fix TLS HashValue in host <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Fix disable_log admin api typo <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Change the default max header size to 8KB (#1837). <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Refactory default HTTP1 and HTTP2 convert, remove the proxy convert, use transcoder filter instead. <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>transcoder filter: changed to register trancoder factory instead trancoder (#1879). <a href="https://github.com/YIDWang">@YIDWang</a></li>
 </ul>
 <h3 id="bug-fixes">Bug fixes</h3>
 <ul>
-<li>Fix <code>go mod tidy</code> failing <a href="https://github.com/champly">@champly</a></li>
-<li>Fix <code>ResourceExhausted: grpc: received message larger than max</code> when MOSN receive &gt; 4M XDS messages <a href="https://github.com/champly">@champly</a></li>
-<li>Fix fault tolerance unit-test <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>Fix MOSN reconfig fails when <code>MOSNConfig.servers[].listeners[].bind_port</code> is <code>false</code> <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
-<li>Set timeout for local write buffer send, avoid goroutine leak <a href="https://github.com/cch123">@cch123</a></li>
-<li>Fix deadloop when TLS timeout <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>Fix data isn&rsquo;t modified by <code>SetData</code> method in <code>dubbo.Frame</code> struct <a href="https://github.com/lxd5866">@lxd5866</a></li>
+<li>Fix a HTTP buffer reuse related bug that may leads to nil panics in high concurrency case. <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Fix: get the proper value of variable response_flag, (#1814). <a href="https://github.com/lemonlinger">@lemonlinger</a></li>
+<li>Fix: prefix_write not work with &ldquo;/&rdquo; (#1826). <a href="https://github.com/Bryce-huang">@Bryce-huang</a></li>
+<li>Fix: the reconfig.sock file may be removed unexpectly when killed the old MOSN manually during smoothly upgrade, (#1820). <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>Fix the bug in doretry: should not set setupRetry to false directly, since the old response should be skip when the new upstream request has been sent out (#1807). <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
+<li>Should set the inherit config back to the MOSN instance (#1819). <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>Should send resetStreamFrame to upstream when cancel grpc context at client side, otherwise server side context won&rsquo;t be done.  <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>Should set the resetReason before closing the stream connection, otherwise, may unable to get the real reason (#1828). <a href="https://github.com/wangfakang">@wangfakang</a></li>
+<li>Should use the listener that best match when found multi listeners, otherwise, may got 400 error code. <a href="https://github.com/MengJiapeng">@MengJiapeng</a></li>
+<li>Fixed panic due to concurrent map iteration and map write during process setting broadcast in HTTP2 protocol. <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>Fix memory leak occurred in the binding connpool of XProtocol (#1821). <a href="https://github.com/Dennis8274">@Dennis8274</a></li>
+<li>Should close logger at the end, otherwise, may lost log during close MOSN instance (#1845). <a href="https://github.com/doujiang24">@doujiang24</a></li>
+<li>Fix panic due to codecClient is nil when got connect timeout event from XProtocol PingPong connection pool (#1849). <a href="https://github.com/cuiweixie">@cuiweixie</a></li>
+<li>Health checker not work when the unhealthyThreshold is an empty value (#1853). <a href="https://github.com/Bryce-huang">@Bryce-huang</a></li>
+<li>WRR may leads dead recursion in unweightChooseHost #1860. <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
+<li>Fix direct response, send hijack should not transcode. <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>Fix EDF wrr lb cannot choose a healthy host when there&rsquo;s a unhealthy host with a high weight. <a href="https://github.com/lemonlinger">@lemonlinger</a></li>
+<li>Got the wrong CACert filename when converting the listen filter from Istio LDS, MOSN may not listen success (#1893). <a href="https://github.com/doujiang24">@doujiang24</a></li>
+<li>The goroutine for resolving hosts in STRICT_DNS_CLUSTER cannot be stopped #1894 <a href="https://github.com/bincherry">@bincherry</a></li>
 </ul>
 
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/en/blog/releases/v0.17.0/" class="btn btn-primary "><span class="mr-1">←</span> Previous</a>
+    <a href="/en/blog/releases/v0.24.0/" class="btn btn-primary "><span class="mr-1">←</span> Previous</a>
   </li>
-    <a href="/en/blog/releases/v0.19.0/" class="btn btn-primary ">Next <span class="ml-1">→</span></a>
+    <a href="/en/blog/releases/v0.25.0/" class="btn btn-primary ">Next <span class="ml-1">→</span></a>
   </li>
 </ul>
 

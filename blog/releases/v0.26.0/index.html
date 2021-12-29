@@ -18,24 +18,24 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>MOSN v0.24.0 发布 | MOSN</title><meta property="og:title" content="MOSN v0.24.0 发布" />
-<meta property="og:description" content="MOSN v0.24.0 变更日志。" />
+<title>MOSN v0.26.0 发布 | MOSN</title><meta property="og:title" content="MOSN v0.26.0 发布" />
+<meta property="og:description" content="MOSN v0.26.0 变更日志。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mosn.io/blog/releases/v0.24.0/" />
-<meta property="article:published_time" content="2021-08-05T00:00:00+00:00" />
+<meta property="og:url" content="https://mosn.io/blog/releases/v0.26.0/" />
+<meta property="article:published_time" content="2021-10-12T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-12-29T13:54:50+08:00" /><meta property="og:site_name" content="MOSN" />
-<meta itemprop="name" content="MOSN v0.24.0 发布">
-<meta itemprop="description" content="MOSN v0.24.0 变更日志。">
-<meta itemprop="datePublished" content="2021-08-05T00:00:00+00:00" />
+<meta itemprop="name" content="MOSN v0.26.0 发布">
+<meta itemprop="description" content="MOSN v0.26.0 变更日志。">
+<meta itemprop="datePublished" content="2021-10-12T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-12-29T13:54:50+08:00" />
-<meta itemprop="wordCount" content="105">
+<meta itemprop="wordCount" content="228">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MOSN v0.24.0 发布"/>
-<meta name="twitter:description" content="MOSN v0.24.0 变更日志。"/>
+<meta name="twitter:title" content="MOSN v0.26.0 发布"/>
+<meta name="twitter:description" content="MOSN v0.26.0 变更日志。"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -64,7 +64,7 @@ if (!doNotTrack) {
 
 
 
-    <title>MOSN v0.24.0 发布 | MOSN</title>
+    <title>MOSN v0.26.0 发布 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -146,7 +146,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/en/blog/releases/v0.24.0/">English</a>
+	<a class="dropdown-item" href="/en/blog/releases/v0.26.0/">English</a>
 	
 </div>
 			</li>
@@ -188,7 +188,7 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="/en/blog/releases/v0.24.0/">English</a>
+	<a class="dropdown-item" href="/en/blog/releases/v0.26.0/">English</a>
 	
 </div>
     </div>
@@ -235,13 +235,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0260" href="/blog/releases/v0.26.0/">MOSN v0.26.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogreleasesv0260" href="/blog/releases/v0.26.0/">MOSN v0.26.0 发布</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogreleasesv0240" href="/blog/releases/v0.24.0/">MOSN v0.24.0 发布</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0240" href="/blog/releases/v0.24.0/">MOSN v0.24.0 发布</a>
       
       
       
@@ -606,8 +606,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/releases/v0.24.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20v0.24.0%20%e5%8f%91%e5%b8%83" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/releases/v0.26.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20v0.26.0%20%e5%8f%91%e5%b8%83" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -621,10 +621,11 @@ if (!doNotTrack) {
 
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#v0240">v0.24.0</a>
+    <li><a href="#v0260">v0.26.0</a>
       <ul>
+        <li><a href="#不兼容变更">不兼容变更</a></li>
         <li><a href="#新功能">新功能</a></li>
-        <li><a href="#优化">优化</a></li>
+        <li><a href="#变更">变更</a></li>
         <li><a href="#bug-修复">Bug 修复</a></li>
       </ul>
     </li>
@@ -640,54 +641,66 @@ if (!doNotTrack) {
             </a>
             
 <div class="td-content">
-	<h1>MOSN v0.24.0 发布</h1>
-	<div class="lead">MOSN v0.24.0 变更日志。</div>
+	<h1>MOSN v0.26.0 发布</h1>
+	<div class="lead">MOSN v0.26.0 变更日志。</div>
 	<div class="td-byline mb-4">
 		作者 <b>MOSN 团队</b> |
-		<time datetime="2021-08-05" class="text-muted">2021年8月5日</time>
+		<time datetime="2021-10-12" class="text-muted">2021年10月12日</time>
 	</div>
-	<p>我们很高兴的宣布 <a href="https://github.com/mosn/mosn/releases/tag/v0.24.0">MOSN v0.24.0</a> 发布，恭喜付建豪（<a href="https://github.com/alpha-baby">@alpha-baby</a>）成为 MOSN Committer，感谢他为 MOSN 社区所做的贡献。</p>
-<p>以下是该版本的变更日志。</p>
-<h2 id="v0240">v0.24.0</h2>
+	<p>我们很高兴的宣布 <a href="https://github.com/mosn/mosn/releases/tag/v0.26.0">MOSN v0.26.0</a> 发布，以下是该版本的变更日志。</p>
+<h2 id="v0260">v0.26.0</h2>
+<h3 id="不兼容变更">不兼容变更</h3>
+<p>为了更自然的添加扩展协议，新版对 XProtocol 进行了重构，XProtocol 不再是一种协议，而是便于协议扩展实现的框架。
+扩展协议的实现需要一些调整，具体请见 <a href="reports/xprotocol_0.26.0.md">XProtocol协议改造适配指南</a></p>
 <h3 id="新功能">新功能</h3>
 <ul>
-<li>支持使用 jaeger 收集 OpenTracing 信息 <a href="https://github.com/Magiczml">@Roger</a></li>
-<li>路由配置新增变量配置模式，可通过修改变量的方式修改路由结果 <a href="https://github.com/wangfakang">@wangfakang</a></li>
-<li>路由 virtualhost 匹配支持端口匹配模式 <a href="https://github.com/jiebinzhuang">@jiebin</a></li>
-<li>实现 envoy 中的 filter: <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/header_to_metadata_filter">header_to_metadata</a> <a href="https://github.com/antJack">@antJack</a></li>
-<li>支持 UDS 的热升级 <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
-<li>新增 subset 负载均衡逻辑，在没有元数据匹配的场景下使用全量机器列表进行负载均衡 <a href="https://github.com/nejisama">@nejisama</a></li>
-<li>MOSN 的 gRPC 框架支持优雅关闭 <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
+<li>新增 ip_access filter，基于来源 IP 的 ACL 控制器 (#1797) <a href="https://github.com/Bryce-huang">@Bryce-huang</a></li>
+<li>允许 Admin Api 扩展验证方法 (#1834) <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>transcoder filter：支持通过配置指定阶段，取代固定的阶段 (#1815) <a href="https://github.com/YIDWang">@YIDWang</a></li>
+<li>为 tls connection 增加 SetConnectionState 方法，在 pkg/mtls/crypto/tls.Conn 中 (#1804) <a href="https://github.com/antJack">@antJack</a></li>
+<li>增加了 after-start 和 after-stop 这两个新的执行阶段，并允许在这两个阶段注册处理函数 <a href="https://github.com/doujiang24">@doujiang24</a></li>
+<li>新增 uds_dir 配置项，用于指定 unix domain socket 的目录 (#1829) <a href="https://github.com/dengqian">@dengqian</a></li>
+<li>支持go plugin加载协议转化插件，并支持动态选择协议转换插件 <a href="https://github.com/Tanc010">@Tanc010</a></li>
+<li>增加更多的 HTTP 协议方法，使动态协议匹配更加精准 (#1870) <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>支持动态设置上游协议 (#1808) <a href="https://github.com/YIDWang">@YIDWang</a></li>
+<li>支持动态设置 HTTP 默认最大值配置 #1886 <a href="https://github.com/nejisama">@nejisama</a></li>
 </ul>
-<h3 id="优化">优化</h3>
+<h3 id="变更">变更</h3>
 <ul>
-<li>优化 Cluster 配置更新时的健康检查更新模式 <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
-<li>api.Connection 新增 OnConnectionEvent 接口 <a href="https://github.com/CodingSinger">@CodingSinger</a></li>
-<li>权重轮询负载均衡兜底策略调整为普通轮询负载均衡 <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
-<li>在 MOSN 变量模块中增加 interface 值类型 <a href="https://github.com/antJack">@antJack</a></li>
-<li>Subset 判断机器个数与是否存在时，同样遵循兜底策略 <a href="https://github.com/antJack">@antJack</a></li>
+<li>将 HTTP 协议的默认最大请求头大小调整到 8KB (#1837) <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>重构默认的 HTTP1 和 HTTP2 的协议转换，删除了 proxy 中的转换，使用 transcoder filter 来代替 <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>transcoder filter：使用注册转换器工厂来替代注册转换器 (#1879) <a href="https://github.com/YIDWang">@YIDWang</a></li>
 </ul>
 <h3 id="bug-修复">Bug 修复</h3>
 <ul>
-<li>dubbo stream filter 支持协议自动识别 <a href="https://github.com/Thiswang">@Thiswang</a></li>
-<li>修复轮询负载均衡在并发情况下结果异常 <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
-<li>修复 unix 地址解析异常 <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
-<li>修复 HTTP1 短连接无法生效的异常 <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
-<li>修复国密 TLS SM3 套件在连接断开后存在的内存泄漏 <a href="https://github.com/william-zk">@ZengKe</a></li>
-<li>当连接被对端重置或管道断裂时 HTTP2 支持重试 <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
-<li>修复从连接池中获取到的 host 信息错误 <a href="https://github.com/Sharember">@Sharember</a></li>
-<li>修复在 route 模块中选择权重集群的数据竞争 <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
-<li>如果 host 不健康时，在Edf负载均衡算法中不能正确返回 <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
-<li>修复 XProtocol 路由配置超时无效的问题 <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>修复：HTTP buffer 复用在高并发场景下可能导致 nil panic <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>修复：response_flag 变量值获取错误 (#1814) <a href="https://github.com/lemonlinger">@lemonlinger</a></li>
+<li>修复：prefix_write 在 &ldquo;/&rdquo; 的场景下不能正常工作 <a href="https://github.com/Bryce-huang">@Bryce-huang</a></li>
+<li>修复：在热升级过程中，手动 kill 老的 MOSN，可能会导致新 MOSN 的 reconfig.sock 会被错误的删除 (#1820) <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>修复：请求上游失败时，在 doretry 中不应该直接设置 setupRetry (#1807) <a href="https://github.com/taoyuanyuan">@taoyuanyuan</a></li>
+<li>修复：热升级中继承了老 MOSN 的配置之后，应该将配置设置到新的 MOSN 结构体中 <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>修复：当取消客户端的 grpc 的时候，没有发送 resetStreamFrame 到上游，使得 server 端没有及时结束 <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>修复：应该在关闭 stream connection 之前设置 resetReason，否则可能导致获取不到真实的原因 (#1828) <a href="https://github.com/wangfakang">@wangfakang</a></li>
+<li>修复：当有多个匹配的 listener 的时候，应该选择最优的匹配的 listener，否则可能导致 400 错误 <a href="https://github.com/MengJiapeng">@MengJiapeng</a></li>
+<li>修复：HTTP2 协议处理 broadcast 可能导致 map 并发读写 panic <a href="https://github.com/XIEZHENGYAO">@XIEZHENGYAO</a></li>
+<li>修复：XProtocol 连接池(binding connpool) 中的内存泄漏 (#1821) <a href="https://github.com/Dennis8274">@Dennis8274</a></li>
+<li>修复：应该将 close logger 放在最后，否则在关闭 MOSN 实例过程中将没有日志输出 (#1845) <a href="https://github.com/doujiang24">@doujiang24</a></li>
+<li>修复：XProtocol PingPong 类型连接超时的时候，因为 codecClient 没有初始化，会导致 panic (#1849) <a href="https://github.com/cuiweixie">@cuiweixie</a></li>
+<li>修复：当 unhealthyThreshold 是一个空值时，健康检查将不会工作，修改为空值时使用默认值 (#1853) <a href="https://github.com/Bryce-huang">@Bryce-huang</a></li>
+<li>修复：WRR 负载均衡算法可能导致死循环（发生在 unweightChooseHost）#1860 <a href="https://github.com/alpha-baby">@alpha-baby</a></li>
+<li>修复：direct response 中 hijack 不应该再执行转换 <a href="https://github.com/nejisama">@nejisama</a></li>
+<li>修复：当一个不健康的 host 有很高的权重时，EDF wrr 将不再选择其他健康的 host <a href="https://github.com/lemonlinger">@lemonlinger</a></li>
+<li>修复：Istio LDS 中的 CACert 文件名获取错误，导致 MOSN listen 失败，不会接受请求 (#1893). <a href="https://github.com/doujiang24">@doujiang24</a></li>
+<li>修复：DNS 解析 STRICT_DNS_CLUSTER 中 host 的 goroutine 没法停止 #1894 <a href="https://github.com/bincherry">@bincherry</a></li>
 </ul>
 
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/blog/releases/v0.23.0/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+    <a href="/blog/releases/v0.24.0/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
   </li>
-    <a href="/blog/releases/v0.26.0/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+    <a href="/blog/releases/v0.25.0/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
   </li>
 </ul>
 

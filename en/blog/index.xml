@@ -67,6 +67,67 @@
     </item>
     
     <item>
+      <title>Blog: Announcing MOSN v0.26.0</title>
+      <link>https://mosn.io/en/blog/releases/v0.26.0/</link>
+      <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v0.26.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.26.0&#34;&gt;MOSN v0.26.0&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;v0260&#34;&gt;v0.26.0&lt;/h2&gt;
+&lt;h3 id=&#34;incompatible-change&#34;&gt;Incompatible Change&lt;/h3&gt;
+&lt;p&gt;For implementing new protocols more nature, XProtocol is no longer as a protocol and no subprotocol any more.
+XProtocol is a framework to implement protocol easier now.
+So, the old existing code for implementing new protocols need some changes,
+please see &lt;a href=&#34;reports/xprotocol_0.26.0.md&#34;&gt;this doc&lt;/a&gt;(In Chinese) for changing the old existing code suit for the new release.&lt;/p&gt;
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Added the ip_access new filter to manage access control based on IP (#1797). &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support admin api extends auth functions (#1834). &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The transcode filter module support dynamic phase (#1815). &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Added the SetConnectionState method for tls connection in pkg/mtls/crypto/tls.Conn (#1804). &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Added the after-start and after-stop two new stages, and allow to register handler during these stages. &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support specify the unix domain socket directory by adding the new &amp;ldquo;uds_dir&amp;rdquo; configuration (#1829). &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support choose dynamic protocol convert dynamically and allow register transcoder through go-plugin. &lt;a href=&#34;https://github.com/Tanc010&#34;&gt;@Tanc010&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Added more HTTP protocol method to make protocol matcher work properly (#1870). &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support to set upstream protocol dynamically (#1808). &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support set default HTTP stream config #1886. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;changes&#34;&gt;Changes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Change the default max header size to 8KB (#1837). &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Refactory default HTTP1 and HTTP2 convert, remove the proxy convert, use transcoder filter instead. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;transcoder filter: changed to register trancoder factory instead trancoder (#1879). &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix a HTTP buffer reuse related bug that may leads to nil panics in high concurrency case. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix: get the proper value of variable response_flag, (#1814). &lt;a href=&#34;https://github.com/lemonlinger&#34;&gt;@lemonlinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix: prefix_write not work with &amp;ldquo;/&amp;rdquo; (#1826). &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix: the reconfig.sock file may be removed unexpectly when killed the old MOSN manually during smoothly upgrade, (#1820). &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the bug in doretry: should not set setupRetry to false directly, since the old response should be skip when the new upstream request has been sent out (#1807). &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Should set the inherit config back to the MOSN instance (#1819). &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Should send resetStreamFrame to upstream when cancel grpc context at client side, otherwise server side context won&amp;rsquo;t be done.  &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Should set the resetReason before closing the stream connection, otherwise, may unable to get the real reason (#1828). &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Should use the listener that best match when found multi listeners, otherwise, may got 400 error code. &lt;a href=&#34;https://github.com/MengJiapeng&#34;&gt;@MengJiapeng&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fixed panic due to concurrent map iteration and map write during process setting broadcast in HTTP2 protocol. &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix memory leak occurred in the binding connpool of XProtocol (#1821). &lt;a href=&#34;https://github.com/Dennis8274&#34;&gt;@Dennis8274&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Should close logger at the end, otherwise, may lost log during close MOSN instance (#1845). &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix panic due to codecClient is nil when got connect timeout event from XProtocol PingPong connection pool (#1849). &lt;a href=&#34;https://github.com/cuiweixie&#34;&gt;@cuiweixie&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Health checker not work when the unhealthyThreshold is an empty value (#1853). &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;WRR may leads dead recursion in unweightChooseHost #1860. &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix direct response, send hijack should not transcode. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix EDF wrr lb cannot choose a healthy host when there&amp;rsquo;s a unhealthy host with a high weight. &lt;a href=&#34;https://github.com/lemonlinger&#34;&gt;@lemonlinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Got the wrong CACert filename when converting the listen filter from Istio LDS, MOSN may not listen success (#1893). &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The goroutine for resolving hosts in STRICT_DNS_CLUSTER cannot be stopped #1894 &lt;a href=&#34;https://github.com/bincherry&#34;&gt;@bincherry&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v0.24.0</title>
       <link>https://mosn.io/en/blog/releases/v0.24.0/</link>
       <pubDate>Thu, 05 Aug 2021 00:00:00 +0000</pubDate>
