@@ -13,62 +13,9 @@
     
     
     <item>
-      <title>Blog: Announcing MOSN v0.25.0</title>
-      <link>https://mosn.io/en/blog/releases/v0.25.0/</link>
-      <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://mosn.io/en/blog/releases/v0.25.0/</guid>
-      <description>
-        
-        
-        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.25.0&#34;&gt;MOSN v0.25.0&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;v0250&#34;&gt;v0.25.0&lt;/h2&gt;
-&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Routing configuration supports remove request headers. &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Support WASM Reload. &lt;a href=&#34;https://github.com/zu1k&#34;&gt;@zu1k&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Integrated SEATA TCC mode, support HTTP protocol. [@dk-lockdown]((&lt;a href=&#34;https://github.com/dk-lockdown&#34;&gt;https://github.com/dk-lockdown&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;Support boltv2 protocol tracelog. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;New metrics stream filter for gRPC framework.  &lt;a href=&#34;https://github.com/wenxuwan&#34;&gt;@wenxuwan&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Support DNS related configuration in xDS cluster config. &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Decouple MOSN core and Istio related xDS code. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Upgrade proxy-wasm-go-host version. &lt;a href=&#34;https://github.com/zhenjunMa&#34;&gt;@zhenjunMa&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Refactor networkfilter configuration parse functions, support &lt;code&gt;AddOrUpdate&lt;/code&gt; and &lt;code&gt;Get&lt;/code&gt;. &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Use &lt;code&gt;mod vendor&lt;/code&gt; instead of &lt;code&gt;GO111MODULE=off&lt;/code&gt; in Makefile. &lt;a href=&#34;https://github.com/scaat&#34;&gt;@scaat&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Move some archived repo code into &lt;code&gt;mosn.io/pkg&lt;/code&gt;. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Optimize EDF loadbalancer: random pick host at the first select time. &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Optimize EDF loadbalancer performance. &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Optimize boltv2 protocol heartbeat&amp;rsquo;s trigger and reply. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Optimize HTTP2 retry processing in stream mode, optimize HTTP2 unary request processing in stream mode. &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Ignore CPU numbers limit when use environment variable to set GOMAXPROCS. &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Reduce memory alloc when create subset loadbalancer.  &lt;a href=&#34;https://github.com/dzdx&#34;&gt;@dzdx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Support different listener can independent run same name gRPC Server. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Fix MOSN hangs up when host is empty when retry. &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Fix connections in &lt;code&gt;msgconnpool&lt;/code&gt; cannot handle connect event. &lt;a href=&#34;https://github.com/RayneHwang&#34;&gt;@RayneHwang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Fix MOSN panic when tracer driver is not inited and someone calls tracer &lt;code&gt;Enable&lt;/code&gt;. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Fix boltv2 protocol constructs hijack response version wrong. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Fix HTTP2 handle connection termination event. &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Fix typo.  &lt;a href=&#34;https://github.com/jxd134&#34;&gt;@jxd134&lt;/a&gt; &lt;a href=&#34;https://github.com/yannsun&#34;&gt;@yannsun&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Fix &lt;code&gt;ResponseFlag&lt;/code&gt; outputs in &lt;code&gt;RequestInfo&lt;/code&gt;. &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Fix bolt/boltv2 protocol not recalculated the empty data&amp;rsquo;s length. &lt;a href=&#34;https://github.com/hui-cha&#34;&gt;@hui-cha&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-      </description>
-    </item>
-    
-    <item>
       <title>Blog: Announcing MOSN v0.26.0</title>
       <link>https://mosn.io/en/blog/releases/v0.26.0/</link>
-      <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 29 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://mosn.io/en/blog/releases/v0.26.0/</guid>
       <description>
@@ -121,6 +68,59 @@ please see &lt;a href=&#34;reports/xprotocol_0.26.0.md&#34;&gt;this doc&lt;/a&gt
 &lt;li&gt;Fix EDF wrr lb cannot choose a healthy host when there&amp;rsquo;s a unhealthy host with a high weight. &lt;a href=&#34;https://github.com/lemonlinger&#34;&gt;@lemonlinger&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Got the wrong CACert filename when converting the listen filter from Istio LDS, MOSN may not listen success (#1893). &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;The goroutine for resolving hosts in STRICT_DNS_CLUSTER cannot be stopped #1894 &lt;a href=&#34;https://github.com/bincherry&#34;&gt;@bincherry&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Blog: Announcing MOSN v0.25.0</title>
+      <link>https://mosn.io/en/blog/releases/v0.25.0/</link>
+      <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v0.25.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.25.0&#34;&gt;MOSN v0.25.0&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;v0250&#34;&gt;v0.25.0&lt;/h2&gt;
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Routing configuration supports remove request headers. &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support WASM Reload. &lt;a href=&#34;https://github.com/zu1k&#34;&gt;@zu1k&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Integrated SEATA TCC mode, support HTTP protocol. [@dk-lockdown]((&lt;a href=&#34;https://github.com/dk-lockdown&#34;&gt;https://github.com/dk-lockdown&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Support boltv2 protocol tracelog. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;New metrics stream filter for gRPC framework.  &lt;a href=&#34;https://github.com/wenxuwan&#34;&gt;@wenxuwan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support DNS related configuration in xDS cluster config. &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Decouple MOSN core and Istio related xDS code. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Upgrade proxy-wasm-go-host version. &lt;a href=&#34;https://github.com/zhenjunMa&#34;&gt;@zhenjunMa&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Refactor networkfilter configuration parse functions, support &lt;code&gt;AddOrUpdate&lt;/code&gt; and &lt;code&gt;Get&lt;/code&gt;. &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Use &lt;code&gt;mod vendor&lt;/code&gt; instead of &lt;code&gt;GO111MODULE=off&lt;/code&gt; in Makefile. &lt;a href=&#34;https://github.com/scaat&#34;&gt;@scaat&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Move some archived repo code into &lt;code&gt;mosn.io/pkg&lt;/code&gt;. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize EDF loadbalancer: random pick host at the first select time. &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize EDF loadbalancer performance. &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize boltv2 protocol heartbeat&amp;rsquo;s trigger and reply. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimize HTTP2 retry processing in stream mode, optimize HTTP2 unary request processing in stream mode. &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Ignore CPU numbers limit when use environment variable to set GOMAXPROCS. &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Reduce memory alloc when create subset loadbalancer.  &lt;a href=&#34;https://github.com/dzdx&#34;&gt;@dzdx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support different listener can independent run same name gRPC Server. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix MOSN hangs up when host is empty when retry. &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix connections in &lt;code&gt;msgconnpool&lt;/code&gt; cannot handle connect event. &lt;a href=&#34;https://github.com/RayneHwang&#34;&gt;@RayneHwang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix MOSN panic when tracer driver is not inited and someone calls tracer &lt;code&gt;Enable&lt;/code&gt;. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix boltv2 protocol constructs hijack response version wrong. &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix HTTP2 handle connection termination event. &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix typo.  &lt;a href=&#34;https://github.com/jxd134&#34;&gt;@jxd134&lt;/a&gt; &lt;a href=&#34;https://github.com/yannsun&#34;&gt;@yannsun&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix &lt;code&gt;ResponseFlag&lt;/code&gt; outputs in &lt;code&gt;RequestInfo&lt;/code&gt;. &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix bolt/boltv2 protocol not recalculated the empty data&amp;rsquo;s length. &lt;a href=&#34;https://github.com/hui-cha&#34;&gt;@hui-cha&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
       </description>

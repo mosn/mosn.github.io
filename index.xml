@@ -13,6 +13,65 @@
     
     
     <item>
+      <title>Blog: MOSN v0.26.0 发布</title>
+      <link>https://mosn.io/blog/releases/v0.26.0/</link>
+      <pubDate>Wed, 29 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/releases/v0.26.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.26.0&#34;&gt;MOSN v0.26.0&lt;/a&gt; 发布，以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v0260&#34;&gt;v0.26.0&lt;/h2&gt;
+&lt;h3 id=&#34;不兼容变更&#34;&gt;不兼容变更&lt;/h3&gt;
+&lt;p&gt;为了更自然的添加扩展协议，新版对 XProtocol 进行了重构，XProtocol 不再是一种协议，而是便于协议扩展实现的框架。
+扩展协议的实现需要一些调整，具体请见 &lt;a href=&#34;reports/xprotocol_0.26.0.md&#34;&gt;XProtocol协议改造适配指南&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;新增 ip_access filter，基于来源 IP 的 ACL 控制器 (#1797) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;允许 Admin Api 扩展验证方法 (#1834) &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;transcoder filter：支持通过配置指定阶段，取代固定的阶段 (#1815) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;为 tls connection 增加 SetConnectionState 方法，在 pkg/mtls/crypto/tls.Conn 中 (#1804) &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;增加了 after-start 和 after-stop 这两个新的执行阶段，并允许在这两个阶段注册处理函数 &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 uds_dir 配置项，用于指定 unix domain socket 的目录 (#1829) &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持go plugin加载协议转化插件，并支持动态选择协议转换插件 &lt;a href=&#34;https://github.com/Tanc010&#34;&gt;@Tanc010&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;增加更多的 HTTP 协议方法，使动态协议匹配更加精准 (#1870) &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持动态设置上游协议 (#1808) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持动态设置 HTTP 默认最大值配置 #1886 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;变更&#34;&gt;变更&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;将 HTTP 协议的默认最大请求头大小调整到 8KB (#1837) &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;重构默认的 HTTP1 和 HTTP2 的协议转换，删除了 proxy 中的转换，使用 transcoder filter 来代替 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;transcoder filter：使用注册转换器工厂来替代注册转换器 (#1879) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复：HTTP buffer 复用在高并发场景下可能导致 nil panic &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：response_flag 变量值获取错误 (#1814) &lt;a href=&#34;https://github.com/lemonlinger&#34;&gt;@lemonlinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：prefix_write 在 &amp;ldquo;/&amp;rdquo; 的场景下不能正常工作 &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：在热升级过程中，手动 kill 老的 MOSN，可能会导致新 MOSN 的 reconfig.sock 会被错误的删除 (#1820) &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：请求上游失败时，在 doretry 中不应该直接设置 setupRetry (#1807) &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：热升级中继承了老 MOSN 的配置之后，应该将配置设置到新的 MOSN 结构体中 &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：当取消客户端的 grpc 的时候，没有发送 resetStreamFrame 到上游，使得 server 端没有及时结束 &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：应该在关闭 stream connection 之前设置 resetReason，否则可能导致获取不到真实的原因 (#1828) &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：当有多个匹配的 listener 的时候，应该选择最优的匹配的 listener，否则可能导致 400 错误 &lt;a href=&#34;https://github.com/MengJiapeng&#34;&gt;@MengJiapeng&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：HTTP2 协议处理 broadcast 可能导致 map 并发读写 panic &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：XProtocol 连接池(binding connpool) 中的内存泄漏 (#1821) &lt;a href=&#34;https://github.com/Dennis8274&#34;&gt;@Dennis8274&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：应该将 close logger 放在最后，否则在关闭 MOSN 实例过程中将没有日志输出 (#1845) &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：XProtocol PingPong 类型连接超时的时候，因为 codecClient 没有初始化，会导致 panic (#1849) &lt;a href=&#34;https://github.com/cuiweixie&#34;&gt;@cuiweixie&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：当 unhealthyThreshold 是一个空值时，健康检查将不会工作，修改为空值时使用默认值 (#1853) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：WRR 负载均衡算法可能导致死循环（发生在 unweightChooseHost）#1860 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：direct response 中 hijack 不应该再执行转换 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：当一个不健康的 host 有很高的权重时，EDF wrr 将不再选择其他健康的 host &lt;a href=&#34;https://github.com/lemonlinger&#34;&gt;@lemonlinger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：Istio LDS 中的 CACert 文件名获取错误，导致 MOSN listen 失败，不会接受请求 (#1893). &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复：DNS 解析 STRICT_DNS_CLUSTER 中 host 的 goroutine 没法停止 #1894 &lt;a href=&#34;https://github.com/bincherry&#34;&gt;@bincherry&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: 利用 SidecarSet 实现 MOSN 容器原地热升级</title>
       <link>https://mosn.io/blog/posts/mosn-sidecarset-hotupgrade/</link>
       <pubDate>Fri, 10 Dec 2021 00:00:00 +0000</pubDate>
@@ -332,65 +391,6 @@ MOSN 就会根据这个指定的 host header 进行转发。当然，MOSN 也可
 &lt;li&gt;typo 错误修复 &lt;a href=&#34;https://github.com/jxd134&#34;&gt;@jxd134&lt;/a&gt; &lt;a href=&#34;https://github.com/yannsun&#34;&gt;@yannsun&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;修复 &lt;code&gt;RequestInfo&lt;/code&gt; 输出 &lt;code&gt;ResponseFlag&lt;/code&gt; 的错误 &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;修复 bolt/boltv2 协议编码时，在空数据时没有重新计算长度位的问题 &lt;a href=&#34;https://github.com/hui-cha&#34;&gt;@hui-cha&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-      </description>
-    </item>
-    
-    <item>
-      <title>Blog: MOSN v0.26.0 发布</title>
-      <link>https://mosn.io/blog/releases/v0.26.0/</link>
-      <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://mosn.io/blog/releases/v0.26.0/</guid>
-      <description>
-        
-        
-        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v0.26.0&#34;&gt;MOSN v0.26.0&lt;/a&gt; 发布，以下是该版本的变更日志。&lt;/p&gt;
-&lt;h2 id=&#34;v0260&#34;&gt;v0.26.0&lt;/h2&gt;
-&lt;h3 id=&#34;不兼容变更&#34;&gt;不兼容变更&lt;/h3&gt;
-&lt;p&gt;为了更自然的添加扩展协议，新版对 XProtocol 进行了重构，XProtocol 不再是一种协议，而是便于协议扩展实现的框架。
-扩展协议的实现需要一些调整，具体请见 &lt;a href=&#34;reports/xprotocol_0.26.0.md&#34;&gt;XProtocol协议改造适配指南&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;新增 ip_access filter，基于来源 IP 的 ACL 控制器 (#1797) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;允许 Admin Api 扩展验证方法 (#1834) &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;transcoder filter：支持通过配置指定阶段，取代固定的阶段 (#1815) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;为 tls connection 增加 SetConnectionState 方法，在 pkg/mtls/crypto/tls.Conn 中 (#1804) &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;增加了 after-start 和 after-stop 这两个新的执行阶段，并允许在这两个阶段注册处理函数 &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;新增 uds_dir 配置项，用于指定 unix domain socket 的目录 (#1829) &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;支持go plugin加载协议转化插件，并支持动态选择协议转换插件 &lt;a href=&#34;https://github.com/Tanc010&#34;&gt;@Tanc010&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;增加更多的 HTTP 协议方法，使动态协议匹配更加精准 (#1870) &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;支持动态设置上游协议 (#1808) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;支持动态设置 HTTP 默认最大值配置 #1886 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;变更&#34;&gt;变更&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;将 HTTP 协议的默认最大请求头大小调整到 8KB (#1837) &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;重构默认的 HTTP1 和 HTTP2 的协议转换，删除了 proxy 中的转换，使用 transcoder filter 来代替 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;transcoder filter：使用注册转换器工厂来替代注册转换器 (#1879) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;修复：HTTP buffer 复用在高并发场景下可能导致 nil panic &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：response_flag 变量值获取错误 (#1814) &lt;a href=&#34;https://github.com/lemonlinger&#34;&gt;@lemonlinger&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：prefix_write 在 &amp;ldquo;/&amp;rdquo; 的场景下不能正常工作 &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：在热升级过程中，手动 kill 老的 MOSN，可能会导致新 MOSN 的 reconfig.sock 会被错误的删除 (#1820) &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：请求上游失败时，在 doretry 中不应该直接设置 setupRetry (#1807) &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：热升级中继承了老 MOSN 的配置之后，应该将配置设置到新的 MOSN 结构体中 &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：当取消客户端的 grpc 的时候，没有发送 resetStreamFrame 到上游，使得 server 端没有及时结束 &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：应该在关闭 stream connection 之前设置 resetReason，否则可能导致获取不到真实的原因 (#1828) &lt;a href=&#34;https://github.com/wangfakang&#34;&gt;@wangfakang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：当有多个匹配的 listener 的时候，应该选择最优的匹配的 listener，否则可能导致 400 错误 &lt;a href=&#34;https://github.com/MengJiapeng&#34;&gt;@MengJiapeng&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：HTTP2 协议处理 broadcast 可能导致 map 并发读写 panic &lt;a href=&#34;https://github.com/XIEZHENGYAO&#34;&gt;@XIEZHENGYAO&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：XProtocol 连接池(binding connpool) 中的内存泄漏 (#1821) &lt;a href=&#34;https://github.com/Dennis8274&#34;&gt;@Dennis8274&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：应该将 close logger 放在最后，否则在关闭 MOSN 实例过程中将没有日志输出 (#1845) &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：XProtocol PingPong 类型连接超时的时候，因为 codecClient 没有初始化，会导致 panic (#1849) &lt;a href=&#34;https://github.com/cuiweixie&#34;&gt;@cuiweixie&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：当 unhealthyThreshold 是一个空值时，健康检查将不会工作，修改为空值时使用默认值 (#1853) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：WRR 负载均衡算法可能导致死循环（发生在 unweightChooseHost）#1860 &lt;a href=&#34;https://github.com/alpha-baby&#34;&gt;@alpha-baby&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：direct response 中 hijack 不应该再执行转换 &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：当一个不健康的 host 有很高的权重时，EDF wrr 将不再选择其他健康的 host &lt;a href=&#34;https://github.com/lemonlinger&#34;&gt;@lemonlinger&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：Istio LDS 中的 CACert 文件名获取错误，导致 MOSN listen 失败，不会接受请求 (#1893). &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;修复：DNS 解析 STRICT_DNS_CLUSTER 中 host 的 goroutine 没法停止 #1894 &lt;a href=&#34;https://github.com/bincherry&#34;&gt;@bincherry&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
       </description>
