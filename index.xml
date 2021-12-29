@@ -25,7 +25,7 @@
 &lt;h2 id=&#34;v0260&#34;&gt;v0.26.0&lt;/h2&gt;
 &lt;h3 id=&#34;不兼容变更&#34;&gt;不兼容变更&lt;/h3&gt;
 &lt;p&gt;为了更自然的添加扩展协议，新版对 XProtocol 进行了重构，XProtocol 不再是一种协议，而是便于协议扩展实现的框架。
-扩展协议的实现需要一些调整，具体请见 &lt;a href=&#34;reports/xprotocol_0.26.0.md&#34;&gt;XProtocol协议改造适配指南&lt;/a&gt;&lt;/p&gt;
+扩展协议的实现需要一些调整，具体请见 &lt;a href=&#34;https://github.com/mosn/mosn/blob/v0.26.0/reports/xprotocol_0.26.0.md&#34;&gt;XProtocol协议改造适配指南&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;新增 ip_access filter，基于来源 IP 的 ACL 控制器 (#1797) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;

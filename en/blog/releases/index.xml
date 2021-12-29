@@ -28,7 +28,7 @@
 &lt;p&gt;For implementing new protocols more nature, XProtocol is no longer as a protocol and no subprotocol any more.
 XProtocol is a framework to implement protocol easier now.
 So, the old existing code for implementing new protocols need some changes,
-please see &lt;a href=&#34;reports/xprotocol_0.26.0.md&#34;&gt;this doc&lt;/a&gt;(In Chinese) for changing the old existing code suit for the new release.&lt;/p&gt;
+please see &lt;a href=&#34;https://github.com/mosn/mosn/blob/v0.26.0/reports/xprotocol_0.26.0.md&#34;&gt;this doc&lt;/a&gt;(In Chinese) for changing the old existing code suit for the new release.&lt;/p&gt;
 &lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Added the ip_access new filter to manage access control based on IP (#1797). &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
