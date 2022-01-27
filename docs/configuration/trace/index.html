@@ -23,7 +23,7 @@
 <meta property="og:description" content="MOSN trace 配置说明。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mosn.io/docs/configuration/trace/" />
-<meta property="og:updated_time" content="2022-01-27T18:33:21+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="og:updated_time" content="2022-01-27T18:36:22+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="Trace 配置">
 <meta itemprop="description" content="MOSN trace 配置说明。">
 <meta name="twitter:card" content="summary"/>
@@ -613,6 +613,19 @@ if (!doNotTrack) {
 
 
 
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#mosn-的-tracing-框架">MOSN 的 tracing 框架</a></li>
+    <li><a href="#配置项说明">配置项说明</a>
+      <ul>
+        <li><a href="#enable">enable</a></li>
+        <li><a href="#driver">driver</a></li>
+        <li><a href="#config">config</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
 
 
           </div>
@@ -657,7 +670,13 @@ if (!doNotTrack) {
 	<h1>Trace 配置</h1>
 	<div class="lead">MOSN trace 配置说明。</div>
 	<p>本文是关于 MOSN trace 配置的说明。</p>
-<p><code>trace</code> 描述的 MOSN 的基本全局参数如下所示。</p>
+<h2 id="mosn-的-tracing-框架">MOSN 的 tracing 框架</h2>
+<p>MOSN 的 tracing 框架由 Driver、Tracer 和 Span 三个部分组成。</p>
+<p>Driver 是 Tracer 的容器，管理注册的 Tracer 实例，Tracer 是 tracing 的入口，根据请求信息创建一个 Span，Span 存储当前跨度的链路信息。</p>
+<p><img src="mosn-tracing.jpg" alt="MOSN 中的 tracing 架构"></p>
+<p>目前 MOSN tracing 有 SOFATracer 和 SkyWalking 两种实现。SOFATracer 支持 http1 和 xprotocol 协议的链路追踪，将 trace 数据写入本地日志文件中。SkyWalking 支持 http1 协议的链路追踪，使用原生的 Go 语言探针 <a href="https://github.com/SkyAPM/go2sky">go2sky</a> 将 trace 数据通过 gRPC 上报到 SkyWalking 后端服务。</p>
+<h2 id="配置项说明">配置项说明</h2>
+<p><code>tracing</code> 相关配置项如下所示。</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
   <span style="color:#204a87;font-weight:bold">&#34;tracing&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
     <span style="color:#204a87;font-weight:bold">&#34;enable&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">,</span>
@@ -667,10 +686,12 @@ if (!doNotTrack) {
     <span style="color:#000;font-weight:bold">}</span>
   <span style="color:#000;font-weight:bold">}</span>
 <span style="color:#000;font-weight:bold">}</span>
-</code></pre></div><h2 id="enable">enable</h2>
+</code></pre></div><h3 id="enable">enable</h3>
 <p>bool类型，表示启用或禁用trace。</p>
-<h2 id="driver">driver</h2>
+<h3 id="driver">driver</h3>
 <p>目前支持 <code>SOFATracer</code> 和 <code>SkyWalking</code>。</p>
+<h3 id="config">config</h3>
+<p>不同driver的自定义配置。config里面的配置项由每个driver自己设计。比如 SkyWalking 的配置项可以参考 <a href="skywalking/">SkyWalking配置</a></p>
 
         <div class="section-index">
     
@@ -767,7 +788,7 @@ if (!doNotTrack) {
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年1月27日: <a  href="https://github.com/mosn/mosn.io/commit/00f4c7b6f9a0319235d6bd3e552f0cfc91f1016b">update ant.png (#161) (00f4c7b)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年1月27日: <a  href="https://github.com/mosn/mosn.io/commit/5dff18d89f61252d1393e1b18077ab16358fb02b">docs: improve tracing doc (#173) (5dff18d)</a>
 </div>
 </div>
 

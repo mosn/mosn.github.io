@@ -109,7 +109,13 @@
         
         
         &lt;p&gt;本文是关于 MOSN trace 配置的说明。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;trace&lt;/code&gt; 描述的 MOSN 的基本全局参数如下所示。&lt;/p&gt;
+&lt;h2 id=&#34;mosn-的-tracing-框架&#34;&gt;MOSN 的 tracing 框架&lt;/h2&gt;
+&lt;p&gt;MOSN 的 tracing 框架由 Driver、Tracer 和 Span 三个部分组成。&lt;/p&gt;
+&lt;p&gt;Driver 是 Tracer 的容器，管理注册的 Tracer 实例，Tracer 是 tracing 的入口，根据请求信息创建一个 Span，Span 存储当前跨度的链路信息。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;mosn-tracing.jpg&#34; alt=&#34;MOSN 中的 tracing 架构&#34;&gt;&lt;/p&gt;
+&lt;p&gt;目前 MOSN tracing 有 SOFATracer 和 SkyWalking 两种实现。SOFATracer 支持 http1 和 xprotocol 协议的链路追踪，将 trace 数据写入本地日志文件中。SkyWalking 支持 http1 协议的链路追踪，使用原生的 Go 语言探针 &lt;a href=&#34;https://github.com/SkyAPM/go2sky&#34;&gt;go2sky&lt;/a&gt; 将 trace 数据通过 gRPC 上报到 SkyWalking 后端服务。&lt;/p&gt;
+&lt;h2 id=&#34;配置项说明&#34;&gt;配置项说明&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;tracing&lt;/code&gt; 相关配置项如下所示。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
   &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;tracing&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
     &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;enable&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
@@ -119,10 +125,12 @@
     &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
   &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;enable&#34;&gt;enable&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;enable&#34;&gt;enable&lt;/h3&gt;
 &lt;p&gt;bool类型，表示启用或禁用trace。&lt;/p&gt;
-&lt;h2 id=&#34;driver&#34;&gt;driver&lt;/h2&gt;
+&lt;h3 id=&#34;driver&#34;&gt;driver&lt;/h3&gt;
 &lt;p&gt;目前支持 &lt;code&gt;SOFATracer&lt;/code&gt; 和 &lt;code&gt;SkyWalking&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;config&#34;&gt;config&lt;/h3&gt;
+&lt;p&gt;不同driver的自定义配置。config里面的配置项由每个driver自己设计。比如 SkyWalking 的配置项可以参考 &lt;a href=&#34;skywalking/&#34;&gt;SkyWalking配置&lt;/a&gt;&lt;/p&gt;
 
       </description>
     </item>

@@ -76,6 +76,8 @@
 &lt;p&gt;TLS 客户端证书。&lt;/p&gt;
 &lt;h3 id=&#34;server_name_override&#34;&gt;server_name_override&lt;/h3&gt;
 &lt;p&gt;服务名称。&lt;/p&gt;
+&lt;h3 id=&#34;配置示例&#34;&gt;配置示例&lt;/h3&gt;
+&lt;p&gt;更多细节可以参考&lt;a href=&#34;https://mosn.io/blog/posts/skywalking-support/&#34;&gt;《MOSN 支持使用 SkyWalking 进行分布式追踪》&lt;/a&gt; 。这篇文档提供了配置示例和演示视频。&lt;/p&gt;
 
       </description>
     </item>
