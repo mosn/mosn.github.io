@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.75.1" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Holmes 原理浅析 | MOSN</title><meta property="og:title" content="Holmes 原理浅析" />
+<meta property="og:description" content="本文简单介绍了holmes的原理" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/blog/posts/mosn-holmes-design/" />
+<meta property="article:published_time" content="2022-03-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-03-21T11:30:23+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta itemprop="name" content="Holmes 原理浅析">
+<meta itemprop="description" content="本文简单介绍了holmes的原理">
+<meta itemprop="datePublished" content="2022-03-19T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-03-21T11:30:23+08:00" />
+<meta itemprop="wordCount" content="224">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Holmes 原理浅析"/>
+<meta name="twitter:description" content="本文简单介绍了holmes的原理"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+    <title>Holmes 原理浅析 | MOSN</title>
+  </head>
+  <body class="td-page td-blog">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
+        
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/mosn/mosn/" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>文档</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/blog/" ><span class="active">博客</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/tutorial/" ><span>教程</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/community/" ><span>社区</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/faq/" ><span>FAQ</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/en/">English</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/en/">English</a>
+	
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">博客</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="blog">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/releases/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">发布</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blogreleases">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0260" href="/blog/releases/v0.26.0/">MOSN v0.26.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0250" href="/blog/releases/v0.25.0/">MOSN v0.25.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0240" href="/blog/releases/v0.24.0/">MOSN v0.24.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0230" href="/blog/releases/v0.23.0/">MOSN v0.23.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0220" href="/blog/releases/v0.22.0/">MOSN v0.22.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0210" href="/blog/releases/v0.21.0/">MOSN v0.21.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0200" href="/blog/releases/v0.20.0/">MOSN v0.20.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0190" href="/blog/releases/v0.19.0/">MOSN v0.19.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0180" href="/blog/releases/v0.18.0/">MOSN v0.18.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0170" href="/blog/releases/v0.17.0/">MOSN v0.17.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0160" href="/blog/releases/v0.16.0/">MOSN v0.16.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0150" href="/blog/releases/v0.15.0/">MOSN v0.15.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0140" href="/blog/releases/v0.14.0/">MOSN v0.14.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0130" href="/blog/releases/v0.13.0/">MOSN v0.13.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0120" href="/blog/releases/v0.12.0/">MOSN v0.12.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0110" href="/blog/releases/v0.11.0/">MOSN v0.11.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesv0100" href="/blog/releases/v0.10.0/">MOSN v0.10.0 发布</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-010-perfermence-report" href="/blog/releases/mosn-0.1.0-perfermence-report/">MOSN 0.1.0 性能报告</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogreleasesmosn-021-performance-report" href="/blog/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blognews">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsmosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsannouncing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/posts/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">分享</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="blogposts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogpostsmosn-holmes-design" href="/blog/posts/mosn-holmes-design/">Holmes 原理浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-tunnel" href="/blog/posts/mosn-tunnel/">MOSN 反向通道详解</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-sidecarset-hotupgrade" href="/blog/posts/mosn-sidecarset-hotupgrade/">利用 SidecarSet 实现 MOSN 容器原地热升级</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostshow-use-dynamic-metadata" href="/blog/posts/how-use-dynamic-metadata/">MOSN 路由框架详解</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-wasm-framework" href="/blog/posts/mosn-wasm-framework/">WebAssembly 在 MOSN 中的实践 - 基础框架篇</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsskywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmulti-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsudpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsnginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/code/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">源码解析</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blogcode">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-overview" href="/blog/code/mosn-overview/">MOSN 源码解析 - 总览</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/posts/mosn-holmes-design/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=Holmes%20%e5%8e%9f%e7%90%86%e6%b5%85%e6%9e%90" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+
+
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#quick-start">Quick Start</a></li>
+    <li><a href="#profile-types">Profile Types</a></li>
+    <li><a href="#指标采集">指标采集</a>
+      <ul>
+        <li><a href="#根据collectinterval周期采集">根据<code>CollectInterval</code>周期采集</a></li>
+        <li><a href="#根据gc周期采集">根据<code>GC</code>周期采集</a></li>
+      </ul>
+    </li>
+    <li><a href="#规则判断">规则判断</a>
+      <ul>
+        <li><a href="#阈值含义">阈值含义</a></li>
+        <li><a href="#warming-up">Warming up</a></li>
+      </ul>
+    </li>
+    <li><a href="#扩展功能">扩展功能</a>
+      <ul>
+        <li><a href="#事件上报">事件上报</a></li>
+        <li><a href="#动态配置">动态配置</a></li>
+        <li><a href="#配置中心支持">配置中心支持</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/blog/posts/index.xml" target="_blank">
+              RSS <i class="fa fa-rss ml-2 "></i>
+            </a>
+            
+<div class="td-content">
+	<h1>Holmes 原理浅析</h1>
+	<div class="lead">本文简单介绍了holmes的原理</div>
+	<div class="td-byline mb-4">
+		作者 <b><a href="https://github.com/Jun10ng">Jun10ng</a></b> |
+		<time datetime="2022-03-19" class="text-muted">2022年3月19日</time>
+	</div>
+	<h2 id="前言">前言</h2>
+<p>对于系统的性能尖刺问题，我们通常使用Go官方内置的<code>pprof</code>包进行分析，但是难点是对于一闪而过的“尖刺”，
+开发人员很难及时地保存现场：当你收到告警信息，从被窝中爬起来，打开电脑，链接VPN，系统说不定都已经重启三四趟了。</p>
+<p>MOSN社区的<a href="https://github.com/mosn/holmes">Holmes</a>是一个基于golang实现的，轻量级性能监控系统，当应用的性能指标
+发生了异常波动时，<code>holmes</code>会在第一时间保留现场，让你第二天上班可以一边从容地喝着枸杞茶，一边追查问题的根因。</p>
+<p>本文将介绍如何使用 <code>holmes</code>对您的应用进行监控，并简单分析了<code>holmes</code>的实现原理。</p>
+<h2 id="quick-start">Quick Start</h2>
+<p>使用<code>holmes</code>的方式十分简单，只需要在您的系统初始化逻辑内添加以下代码：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">    <span style="color:#8f5902;font-style:italic">// 配置规则
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">h</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span>
+        <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithCollectInterval</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;5s&#34;</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#8f5902;font-style:italic">// 指标采集时间间隔
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithDumpPath</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;/tmp&#34;</span><span style="color:#000;font-weight:bold">),</span>      <span style="color:#8f5902;font-style:italic">// profile保存路径
+</span><span style="color:#8f5902;font-style:italic"></span>    
+        <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithCPUDump</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">25</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">80</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">2</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Minute</span><span style="color:#000;font-weight:bold">),</span>  <span style="color:#8f5902;font-style:italic">// 配置CPU的性能监控规则
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithMemDump</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">30</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">25</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">80</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">2</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Minute</span><span style="color:#000;font-weight:bold">),</span><span style="color:#8f5902;font-style:italic">// 配置Heap Memory 性能监控规则
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithGCHeapDump</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">40</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">2</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Minute</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#8f5902;font-style:italic">// 配置基于GC周期的Heap Memory 性能监控规则
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithGoroutineDump</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">500</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">25</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">20000</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">100</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#0000cf;font-weight:bold">1000</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">2</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Minute</span><span style="color:#000;font-weight:bold">),</span>    <span style="color:#8f5902;font-style:italic">//配置Goroutine数量的监控规则
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#8f5902;font-style:italic">// enable all
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#000">h</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">EnableCPUDump</span><span style="color:#000;font-weight:bold">().</span>
+    <span style="color:#000">EnableGoroutineDump</span><span style="color:#000;font-weight:bold">().</span>
+	<span style="color:#000">EnableMemDump</span><span style="color:#000;font-weight:bold">().</span>
+	<span style="color:#000">EnableGCHeapDump</span><span style="color:#000;font-weight:bold">().</span><span style="color:#000">Start</span><span style="color:#000;font-weight:bold">()</span>
+
+</code></pre></div><p>类似于<code>holmes.WithGoroutineDump(min, diff, abs,max,2 * time.Minute)</code>的<code>API</code>含义为:</p>
+<ul>
+<li>
+<p>当goroutine指标满足以下条件时，将会触发dump操作。
+<code>current_goroutine_num</code> &gt; <code>10</code> &amp;&amp; <code>current_goroutine_num</code> &lt; <code>100*1000</code> &amp;&amp;
+<code>current_goroutine_num</code> &gt; <code>125%</code> * <code>previous_average_goroutine_num</code> ||<code>current_goroutine_num</code> &gt; <code>2000</code>.</p>
+</li>
+<li>
+<p>当goroutine数大于<code>max</code>时，<code>holmes</code>会跳过本次dump操作，因为当<code>goroutine</code>数过大时，<code>goroutine dump</code>操作成本很高。</p>
+</li>
+<li>
+<p><code>2 * time.Minute</code> 是两次dump操作之间最小时间间隔，避免频繁profiling对性能产生的影响。</p>
+</li>
+</ul>
+<p>更多使用案例点击<a href="https://github.com/mosn/holmes/tree/master/example">这里</a>。</p>
+<h2 id="profile-types">Profile Types</h2>
+<p><code>holmes</code>支持以下五种Profile类型，用户可以按需配置。</p>
+<ul>
+<li>mem: 内存分配</li>
+<li>cpu: cpu使用率</li>
+<li>thread: 线程数</li>
+<li>goroutine: 协程数</li>
+<li>gcHeap: 基于GC周期监控的内存分配</li>
+</ul>
+<h2 id="指标采集">指标采集</h2>
+<p><code>mem</code>, <code>cpu</code>, <code>thread</code>, <code>goroutine</code>这四种类型是根据用户配置的<code>CollectInterval</code>,每隔一段时间采集一次应用当前的性能指标，
+而<code>gcHeap</code>时基于<code>GC</code>周期采集性能指标。本小节会分析一下两种指标。</p>
+<h3 id="根据collectinterval周期采集">根据<code>CollectInterval</code>周期采集</h3>
+<p><code>holmes</code>每隔一段时间采集应用各项指标，并使用一个固定大小的<a href="https://github.com/mosn/holmes/blob/master/ring.go">循环链表</a>来存储它们。</p>
+<p><img src="./ring.png" alt="ring"></p>
+<h3 id="根据gc周期采集">根据<code>GC</code>周期采集</h3>
+<p>在一些场景下，我们无法通过定时的<code>memory dump</code>保留到现场, 比如应用在一个<code>CollectInterval</code>周期内分配了大量内存，
+又快速回收了它们，此时<code>holmes</code>在周期前后的采集到内存使用率没有产生过大波动，与实际情况不符。</p>
+<p>为了解决这种情况，holmes开发了基于GC周期的
+<code>Profile</code>类型，它会在堆内存使用率飙高的前后两个GC周期内各<code>dump</code>一次<code>profile</code>，然后开发人员可以使用<code>pprof --base</code>命令去对比
+两个时刻堆内存之间的差异。 <a href="https://uncledou.site/2022/go-pprof-heap/">具体实现介绍</a>。</p>
+<p>根据<code>GC</code>周期采集到的数据也会放在循环列表中。</p>
+<h2 id="规则判断">规则判断</h2>
+<p>本小节介绍<code>holmes</code>是如何根据规则判断系统出现异常的。</p>
+<h3 id="阈值含义">阈值含义</h3>
+<p>每个<code>Profile</code>都可以配置<code>min</code>,<code>diff</code>,<code>abs</code>,<code>coolDown</code>四个指标，含义如下:</p>
+<ul>
+<li>当前指标小于<code>min</code>时，不视为异常。</li>
+<li>当前指标大于<code>(100+diff)</code>*<code>100%</code>*历史指标，说明系统此时产生了波动，视为异常。</li>
+<li>当前指标大于<code>abs</code>(绝对值)，视为异常。</li>
+</ul>
+<p><code>cpu</code>和<code>goroutine</code>这两个<code>profile</code>类型提供<code>max</code>参数配置，基于以下考虑。</p>
+<ul>
+<li><code>cpu</code> 的<code>profiling</code>操作大约会有<a href="https://medium.com/google-cloud/continuous-profiling-of-go-programs-96d4416af77b">5%的性能损耗</a>，
+所以当在<code>cpu</code>过高时，不应当进行<code>profiling</code>操作，否则会拖垮系统。</li>
+<li>当<code>goroutine</code>数过大时，<code>goroutine dump</code>操作<a href="https://github.com/golang/go/issues/33250">成本很高</a>，会进行STW操作，从而拖垮系统。</li>
+</ul>
+<h3 id="warming-up">Warming up</h3>
+<p>当<code>holmes</code>启动时，会根据<code>CollectInterval</code>周期采集十次各项指标，在这期间内采集到的指标只会存入循环链表中，不会进行规则判断。</p>
+<h2 id="扩展功能">扩展功能</h2>
+<p>除了基本的监控之外，<code>holmes</code>还提供了一些扩展功能。</p>
+<h3 id="事件上报">事件上报</h3>
+<p>您可以通过实现<code>Reporter</code> 来实现以下功能：</p>
+<ul>
+<li>发送告警信息，当<code>holmes</code>触发<code>Dump</code>操作时。</li>
+<li>将<code>Profiles</code>上传到其他地方，以防实例被销毁，从而导致profile丢失，或进行分析。</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">        <span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">ReporterImpl</span> <span style="color:#204a87;font-weight:bold">struct</span><span style="color:#000;font-weight:bold">{}</span>
+        <span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">r</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">ReporterImple</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Report</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">pType</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">buf</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">byte</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">reason</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">eventID</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span><span style="color:#000;font-weight:bold">{</span>
+            <span style="color:#8f5902;font-style:italic">// do something	
+</span><span style="color:#8f5902;font-style:italic"></span>        <span style="color:#000;font-weight:bold">}</span>
+        <span style="color:#ce5c00;font-weight:bold">......</span>
+        <span style="color:#000">r</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">ReporterImpl</span><span style="color:#000;font-weight:bold">{}</span> <span style="color:#8f5902;font-style:italic">// a implement of holmes.ProfileReporter Interface.
+</span><span style="color:#8f5902;font-style:italic"></span>    	<span style="color:#000">h</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">New</span><span style="color:#000;font-weight:bold">(</span>
+            <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithProfileReporter</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">reporter</span><span style="color:#000;font-weight:bold">),</span>
+            <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithDumpPath</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;/tmp&#34;</span><span style="color:#000;font-weight:bold">),</span>
+            <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithLogger</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NewFileLog</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;/tmp/holmes.log&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">mlog</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">INFO</span><span style="color:#000;font-weight:bold">)),</span>
+            <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithBinaryDump</span><span style="color:#000;font-weight:bold">(),</span>
+            <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithMemoryLimit</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">100</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#0000cf;font-weight:bold">1024</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#0000cf;font-weight:bold">1024</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#8f5902;font-style:italic">// 100MB
+</span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WithGCHeapDump</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">40</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Minute</span><span style="color:#000;font-weight:bold">),</span>
+<span style="color:#000;font-weight:bold">)</span>
+  
+</code></pre></div><h3 id="动态配置">动态配置</h3>
+<p>您可以通过<code>Set</code>方法在应用运行时更新holmes的配置。它的使用十分简单，和初始化时的<code>New</code>方法一样。</p>
+<p>有些配置时不支持动态更改的，比如Core数，如果在系统运行期间更改这个参数，会导致CPU使用率产生巨大
+波动，从而触发Dump操作。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">    <span style="color:#000">h</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Set</span><span style="color:#000;font-weight:bold">(</span>
+        <span style="color:#000">WithCollectInterval</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;2s&#34;</span><span style="color:#000;font-weight:bold">),</span>
+        <span style="color:#000">WithGoroutineDump</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">10</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">10</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">50</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#0000cf;font-weight:bold">90</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Minute</span><span style="color:#000;font-weight:bold">))</span>
+</code></pre></div><h3 id="配置中心支持">配置中心支持</h3>
+<p>利用<code>Set</code>方法，您可以轻松地对接自己公司的配置中心，比如，将<code>holmes</code>作为数据面，配置中心作为控制面。
+并对接告警系统(邮件/短信等)，搭建一套简单的监控系统。</p>
+<p>具体架构如下:</p>
+<p><img src="./system.png" alt="system"></p>
+<h2 id="总结">总结</h2>
+<p>本文简单地介绍了<code>Holmes</code>的使用方法与原理。希望<code>holmes</code>能在您提高应用的稳定性时帮助到你。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://github.com/mosn/holmes">Holmes</a></li>
+<li><a href="https://xargin.com/autodumper-for-go/">无人值守的自动 dump(一)</a></li>
+<li><a href="https://xargin.com/autodumper-for-go-ii/">无人值守的自动 dump(二)</a></li>
+<li><a href="https://uncledou.site/2022/go-pprof-heap/">go 语言 pprof heap profile 实现机制</a></li>
+</ul>
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a href="/blog/posts/mosn-tunnel/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+  </li>
+    <a  class="btn btn-primary  disabled">下一页 <span class="ml-1">→</span></a>
+  </li>
+</ul>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-12 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://twitter.com/MosnProxy">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Mailing list" aria-label="Mailing list">
+    <a class="text-white" target="_blank" href="https://groups.google.com/d/forum/mosn-dev">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/mosn/mosn">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022 The MOSN Authors 保留所有权利</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>
