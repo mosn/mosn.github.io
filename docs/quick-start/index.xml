@@ -23,58 +23,79 @@
       <description>
         
         
-        &lt;p&gt;本文用于帮助初次接触 MOSN 项目的开发人员，快速搭建开发环境，完成构建，测试，打包和示例代码的运行。&lt;/p&gt;
+        &lt;p&gt;本文用于帮助初次接触 MOSN 项目的开发人员，快速搭建开发环境，完成编译，测试，镜像制作和示例配置的运行。&lt;/p&gt;
 &lt;h2 id=&#34;准备运行环境&#34;&gt;准备运行环境&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;如果您使用容器运行 MOSN，请先 &lt;a href=&#34;https://docs.docker.com/install/&#34;&gt;安装 docker&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;如果您使用本地机器，请使用类 Unix 环境&lt;/li&gt;
 &lt;li&gt;安装 Go 的编译环境&lt;/li&gt;
-&lt;li&gt;安装 dep : 参考&lt;a href=&#34;https://golang.github.io/dep/docs/installation.html&#34;&gt;官方安装文档&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;获取代码&#34;&gt;获取代码&lt;/h2&gt;
 &lt;p&gt;MOSN 项目的代码托管在 &lt;a href=&#34;https://github.com/mosn/mosn&#34;&gt;Github&lt;/a&gt;，获取方式如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;go get -u mosn.io/mosn
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果您的 go get 下载存在问题，请手动创建项目工程&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# 进入 GOPATH 下的 src 目录&lt;/span&gt;
-&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;$GOPATH&lt;/span&gt;/src
-&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# 创建 mosn.io 目录&lt;/span&gt;
-mkdir -p mosn.io
-&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; mosn.io
-
-&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# 克隆 MOSN 代码&lt;/span&gt;
-git clone git@github.com:mosn/mosn.git
-&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; mosn
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最终 MOSN 的源代码代码路径为 &lt;code&gt;$GOPATH/src/mosn.io/mosn&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;导入ide&#34;&gt;导入IDE&lt;/h2&gt;
-&lt;p&gt;使用您喜爱的 Go IDE 导入 &lt;code&gt;$GOPATH/src/mosn.io/mosn&lt;/code&gt; 项目，推荐 Goland。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git clone git@github.com:mosn/mosn.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;导入ide&#34;&gt;导入IDE&lt;/h2&gt;
+&lt;p&gt;使用您喜爱的 Go IDE 导入 mosn 项目，推荐 Goland。&lt;/p&gt;
 &lt;h2 id=&#34;编译代码&#34;&gt;编译代码&lt;/h2&gt;
 &lt;p&gt;在项目根目录下，根据自己机器的类型以及欲执行二进制的环境，选择以下命令编译 MOSN 的二进制文件。&lt;/p&gt;
+&lt;p&gt;完成后可以在 &lt;code&gt;build/bundles/${version}/binary&lt;/code&gt; 目录下找到编译好的二进制文件。&lt;/p&gt;
 &lt;h3 id=&#34;使用-docker-镜像编译&#34;&gt;使用 docker 镜像编译&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make build // 编译出 linux 64bit 可运行二进制文件
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;本地编译&#34;&gt;本地编译&lt;/h3&gt;
-&lt;p&gt;使用下面的命令编译本地可运行二进制文件。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make build-local
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在非 Linux 机器交叉编译 Linux 64bit 可运行二进制文件。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make build-linux64
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在非 Linux 机器交叉编译 Linux 32bit 可运行二进制文件。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make build-linux32
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完成后可以在 &lt;code&gt;build/bundles/${version}/binary&lt;/code&gt; 目录下找到编译好的二进制文件。&lt;/p&gt;
-&lt;h2 id=&#34;打包&#34;&gt;打包&lt;/h2&gt;
-&lt;p&gt;在项目根目录下执行如下命令进行打包。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make rpm
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完成后可以在 &lt;code&gt;build/bundles/${version}/rpm&lt;/code&gt; 目录下找到打包好的文件。&lt;/p&gt;
-&lt;h2 id=&#34;创建镜像&#34;&gt;创建镜像&lt;/h2&gt;
-&lt;p&gt;执行如下命令进行镜像创建。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make image
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make build-local // 编译 当前本地系统 可运行二进制文件
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;运行测试&#34;&gt;运行测试&lt;/h2&gt;
-&lt;p&gt;在项目根目录下执行如下命令运行单元测试：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make unit-test
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在项目根目录下执行如下命令运行集成测试（较慢）。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make integrate
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;从配置文件启动-mosn&#34;&gt;从配置文件启动 MOSN&lt;/h2&gt;
-&lt;p&gt;运行下面的命令使用配置文件启动 MOSN。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./mosn start -c &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;$CONFIG_FILE&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;开启-mosn-转发示例程序&#34;&gt;开启 MOSN 转发示例程序&lt;/h2&gt;
+&lt;p&gt;支持两种环境来运行测试，如果有 docker 环境的，推荐使用 docker 环境，环境更干净可控。
+MOSN 项目集成的 CI 是使用的 docker 环境来运行的。&lt;/p&gt;
+&lt;h3 id=&#34;使用-docker-环境运行测试&#34;&gt;使用 docker 环境运行测试&lt;/h3&gt;
+&lt;p&gt;在项目根目录下执行如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# 单元测试&lt;/span&gt;
+make unit-test
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# 集成测试（较慢）&lt;/span&gt;
+make integrate
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# 新版集成测试（较慢）&lt;/span&gt;
+make integrate-new
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;使用本地环境运行测试&#34;&gt;使用本地环境运行测试&lt;/h3&gt;
+&lt;p&gt;在项目根目录下执行如下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# 单元测试&lt;/span&gt;
+make ut-local
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# 集成测试（较慢）&lt;/span&gt;
+make integrate-local
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# 新版集成测试（较慢）&lt;/span&gt;
+make integrate-framework
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;运行-mosn&#34;&gt;运行 MOSN&lt;/h2&gt;
+&lt;p&gt;运行下面的命令，将使用一个 &lt;a href=&#34;https://github.com/mosn/mosn/blob/master/configs/mosn_config.json&#34;&gt;示例配置文件&lt;/a&gt; 启动 MOSN。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./build/bundles/&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;version&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/binary start -c configs/mosn_config.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;mosn-配置说明&#34;&gt;MOSN 配置说明&lt;/h3&gt;
+&lt;p&gt;这个示例，我们模拟了经典的 service mesh 中，MOSN 作为 sidecar 的场景。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;      POD A                      POD B
+------------------        -------------------
+| App A =&amp;gt; MOSN A |  ==&amp;gt;  | MOSN B =&amp;gt; App B |
+-------------------       -------------------
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;建议打开 &lt;a href=&#34;https://github.com/mosn/mosn/blob/master/configs/mosn_config.json&#34;&gt;示例配置文件&lt;/a&gt; ，阅读如下配置说明。&lt;/p&gt;
+&lt;h3 id=&#34;应用服务&#34;&gt;应用服务&lt;/h3&gt;
+&lt;p&gt;其中，&lt;code&gt;appListener&lt;/code&gt; 这个 listener 监听了 &lt;code&gt;2047&lt;/code&gt; 端口，使用 &lt;code&gt;application&lt;/code&gt; 这个 router，
+router 内配置了 &lt;code&gt;direct_response&lt;/code&gt;，输出静态配置内容。
+在这个示例里，模拟一个应用服务，&lt;code&gt;App B&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;我们可以使用如下命令测试：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ curl &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;http://localhost:2047/&amp;#39;&lt;/span&gt;
+Welcome to MOSN!
+The Cloud-Native Network Proxy Platform.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;流量代理转发&#34;&gt;流量代理转发&lt;/h3&gt;
+&lt;p&gt;其中，&lt;code&gt;serverListener&lt;/code&gt; 这个 listener 监听了 &lt;code&gt;2046&lt;/code&gt; 端口，使用 &lt;code&gt;server_router&lt;/code&gt; 这个 router，
+router 内配置启用了 &lt;code&gt;proxy&lt;/code&gt; 这个 filter，转发到 &lt;code&gt;serverCluster&lt;/code&gt; 这个 cluster。&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;cluster_manager&lt;/code&gt; 中可以看到 &lt;code&gt;serverCluster&lt;/code&gt; 的具体配置：&lt;code&gt;127.0.0.1:2047&lt;/code&gt;，也就是上面的 &lt;code&gt;App B&lt;/code&gt;。
+&lt;code&gt;serverListener&lt;/code&gt; 在示例里模拟了 &lt;code&gt;MOSN B&lt;/code&gt;，代理了 &lt;code&gt;App B&lt;/code&gt; 的入口流量。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;clientListener&lt;/code&gt; 和 &lt;code&gt;serverListener&lt;/code&gt; 类似，由 &lt;code&gt;2045&lt;/code&gt; 端口转发到 &lt;code&gt;2046&lt;/code&gt;。
+模拟了 &lt;code&gt;MOSN A&lt;/code&gt;，代理了 &lt;code&gt;App A&lt;/code&gt; 的入口流量。&lt;/p&gt;
+&lt;p&gt;剩下 &lt;code&gt;App A&lt;/code&gt;，我们可以通过 &lt;code&gt;curl&lt;/code&gt; 来模拟：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ curl &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;http://localhost:2045/&amp;#39;&lt;/span&gt;
+Welcome to MOSN!
+The Cloud-Native Network Proxy Platform.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上就构建了 MOSN 作为 sidecar 的典型使用示例。
+其他更多场景的用法，请参考 &lt;a href=&#34;../../configuration/&#34;&gt;配置概览&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;创建镜像&#34;&gt;创建镜像&lt;/h2&gt;
+&lt;p&gt;执行如下命令创建 docker image&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make image
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;更多-mosn-示例程序&#34;&gt;更多 MOSN 示例程序&lt;/h2&gt;
 &lt;p&gt;参考 &lt;code&gt;examples&lt;/code&gt; 目录下的示例工程&lt;a href=&#34;../../samples&#34;&gt;运行 Samples&lt;/a&gt;。&lt;/p&gt;
 &lt;h2 id=&#34;使用-mosn-搭建-service-mesh-平台&#34;&gt;使用 MOSN 搭建 Service Mesh 平台&lt;/h2&gt;
 &lt;p&gt;请参考&lt;a href=&#34;../istio&#34;&gt;与 Istio 集成&lt;/a&gt;。&lt;/p&gt;
