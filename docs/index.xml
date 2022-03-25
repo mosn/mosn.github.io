@@ -268,7 +268,6 @@
         
         
         &lt;p&gt;本文用于帮助初次接触 MOSN 项目的开发人员，快速搭建开发环境，完成构建，测试，打包和示例代码的运行。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;注&lt;/strong&gt;：MOSN 基于 Go 1.12.7 开发，使用 dep 进行依赖管理。&lt;/p&gt;
 &lt;h2 id=&#34;准备运行环境&#34;&gt;准备运行环境&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;如果您使用容器运行 MOSN，请先 &lt;a href=&#34;https://docs.docker.com/install/&#34;&gt;安装 docker&lt;/a&gt;&lt;/li&gt;
