@@ -17,13 +17,194 @@
     <item>
       <title>Docs: ClusterManager 配置</title>
       <link>https://mosn.io/docs/configuration/clustermanager/</link>
-      <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://mosn.io/docs/configuration/clustermanager/</guid>
       <description>
         
         
-        
+        &lt;p&gt;本文是关于 MOSN ClusterManager 配置的说明。&lt;/p&gt;
+&lt;p&gt;MOSN 中通过 &lt;code&gt;cluster_manager&lt;/code&gt; 来管理转发的集群地址，通常与 &lt;a href=&#34;https://mosn.io/docs/configuration/server/router/#route&#34;&gt;Router&lt;/a&gt; 配合使用。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;&amp;quot;cluster_manager&amp;quot;:{
+  &amp;quot;tls_context&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;clusters_configs&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;clusters&amp;quot;:[]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;tls_context&lt;/code&gt;，可选配置，用于描述 Cluster 全局共享的 TLS 配置，该配置项需要结合 clusters 配置中的 cluster_manager_tls 配置项一起使用，TLS 详细配置见 &lt;a href=&#34;https://mosn.io/docs/configuration/custom/#tls_context&#34;&gt;tls_context 文档&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;clusters_configs&lt;/code&gt;，可选配置，字符串类型，用于设置 Cluster 列表从 clusters_configs 指定的文件中解析。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;clusters&lt;/code&gt;，用于描述每个 Cluster 所采用的负载均衡算法、类型等细节信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;注意：cluster_manager 中的 clusters 和 clusters_configs 不能同时配置。&lt;/p&gt;
+&lt;h2 id=&#34;cluster&#34;&gt;cluster&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;{
+  &amp;quot;name&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;type&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;sub_type&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;lb_type&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;max_request_per_conn&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;conn_buffer_limit_bytes&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;circuit_breakers&amp;quot;:&amp;quot;&amp;quot;，
+  &amp;quot;health_check&amp;quot;:&amp;quot;&amp;quot;，
+  &amp;quot;spec&amp;quot;:&amp;quot;&amp;quot;，
+  &amp;quot;lb_subset_config&amp;quot;:&amp;quot;&amp;quot;，
+  &amp;quot;original_dst_lb_config&amp;quot;:&amp;quot;&amp;quot;，
+  &amp;quot;cluster_manager_tls&amp;quot;:&amp;quot;&amp;quot;，
+  &amp;quot;tls_context&amp;quot;:&amp;quot;&amp;quot;，
+  &amp;quot;hosts&amp;quot;:[],
+  &amp;quot;connect_timeout&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;idle_timeout&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;lbconfig&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;dns_refresh_rate&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;respect_dns_ttl&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;dns_lookup_family&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;dns_resolvers&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;dns_resolver_file&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;dns_resolver_port&amp;quot;:&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt;，字符串。用作 Cluster 的唯一标识。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;type&lt;/code&gt;，字符串。用于表示 Cluster 的类型，目前支持的类型如下：
+&lt;ul&gt;
+&lt;li&gt;SIMPLE，是最基础的类型。&lt;/li&gt;
+&lt;li&gt;ORIGINAL_DST，该种类型的&lt;/li&gt;
+&lt;li&gt;STRICT_DNS，该种类型会动态解析 Cluster 中的域名列表，并将域名对应的 A 记录全部加入转发列表中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sub_type&lt;/code&gt;，已废弃。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lb_type&lt;/code&gt;，字符串。在集群中选择主机时使用的负载平衡器类型，目前支持的类型如下：
+&lt;ul&gt;
+&lt;li&gt;LB_ROUNDROBIN，不带权重的轮训转发。&lt;/li&gt;
+&lt;li&gt;LB_RANDOM，随机转发。&lt;/li&gt;
+&lt;li&gt;LB_WEIGHTED_ROUNDROBIN，根据 host 的权重转发。&lt;/li&gt;
+&lt;li&gt;LB_ORIGINAL_DST，在透明劫持场景下使用原始目标地址做转发，也可以通过请求 header 设置目标地址。&lt;/li&gt;
+&lt;li&gt;LB_LEAST_REQUEST，选择请求数最少的 host 转发。&lt;/li&gt;
+&lt;li&gt;LB_MAGLEV，一致性 hash 转发。&lt;/li&gt;
+&lt;li&gt;LB_REQUEST_ROUNDROBIN，同一个请求粒度的轮训转发。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;max_request_per_conn&lt;/code&gt;，uint32 类型，暂未实现。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;conn_buffer_limit_bytes&lt;/code&gt;，uint32 类型，暂未实现。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;circuit_breakers&lt;/code&gt;，CircuitBreakers 类型，既 &lt;a href=&#34;#Thresholds&#34;&gt;Thresholds&lt;/a&gt; 类型的数组，用于配置 Cluster 的熔断配置。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;health_check&lt;/code&gt;，&lt;a href=&#34;#HealthCheck&#34;&gt;HealthCheck&lt;/a&gt; 类型，群集可选的健康检查配置。如果未指定该配置，则不会执行主动健康检查，且默认群集中的成员都将是健康状态。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;spec&lt;/code&gt;，暂未使用。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lb_subset_config&lt;/code&gt;，&lt;a href=&#34;#LBSubsetConfig&#34;&gt;LBSubsetConfig&lt;/a&gt; 类型，用于配置负载均衡的子集。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;original_dst_lb_config&lt;/code&gt;，&lt;a href=&#34;#LBOriDstConfig&#34;&gt;LBOriDstConfig&lt;/a&gt; 类型，用于配置 LB_ORIGINAL_DST 类型的负载均衡器配置。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cluster_manager_tls&lt;/code&gt;，bool 类型，用于控制每个 Cluster 是否使用全局共享的 TLS 配置，为 true 则共享，默认值为 false。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tls_context&lt;/code&gt;，TLSConfig 类型，连接到上游群集的 TLS 配置。若没有指定 TLS 配置，则新连接不会使用 TLS，配置实例参考 &lt;a href=&#34;https://mosn.io/docs/configuration/custom/#tls_context&#34;&gt;tls_context 文档&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hosts&lt;/code&gt;，[]&lt;a href=&#34;#Host&#34;&gt;Host&lt;/a&gt;  类型，用于配置 Cluster 中的机器列表。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;connect_timeout&lt;/code&gt;，&lt;a href=&#34;../custom#duration-string&#34;&gt;Duration&lt;/a&gt; 类型，连接到该群集中主机的超时时长，默认值为 3 秒。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;idle_timeout&lt;/code&gt;，&lt;a href=&#34;../custom#duration-string&#34;&gt;Duration&lt;/a&gt; 类型，用于设置 Cluster 中的连接空闲超时时间，若发生超时则会断开连接，中默认值为 0，表示不设置连接的空闲超时。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lbconfig&lt;/code&gt;，为负载均衡器提供的扩展配置，目前只有 LB_LEAST_REQUEST 类型的负载均衡器有使用。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dns_refresh_rate&lt;/code&gt;，&lt;a href=&#34;../custom#duration-string&#34;&gt;Duration&lt;/a&gt; 类型，在群集类型是 STRICT_DNS 时，用于设置 DNS 刷新频率，此值默认为 5 秒。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;respect_dns_ttl&lt;/code&gt;，bool 类型，用于设置当 Cluster 类型为 STRICT_DNS 时，其域名对应的解析频率是否遵循 DNS 返回的 TTL。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dns_lookup_family&lt;/code&gt;，字符串类型，DNS IP 地址解析策略。 如果未指定此设置，则该值默认为 V4_ONLY。取值列表如下：
+&lt;ul&gt;
+&lt;li&gt;V4_ONLY，表示只解析 IPv4&lt;/li&gt;
+&lt;li&gt;V6_ONLY，表示只解析 IPv6&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dns_resolvers&lt;/code&gt;，&lt;a href=&#34;#DnsResolverConfig&#34;&gt;DnsResolverConfig&lt;/a&gt; 类型，在群集类型是 STRICT_DNS，此值用于指定群集的 DNS 解析相关配置。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dns_resolver_file&lt;/code&gt;，字符串类型，用于设置 DNS server 列表的文件路径，该值默认为使用 /etc/resolv.conf 配置的默认解析器，该配置项仅在 dns_resolvers 未配置时生效。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dns_resolver_port&lt;/code&gt;，字符串类型，用于设置 DNS server 地址的 port，默认值为 53，该配置项仅在 dns_resolvers 未配置时生效。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;thresholds&#34;&gt;Thresholds&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;{
+  &amp;quot;max_connections&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;max_pending_requests&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;max_requests&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;max_retries&amp;quot;:&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;max_connections&lt;/code&gt;，uint32 类型。用于设置 Cluster 中每台机器的最大连接数，对于 HTTP 协议，超过后会响应 502，对于多路复用协议则是控制单个 host 建立的最大连接数。默认值为 0 表示不启用该配置。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;max_pending_requests&lt;/code&gt;，uint32 类型。代表 Cluster 的最大排队数量，暂未使用到。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;max_requests&lt;/code&gt;，uint32 类型。将对上游群集执行的最大并行请求数，若超过限制则会响应 502，目前仅在 HTTP 系协议下生效。默认值为 0 表示不启用该配置。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;max_retries&lt;/code&gt;，uint32 类型。允许上游集群执行的最大并行重试次数，目前只在 HTTP 系协议下生效。默认值为 0 表示不启用该配置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;healthcheck&#34;&gt;HealthCheck&lt;/h2&gt;
+&lt;p&gt;HealthCheckConfig&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;{
+  &amp;quot;protocol&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;timeout&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;interval&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;interval_jitter&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;healthy_threshold&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;unhealthy_threshold&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;service_name&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;check_config&amp;quot;:&amp;quot;&amp;quot;
+  &amp;quot;common_callbacks&amp;quot;:&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;protocol&lt;/code&gt;，字符串类型，用于设置 Cluster 发起健康检查使用的协议类型，目前只支持 TCP。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeout&lt;/code&gt;，&lt;a href=&#34;../custom#duration-string&#34;&gt;Duration&lt;/a&gt; 类型，等待健康检查响应的时间。如果达到超时，则尝试健康检查将被视为失败。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;interval&lt;/code&gt;，&lt;a href=&#34;../custom#duration-string&#34;&gt;Duration&lt;/a&gt; 类型，每次尝试健康检查之间的时间间隔。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;interval_jitter&lt;/code&gt;，&lt;a href=&#34;../custom#duration-string&#34;&gt;Duration&lt;/a&gt; 类型，用于设置 interval 的随机抖动量，设置后将抖动量叠加到 interval 上。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;healthy_threshold&lt;/code&gt;，uint32 类型，主机在标记为健康之前所需的连续健康检查次数，默认值为 1。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unhealthy_threshold&lt;/code&gt;，uint32 类型，在主机被标记为不健康之前，需要进行连续不健康的健康检查次数，默认值为 1。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;service_name&lt;/code&gt;，字符串类型，暂未支持。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;check_config&lt;/code&gt;，map[string]interface{} 类型，用于健康检查的扩展配置，暂未使用。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;common_callbacks&lt;/code&gt;，[]string 类型，用于设置对应 Cluster 健康检查时执行的 callback。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;lbsubsetconfig&#34;&gt;LBSubsetConfig&lt;/h2&gt;
+&lt;p&gt;LBSubsetConfig 主要用于 Cluster 中更为灵活的请求路由，列如 ABTesting、金丝雀发布、单元化等。详细使用可以参考 &lt;a href=&#34;https://mosn.io/blog/posts/how-use-dynamic-metadata/#mosn-subset&#34;&gt;MOSN subset 路由实践&lt;/a&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;{
+  &amp;quot;fall_back_policy&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;default_subset&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;subset_selectors&amp;quot;:&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;fall_back_policy&lt;/code&gt;，uint8 类型，用于设置在查找子集群失败时的容灾策略，当前支持如下配置：
+&lt;ul&gt;
+&lt;li&gt;0，表示 NoFallBack，没有查找到匹配的子集群则不使用容灾策略&lt;/li&gt;
+&lt;li&gt;1，表示 AnyEndPoint，既在 Cluster 的 Host 列表中轮训选择目标机器&lt;/li&gt;
+&lt;li&gt;2，表示使用 DefaultSubset 策略重新查找子集群&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;default_subset&lt;/code&gt;，map[string]string 类型，如果 fallback_policy 为 2 既 DEFAULT_SUBSET，则指定在回退期间使用的端点的默认子集。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;subset_selectors&lt;/code&gt;，[][]string 类型，用于设置子集群匹配规则查找的条目。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;lboridstconfig&#34;&gt;LBOriDstConfig&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;{
+  &amp;quot;use_header&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;header_name&amp;quot;:&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;use_header&lt;/code&gt;，bool 类型，将该配置设置为 true 且负载均衡器使用 LB_ORIGINAL_DST 类型时，则转发的目标地址通过 header_name 从当前请求 header 中获取。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;header_name&lt;/code&gt;，字符串类型，用于设置目标地址从 header_name 对应的 header 中获取，默认值为 host。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;host&#34;&gt;Host&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;{
+  &amp;quot;address&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;hostname&amp;quot;:&amp;quot;&amp;quot;
+  &amp;quot;weight&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;metadata&amp;quot;:&amp;quot;&amp;quot;，
+  &amp;quot;tls_disable&amp;quot;:&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;address&lt;/code&gt;，字符串类型，用于设置集群的地址和端口。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hostname&lt;/code&gt;，字符串类型，对应地址的名称，可以是一个域名。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;weight&lt;/code&gt;，uint32 类型，对应地址的权重。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;metadata&lt;/code&gt;，*MetadataConfig 类型，用于设置对应机器的 metadata 信息，通常和 LBSubsetConfig 一起使用。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tls_disable&lt;/code&gt;，bool 类型，用于标记对应机器是否开启 TLS。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;dnsresolverconfig&#34;&gt;DnsResolverConfig&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;{
+  &amp;quot;servers&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;search&amp;quot;:&amp;quot;&amp;quot;
+  &amp;quot;port&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;ndots&amp;quot;:&amp;quot;&amp;quot;，
+  &amp;quot;timeout&amp;quot;:&amp;quot;&amp;quot;，
+  &amp;quot;attempts&amp;quot;:&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;servers&lt;/code&gt;，[]string 类型，用于设置 DNS 服务器列表。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;search&lt;/code&gt;，[]string 类型，用于设置和目标域名拼接的后缀列表，结合 ndots 使用。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port&lt;/code&gt;，字符串类型，设置发起 DNS 请求的端口，默认值为 53。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ndots&lt;/code&gt;，int 类型，用于设置 DNS 查询域名是否将 search 中的列表依次追加到待查询域名末尾，如果该值大于待查询域名中的 “.” 数量，则将待查询域名末尾拼依次接 search 中设置的后缀，默认值为 0。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeout&lt;/code&gt;，int 类型，用于设置 DNS 更新超时时间，单位为秒。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;attempts&lt;/code&gt;，int 类型，一次 DNS 请求中尝试查询的 DSN server 的次数。&lt;/li&gt;
+&lt;/ul&gt;
+
       </description>
     </item>
     
@@ -40,15 +221,20 @@
 &lt;p&gt;虽然 MOSN 的配置结构里 &lt;code&gt;servers&lt;/code&gt; 是一个 server 数组，但是目前最多只支持配置一个server。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;server&lt;/code&gt; 描述的 MOSN 的基本的全局参数如下所示。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;{
+  &amp;quot;mosn_server_name&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;default_log_path&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;default_log_level&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;global_log_roller&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;use_netpoll_mode&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;graceful_timeout&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;optimize_local_write&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;processor&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;listeners&amp;quot;:[],
   &amp;quot;routers&amp;quot;:[]
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;default_log_path&#34;&gt;default_log_path&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;mosn_server_name&#34;&gt;mosn_server_name&lt;/h2&gt;
+&lt;p&gt;字符串类型，用于设置当前 server 的标识。&lt;/p&gt;
+&lt;h2 id=&#34;default_log_path&#34;&gt;default_log_path&lt;/h2&gt;
 &lt;p&gt;默认的错误日志文件路径，支持配置完整的日志路径，以及标准输出（stdout）和标准错误（stderr）。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;如果配置为空，则默认输出到标准错误（stderr）。&lt;/li&gt;
@@ -80,10 +266,18 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre&gt;&lt;code&gt;&amp;quot;global_log_roller&amp;quot;:&amp;quot;time=1&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;graceful_timeout&#34;&gt;graceful_timeout&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;use_netpoll_mode&#34;&gt;use_netpoll_mode&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;bool 类型，设置为 true 则表示开启 MOSN 的网络处理采用 netpoll 模型，默认值为 false。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;graceful_timeout&#34;&gt;graceful_timeout&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;../custom#duration-string&#34;&gt;Duration String &lt;/a&gt;的字符串配置，表示 MOSN 在进行平滑升级时，等待连接关闭的最大时间。&lt;/li&gt;
 &lt;li&gt;如果没有配置，默认为 30s。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;optimize_local_write&#34;&gt;optimize_local_write&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;bool 类型，设置为 true 则表示当连接的目标地址是 Localhost 时，将使用 goroutine 进行异步写入，这样可以获得更好的性能，但降低了写入时间的准确性，默认值为 false。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;processor&#34;&gt;processor&lt;/h3&gt;
 &lt;p&gt;MOSN 使用的 &lt;code&gt;GOMAXPROCS&lt;/code&gt; 数量&lt;/p&gt;

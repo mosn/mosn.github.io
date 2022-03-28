@@ -23,7 +23,7 @@
 <meta property="og:description" content="MOSN server 配置说明。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mosn.io/docs/configuration/server/" />
-<meta property="og:updated_time" content="2022-03-25T19:55:51+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="og:updated_time" content="2022-03-28T16:54:22+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="Server 配置">
 <meta itemprop="description" content="MOSN server 配置说明。">
 <meta name="twitter:card" content="summary"/>
@@ -621,10 +621,13 @@ if (!doNotTrack) {
 
 <nav id="TableOfContents">
   <ul>
+    <li><a href="#mosn_server_name">mosn_server_name</a></li>
     <li><a href="#default_log_path">default_log_path</a></li>
     <li><a href="#default_log_level">default_log_level</a></li>
     <li><a href="#global_log_roller">global_log_roller</a></li>
-    <li><a href="#graceful_timeout">graceful_timeout</a>
+    <li><a href="#use_netpoll_mode">use_netpoll_mode</a></li>
+    <li><a href="#graceful_timeout">graceful_timeout</a></li>
+    <li><a href="#optimize_local_write">optimize_local_write</a>
       <ul>
         <li><a href="#processor">processor</a></li>
       </ul>
@@ -681,15 +684,20 @@ if (!doNotTrack) {
 <p>虽然 MOSN 的配置结构里 <code>servers</code> 是一个 server 数组，但是目前最多只支持配置一个server。</p>
 <p><code>server</code> 描述的 MOSN 的基本的全局参数如下所示。</p>
 <pre><code class="language-josn" data-lang="josn">{
+  &quot;mosn_server_name&quot;:&quot;&quot;,
   &quot;default_log_path&quot;:&quot;&quot;,
   &quot;default_log_level&quot;:&quot;&quot;,
   &quot;global_log_roller&quot;:&quot;&quot;,
+  &quot;use_netpoll_mode&quot;:&quot;&quot;,
   &quot;graceful_timeout&quot;:&quot;&quot;,
+  &quot;optimize_local_write&quot;:&quot;&quot;,
   &quot;processor&quot;:&quot;&quot;,
   &quot;listeners&quot;:[],
   &quot;routers&quot;:[]
 }
-</code></pre><h2 id="default_log_path">default_log_path</h2>
+</code></pre><h2 id="mosn_server_name">mosn_server_name</h2>
+<p>字符串类型，用于设置当前 server 的标识。</p>
+<h2 id="default_log_path">default_log_path</h2>
 <p>默认的错误日志文件路径，支持配置完整的日志路径，以及标准输出（stdout）和标准错误（stderr）。</p>
 <ul>
 <li>如果配置为空，则默认输出到标准错误（stderr）。</li>
@@ -721,10 +729,18 @@ if (!doNotTrack) {
 </li>
 </ul>
 <pre><code>&quot;global_log_roller&quot;:&quot;time=1&quot;
-</code></pre><h2 id="graceful_timeout">graceful_timeout</h2>
+</code></pre><h2 id="use_netpoll_mode">use_netpoll_mode</h2>
+<ul>
+<li>bool 类型，设置为 true 则表示开启 MOSN 的网络处理采用 netpoll 模型，默认值为 false。</li>
+</ul>
+<h2 id="graceful_timeout">graceful_timeout</h2>
 <ul>
 <li><a href="../custom#duration-string">Duration String </a>的字符串配置，表示 MOSN 在进行平滑升级时，等待连接关闭的最大时间。</li>
 <li>如果没有配置，默认为 30s。</li>
+</ul>
+<h2 id="optimize_local_write">optimize_local_write</h2>
+<ul>
+<li>bool 类型，设置为 true 则表示当连接的目标地址是 Localhost 时，将使用 goroutine 进行异步写入，这样可以获得更好的性能，但降低了写入时间的准确性，默认值为 false。</li>
 </ul>
 <h3 id="processor">processor</h3>
 <p>MOSN 使用的 <code>GOMAXPROCS</code> 数量</p>
@@ -771,14 +787,14 @@ if (!doNotTrack) {
             
         
             
+        
+            
                 <div class="entry">
                     <h5>
                         <a href="/docs/configuration/server/router/">Router 配置</a>
                     </h5>
                     <p>路由配置说明。</p>
                 </div>
-            
-        
             
         
             
@@ -841,7 +857,7 @@ if (!doNotTrack) {
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年3月25日: <a  href="https://github.com/mosn/mosn.io/commit/27220ff368ab0555a5ef2cc8caa677a34702df47">footer: added a DingTalk QR code. (#188) (27220ff)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年3月28日: <a  href="https://github.com/mosn/mosn.io/commit/1b4f7b8ba7bbebb51a568b3b3ba54a5fe55c324e">add cluster config doc and update server config doc. (#187) (1b4f7b8)</a>
 </div>
 </div>
 
