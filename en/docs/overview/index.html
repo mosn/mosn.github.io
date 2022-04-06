@@ -23,14 +23,14 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/en/docs/overview/" />
-<meta property="article:published_time" content="2020-01-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-03-28T16:54:22+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:published_time" content="2022-03-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-04-06T21:25:43+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN overview">
 <meta itemprop="description" content="The basic description of MOSN.
 ">
-<meta itemprop="datePublished" content="2020-01-20T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-03-28T16:54:22+08:00" />
-<meta itemprop="wordCount" content="279">
+<meta itemprop="datePublished" content="2022-03-28T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-04-06T21:25:43+08:00" />
+<meta itemprop="wordCount" content="364">
 
 
 
@@ -612,63 +612,78 @@ if (!doNotTrack) {
 <ul>
 <li>Istio integration
 <ul>
-<li>Integrates Istio 1.0 and V4 API to run in full dynamic resource configuration mode</li>
+<li>Integrates Istio 1.10 to run in full dynamic resource configuration mode</li>
 </ul>
 </li>
 <li>Core forwarding
 <ul>
 <li>Supports a self-contained server</li>
 <li>Supports the TCP proxy</li>
-<li>Supports the TProxy mode</li>
+<li>Supports the UDP proxy</li>
+<li>Supports transparent traffic hijack mode</li>
 </ul>
 </li>
 <li>Multi-protocol
 <ul>
 <li>Supports HTTP/1.1 and HTTP/2</li>
-<li>Supports SOFARPC</li>
-<li>Supports Dubbo</li>
-<li>Supports Tars</li>
+<li>Supports protocol extension based on XProtocol framework</li>
+<li>Supports protocol automatic identification</li>
+<li>Supports gRPC</li>
 </ul>
 </li>
 <li>Core routing
 <ul>
 <li>Supports virtual host-based routing</li>
-<li>Supports headers/URL/prefix-based routing</li>
+<li>Supports headers/URL/prefix/variable/dsl routing</li>
+<li>Supports redirect/direct response/traffic mirror routing</li>
 <li>Supports host metadata-based subset routing</li>
-<li>Supports retries</li>
+<li>Supports weighted routing.</li>
+<li>Supports retries and timeout configuration</li>
+<li>Supports request and response headers to add/remove</li>
 </ul>
 </li>
 <li>Back-end management &amp; load balancing
 <ul>
 <li>Supports connection pools</li>
+<li>Supports persistent connection&rsquo;s heart beat handling</li>
 <li>Supports circuit breaker</li>
 <li>Supports active back-end health check</li>
-<li>Supports load balancing policies such as random and RR</li>
+<li>Supports load balancing policies: random/rr/wrr/edf</li>
 <li>Supports host metadata-based subset load balancing policies</li>
+<li>Supports different cluster types: original dst/dns/simple</li>
+<li>Supports cluster type extension</li>
 </ul>
 </li>
 <li>Observability
 <ul>
-<li>Observes network data</li>
-<li>Observes protocol data</li>
+<li>Support trace module extension</li>
+<li>Integrates jaeger/skywalking</li>
+<li>Support metrics with prometheus style</li>
+<li>Support configurable access log</li>
+<li>Support admin API extension</li>
+<li>Integrates <a href="https://github.com/mosn/holmes">Holmes</a> to automatic trigger pprof</li>
 </ul>
 </li>
 <li>TLS
 <ul>
-<li>Supports HTTP/1.1 on TLS</li>
-<li>Supports HTTP/2.0 on TLS</li>
-<li>Supports SOFARPC on TLS</li>
+<li>Support multiple certificates matches, and TLS inspector mode.</li>
+<li>Support SDS for certificate get and update</li>
+<li>Support extensible certificate get, update and verify</li>
+<li>Support CGo-based cipher suites: SM3/SM4</li>
 </ul>
 </li>
 <li>Process management
 <ul>
-<li>Supports smooth reload</li>
 <li>Supports hot upgrades</li>
+<li>Supports graceful shutdown</li>
 </ul>
 </li>
 <li>Extension capabilities
 <ul>
-<li>Supports custom private protocols</li>
+<li>Supports go-plugin based extension</li>
+<li>Supports process based extension</li>
+<li>Supports WASM based extension</li>
+<li>Supports custom extensions configuration</li>
 <li>Supports custom extensions at the TCP I/O layer and protocol layer</li>
 </ul>
 </li>
@@ -679,7 +694,7 @@ if (!doNotTrack) {
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified March 28, 2022: <a  href="https://github.com/mosn/mosn.io/commit/1b4f7b8ba7bbebb51a568b3b3ba54a5fe55c324e">add cluster config doc and update server config doc. (#187) (1b4f7b8)</a>
+	<div class="text-muted mt-5 pt-3 border-top">Last modified April 6, 2022: <a  href="https://github.com/mosn/mosn.io/commit/d66d6cf4c96fbae0950eaee127fee0622469e0f5">updated overview (#189) (d66d6cf)</a>
 </div>
 </div>
 

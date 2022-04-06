@@ -14,6 +14,105 @@
     
     
     <item>
+      <title>Docs: MOSN overview</title>
+      <link>https://mosn.io/en/docs/overview/</link>
+      <pubDate>Mon, 28 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/docs/overview/</guid>
+      <description>
+        
+        
+        &lt;p&gt;MOSN (Modular Open Smart Network) is a cloud-native network proxy written in Go language. It is open sourced by Ant Group and verified by hundreds of thousands of production containers in 11.11 global shopping festival. MOSN provides the capabilities of multiple protocol, modularity, intelligent and security. It integrates a large number of cloud-native components, and also integrates a Envoy network library, which is high-performance and easy to expand. MOSN and Istio can be integrated to build Service Mesh, and can also be used as independent L4/L7 load balancers, API gateways, cloud native Ingress, and etc.&lt;/p&gt;
+&lt;h2 id=&#34;quick-start&#34;&gt;Quick start&lt;/h2&gt;
+&lt;p&gt;For details, see &lt;a href=&#34;../quick-start&#34;&gt;Quick start&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;core-capabilities&#34;&gt;Core capabilities&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Istio integration
+&lt;ul&gt;
+&lt;li&gt;Integrates Istio 1.10 to run in full dynamic resource configuration mode&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Core forwarding
+&lt;ul&gt;
+&lt;li&gt;Supports a self-contained server&lt;/li&gt;
+&lt;li&gt;Supports the TCP proxy&lt;/li&gt;
+&lt;li&gt;Supports the UDP proxy&lt;/li&gt;
+&lt;li&gt;Supports transparent traffic hijack mode&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Multi-protocol
+&lt;ul&gt;
+&lt;li&gt;Supports HTTP/1.1 and HTTP/2&lt;/li&gt;
+&lt;li&gt;Supports protocol extension based on XProtocol framework&lt;/li&gt;
+&lt;li&gt;Supports protocol automatic identification&lt;/li&gt;
+&lt;li&gt;Supports gRPC&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Core routing
+&lt;ul&gt;
+&lt;li&gt;Supports virtual host-based routing&lt;/li&gt;
+&lt;li&gt;Supports headers/URL/prefix/variable/dsl routing&lt;/li&gt;
+&lt;li&gt;Supports redirect/direct response/traffic mirror routing&lt;/li&gt;
+&lt;li&gt;Supports host metadata-based subset routing&lt;/li&gt;
+&lt;li&gt;Supports weighted routing.&lt;/li&gt;
+&lt;li&gt;Supports retries and timeout configuration&lt;/li&gt;
+&lt;li&gt;Supports request and response headers to add/remove&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Back-end management &amp;amp; load balancing
+&lt;ul&gt;
+&lt;li&gt;Supports connection pools&lt;/li&gt;
+&lt;li&gt;Supports persistent connection&amp;rsquo;s heart beat handling&lt;/li&gt;
+&lt;li&gt;Supports circuit breaker&lt;/li&gt;
+&lt;li&gt;Supports active back-end health check&lt;/li&gt;
+&lt;li&gt;Supports load balancing policies: random/rr/wrr/edf&lt;/li&gt;
+&lt;li&gt;Supports host metadata-based subset load balancing policies&lt;/li&gt;
+&lt;li&gt;Supports different cluster types: original dst/dns/simple&lt;/li&gt;
+&lt;li&gt;Supports cluster type extension&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Observability
+&lt;ul&gt;
+&lt;li&gt;Support trace module extension&lt;/li&gt;
+&lt;li&gt;Integrates jaeger/skywalking&lt;/li&gt;
+&lt;li&gt;Support metrics with prometheus style&lt;/li&gt;
+&lt;li&gt;Support configurable access log&lt;/li&gt;
+&lt;li&gt;Support admin API extension&lt;/li&gt;
+&lt;li&gt;Integrates &lt;a href=&#34;https://github.com/mosn/holmes&#34;&gt;Holmes&lt;/a&gt; to automatic trigger pprof&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;TLS
+&lt;ul&gt;
+&lt;li&gt;Support multiple certificates matches, and TLS inspector mode.&lt;/li&gt;
+&lt;li&gt;Support SDS for certificate get and update&lt;/li&gt;
+&lt;li&gt;Support extensible certificate get, update and verify&lt;/li&gt;
+&lt;li&gt;Support CGo-based cipher suites: SM3/SM4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Process management
+&lt;ul&gt;
+&lt;li&gt;Supports hot upgrades&lt;/li&gt;
+&lt;li&gt;Supports graceful shutdown&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Extension capabilities
+&lt;ul&gt;
+&lt;li&gt;Supports go-plugin based extension&lt;/li&gt;
+&lt;li&gt;Supports process based extension&lt;/li&gt;
+&lt;li&gt;Supports WASM based extension&lt;/li&gt;
+&lt;li&gt;Supports custom extensions configuration&lt;/li&gt;
+&lt;li&gt;Supports custom extensions at the TCP I/O layer and protocol layer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;mosn-community&#34;&gt;MOSN Community&lt;/h2&gt;
+&lt;p&gt;The MOSN open-source community is developing rapidly and expecting continuous improvements. You are all welcome to join us.&lt;/p&gt;
+&lt;p&gt;For a more detailed description of the MOSN community check out the &lt;a href=&#34;https://github.com/mosn/community&#34;&gt;mosn/community&lt;/a&gt; repo, if you have any questions, &lt;a href=&#34;https://github.com/mosn/mosn/issues&#34;&gt;submit issues&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: SkyWalking configurations</title>
       <link>https://mosn.io/en/docs/configuration/trace/skywalking/</link>
       <pubDate>Wed, 08 Apr 2020 00:00:00 +0000</pubDate>
@@ -176,90 +275,6 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-
-      </description>
-    </item>
-    
-    <item>
-      <title>Docs: MOSN overview</title>
-      <link>https://mosn.io/en/docs/overview/</link>
-      <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mosn.io/en/docs/overview/</guid>
-      <description>
-        
-        
-        &lt;p&gt;MOSN (Modular Open Smart Network) is a cloud-native network proxy written in Go language. It is open sourced by Ant Group and verified by hundreds of thousands of production containers in 11.11 global shopping festival. MOSN provides the capabilities of multiple protocol, modularity, intelligent and security. It integrates a large number of cloud-native components, and also integrates a Envoy network library, which is high-performance and easy to expand. MOSN and Istio can be integrated to build Service Mesh, and can also be used as independent L4/L7 load balancers, API gateways, cloud native Ingress, and etc.&lt;/p&gt;
-&lt;h2 id=&#34;quick-start&#34;&gt;Quick start&lt;/h2&gt;
-&lt;p&gt;For details, see &lt;a href=&#34;../quick-start&#34;&gt;Quick start&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;core-capabilities&#34;&gt;Core capabilities&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Istio integration
-&lt;ul&gt;
-&lt;li&gt;Integrates Istio 1.0 and V4 API to run in full dynamic resource configuration mode&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Core forwarding
-&lt;ul&gt;
-&lt;li&gt;Supports a self-contained server&lt;/li&gt;
-&lt;li&gt;Supports the TCP proxy&lt;/li&gt;
-&lt;li&gt;Supports the TProxy mode&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Multi-protocol
-&lt;ul&gt;
-&lt;li&gt;Supports HTTP/1.1 and HTTP/2&lt;/li&gt;
-&lt;li&gt;Supports SOFARPC&lt;/li&gt;
-&lt;li&gt;Supports Dubbo&lt;/li&gt;
-&lt;li&gt;Supports Tars&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Core routing
-&lt;ul&gt;
-&lt;li&gt;Supports virtual host-based routing&lt;/li&gt;
-&lt;li&gt;Supports headers/URL/prefix-based routing&lt;/li&gt;
-&lt;li&gt;Supports host metadata-based subset routing&lt;/li&gt;
-&lt;li&gt;Supports retries&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Back-end management &amp;amp; load balancing
-&lt;ul&gt;
-&lt;li&gt;Supports connection pools&lt;/li&gt;
-&lt;li&gt;Supports circuit breaker&lt;/li&gt;
-&lt;li&gt;Supports active back-end health check&lt;/li&gt;
-&lt;li&gt;Supports load balancing policies such as random and RR&lt;/li&gt;
-&lt;li&gt;Supports host metadata-based subset load balancing policies&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Observability
-&lt;ul&gt;
-&lt;li&gt;Observes network data&lt;/li&gt;
-&lt;li&gt;Observes protocol data&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;TLS
-&lt;ul&gt;
-&lt;li&gt;Supports HTTP/1.1 on TLS&lt;/li&gt;
-&lt;li&gt;Supports HTTP/2.0 on TLS&lt;/li&gt;
-&lt;li&gt;Supports SOFARPC on TLS&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Process management
-&lt;ul&gt;
-&lt;li&gt;Supports smooth reload&lt;/li&gt;
-&lt;li&gt;Supports hot upgrades&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Extension capabilities
-&lt;ul&gt;
-&lt;li&gt;Supports custom private protocols&lt;/li&gt;
-&lt;li&gt;Supports custom extensions at the TCP I/O layer and protocol layer&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;mosn-community&#34;&gt;MOSN Community&lt;/h2&gt;
-&lt;p&gt;The MOSN open-source community is developing rapidly and expecting continuous improvements. You are all welcome to join us.&lt;/p&gt;
-&lt;p&gt;For a more detailed description of the MOSN community check out the &lt;a href=&#34;https://github.com/mosn/community&#34;&gt;mosn/community&lt;/a&gt; repo, if you have any questions, &lt;a href=&#34;https://github.com/mosn/mosn/issues&#34;&gt;submit issues&lt;/a&gt;.&lt;/p&gt;
 
       </description>
     </item>
