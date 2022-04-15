@@ -17,7 +17,7 @@
     <item>
       <title>Docs: Router 配置</title>
       <link>https://mosn.io/docs/configuration/server/router/</link>
-      <pubDate>Fri, 13 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://mosn.io/docs/configuration/server/router/</guid>
       <description>
@@ -135,8 +135,9 @@
   &amp;quot;metadata_match&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;timeout&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;retry_policy&amp;quot;:{},
+  &amp;quot;hash_policy&amp;quot;:{},
   &amp;quot;prefix_rewrite&amp;quot;:&amp;quot;&amp;quot;,
-  &amp;quot;regex_rewrite&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;regex_rewrite&amp;quot;:{},
   &amp;quot;host_rewrite&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;request_headers_to_add&amp;quot;:[],
   &amp;quot;request_headers_to_remove&amp;quot;:[],
@@ -150,6 +151,10 @@
 &lt;li&gt;&lt;code&gt;metadata_match&lt;/code&gt;，&lt;a href=&#34;../../custom#metadata&#34;&gt;metadata&lt;/a&gt;，如果配置了该字段，表示该路由会基于该 metadata 去匹配 upstream cluster 的 subset 。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;timeout&lt;/code&gt;，&lt;a href=&#34;../../custom#duration-string&#34;&gt;Duration String&lt;/a&gt;，表示默认情况下请求转发的超时时间。如果请求中明确指定了超时时间，那么这个配置会被忽略。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;retry_policy&lt;/code&gt;，重试配置，表示如果请求在遇到了特定的错误时采取的重试策略，默认没有配置的情况下，表示没有重试。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hash_policy&lt;/code&gt;，一致性Hash负载均衡算法使用的hash key。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;prefix_rewrite&lt;/code&gt; &lt;code&gt;regex_rewrite&lt;/code&gt; &lt;code&gt;host_rewrite&lt;/code&gt;，修改请求的 &lt;code&gt;path&lt;/code&gt; 和 &lt;code&gt;host&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;request_headers_to_add&lt;/code&gt; &lt;code&gt;request_headers_to_remove&lt;/code&gt;，表示增加或者删除请求的 header。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;response_headers_to_add&lt;/code&gt; &lt;code&gt;response_headers_to_remove&lt;/code&gt;，表示增加或者删除响应的 header。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;redirect&#34;&gt;redirect&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
@@ -236,8 +241,8 @@
     }
 ]
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;匹配规则---变量&#34;&gt;匹配规则 - 变量&lt;/h3&gt;
-&lt;p&gt;可以通过 filter 设置新的变量，以及 MOSN 内置的变量，进行路由转发规则。
-如下例子就是变量 &lt;code&gt;x-mosn-path&lt;/code&gt;（ MOSN 内置变量，表示请求的 &lt;code&gt;path&lt;/code&gt;） 等于 &lt;code&gt;/b&lt;/code&gt; 满足匹配。&lt;/p&gt;
+&lt;p&gt;可以通过 filter 设置新的变量，以及 MOSN 内置的变量，进行路由转发规则。&lt;br&gt;
+如下例子变量 &lt;code&gt;x-mosn-path&lt;/code&gt;（ MOSN 内置变量，表示请求的 &lt;code&gt;path&lt;/code&gt;） 等于 &lt;code&gt;/b&lt;/code&gt; 满足匹配。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;quot;routers&amp;quot;: [
     {
         &amp;quot;match&amp;quot;:{
@@ -251,8 +256,7 @@
         }
     }
 ]
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;匹配动作--&#34;&gt;匹配动作 -&lt;/h3&gt;
-&lt;h3 id=&#34;匹配动作---修改path&#34;&gt;匹配动作 - 修改path&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;匹配行为---修改path&#34;&gt;匹配行为 - 修改path&lt;/h3&gt;
 &lt;p&gt;下例把请求的 &lt;code&gt;path&lt;/code&gt; 修改为 &lt;code&gt;/abc&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;quot;routers&amp;quot;: [
     {
@@ -265,7 +269,7 @@
         }
     }
 ]
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;匹配动作---添加删除-header&#34;&gt;匹配动作 - 添加删除 header&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;匹配行为---添加删除-header&#34;&gt;匹配行为 - 添加删除 header&lt;/h3&gt;
 &lt;p&gt;下例在转发给后端之前，新增&lt;code&gt;test:ok&lt;/code&gt; ，删除&lt;code&gt;hello&lt;/code&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;quot;routers&amp;quot;: [
     {
@@ -287,8 +291,8 @@
     }
 ]
 
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;匹配动作---redirect&#34;&gt;匹配动作 - redirect&lt;/h3&gt;
-&lt;p&gt;除了转发到 cluster 之外，也支持 redirect 的匹配动作。
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;匹配行为---redirect&#34;&gt;匹配行为 - redirect&lt;/h3&gt;
+&lt;p&gt;除了转发到 cluster 之外，也支持 redirect 的匹配动作。&lt;br&gt;
 下例将 &lt;code&gt;301&lt;/code&gt; 跳转，&lt;code&gt;Location: http://test/b&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;quot;routers&amp;quot;: [
     {
@@ -303,7 +307,7 @@
         }
     }
 ]
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;匹配动作---直接响应&#34;&gt;匹配动作 - 直接响应&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;匹配行为---直接响应&#34;&gt;匹配行为 - 直接响应&lt;/h3&gt;
 &lt;p&gt;满足匹配条件直接响应请求。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;quot;routers&amp;quot;: [
     {
@@ -316,7 +320,9 @@
         }
     }
 ]
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;高级技巧&#34;&gt;高级技巧&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://mosn.io/blog/posts/how-use-dynamic-metadata/&#34;&gt;MOSN 路由框架详解&lt;/a&gt;&lt;/p&gt;
+
       </description>
     </item>
     

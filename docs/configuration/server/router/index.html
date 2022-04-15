@@ -23,14 +23,14 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/configuration/server/router/" />
-<meta property="article:published_time" content="2020-03-13T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-04-14T16:31:05+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:published_time" content="2022-03-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-04-15T17:08:10+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="Router 配置">
 <meta itemprop="description" content="路由配置说明。
 ">
-<meta itemprop="datePublished" content="2020-03-13T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-04-14T16:31:05+08:00" />
-<meta itemprop="wordCount" content="496">
+<meta itemprop="datePublished" content="2022-03-25T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-04-15T17:08:10+08:00" />
+<meta itemprop="wordCount" content="512">
 
 
 
@@ -656,13 +656,13 @@ if (!doNotTrack) {
         <li><a href="#匹配规则---正则">匹配规则 - 正则</a></li>
         <li><a href="#匹配规则---header">匹配规则 - header</a></li>
         <li><a href="#匹配规则---变量">匹配规则 - 变量</a></li>
-        <li><a href="#匹配动作--">匹配动作 -</a></li>
-        <li><a href="#匹配动作---修改path">匹配动作 - 修改path</a></li>
-        <li><a href="#匹配动作---添加删除-header">匹配动作 - 添加删除 header</a></li>
-        <li><a href="#匹配动作---redirect">匹配动作 - redirect</a></li>
-        <li><a href="#匹配动作---直接响应">匹配动作 - 直接响应</a></li>
+        <li><a href="#匹配行为---修改path">匹配行为 - 修改path</a></li>
+        <li><a href="#匹配行为---添加删除-header">匹配行为 - 添加删除 header</a></li>
+        <li><a href="#匹配行为---redirect">匹配行为 - redirect</a></li>
+        <li><a href="#匹配行为---直接响应">匹配行为 - 直接响应</a></li>
       </ul>
     </li>
+    <li><a href="#高级技巧">高级技巧</a></li>
   </ul>
 </nav>
 
@@ -831,8 +831,9 @@ if (!doNotTrack) {
   &quot;metadata_match&quot;:&quot;&quot;,
   &quot;timeout&quot;:&quot;&quot;,
   &quot;retry_policy&quot;:{},
+  &quot;hash_policy&quot;:{},
   &quot;prefix_rewrite&quot;:&quot;&quot;,
-  &quot;regex_rewrite&quot;:&quot;&quot;,
+  &quot;regex_rewrite&quot;:{},
   &quot;host_rewrite&quot;:&quot;&quot;,
   &quot;request_headers_to_add&quot;:[],
   &quot;request_headers_to_remove&quot;:[],
@@ -846,6 +847,10 @@ if (!doNotTrack) {
 <li><code>metadata_match</code>，<a href="../../custom#metadata">metadata</a>，如果配置了该字段，表示该路由会基于该 metadata 去匹配 upstream cluster 的 subset 。</li>
 <li><code>timeout</code>，<a href="../../custom#duration-string">Duration String</a>，表示默认情况下请求转发的超时时间。如果请求中明确指定了超时时间，那么这个配置会被忽略。</li>
 <li><code>retry_policy</code>，重试配置，表示如果请求在遇到了特定的错误时采取的重试策略，默认没有配置的情况下，表示没有重试。</li>
+<li><code>hash_policy</code>，一致性Hash负载均衡算法使用的hash key。</li>
+<li><code>prefix_rewrite</code> <code>regex_rewrite</code> <code>host_rewrite</code>，修改请求的 <code>path</code> 和 <code>host</code>。</li>
+<li><code>request_headers_to_add</code> <code>request_headers_to_remove</code>，表示增加或者删除请求的 header。</li>
+<li><code>response_headers_to_add</code> <code>response_headers_to_remove</code>，表示增加或者删除响应的 header。</li>
 </ul>
 <h2 id="redirect">redirect</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
@@ -932,8 +937,8 @@ if (!doNotTrack) {
     }
 ]
 </code></pre><h3 id="匹配规则---变量">匹配规则 - 变量</h3>
-<p>可以通过 filter 设置新的变量，以及 MOSN 内置的变量，进行路由转发规则。
-如下例子就是变量 <code>x-mosn-path</code>（ MOSN 内置变量，表示请求的 <code>path</code>） 等于 <code>/b</code> 满足匹配。</p>
+<p>可以通过 filter 设置新的变量，以及 MOSN 内置的变量，进行路由转发规则。<br>
+如下例子变量 <code>x-mosn-path</code>（ MOSN 内置变量，表示请求的 <code>path</code>） 等于 <code>/b</code> 满足匹配。</p>
 <pre><code>&quot;routers&quot;: [
     {
         &quot;match&quot;:{
@@ -947,8 +952,7 @@ if (!doNotTrack) {
         }
     }
 ]
-</code></pre><h3 id="匹配动作--">匹配动作 -</h3>
-<h3 id="匹配动作---修改path">匹配动作 - 修改path</h3>
+</code></pre><h3 id="匹配行为---修改path">匹配行为 - 修改path</h3>
 <p>下例把请求的 <code>path</code> 修改为 <code>/abc</code></p>
 <pre><code>&quot;routers&quot;: [
     {
@@ -961,7 +965,7 @@ if (!doNotTrack) {
         }
     }
 ]
-</code></pre><h3 id="匹配动作---添加删除-header">匹配动作 - 添加删除 header</h3>
+</code></pre><h3 id="匹配行为---添加删除-header">匹配行为 - 添加删除 header</h3>
 <p>下例在转发给后端之前，新增<code>test:ok</code> ，删除<code>hello</code>.</p>
 <pre><code>&quot;routers&quot;: [
     {
@@ -983,8 +987,8 @@ if (!doNotTrack) {
     }
 ]
 
-</code></pre><h3 id="匹配动作---redirect">匹配动作 - redirect</h3>
-<p>除了转发到 cluster 之外，也支持 redirect 的匹配动作。
+</code></pre><h3 id="匹配行为---redirect">匹配行为 - redirect</h3>
+<p>除了转发到 cluster 之外，也支持 redirect 的匹配动作。<br>
 下例将 <code>301</code> 跳转，<code>Location: http://test/b</code></p>
 <pre><code>&quot;routers&quot;: [
     {
@@ -999,7 +1003,7 @@ if (!doNotTrack) {
         }
     }
 ]
-</code></pre><h3 id="匹配动作---直接响应">匹配动作 - 直接响应</h3>
+</code></pre><h3 id="匹配行为---直接响应">匹配行为 - 直接响应</h3>
 <p>满足匹配条件直接响应请求。</p>
 <pre><code>&quot;routers&quot;: [
     {
@@ -1012,10 +1016,12 @@ if (!doNotTrack) {
         }
     }
 ]
-</code></pre>
+</code></pre><h2 id="高级技巧">高级技巧</h2>
+<p><a href="https://mosn.io/blog/posts/how-use-dynamic-metadata/">MOSN 路由框架详解</a></p>
+
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年4月14日: <a  href="https://github.com/mosn/mosn.io/commit/357347fef62991ae848425ea89d7ca19c71b2bd5">[Doc] add doc for Variable (#184) (357347f)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年4月15日: <a  href="https://github.com/mosn/mosn.io/commit/1a89ccd6bb0bba2512dc29e954e128c6e1cbf4ca">enhance route configuration (#185) (1a89ccd)</a>
 </div>
 </div>
 
