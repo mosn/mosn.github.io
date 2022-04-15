@@ -23,14 +23,14 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/en/docs/quick-start/proxy/" />
-<meta property="article:published_time" content="2020-01-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-04-15T17:08:10+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:published_time" content="2022-03-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-04-15T18:11:20+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="Quick start">
 <meta itemprop="description" content="This topic shows you how to quickly set up the development environment for building, testing, packaging, and running the sample code.
 ">
-<meta itemprop="datePublished" content="2020-01-20T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-04-15T17:08:10+08:00" />
-<meta itemprop="wordCount" content="387">
+<meta itemprop="datePublished" content="2022-03-25T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-04-15T18:11:20+08:00" />
+<meta itemprop="wordCount" content="363">
 
 
 
@@ -571,12 +571,11 @@ if (!doNotTrack) {
     <li><a href="#import-the-mosn-source-code-into-the-ide">Import the MOSN source code into the IDE</a></li>
     <li><a href="#compile-the-code">Compile the code</a>
       <ul>
+        <li><a href="#istio-version-switch">Istio version switch</a></li>
         <li><a href="#compilation-with-a-docker-image">Compilation with a docker image</a></li>
         <li><a href="#local-compilation">Local compilation</a></li>
       </ul>
     </li>
-    <li><a href="#create-an-rpm-package">Create an RPM package</a></li>
-    <li><a href="#create-a-docker-image">Create a docker image</a></li>
     <li><a href="#run-tests">Run tests</a></li>
     <li><a href="#start-mosn-from-the-configuration-file">Start MOSN from the configuration file</a></li>
     <li><a href="#run-mosn-samples">Run MOSN samples</a></li>
@@ -633,7 +632,6 @@ if (!doNotTrack) {
 <li>If you want to run MOSN with docker, <a href="https://docs.docker.com/install/">install docker</a> first.</li>
 <li>If you are using a local machine, set up a Unix-like environment.</li>
 <li>Install the compilation environment of Go.</li>
-<li>Install dep. For details, see the <a href="https://golang.github.io/dep/docs/installation.html">official installation document of deb</a>.</li>
 </ul>
 <h2 id="obtain-the-code">Obtain the code</h2>
 <p>Code for MOSN projects is hosted at <a href="https://github.com/mosn/mosn">Github</a>. Run the following command to obtain the code.</p>
@@ -653,28 +651,25 @@ git clone git@github.com:mosn/mosn.git
 <p>Import <code>$GOPATH/src/mosn.io/mosn</code> into your preferred Go IDE (Goland is recommended).</p>
 <h2 id="compile-the-code">Compile the code</h2>
 <p>In the project&rsquo;s root directory, compile the binary file of MOSN by running the following commands, depending on your machine type and the environment in which you want to execute the binary file.</p>
-<h3 id="compilation-with-a-docker-image">Compilation with a docker image</h3>
+<h3 id="istio-version-switch">Istio version switch</h3>
+<p>MOSN support xDS v2 and xDS v3, which are represented by Istio 1.5.2 and Istio 1.10.6 respectively. It can be switched between different versions according to needs.
+The default version is 1.10.6.</p>
+<p>Switch to Istio 1.5.2 (xDS v2)</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make istio-1.5.2
+</code></pre></div><p>Switch to Istio 1.10.6 (xDS v3)</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make istio-1.10.6
+</code></pre></div><h3 id="compilation-with-a-docker-image">Compilation with a docker image</h3>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make build // Compile a Linux 64-bit executable binary file.
 </code></pre></div><h3 id="local-compilation">Local compilation</h3>
 <p>Run the following command to compile a local executable binary file.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make build-local
-</code></pre></div><p>Cross-compile a Linux 64-bit executable binary file on a non-Linux machine.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make build-linux64
-</code></pre></div><p>Cross-compile a Linux 32-bit executable binary file on a non-Linux machine.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make build-linux32
 </code></pre></div><p>Find the compiled binary file in <code>build/bundles/${version}/binary</code>.</p>
-<h2 id="create-an-rpm-package">Create an RPM package</h2>
-<p>Run the following command in the project&rsquo;s root directory to create an RPM package.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make rpm
-</code></pre></div><p>Find the package in <code>build/bundles/${version}/rpm</code>.</p>
-<h2 id="create-a-docker-image">Create a docker image</h2>
-<p>Run the following command to create a docker image.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make image
-</code></pre></div><h2 id="run-tests">Run tests</h2>
+<h2 id="run-tests">Run tests</h2>
 <p>Run the following command in the project&rsquo;s root directory to start the unit test.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make unit-test
 </code></pre></div><p>Run the following command in the project&rsquo;s root directory to start the integration test (which takes some time).</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make integrate
+make integrate-new
 </code></pre></div><h2 id="start-mosn-from-the-configuration-file">Start MOSN from the configuration file</h2>
 <p>Run the following command to start MOSN from the configuration file.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mosn start -c <span style="color:#4e9a06">&#39;$CONFIG_FILE&#39;</span>
@@ -685,7 +680,7 @@ git clone git@github.com:mosn/mosn.git
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified April 15, 2022: <a  href="https://github.com/mosn/mosn.io/commit/1a89ccd6bb0bba2512dc29e954e128c6e1cbf4ca">enhance route configuration (#185) (1a89ccd)</a>
+	<div class="text-muted mt-5 pt-3 border-top">Last modified April 15, 2022: <a  href="https://github.com/mosn/mosn.io/commit/d190498c1a336924bcef83bbdf69c210130c2d8d">[doc] update quick start: mosn with istio (#186) (d190498)</a>
 </div>
 </div>
 

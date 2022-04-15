@@ -17,7 +17,7 @@
     <item>
       <title>Docs: Quick start</title>
       <link>https://mosn.io/en/docs/quick-start/proxy/</link>
-      <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://mosn.io/en/docs/quick-start/proxy/</guid>
       <description>
@@ -29,7 +29,6 @@
 &lt;li&gt;If you want to run MOSN with docker, &lt;a href=&#34;https://docs.docker.com/install/&#34;&gt;install docker&lt;/a&gt; first.&lt;/li&gt;
 &lt;li&gt;If you are using a local machine, set up a Unix-like environment.&lt;/li&gt;
 &lt;li&gt;Install the compilation environment of Go.&lt;/li&gt;
-&lt;li&gt;Install dep. For details, see the &lt;a href=&#34;https://golang.github.io/dep/docs/installation.html&#34;&gt;official installation document of deb&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;obtain-the-code&#34;&gt;Obtain the code&lt;/h2&gt;
 &lt;p&gt;Code for MOSN projects is hosted at &lt;a href=&#34;https://github.com/mosn/mosn&#34;&gt;Github&lt;/a&gt;. Run the following command to obtain the code.&lt;/p&gt;
@@ -49,28 +48,25 @@ git clone git@github.com:mosn/mosn.git
 &lt;p&gt;Import &lt;code&gt;$GOPATH/src/mosn.io/mosn&lt;/code&gt; into your preferred Go IDE (Goland is recommended).&lt;/p&gt;
 &lt;h2 id=&#34;compile-the-code&#34;&gt;Compile the code&lt;/h2&gt;
 &lt;p&gt;In the project&amp;rsquo;s root directory, compile the binary file of MOSN by running the following commands, depending on your machine type and the environment in which you want to execute the binary file.&lt;/p&gt;
-&lt;h3 id=&#34;compilation-with-a-docker-image&#34;&gt;Compilation with a docker image&lt;/h3&gt;
+&lt;h3 id=&#34;istio-version-switch&#34;&gt;Istio version switch&lt;/h3&gt;
+&lt;p&gt;MOSN support xDS v2 and xDS v3, which are represented by Istio 1.5.2 and Istio 1.10.6 respectively. It can be switched between different versions according to needs.
+The default version is 1.10.6.&lt;/p&gt;
+&lt;p&gt;Switch to Istio 1.5.2 (xDS v2)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make istio-1.5.2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Switch to Istio 1.10.6 (xDS v3)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make istio-1.10.6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;compilation-with-a-docker-image&#34;&gt;Compilation with a docker image&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make build // Compile a Linux 64-bit executable binary file.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;local-compilation&#34;&gt;Local compilation&lt;/h3&gt;
 &lt;p&gt;Run the following command to compile a local executable binary file.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make build-local
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Cross-compile a Linux 64-bit executable binary file on a non-Linux machine.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make build-linux64
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Cross-compile a Linux 32-bit executable binary file on a non-Linux machine.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make build-linux32
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Find the compiled binary file in &lt;code&gt;build/bundles/${version}/binary&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;create-an-rpm-package&#34;&gt;Create an RPM package&lt;/h2&gt;
-&lt;p&gt;Run the following command in the project&amp;rsquo;s root directory to create an RPM package.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make rpm
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Find the package in &lt;code&gt;build/bundles/${version}/rpm&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;create-a-docker-image&#34;&gt;Create a docker image&lt;/h2&gt;
-&lt;p&gt;Run the following command to create a docker image.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make image
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;run-tests&#34;&gt;Run tests&lt;/h2&gt;
+&lt;h2 id=&#34;run-tests&#34;&gt;Run tests&lt;/h2&gt;
 &lt;p&gt;Run the following command in the project&amp;rsquo;s root directory to start the unit test.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make unit-test
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run the following command in the project&amp;rsquo;s root directory to start the integration test (which takes some time).&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make integrate
+make integrate-new
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;start-mosn-from-the-configuration-file&#34;&gt;Start MOSN from the configuration file&lt;/h2&gt;
 &lt;p&gt;Run the following command to start MOSN from the configuration file.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./mosn start -c &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;$CONFIG_FILE&amp;#39;&lt;/span&gt;
@@ -85,7 +81,7 @@ git clone git@github.com:mosn/mosn.git
     <item>
       <title>Docs: Use MOSN as an Istio data plane</title>
       <link>https://mosn.io/en/docs/quick-start/istio/</link>
-      <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://mosn.io/en/docs/quick-start/istio/</guid>
       <description>
@@ -94,131 +90,184 @@ git clone git@github.com:mosn/mosn.git
         
 
 &lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
-&lt;p&gt;MOSN succeeded in the Bookinfo test for Istio 1.1.4. For more information about the support from the latest version of Istio, see &lt;a href=&#34;https://github.com/mosn/mosn/issues/933&#34;&gt;Issue #933&lt;/a&gt;.
-&lt;code&gt;Note: After the MOSN 0.14.0 or later can supports xDS, And tested pass all the sample of bookinfo in istio 1.5.2, here is an [MOSN with Istio](https://katacoda.com/mosn/courses/istio/mosn-with-istio) tutorial.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;MOSN v1.0.0 succeeded in the Bookinfo test for Istio 1.10.6. For more information about the support from the latest version of Istio, see &lt;a href=&#34;https://github.com/mosn/community/blob/master/wg-istio.md&#34;&gt;MOSN Istio WG&lt;/a&gt;.&lt;/p&gt;
 
 &lt;/div&gt;
 
 &lt;p&gt;This topic covers the following content:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Relationship between MOSN and Istio&lt;/li&gt;
-&lt;li&gt;Preparations&lt;/li&gt;
-&lt;li&gt;Istio deployment with source code&lt;/li&gt;
+&lt;li&gt;Instructions on how to build the Istio proxyv2 image with MOSN&lt;/li&gt;
+&lt;li&gt;Istio deployment with MOSN&lt;/li&gt;
 &lt;li&gt;Bookinfo test&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;relationship-between-mosn-and-istio&#34;&gt;Relationship between MOSN and Istio&lt;/h2&gt;
 &lt;p&gt;As described in the &lt;a href=&#34;../../overview&#34;&gt;MOSN overview&lt;/a&gt;, MOSN is a service mesh data plane proxy developed in Golang.&lt;/p&gt;
 &lt;p&gt;The following figure shows the operating principle of MOSN in Istio.&lt;/p&gt;
 &lt;div align=center&gt;&lt;img src=&#34;mosn-with-service-mesh.png&#34; width = &#34;450&#34; height = &#34;400&#34; alt=&#34;MOSN overview&#34; /&gt;&lt;/div&gt;
-&lt;h2 id=&#34;preparations&#34;&gt;Preparations&lt;/h2&gt;
-&lt;p&gt;The operating system described in this topic is macOS. You can install the software versions for your OS, too.&lt;/p&gt;
-&lt;h3 id=&#34;install-hyperkit&#34;&gt;Install hyperkit&lt;/h3&gt;
-&lt;p&gt;Install &lt;a href=&#34;https://store.docker.com/editions/community/docker-ce-desktop-mac&#34;&gt;docker-for-mac&lt;/a&gt; and then &lt;a href=&#34;https://github.com/kubernetes/minikube/blob/master/docs/drivers.md&#34;&gt;install drivers&lt;/a&gt;.&lt;/p&gt;
-&lt;h4 id=&#34;install-docker&#34;&gt;Install docker&lt;/h4&gt;
-&lt;p&gt;Download the software package or run the following command to install it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ brew cask install docker
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;install-drivers&#34;&gt;Install drivers&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -LO https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-hyperkit &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; chmod +x docker-machine-driver-hyperkit &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo mv docker-machine-driver-hyperkit /usr/local/bin/ &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo chown root:wheel /usr/local/bin/docker-machine-driver-hyperkit &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo chmod u+s /usr/local/bin/docker-machine-driver-hyperkit
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;install-minikube-or-a-commercial-kubernetes-cluster&#34;&gt;Install Minikube (or a commercial Kubernetes cluster)&lt;/h3&gt;
-&lt;p&gt;We recommend that you use Minikube v0.28 or later versions. For more information, go to &lt;a href=&#34;https://github.com/kubernetes/minikube&#34;&gt;https://github.com/kubernetes/minikube&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ brew cask install minikube
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;start-minikube&#34;&gt;Start Minikube&lt;/h3&gt;
-&lt;p&gt;The pilot requires a memory space of at least 2 GB. Therefore, you can allocate resources to Minikube by adding parameters upon startup. If you do not have sufficient resources on your machine, we recommend that you use the commercial Kubernetes cluster.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ minikube start --memory&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;8192&lt;/span&gt; --cpus&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;4&lt;/span&gt; --kubernetes-version&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;v1.15.0 --vm-driver&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;hyperkit
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Create an Istio namespace&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ kubectl create namespace istio-system
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;install-the-kubectl-command-line-tool&#34;&gt;Install the kubectl command-line tool&lt;/h3&gt;
-&lt;p&gt;kubectl is a command line interface for executing commands against Kubernetes clusters. For details about the installation of kubectl, go to &lt;a href=&#34;https://kubernetes.io/docs/tasks/tools/install-kubectl&#34;&gt;https://kubernetes.io/docs/tasks/tools/install-kubectl&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ brew install kubernetes-cli
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;install-helm&#34;&gt;Install Helm&lt;/h3&gt;
-&lt;p&gt;Helm is a package management tool of Kubernetes. For details about the installation of Helm, go to &lt;a href=&#34;https://docs.helm.sh/using_helm/#installing-helm&#34;&gt;https://docs.helm.sh/using_helm/#installing-helm&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ brew install kubernetes-helm
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;istio-deployment-with-source-code&#34;&gt;Istio deployment with source code&lt;/h2&gt;
+&lt;h2 id=&#34;instructions-on-how-to-build-the-istio-proxyv2-image-with-mosn&#34;&gt;Instructions on how to build the Istio proxyv2 image with MOSN&lt;/h2&gt;
+&lt;p&gt;The operating system described in this topic is MacOS, and the Istio version is 1.10.6. If you are using anither OS, there may be some differences.
+If only the MOSN code changes, you can also use the MOSN-only update method to build the proxyv2 image.
+Usually, you do not need to build a proxyv2 image, use the image provided by us is ok. &lt;code&gt;mosnio/proxyv2:${MOSN VERSION}-${ISTIO VERSION}&lt;/code&gt;, for example, &lt;code&gt;docker pull mosnio/proxyv2:v1.0.0-1.10.6&lt;/code&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;build-proxyv2-image-with-source-code-on-macos-and-istio-1106&#34;&gt;Build proxyv2 image with source code. (On MacOS and Istio 1.10.6)&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;Download the istio source code, and checkout to the target version.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;git clone git@github.com:istio/istio.git
+cd istio
+git checkout 1.10.6
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Istio will load wasm by default. To simplify, we need to comment out this part of the code. see details in &lt;a href=&#34;./istio-diff.md&#34;&gt;istio-diff&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Build a MOSN binary. You can use the make command provided by MOSN project to build a binary on linux. As the same time, since we are using MacOS, we also need to compile a MacOS binary.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Tar the binary compiled by the step 2, the file path should be &lt;code&gt;usr/local/bin&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; Project Path&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;
+mkdir -p usr/local/bin
+make build &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# build mosn binary on linux&lt;/span&gt;
+cp build/bundles/&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; VERSION&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/binary/mosn usr/local/bin
+tar -zcvf mosn.tar.gz usr/local/bin/mosn
+cp mosn.tar.gz mosn-centos.tar.gz &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# copy a renamed tar.gz file&lt;/span&gt;
 
+make build-local &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# build mosn binary on macos&lt;/span&gt;
+cp build/bundles/&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; VERSION&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/binary/mosn usr/local/bin
+tar -zcvf mosn-macos.tar.gz usr/local/bin/mosn
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Upload the &lt;code&gt;mosn-macos.tar.gz&lt;/code&gt; &lt;code&gt;mosn-centos.tar.gz&lt;/code&gt; &lt;code&gt;mosn.tar.gz&lt;/code&gt; to a store serivce that can be accessed, if you do not have one, you can use Go to build a simple service in your local system.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Go&#34; data-lang=&#34;Go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color:#000&#34;&gt;address&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;// an address can be reached when proxyv2 image build. for example, 0.0.0.0:8080
+&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#000&#34;&gt;filespath&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;// where the .tar.gz files stored.
+&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#000&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ListenAndServe&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;address&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;FileServer&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Dir&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;filespath&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)))&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Build proxyv2 images, with some ENV&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;address&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$1&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# your download service address&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$2&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# MOSN Version, can be any value.&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;http://&lt;span style=&#34;color:#000&#34;&gt;$address&lt;/span&gt;/mosn.tar.gz
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_CENTOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;http://&lt;span style=&#34;color:#000&#34;&gt;$address&lt;/span&gt;/mosn-centos.tar.gz
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;http://http://&lt;span style=&#34;color:#000&#34;&gt;$address&lt;/span&gt;/mosn-macos.tar.gz
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_NAME&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;mosn-&lt;span style=&#34;color:#000&#34;&gt;$2&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# can be any value&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;SIDECAR&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;mosn
 
-&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
-&lt;p&gt;SOFAMesh is now directly developed based on Istio to contribute to the Istio community. Development through the fork method is not supported. It will be directly supported by Istio in the future. MOSN succeeded in the Bookinfo test for Istio 1.1.4. For more information about the support from the latest version of Istio, see &lt;a href=&#34;https://github.com/mosn/mosn/issues/933&#34;&gt;Issue #933&lt;/a&gt;.&lt;/p&gt;
+make clean &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# clean the cache&lt;/span&gt;
+make docker.proxyv2 &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;SIDECAR&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$SIDECAR&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_VERSION&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_RELEASE_URL&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_CENTOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_CENTOS_RELEASE_URL&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_MACOS_RELEASE_URL&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_NAME&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_MACOS_RELEASE_NAME&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;Retag the new image, and push it to your docker hub.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;update-mosn-binary-in-the-proxyv2-image&#34;&gt;Update MOSN binary in the proxyv2 image.&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;Build the MOSN binary&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; Project Path&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;
+make build &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# build mosn binary on linux&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Write a DOCKERFILE, and build a new image&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Dockerfile&#34; data-lang=&#34;Dockerfile&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt; mosnio/proxyv2:v1.0.0-1.10.6&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;COPY&lt;/span&gt; build/bundles/&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; VERSION&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/binary/mosn /usr/local/bin/mosn&lt;span style=&#34;color:#a40000&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker build --no-cache --rm -t &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;your&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; image tag&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Push the new image to your docker hub.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;istio-deployment-with-mosn&#34;&gt;Istio deployment with MOSN&lt;/h2&gt;
+&lt;h3 id=&#34;install-kubectl&#34;&gt;Install kubectl&lt;/h3&gt;
+&lt;p&gt;kubectl is the Kubernetes command-line tool, allows you to run commands against Kubernetes clusters. How to install it, see details in &lt;a href=&#34;https://kubernetes.io/docs/tasks/tools/install-kubectl&#34;&gt;kubectl install&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;install-kubernetes-platform&#34;&gt;Install Kubernetes Platform&lt;/h3&gt;
+&lt;p&gt;How to prepare various Kubernetes platforms before installing Istio, see details in &lt;a href=&#34;https://istio.io/latest/docs/setup/platform-setup/&#34;&gt;Platform Setup&lt;/a&gt;.
+We use &lt;code&gt;minikube&lt;/code&gt; later.&lt;/p&gt;
+&lt;h3 id=&#34;install-istio-use-mosn-as-sidecar&#34;&gt;Install Istio, use MOSN as sidecar&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Download istio release version, you can find it in &lt;a href=&#34;https://github.com/istio/istio/releases/tag/1.10.6&#34;&gt;Istio release&lt;/a&gt;, or use bash command&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;1.10.6 &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# istio version&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$VERSION&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; curl -L https://istio.io/downloadIstio &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;|&lt;/span&gt; sh -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Checkout to the path, add the &lt;code&gt;istioctl&lt;/code&gt; to &lt;code&gt;PATH&lt;/code&gt; environment variable.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; istio-&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_VERSION&lt;/span&gt;/
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;PATH&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$PATH&lt;/span&gt;:&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;$(&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;)&lt;/span&gt;/bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;create istio namespace, set MOSN proxyv2 image as sidecar image&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kubectl create namespace istio-system
+istioctl manifest apply --set .values.global.proxy.image&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; IMAGE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt; --set meshConfig.defaultConfig.binaryPath&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;/usr/local/bin/mosn&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Verify the installation&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kubectl get pod -n istio-system
 
-&lt;/div&gt;
-
-&lt;h3 id=&#34;download-the-sofamesh-source-code&#34;&gt;Download the SOFAMesh source code&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ git clone https://github.com/sofastack/sofa-mesh.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;install-sofamesh-with-helm&#34;&gt;Install SOFAMesh with Helm&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Run &lt;code&gt;helm template&lt;/code&gt; to install SOFAMesh.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Switch to the directory that stores the Istio source code and then install the Istio CRD and other components with Helm.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ &lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; istio
-$ helm template install/kubernetes/helm/istio-init --name istio-init --namespace istio-system &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;|&lt;/span&gt; kubectl apply -f -
-$ helm template install/kubernetes/helm/istio --name istio --namespace istio-system &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;|&lt;/span&gt; kubectl apply -f -
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;verify-the-installation&#34;&gt;Verify the installation&lt;/h3&gt;
-&lt;p&gt;If all pods in the &lt;code&gt;istio-system&lt;/code&gt; namespace are running, the deployment succeeds.
-If you only need to run Bookinfo, running three pods, pilot, injector, and citadel, will suffice your need.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl get pods -n istio-system
-NAME                                       READY    STATUS   RESTARTS    AGE
-istio-citadel-6579c78cd9-w57lr              1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          5m
-istio-egressgateway-7649f76df4-zs8kw        1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          5m
-istio-galley-c77876cb6-nhczq                1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          5m
-istio-ingressgateway-5c9c8565d9-d972t       1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          5m
-istio-pilot-7485f9fb4b-xsvtm                1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          5m
-istio-policy-5766bc84b9-p2wfj               1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          5m
-istio-sidecar-injector-7f5f586bc7-2sdx6     1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          5m
-istio-statsd-prom-bridge-7f44bb5ddb-stcf6   1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          5m
-istio-telemetry-55ff8c77f4-q8d8q            1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          5m
-prometheus-84bd4b9796-nq8lg                 1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          5m
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;uninstall&#34;&gt;Uninstall&lt;/h3&gt;
-&lt;p&gt;Uninstall SOFAMesh.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ helm template install/kubernetes/helm/istio --name istio --namespace istio-system &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;|&lt;/span&gt; kubectl delete -f -
-$ kubectl delete namespace istio-system
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;bookinfo-test&#34;&gt;Bookinfo test&lt;/h2&gt;
-&lt;p&gt;Bookinfo is a book app. It provides four basic services:&lt;/p&gt;
+NAME                                    READY   STATUS    RESTARTS   AGE
+istio-ingressgateway-6b7fb88874-rgmrj   1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          102s
+istiod-65c9767c55-vjppv                 1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          109s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If all pods in the &lt;code&gt;istio-system&lt;/code&gt; namespace are running, the deployment succeeds.&lt;/p&gt;
+&lt;h2 id=&#34;bookinfo-test&#34;&gt;Bookinfo test&lt;/h2&gt;
+&lt;p&gt;MOSN v1.0.0 succeeded in the Bookinfo test for Istio 1.10.6. You can alsoe use &lt;a href=&#34;https://katacoda.com/mosn/courses/istio/mosn-with-istio&#34;&gt;MOSN with Istio&lt;/a&gt; to run the Bookinfo test.
+More test cases see Istio [Example]((&lt;a href=&#34;https://istio.io/latest/docs/examples)&#34;&gt;https://istio.io/latest/docs/examples)&lt;/a&gt;.
+If you have any questions, please contact us  &lt;a href=&#34;https://github.com/mosn/mosn/issues&#34;&gt;issue&lt;/a&gt;, code contributions are welcome too.&lt;/p&gt;
+&lt;h3 id=&#34;bookinfo-introduction&#34;&gt;Bookinfo introduction&lt;/h3&gt;
+&lt;p&gt;The application displays information about a book, similar to a single catalog entry of an online book store. Displayed on the page is a description of the book, book details (ISBN, number of pages, and so on), and a few book reviews.
+The Bookinfo application is broken into four separate microservices:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Product Page: The product page is developed in python. It displays all book information and calls the Reviews and Details services.&lt;/li&gt;
-&lt;li&gt;Reviews: The review service is developed in java. It displays book reviews and calls the Ratings service.&lt;/li&gt;
-&lt;li&gt;Ratings: The rating service is developed in nodejs.&lt;/li&gt;
-&lt;li&gt;Details: The book details is developed in ruby.&lt;/li&gt;
+&lt;li&gt;productpage. The productpage microservice calls the details and reviews microservices to populate the page.&lt;/li&gt;
+&lt;li&gt;details. The details microservice contains book information.&lt;/li&gt;
+&lt;li&gt;reviews. The reviews microservice contains book reviews. It also calls the ratings microservice.&lt;/li&gt;
+&lt;li&gt;ratings. The ratings microservice contains book ranking information that accompanies a book review.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div align=center&gt;&lt;img src=&#34;bookinfo.png&#34; width = &#34;550&#34; height = &#34;400&#34; alt=&#34;bookinfo&#34; /&gt;&lt;/div&gt;
-&lt;h3 id=&#34;deploy-bookinfo-and-inject-mosn&#34;&gt;Deploy Bookinfo and inject MOSN&lt;/h3&gt;
+&lt;h4 id=&#34;deploy-bookinfo-and-inject-mosn&#34;&gt;Deploy Bookinfo and inject MOSN&lt;/h4&gt;
 &lt;blockquote&gt;
 &lt;p&gt;For details, go to &lt;a href=&#34;https://istio.io/docs/examples/bookinfo/&#34;&gt;https://istio.io/docs/examples/bookinfo/&lt;/a&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Inject MOSN&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl label namespace default istio-injection&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;enabled
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Deploy Bookinfo&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+&lt;p&gt;Use kube-inject way to inject MOSN&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml &amp;gt; bookinfo.yaml
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# sed -i &amp;#39;&amp;#39; is the MacOS command, if you are in linux, use sed -i instead.&lt;/span&gt;
+sed -i &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;s/\/usr\/local\/bin\/envoy/\/usr\/local\/bin\/mosn/g&amp;#34;&lt;/span&gt; ./bookinfo.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Deploy Bookinfo app:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl apply -f bookinfo.yaml
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Verify whether the deployment succeeds&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl get services
-NAME                       CLUSTER-IP   EXTERNAL-IP   PORT&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;S&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;              AGE
-details                    10.0.0.31    &amp;lt;none&amp;gt;        9080/TCP             6m
-kubernetes                 10.0.0.1     &amp;lt;none&amp;gt;        443/TCP              7d
-productpage                10.0.0.120   &amp;lt;none&amp;gt;        9080/TCP             6m
-ratings                    10.0.0.15    &amp;lt;none&amp;gt;        9080/TCP             6m
-reviews                    10.0.0.170   &amp;lt;none&amp;gt;        9080/TCP             6m
+NAME          TYPE        CLUSTER-IP        EXTERNAL-IP   PORT&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;S&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;    AGE
+details       ClusterIP   192.168.248.118   &amp;lt;none&amp;gt;        9080/TCP   5m7s
+kubernetes    ClusterIP   192.168.0.1       &amp;lt;none&amp;gt;        443/TCP    25h
+productpage   ClusterIP   192.168.204.255   &amp;lt;none&amp;gt;        9080/TCP   5m6s
+ratings       ClusterIP   192.168.227.164   &amp;lt;none&amp;gt;        9080/TCP   5m7s
+reviews       ClusterIP   192.168.181.16    &amp;lt;none&amp;gt;        9080/TCP   5m6s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Wait until all pods are running&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl get pods
-NAME                                        READY     STATUS    RESTARTS   AGE
-details-v1-1520924117-48z17                 2/2       Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          6m
-productpage-v1-560495357-jk1lz              2/2       Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          6m
-ratings-v1-734492171-rnr5l                  2/2       Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          6m
-reviews-v1-874083890-f0qf0                  2/2       Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          6m
-reviews-v2-1343845940-b34q5                 2/2       Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          6m
-reviews-v3-1813607990-8ch52                 2/2       Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          6m
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;access-bookinfo-services&#34;&gt;Access Bookinfo services&lt;/h3&gt;
+NAME                              READY   STATUS    RESTARTS   AGE
+details-v1-77497b4899-67gfn       2/2     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          98s
+productpage-v1-68d9cf459d-mv7rh   2/2     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          97s
+ratings-v1-65f97fc6c5-npcrz       2/2     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          98s
+reviews-v1-6bf4444fcc-9cfrw       2/2     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          97s
+reviews-v2-54d95c5444-5jtxp       2/2     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          97s
+reviews-v3-dffc77d75-jd8cr        2/2     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          97s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Check Bookinfo is working properly&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kubectl &lt;span style=&#34;color:#204a87&#34;&gt;exec&lt;/span&gt; -it &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;$(&lt;/span&gt;kubectl get pod -l &lt;span style=&#34;color:#000&#34;&gt;app&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;ratings -o &lt;span style=&#34;color:#000&#34;&gt;jsonpath&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{.items[0].metadata.name}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;)&lt;/span&gt; -c ratings -- curl productpage:9080/productpage &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;|&lt;/span&gt; grep -o &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;lt;title&amp;gt;.*&amp;lt;/title&amp;gt;&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;access-bookinfo-services&#34;&gt;Access Bookinfo services&lt;/h4&gt;
 &lt;p&gt;Enable the gateway mode.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
-$ kubectl get gateway        // Check whether the gateway is running.
+$ kubectl get gateway
 NAME               AGE
-bookinfo-gateway   24m
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Set GATEWAY_URL. For details, go to &lt;a href=&#34;https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports&#34;&gt;https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports&lt;/a&gt;.&lt;/p&gt;
+bookinfo-gateway   6s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Set &lt;code&gt;GATEWAY_URL&lt;/code&gt;. For details, go to &lt;a href=&#34;https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports&#34;&gt;doc&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ &lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;INGRESS_PORT&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;$(&lt;/span&gt;kubectl -n istio-system get service istio-ingressgateway -o &lt;span style=&#34;color:#000&#34;&gt;jsonpath&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{.spec.ports[?(@.name==&amp;#34;http2&amp;#34;)].nodePort}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;)&lt;/span&gt;
-$ &lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;SECURE_INGRESS_PORT&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;$(&lt;/span&gt;kubectl -n istio-system get service istio-ingressgateway -o &lt;span style=&#34;color:#000&#34;&gt;jsonpath&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{.spec.ports[?(@.name==&amp;#34;https&amp;#34;)].nodePort}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;)&lt;/span&gt;
 $ &lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;INGRESS_HOST&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;$(&lt;/span&gt;minikube ip&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;)&lt;/span&gt;
 $ &lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;GATEWAY_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$INGRESS_HOST&lt;/span&gt;:&lt;span style=&#34;color:#000&#34;&gt;$INGRESS_PORT&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Check whether the gateway takes effect.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -o /dev/null -s -w &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;%{http_code}\n&amp;#34;&lt;/span&gt;  http://&lt;span style=&#34;color:#000&#34;&gt;$GATEWAY_URL&lt;/span&gt;/productpage   // &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;200&lt;/span&gt; indicates a success. 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -o /dev/null -s -w &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;%{http_code}\n&amp;#34;&lt;/span&gt;  http://&lt;span style=&#34;color:#000&#34;&gt;$GATEWAY_URL&lt;/span&gt;/productpage
 &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;200&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;View the page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Go to &lt;code&gt;http://$GATEWAY_URL/productpage&lt;/code&gt; (replace $GATEWAY_URL with your address). The Bookinfo page is shown as follows after you refresh it. Three versions of Book Reviews are available.
@@ -248,7 +297,18 @@ The three versions will be displayed in turn when you refresh the page. For more
 &lt;p&gt;&lt;img src=&#34;login.png&#34; alt=&#34;Login&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Page v1 will be displayed if you log in as other users.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;v1.png&#34; alt=&#34;v1&#34;&gt;&lt;/p&gt;
-
+&lt;h3 id=&#34;uninstall-bookinfo&#34;&gt;Uninstall Bookinfo&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sh samples/bookinfo/platform/kube/cleanup.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure Bookinfo is uninstalled&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl get virtualservices   &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;#-- there should be no virtual services&lt;/span&gt;
+$ kubectl get destinationrules  &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;#-- there should be no destination rules&lt;/span&gt;
+$ kubectl get gateway           &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;#-- there should be no gateway&lt;/span&gt;
+$ kubectl get pods              &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;#-- the Bookinfo pods should be deleted&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;uninstall-istio&#34;&gt;Uninstall Istio&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ istioctl manifest generate &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;|&lt;/span&gt; kubectl delete -f -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure Istio is uninstalled&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl get namespace istio-system
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       </description>
     </item>
     
