@@ -111,10 +111,10 @@ MOSN 可以和 Istio 集成构建 Service Mesh，也可以作为独立的四、�
     
     <item>
       <title>Docs: 架构原理</title>
-      <link>https://mosn.io/docs/products/architecture/</link>
+      <link>https://mosn.io/docs/products/structure/</link>
       <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://mosn.io/docs/products/architecture/</guid>
+      <guid>https://mosn.io/docs/products/structure/</guid>
       <description>
         
         

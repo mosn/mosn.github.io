@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/docs/products/architecture/tls/index.xml">
+<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/docs/products/structure/multi-protocol/index.xml">
 
 
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
@@ -19,19 +19,16 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>TLS 安全链路 | MOSN</title><meta property="og:title" content="TLS 安全链路" />
-<meta property="og:description" content="MOSN 的 TLS 安全能力。
-" />
+<title>MOSN 多协议机制解析 | MOSN</title><meta property="og:title" content="MOSN 多协议机制解析" />
+<meta property="og:description" content="本文主要是对 MOSN 多协议机制解析，并介绍对应的私有协议快速接入实践案例以及对 MOSN 实现多协议低成本接入的设计进行解读。" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://mosn.io/docs/products/architecture/tls/" />
-<meta property="og:updated_time" content="2022-04-28T16:03:53+08:00" /><meta property="og:site_name" content="MOSN" />
-<meta itemprop="name" content="TLS 安全链路">
-<meta itemprop="description" content="MOSN 的 TLS 安全能力。
-">
+<meta property="og:url" content="https://mosn.io/docs/products/structure/multi-protocol/" />
+<meta property="og:updated_time" content="2022-04-28T18:57:03+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta itemprop="name" content="MOSN 多协议机制解析">
+<meta itemprop="description" content="本文主要是对 MOSN 多协议机制解析，并介绍对应的私有协议快速接入实践案例以及对 MOSN 实现多协议低成本接入的设计进行解读。">
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="TLS 安全链路"/>
-<meta name="twitter:description" content="MOSN 的 TLS 安全能力。
-"/>
+<meta name="twitter:title" content="MOSN 多协议机制解析"/>
+<meta name="twitter:description" content="本文主要是对 MOSN 多协议机制解析，并介绍对应的私有协议快速接入实践案例以及对 MOSN 实现多协议低成本接入的设计进行解读。"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -60,7 +57,7 @@ if (!doNotTrack) {
 
 
 
-    <title>TLS 安全链路 | MOSN</title>
+    <title>MOSN 多协议机制解析 | MOSN</title>
   </head>
   <body class="td-section">
     <header>
@@ -109,16 +106,6 @@ if (!doNotTrack) {
 				
 				
 				
-				<a class="nav-link" href="/docs/open-source/contributing-source-code/tutorial/" ><span>教程</span></a>
-			</li>
-			
-			<li class="nav-item mr-4 mb-2 mb-lg-0">
-				
-				
-				
-				
-				
-				
 				<a class="nav-link" href="/docs/community/" ><span>社区</span></a>
 			</li>
 			
@@ -130,6 +117,16 @@ if (!doNotTrack) {
 				
 				
 				<a class="nav-link" href="/docs/faq/" ><span>FAQ</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/user-guide/start/tutorial/" ><span>教程</span></a>
 			</li>
 			
 			
@@ -255,10 +252,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/architecture/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">架构原理</a>
+    <a  href="/docs/products/structure/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">架构原理</a>
   </li>
   <ul>
-    <li class="collapse show" id="docsproductsarchitecture">
+    <li class="collapse show" id="docsproductsstructure">
       
       
       
@@ -272,10 +269,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/architecture/traffic-hijack/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">流量劫持</a>
+    <a  href="/docs/products/structure/core-concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">核心概念</a>
   </li>
   <ul>
-    <li class="collapse " id="docsproductsarchitecturetraffic-hijack">
+    <li class="collapse " id="docsproductsstructurecore-concept">
       
       
       
@@ -295,10 +292,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/architecture/core-concept/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">核心概念</a>
+    <a  href="/docs/products/structure/traffic-hijack/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">流量劫持</a>
   </li>
   <ul>
-    <li class="collapse " id="docsproductsarchitecturecore-concept">
+    <li class="collapse " id="docsproductsstructuretraffic-hijack">
       
       
       
@@ -318,10 +315,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/architecture/tls/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">TLS 安全链路</a>
+    <a  href="/docs/products/structure/tls/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">TLS 安全链路</a>
   </li>
   <ul>
-    <li class="collapse show" id="docsproductsarchitecturetls">
+    <li class="collapse " id="docsproductsstructuretls">
       
       
       
@@ -341,10 +338,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/architecture/smooth-upgrade/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">MOSN 平滑升级原理解析</a>
+    <a  href="/docs/products/structure/smooth-upgrade/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">MOSN 平滑升级原理解析</a>
   </li>
   <ul>
-    <li class="collapse " id="docsproductsarchitecturesmooth-upgrade">
+    <li class="collapse " id="docsproductsstructuresmooth-upgrade">
       
       
       
@@ -364,10 +361,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/architecture/multi-protocol/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">MOSN 多协议机制解析</a>
+    <a  href="/docs/products/structure/multi-protocol/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">MOSN 多协议机制解析</a>
   </li>
   <ul>
-    <li class="collapse " id="docsproductsarchitecturemulti-protocol">
+    <li class="collapse show" id="docsproductsstructuremulti-protocol">
       
       
       
@@ -387,10 +384,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/architecture/sidecar-pattern/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Sidecar 模式</a>
+    <a  href="/docs/products/structure/sidecar-pattern/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Sidecar 模式</a>
   </li>
   <ul>
-    <li class="collapse " id="docsproductsarchitecturesidecar-pattern">
+    <li class="collapse " id="docsproductsstructuresidecar-pattern">
       
       
       
@@ -410,10 +407,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/architecture/extensions/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">MOSN 扩展机制解析</a>
+    <a  href="/docs/products/structure/extensions/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">MOSN 扩展机制解析</a>
   </li>
   <ul>
-    <li class="collapse " id="docsproductsarchitectureextensions">
+    <li class="collapse " id="docsproductsstructureextensions">
       
       
       
@@ -990,12 +987,6 @@ if (!doNotTrack) {
       <a class="td-sidebar-link td-sidebar-link__page " id="m-docsopen-sourcecontributing-source-codecontribute" href="/docs/open-source/contributing-source-code/contribute/">贡献指引</a>
       
       
-      
-      
-      
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsopen-sourcecontributing-source-codetutorial" href="/docs/open-source/contributing-source-code/tutorial/">教程</a>
-      
-      
     </li>
   </ul>
 </ul>
@@ -1124,8 +1115,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/products/architecture/tls/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=TLS%20%e5%ae%89%e5%85%a8%e9%93%be%e8%b7%af" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/products/structure/multi-protocol/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e5%a4%9a%e5%8d%8f%e8%ae%ae%e6%9c%ba%e5%88%b6%e8%a7%a3%e6%9e%90" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -1136,16 +1127,6 @@ if (!doNotTrack) {
 
 
 
-
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#证书方案">证书方案</a>
-      <ul>
-        <li><a href="#证书获取流程">证书获取流程</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
 
 
 
@@ -1182,14 +1163,14 @@ if (!doNotTrack) {
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/products/architecture/">架构原理</a>
+	<a href="/docs/products/structure/">架构原理</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/products/architecture/tls/">TLS 安全链路</a>
+	<a href="/docs/products/structure/multi-protocol/">MOSN 多协议机制解析</a>
 </li>
 
 	</ol>
@@ -1198,35 +1179,9 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>TLS 安全链路</h1>
-	<div class="lead">MOSN 的 TLS 安全能力。</div>
-	<p>本文将向您展示 MOSN 的 TLS 安全能力。</p>
-<h2 id="证书方案">证书方案</h2>
-<p>MOSN 支持通过 Istio Citadel 的证书签发方案，基于 Istio 社区的 <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/security/secret">SDS （Secret Discovery Service）</a>方案为 Sidecar 配置证书，支持证书动态发现和热更新能力。为了支持更高级的安全能力，MOSN 没有使用 Citadel 的证书自签发能力，而是通过对接内部 KMS 系统获取证书。同时提供证书缓存和证书推送更新能力。</p>
-<p>我们先来看看 MOSN 证书方案的架构图，如下图所示：</p>
-<p><img src="mosn-certificate-arch.png" alt="MOSN 证书方案"></p>
-<p>各组件职能如下：</p>
-<ul>
-<li>Pilot：负责 Policy、SDS 配置下发，为简化复杂度，图中未标出</li>
-<li>Citadel：Citadel 作为 Certificate Provider ，同时作为 MCP Server 为 Citadel Agent 提供 Pod、CR等资源</li>
-<li>Citadel Agent：提供 SDS Server 服务，为MOSN、DB Sidecar、Security Sidecar 提供Certificate和CR下发能力</li>
-<li>KMS：密钥管理系统负责证书签发</li>
-</ul>
-<h3 id="证书获取流程">证书获取流程</h3>
-<p>对整体架构有个大致理解后，我们分解下 Sidecar 获取证书的流程，如下图所示：</p>
-<p><img src="certificate-request-process.png" alt="证书获取流程"></p>
-<p>补充说明下图中的每一步环节：</p>
-<ol>
-<li>Citadel 与 Citadel agent（nodeagent）组件通过MCP协议（Mesh Configuration Protocol）同步Pod 和 CR 信息，避免 citadel agent 直接请求 API Server 导致 API Server 负载过高</li>
-<li>MOSN 通过Unix Domain Socket 方式向 Citadel Agent 发起 SDS 请求</li>
-<li>Citadel Agent 会进行防篡改校验，并提取appkey</li>
-<li>Citadel Agent 携带 appkey 请求 Citadel 签发证书</li>
-<li>Citadel 检查证书是否已缓存，如果缓存证书未过期，Citadel 将直接响应缓存证书</li>
-<li>证书不在缓存中，Citadel 会基于 appkey 构造证书签发请求，向 KMS 申请签发证书</li>
-<li>KMS 会将签发的证书响应回Citadel，另外 KMS 也支持证书过期轮换通知</li>
-<li>Citadel 收到证书后，会将证书传递给到对应的 Citadel Agent</li>
-<li>Citadel Agent 收到证书后，会在内存中缓存证书，并将证书下发给到 MOSN</li>
-</ol>
+	<h1>MOSN 多协议机制解析</h1>
+	<div class="lead">本文主要是对 MOSN 多协议机制解析，并介绍对应的私有协议快速接入实践案例以及对 MOSN 实现多协议低成本接入的设计进行解读。</div>
+	<p><a href="https://mosn.io/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a></p>
 
         <div class="section-index">
     
@@ -1375,14 +1330,12 @@ if (!doNotTrack) {
         
             
         
-            
-        
     
 </div>
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年4月28日: <a  href="https://github.com/mosn/mosn.io/commit/c022369f1ddd33b11494b1761ae329d5c94c4bf5">文档目录架构调整 (#193) (c022369)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年4月28日: <a  href="https://github.com/mosn/mosn.io/commit/4deb0c5d2a81960cd6741ef349b0ba2d7cc725f1">fix pictures miss (4deb0c5)</a>
 </div>
 </div>
 
