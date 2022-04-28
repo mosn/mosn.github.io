@@ -1,0 +1,57 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MOSN – 用户指南</title>
+    <link>https://mosn.io/docs/user-guide/</link>
+    <description>Recent content in 用户指南 on MOSN</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 20 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="https://mosn.io/docs/user-guide/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: 开始</title>
+      <link>https://mosn.io/docs/user-guide/start/</link>
+      <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/user-guide/start/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 多语言</title>
+      <link>https://mosn.io/docs/user-guide/multilingual/</link>
+      <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/user-guide/multilingual/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 参考手册/FAQ</title>
+      <link>https://mosn.io/docs/user-guide/manual-faq/</link>
+      <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/user-guide/manual-faq/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

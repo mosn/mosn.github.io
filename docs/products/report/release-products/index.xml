@@ -1,0 +1,18 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MOSN – 版本发布介绍</title>
+    <link>https://mosn.io/docs/products/report/release-products/</link>
+    <description>Recent content in 版本发布介绍 on MOSN</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 28 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="https://mosn.io/docs/products/report/release-products/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+  </channel>
+</rss>
