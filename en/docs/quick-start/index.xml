@@ -118,7 +118,7 @@ cd istio
 git checkout 1.10.6
 &lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;
-&lt;p&gt;Istio will load wasm by default. To simplify, we need to comment out this part of the code. see details in &lt;a href=&#34;./istio-diff.md&#34;&gt;istio-diff&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Istio will load wasm by default. To simplify, we need to comment out this part of the code. see details in &lt;a href=&#34;./istio-diff&#34;&gt;istio-diff&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Build a MOSN binary. You can use the make command provided by MOSN project to build a binary on linux. As the same time, since we are using MacOS, we also need to compile a MacOS binary.&lt;/p&gt;

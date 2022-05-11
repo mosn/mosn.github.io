@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/en/docs/quick-start/istio/index.xml">
 
 
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
@@ -21,20 +22,12 @@
 <title>Use MOSN as an Istio data plane | MOSN</title><meta property="og:title" content="Use MOSN as an Istio data plane" />
 <meta property="og:description" content="This topic shows you how to build a Service Mesh development environment with MOSN under the Istio framework, and verify the basic routing and load balancing capabilities of MOSN.
 " />
-<meta property="og:type" content="article" />
+<meta property="og:type" content="website" />
 <meta property="og:url" content="https://mosn.io/en/docs/quick-start/istio/" />
-<meta property="article:published_time" content="2022-03-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-05-10T14:13:50+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="og:updated_time" content="2022-05-11T09:34:00+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="Use MOSN as an Istio data plane">
 <meta itemprop="description" content="This topic shows you how to build a Service Mesh development environment with MOSN under the Istio framework, and verify the basic routing and load balancing capabilities of MOSN.
 ">
-<meta itemprop="datePublished" content="2022-03-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-05-10T14:13:50+08:00" />
-<meta itemprop="wordCount" content="1351">
-
-
-
-<meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Use MOSN as an Istio data plane"/>
 <meta name="twitter:description" content="This topic shows you how to build a Service Mesh development environment with MOSN under the Istio framework, and verify the basic routing and load balancing capabilities of MOSN.
@@ -69,7 +62,7 @@ if (!doNotTrack) {
 
     <title>Use MOSN as an Istio data plane | MOSN</title>
   </head>
-  <body class="td-page">
+  <body class="td-section">
     <header>
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
@@ -234,7 +227,7 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/en/docs/quick-start/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Get started</a>
+    <a  href="/en/docs/quick-start/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Get started</a>
   </li>
   <ul>
     <li class="collapse show" id="endocsquick-start">
@@ -249,8 +242,31 @@ if (!doNotTrack) {
       
       
       
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/en/docs/quick-start/istio/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Istio integration</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="endocsquick-startistio">
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-endocsquick-startistio" href="/en/docs/quick-start/istio/">Istio integration</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-endocsquick-startistioistio-diff" href="/en/docs/quick-start/istio/istio-diff/"></a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
     </li>
@@ -551,7 +567,7 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/quick-start/istio/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/en/docs/quick-start/istio/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
 <a href="https://github.com/mosn/mosn.io/issues/new?title=Use%20MOSN%20as%20an%20Istio%20data%20plane" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
 
 
@@ -665,7 +681,7 @@ cd istio
 git checkout 1.10.6
 </code></pre><ol start="2">
 <li>
-<p>Istio will load wasm by default. To simplify, we need to comment out this part of the code. see details in <a href="./istio-diff.md">istio-diff</a></p>
+<p>Istio will load wasm by default. To simplify, we need to comment out this part of the code. see details in <a href="./istio-diff">istio-diff</a></p>
 </li>
 <li>
 <p>Build a MOSN binary. You can use the make command provided by MOSN project to build a binary on linux. As the same time, since we are using MacOS, we also need to compile a MacOS binary.</p>
@@ -856,12 +872,92 @@ $ kubectl get pods              <span style="color:#8f5902;font-style:italic">#-
 </code></pre></div><p>Make sure Istio is uninstalled</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get namespace istio-system
 </code></pre></div>
-	
-	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified May 10, 2022: <a  href="https://github.com/mosn/mosn.io/commit/2f8c762645507d378d8bfc96f8bfeec987ccaf06">added the missing istio-diff.md. (2f8c762)</a>
-</div>
+        <div class="section-index">
+    
+    
+    
+    
+    <hr class="panel-line">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <div class="entry">
+                    <h5>
+                        <a href="/en/docs/quick-start/istio/istio-diff/"></a>
+                    </h5>
+                    <p></p>
+                </div>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
 </div>
 
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">Last modified May 11, 2022: <a  href="https://github.com/mosn/mosn.io/commit/143cd054318ef8037d051d953be0e0a073f6410d">fix the istio-diff links (#199) (143cd05)</a>
+</div>
+</div>
 
           </main>
         </div>

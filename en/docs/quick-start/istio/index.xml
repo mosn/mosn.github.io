@@ -1,0 +1,92 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MOSN – Use MOSN as an Istio data plane</title>
+    <link>https://mosn.io/en/docs/quick-start/istio/</link>
+    <description>Recent content in Use MOSN as an Istio data plane on MOSN</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 25 Mar 2022 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="https://mosn.io/en/docs/quick-start/istio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: </title>
+      <link>https://mosn.io/en/docs/quick-start/istio/istio-diff/</link>
+      <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/docs/quick-start/istio/istio-diff/</guid>
+      <description>
+        
+        
+        &lt;p&gt;bin/init.sh&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR}
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-for plugin in stats metadata_exchange
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-do
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-  FILTER_WASM_URL=&amp;#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-  download_wasm_if_necessary &amp;#34;${FILTER_WASM_URL}&amp;#34; &amp;#34;${WASM_RELEASE_DIR}&amp;#34;/&amp;#34;${plugin//_/-}&amp;#34;-filter.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-  FILTER_WASM_URL=&amp;#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-  download_wasm_if_necessary &amp;#34;${FILTER_WASM_URL}&amp;#34; &amp;#34;${WASM_RELEASE_DIR}&amp;#34;/&amp;#34;${plugin//_/-}&amp;#34;-filter.compiled.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-done
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR}
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#for plugin in stats metadata_exchange
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#do
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#  FILTER_WASM_URL=&amp;#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#  download_wasm_if_necessary &amp;#34;${FILTER_WASM_URL}&amp;#34; &amp;#34;${WASM_RELEASE_DIR}&amp;#34;/&amp;#34;${plugin//_/-}&amp;#34;-filter.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#  FILTER_WASM_URL=&amp;#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#  download_wasm_if_necessary &amp;#34;${FILTER_WASM_URL}&amp;#34; &amp;#34;${WASM_RELEASE_DIR}&amp;#34;/&amp;#34;${plugin//_/-}&amp;#34;-filter.compiled.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#done
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;bin/update_proxy.sh&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-printf &amp;#34;Verifying %s is available\n&amp;#34; &amp;#34;$WASM_URL&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-until curl --output /dev/null --silent --head --fail &amp;#34;$WASM_URL&amp;#34;; do
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-    printf &amp;#39;.&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-    sleep $SLEEP_TIME
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-done
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#printf &amp;#34;Verifying %s is available\n&amp;#34; &amp;#34;$WASM_URL&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#until curl --output /dev/null --silent --head --fail &amp;#34;$WASM_URL&amp;#34;; do
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#    printf &amp;#39;.&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#    sleep $SLEEP_TIME
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#done
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;pilot/docker/Dockerfile.proxyv2&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-COPY stats-filter.wasm /etc/istio/extensions/stats-filter.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-COPY stats-filter.compiled.wasm /etc/istio/extensions/stats-filter.compiled.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-COPY metadata-exchange-filter.wasm /etc/istio/extensions/metadata-exchange-filter.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-COPY metadata-exchange-filter.compiled.wasm /etc/istio/extensions/metadata-exchange-filter.compiled.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#COPY stats-filter.wasm /etc/istio/extensions/stats-filter.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#COPY stats-filter.compiled.wasm /etc/istio/extensions/stats-filter.compiled.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#COPY metadata-exchange-filter.wasm /etc/istio/extensions/metadata-exchange-filter.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#COPY metadata-exchange-filter.compiled.wasm /etc/istio/extensions/metadata-exchange-filter.compiled.wasm
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;tools/istio-docker.mk&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt; # rule for wasm extensions.
+&lt;span style=&#34;color:#a40000&#34;&gt;-$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.wasm: init
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.compiled.wasm: init
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.wasm: init
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.compiled.wasm: init
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.wasm: init
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.compiled.wasm: init
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.wasm: init
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.compiled.wasm: init
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#a40000&#34;&gt;-docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.compiled.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.compiled.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.compiled.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.wasm
+&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+#docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.compiled.wasm
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;pkg/config/constants/constants.go&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt;&lt;span style=&#34;color:#a40000&#34;&gt;-       BinaryPathFilename = &amp;#34;/usr/local/bin/envoy&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#00a000&#34;&gt;+       BinaryPathFilename = &amp;#34;/usr/local/bin/mosn&amp;#34;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+  </channel>
+</rss>

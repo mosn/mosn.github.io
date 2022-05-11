@@ -147,7 +147,7 @@ The Cloud-Native Network Proxy Platform.
 &lt;pre&gt;&lt;code&gt;git clone git@github.com:istio/istio.git
 cd istio
 git checkout 1.10.6
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2、由于目前 Istio 默认会加载 wasm，我们需要将相关逻辑注释掉，再重新编译镜像，避免一些不必要的错误。详细的改动可见 &lt;a href=&#34;./istio-diff.md&#34;&gt;istio-diff&lt;/a&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2、由于目前 Istio 默认会加载 wasm，我们需要将相关逻辑注释掉，再重新编译镜像，避免一些不必要的错误。详细的改动可见 &lt;a href=&#34;./istio-diff&#34;&gt;istio-diff&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;3、编译 MOSN 二进制，MOSN 提供了镜像编译的方式可直接编译 linux 的二进制；同时由于在 MacOS 上构建的过程中，Istio 还会下载一个 MacOS 版本，因此还需要编译一个 MacOS 的二进制&lt;/p&gt;
 &lt;p&gt;4、将编译好的二进制，使用 tar 方式进行打包，并且打包路径需要是&lt;code&gt;usr/local/bin&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; Project Path&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;

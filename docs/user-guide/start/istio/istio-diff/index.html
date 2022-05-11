@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.75.1" />
 <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-<link rel="alternate" type="application/rss&#43;xml" href="https://mosn.io/docs/products/structure/extensions/index.xml">
 
 
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
@@ -19,16 +18,30 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>MOSN 扩展机制解析 | MOSN</title><meta property="og:title" content="MOSN 扩展机制解析" />
-<meta property="og:description" content="本文介绍的是 MOSN 的扩展机制。" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://mosn.io/docs/products/structure/extensions/" />
-<meta property="og:updated_time" content="2022-05-11T09:34:00+08:00" /><meta property="og:site_name" content="MOSN" />
-<meta itemprop="name" content="MOSN 扩展机制解析">
-<meta itemprop="description" content="本文介绍的是 MOSN 的扩展机制。">
+<title>MOSN</title><meta property="og:title" content="" />
+<meta property="og:description" content="bin/init.sh
+-WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR} -for plugin in stats metadata_exchange -do - FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&#34; - download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.wasm - FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&#34; - download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.compiled.wasm -done &#43;#WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR} &#43;#for plugin in stats metadata_exchange &#43;#do &#43;# FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&#34; &#43;# download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.wasm &#43;# FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&#34; &#43;# download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.compiled.wasm &#43;#done bin/update_proxy.sh
+-WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm -printf &#34;Verifying %s is available\n&#34; &#34;$WASM_URL&#34; -until curl --output /dev/null --silent --head --fail &#34;$WASM_URL&#34;; do - printf &#39;.&#39; - sleep $SLEEP_TIME -done &#43;#WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm &#43;#printf &#34;Verifying %s is available\n&#34; &#34;$WASM_URL&#34; &#43;#until curl --output /dev/null --silent --head --fail &#34;$WASM_URL&#34;; do &#43;# printf &#39;." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/docs/user-guide/start/istio/istio-diff/" />
+<meta property="article:published_time" content="2022-03-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-05-11T09:34:00+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta itemprop="name" content="">
+<meta itemprop="description" content="bin/init.sh
+-WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR} -for plugin in stats metadata_exchange -do - FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&#34; - download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.wasm - FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&#34; - download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.compiled.wasm -done &#43;#WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR} &#43;#for plugin in stats metadata_exchange &#43;#do &#43;# FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&#34; &#43;# download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.wasm &#43;# FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&#34; &#43;# download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.compiled.wasm &#43;#done bin/update_proxy.sh
+-WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm -printf &#34;Verifying %s is available\n&#34; &#34;$WASM_URL&#34; -until curl --output /dev/null --silent --head --fail &#34;$WASM_URL&#34;; do - printf &#39;.&#39; - sleep $SLEEP_TIME -done &#43;#WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm &#43;#printf &#34;Verifying %s is available\n&#34; &#34;$WASM_URL&#34; &#43;#until curl --output /dev/null --silent --head --fail &#34;$WASM_URL&#34;; do &#43;# printf &#39;.">
+<meta itemprop="datePublished" content="2022-03-25T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-05-11T09:34:00+08:00" />
+<meta itemprop="wordCount" content="160">
+
+
+
+<meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MOSN 扩展机制解析"/>
-<meta name="twitter:description" content="本文介绍的是 MOSN 的扩展机制。"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="bin/init.sh
+-WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR} -for plugin in stats metadata_exchange -do - FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&#34; - download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.wasm - FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&#34; - download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.compiled.wasm -done &#43;#WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR} &#43;#for plugin in stats metadata_exchange &#43;#do &#43;# FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&#34; &#43;# download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.wasm &#43;# FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&#34; &#43;# download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.compiled.wasm &#43;#done bin/update_proxy.sh
+-WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm -printf &#34;Verifying %s is available\n&#34; &#34;$WASM_URL&#34; -until curl --output /dev/null --silent --head --fail &#34;$WASM_URL&#34;; do - printf &#39;.&#39; - sleep $SLEEP_TIME -done &#43;#WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm &#43;#printf &#34;Verifying %s is available\n&#34; &#34;$WASM_URL&#34; &#43;#until curl --output /dev/null --silent --head --fail &#34;$WASM_URL&#34;; do &#43;# printf &#39;."/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -57,9 +70,9 @@ if (!doNotTrack) {
 
 
 
-    <title>MOSN 扩展机制解析 | MOSN</title>
+    <title>MOSN</title>
   </head>
-  <body class="td-section">
+  <body class="td-page">
     <header>
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
@@ -212,10 +225,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">产品介绍</a>
+    <a  href="/docs/products/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">产品介绍</a>
   </li>
   <ul>
-    <li class="collapse show" id="docsproducts">
+    <li class="collapse " id="docsproducts">
       
       
       
@@ -252,10 +265,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/structure/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">架构原理</a>
+    <a  href="/docs/products/structure/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">架构原理</a>
   </li>
   <ul>
-    <li class="collapse show" id="docsproductsstructure">
+    <li class="collapse " id="docsproductsstructure">
       
       
       
@@ -407,10 +420,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/products/structure/extensions/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">MOSN 扩展机制解析</a>
+    <a  href="/docs/products/structure/extensions/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">MOSN 扩展机制解析</a>
   </li>
   <ul>
-    <li class="collapse show" id="docsproductsstructureextensions">
+    <li class="collapse " id="docsproductsstructureextensions">
       
       
       
@@ -828,10 +841,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/user-guide/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">用户指南</a>
+    <a  href="/docs/user-guide/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">用户指南</a>
   </li>
   <ul>
-    <li class="collapse " id="docsuser-guide">
+    <li class="collapse show" id="docsuser-guide">
       
       
       
@@ -845,10 +858,10 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/user-guide/start/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">开始</a>
+    <a  href="/docs/user-guide/start/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">开始</a>
   </li>
   <ul>
-    <li class="collapse " id="docsuser-guidestart">
+    <li class="collapse show" id="docsuser-guidestart">
       
       
       
@@ -868,17 +881,17 @@ if (!doNotTrack) {
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/user-guide/start/istio/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">集成 Istio</a>
+    <a  href="/docs/user-guide/start/istio/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">集成 Istio</a>
   </li>
   <ul>
-    <li class="collapse " id="docsuser-guidestartistio">
+    <li class="collapse show" id="docsuser-guidestartistio">
       
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsuser-guidestartistioistio-diff" href="/docs/user-guide/start/istio/istio-diff/"></a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsuser-guidestartistioistio-diff" href="/docs/user-guide/start/istio/istio-diff/"></a>
       
       
     </li>
@@ -1138,8 +1151,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/products/structure/extensions/_index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e6%89%a9%e5%b1%95%e6%9c%ba%e5%88%b6%e8%a7%a3%e6%9e%90" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/docs/user-guide/start/istio/istio-diff/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -1171,6 +1184,9 @@ if (!doNotTrack) {
 
 
 
+
+
+
 <li class="breadcrumb-item" >
 	<a href="/docs/">文档</a>
 </li>
@@ -1179,21 +1195,28 @@ if (!doNotTrack) {
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/products/">产品介绍</a>
+	<a href="/docs/user-guide/">用户指南</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/products/structure/">架构原理</a>
+	<a href="/docs/user-guide/start/">开始</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="/docs/user-guide/start/istio/">集成 Istio</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/products/structure/extensions/">MOSN 扩展机制解析</a>
+	<a href="/docs/user-guide/start/istio/istio-diff/"></a>
 </li>
 
 	</ol>
@@ -1202,167 +1225,76 @@ if (!doNotTrack) {
 
             
 <div class="td-content">
-	<h1>MOSN 扩展机制解析</h1>
-	<div class="lead">本文介绍的是 MOSN 的扩展机制。</div>
-	<p><a href="https://mosn.io/blog/posts/mosn-extensions/">MOSN 扩展机制解析</a></p>
-
-        <div class="section-index">
-    
-    
-    
-    
-    <hr class="panel-line">
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-    
-</div>
-
+	<h1></h1>
+	
+	<p>bin/init.sh</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#a40000">-WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR}
+</span><span style="color:#a40000">-for plugin in stats metadata_exchange
+</span><span style="color:#a40000">-do
+</span><span style="color:#a40000">-  FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&#34;
+</span><span style="color:#a40000">-  download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.wasm
+</span><span style="color:#a40000">-  FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&#34;
+</span><span style="color:#a40000">-  download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.compiled.wasm
+</span><span style="color:#a40000">-done
+</span><span style="color:#a40000"></span><span style="color:#00a000">+#WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR}
+</span><span style="color:#00a000">+#for plugin in stats metadata_exchange
+</span><span style="color:#00a000">+#do
+</span><span style="color:#00a000">+#  FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&#34;
+</span><span style="color:#00a000">+#  download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.wasm
+</span><span style="color:#00a000">+#  FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&#34;
+</span><span style="color:#00a000">+#  download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.compiled.wasm
+</span><span style="color:#00a000">+#done
+</span></code></pre></div><p>bin/update_proxy.sh</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#a40000">-WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm
+</span><span style="color:#a40000">-printf &#34;Verifying %s is available\n&#34; &#34;$WASM_URL&#34;
+</span><span style="color:#a40000">-until curl --output /dev/null --silent --head --fail &#34;$WASM_URL&#34;; do
+</span><span style="color:#a40000">-    printf &#39;.&#39;
+</span><span style="color:#a40000">-    sleep $SLEEP_TIME
+</span><span style="color:#a40000">-done
+</span><span style="color:#a40000"></span><span style="color:#00a000">+#WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm
+</span><span style="color:#00a000">+#printf &#34;Verifying %s is available\n&#34; &#34;$WASM_URL&#34;
+</span><span style="color:#00a000">+#until curl --output /dev/null --silent --head --fail &#34;$WASM_URL&#34;; do
+</span><span style="color:#00a000">+#    printf &#39;.&#39;
+</span><span style="color:#00a000">+#    sleep $SLEEP_TIME
+</span><span style="color:#00a000">+#done
+</span></code></pre></div><p>pilot/docker/Dockerfile.proxyv2</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#a40000">-COPY stats-filter.wasm /etc/istio/extensions/stats-filter.wasm
+</span><span style="color:#a40000">-COPY stats-filter.compiled.wasm /etc/istio/extensions/stats-filter.compiled.wasm
+</span><span style="color:#a40000">-COPY metadata-exchange-filter.wasm /etc/istio/extensions/metadata-exchange-filter.wasm
+</span><span style="color:#a40000">-COPY metadata-exchange-filter.compiled.wasm /etc/istio/extensions/metadata-exchange-filter.compiled.wasm
+</span><span style="color:#a40000"></span><span style="color:#00a000">+#COPY stats-filter.wasm /etc/istio/extensions/stats-filter.wasm
+</span><span style="color:#00a000">+#COPY stats-filter.compiled.wasm /etc/istio/extensions/stats-filter.compiled.wasm
+</span><span style="color:#00a000">+#COPY metadata-exchange-filter.wasm /etc/istio/extensions/metadata-exchange-filter.wasm
+</span><span style="color:#00a000">+#COPY metadata-exchange-filter.compiled.wasm /etc/istio/extensions/metadata-exchange-filter.compiled.wasm
+</span></code></pre></div><p>tools/istio-docker.mk</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"> # rule for wasm extensions.
+<span style="color:#a40000">-$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.wasm: init
+</span><span style="color:#a40000">-$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.compiled.wasm: init
+</span><span style="color:#a40000">-$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.wasm: init
+</span><span style="color:#a40000">-$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.compiled.wasm: init
+</span><span style="color:#a40000"></span><span style="color:#00a000">+#$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.wasm: init
+</span><span style="color:#00a000">+#$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.compiled.wasm: init
+</span><span style="color:#00a000">+#$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.wasm: init
+</span><span style="color:#00a000">+#$(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.compiled.wasm: init
+</span><span style="color:#00a000"></span>
+<span style="color:#a40000">-docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.wasm
+</span><span style="color:#a40000">-docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.compiled.wasm
+</span><span style="color:#a40000">-docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.wasm
+</span><span style="color:#a40000">-docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.compiled.wasm
+</span><span style="color:#a40000"></span><span style="color:#00a000">+#docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.wasm
+</span><span style="color:#00a000">+#docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/stats-filter.compiled.wasm
+</span><span style="color:#00a000">+#docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.wasm
+</span><span style="color:#00a000">+#docker.proxyv2: $(ISTIO_ENVOY_LINUX_RELEASE_DIR)/metadata-exchange-filter.compiled.wasm
+</span></code></pre></div><p>pkg/config/constants/constants.go</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#a40000">-       BinaryPathFilename = &#34;/usr/local/bin/envoy&#34;
+</span><span style="color:#a40000"></span><span style="color:#00a000">+       BinaryPathFilename = &#34;/usr/local/bin/mosn&#34;
+</span></code></pre></div>
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年5月11日: <a  href="https://github.com/mosn/mosn.io/commit/143cd054318ef8037d051d953be0e0a073f6410d">fix the istio-diff links (#199) (143cd05)</a>
 </div>
 </div>
+
 
           </main>
         </div>
