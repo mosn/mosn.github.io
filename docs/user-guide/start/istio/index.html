@@ -24,7 +24,7 @@
 " />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mosn.io/docs/user-guide/start/istio/" />
-<meta property="og:updated_time" content="2022-05-16T11:17:15+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="og:updated_time" content="2022-06-15T14:46:16+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 作为 Istio 的数据平面">
 <meta itemprop="description" content="本文将介绍如何使用 MOSN 在 Istio 框架下搭建 Service Mesh 的开发环境，并验证 MOSN 的一些基础路由能力、负载均衡能力等。
 ">
@@ -1282,7 +1282,7 @@ tar -zcvf mosn-macos.tar.gz usr/local/bin/mosn
 <span style="color:#204a87">export</span> <span style="color:#000">ISTIO_ENVOY_VERSION</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#000">$2</span> <span style="color:#8f5902;font-style:italic"># MOSN Version, can be any value.</span>
 <span style="color:#204a87">export</span> <span style="color:#000">ISTIO_ENVOY_RELEASE_URL</span><span style="color:#ce5c00;font-weight:bold">=</span>http://<span style="color:#000">$address</span>/mosn.tar.gz
 <span style="color:#204a87">export</span> <span style="color:#000">ISTIO_ENVOY_CENTOS_RELEASE_URL</span><span style="color:#ce5c00;font-weight:bold">=</span>http://<span style="color:#000">$address</span>/mosn-centos.tar.gz
-<span style="color:#204a87">export</span> <span style="color:#000">ISTIO_ENVOY_MACOS_RELEASE_URL</span><span style="color:#ce5c00;font-weight:bold">=</span>http://http://<span style="color:#000">$address</span>/mosn-macos.tar.gz
+<span style="color:#204a87">export</span> <span style="color:#000">ISTIO_ENVOY_MACOS_RELEASE_URL</span><span style="color:#ce5c00;font-weight:bold">=</span>http://<span style="color:#000">$address</span>/mosn-macos.tar.gz
 <span style="color:#204a87">export</span> <span style="color:#000">ISTIO_ENVOY_MACOS_RELEASE_NAME</span><span style="color:#ce5c00;font-weight:bold">=</span>mosn-<span style="color:#000">$2</span> <span style="color:#8f5902;font-style:italic"># can be any value</span>
 <span style="color:#204a87">export</span> <span style="color:#000">SIDECAR</span><span style="color:#ce5c00;font-weight:bold">=</span>mosn
 
@@ -1584,7 +1584,7 @@ $ kubectl get pods              <span style="color:#8f5902;font-style:italic">#-
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年5月16日: <a  href="https://github.com/mosn/mosn.io/commit/be7f2ade2631bd3cf9d3249554ca4c84e8a277a6">optimize build subset (#200) (be7f2ad)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年6月15日: <a  href="https://github.com/mosn/mosn.io/commit/5c4694abef0280dbcc6e062b250d6365bcf39a96">Update _index.md (5c4694a)</a>
 </div>
 </div>
 
