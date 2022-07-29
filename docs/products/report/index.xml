@@ -43,12 +43,7 @@
 &lt;h3 id=&#34;二整理-release-notes&#34;&gt;二、整理 Release notes&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;基于 Github 的 PullRequest 记录，整理本次发布的内容与上一个版本之间的差异，需要注意仅统计目标分支是 master 且正常合并的 PullRequest&lt;/li&gt;
-&lt;li&gt;首先记录原始的信息，统一记录在 &lt;a href=&#34;https://docs.google.com/document/d/15wu2Ug4nN38A_odKv3ubmfu1OxmxqlUUFnvN4mbKtIc/edit?usp=sharing&#34;&gt;MOSN Release notes 整理文档&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;文档打开需要权限&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;整理完原始信息以后，进行提炼和总结
+&lt;li&gt;首先整理完原始信息以后，进行提炼和总结
 &lt;ul&gt;
 &lt;li&gt;通常情况下，一个 PullRequest 对应一个改动记录&lt;/li&gt;
 &lt;li&gt;存在部分特殊情况是一个 PullRequest 包含多个改动的情况，可以请 PullRequest 提供者提供详细信息&lt;/li&gt;
