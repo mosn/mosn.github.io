@@ -130,7 +130,6 @@ The Cloud-Native Network Proxy Platform.
 &lt;p&gt;本文介绍的内容将包括 :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;MOSN 与 Istio 的关系&lt;/li&gt;
-&lt;li&gt;MOSN 与 Istio 的 proxyv2 镜像 build 方法&lt;/li&gt;
 &lt;li&gt;部署 Istio 与 MOSN&lt;/li&gt;
 &lt;li&gt;Bookinfo 实验&lt;/li&gt;
 &lt;/ul&gt;
@@ -138,80 +137,58 @@ The Cloud-Native Network Proxy Platform.
 &lt;p&gt;我们曾在 &lt;a href=&#34;../../overview&#34;&gt;MOSN 介绍&lt;/a&gt; 中介绍过，MOSN 是一款采用 Go 语言开发的 Service Mesh 数据平面代理。&lt;/p&gt;
 &lt;p&gt;下图是 Istio 整体框架下，MOSN 的工作示意图。&lt;/p&gt;
 &lt;div align=center&gt;&lt;img src=&#34;mosn-with-service-mesh.svg&#34; width = &#34;450&#34; height = &#34;400&#34; alt=&#34;MOSN 介绍&#34; /&gt;&lt;/div&gt;
-&lt;h2 id=&#34;mosn-与-istio-的-proxyv2-镜像-build-方法&#34;&gt;MOSN 与 Istio 的 proxyv2 镜像 build 方法&lt;/h2&gt;
-&lt;p&gt;本文的完整构建镜像方法均是基于 MacOS 和 Istio 1.10.6 版本进行的构建，在其他操作系统 Istio 版本上可能存在部分细节差异，需要进行调整。
-除了完整构建方式外，如果仅有 MOSN 代码发生变化，还可以使用仅更新 MOSN 的方式构建镜像。
-通常情况下，您不需要额外构建镜像，可直接用我们提供的镜像 &lt;code&gt;mosnio/proxyv2:${MOSN-VERSION}-${ISTIO_VERSION}&lt;/code&gt;，如&lt;code&gt;docker pull mosnio/proxyv2:v1.0.0-1.10.6&lt;/code&gt;&lt;/p&gt;
-&lt;h1 id=&#34;完整的镜像构建基于-macos-和-istio-1106&#34;&gt;完整的镜像构建（基于 MacOS 和 Istio 1.10.6）&lt;/h1&gt;
-&lt;p&gt;1、下载完整的 istio 源代码，并且切换到对应的版本&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git clone git@github.com:istio/istio.git
-cd istio
-git checkout 1.10.6
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2、由于目前 Istio 默认会加载 wasm，我们需要将相关逻辑注释掉，再重新编译镜像，避免一些不必要的错误。详细的改动可见 &lt;a href=&#34;./istio-diff&#34;&gt;istio-diff&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;3、编译 MOSN 二进制，MOSN 提供了镜像编译的方式可直接编译 linux 的二进制；同时由于在 MacOS 上构建的过程中，Istio 还会下载一个 MacOS 版本，因此还需要编译一个 MacOS 的二进制&lt;/p&gt;
-&lt;p&gt;4、将编译好的二进制，使用 tar 方式进行打包，并且打包路径需要是&lt;code&gt;usr/local/bin&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; Project Path&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;
-mkdir -p usr/local/bin
-make build &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# build mosn binary on linux&lt;/span&gt;
-cp build/bundles/&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; VERSION&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/binary/mosn usr/local/bin
-tar -zcvf mosn.tar.gz usr/local/bin/mosn
-cp mosn.tar.gz mosn-centos.tar.gz &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# copy a renamed tar.gz file&lt;/span&gt;
-
-make build-local &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# build mosn binary on macos&lt;/span&gt;
-cp build/bundles/&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; VERSION&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/binary/mosn usr/local/bin
-tar -zcvf mosn-macos.tar.gz usr/local/bin/mosn
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;5、将生成的&lt;code&gt;mosn-macos.tar.gz&lt;/code&gt; &lt;code&gt;mosn-centos.tar.gz&lt;/code&gt; &lt;code&gt;mosn.tar.gz&lt;/code&gt; 上传到一个编译环境可访问的存储服务中，可用 Go 语言简单快速在本地环境搭建一个&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Go&#34; data-lang=&#34;Go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
-  &lt;span style=&#34;color:#000&#34;&gt;address&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;// an address can be reached when proxyv2 image build. for example, 0.0.0.0:8080
-&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#000&#34;&gt;filespath&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;// where the .tar.gz files stored.
-&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#000&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ListenAndServe&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;address&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;FileServer&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Dir&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;filespath&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)))&lt;/span&gt;
-&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;6、指定参数，开始编译 proxyv2 镜像&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;address&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$1&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# your download service address&lt;/span&gt;
-&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$2&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# MOSN Version, can be any value.&lt;/span&gt;
-&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;http://&lt;span style=&#34;color:#000&#34;&gt;$address&lt;/span&gt;/mosn.tar.gz
-&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_CENTOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;http://&lt;span style=&#34;color:#000&#34;&gt;$address&lt;/span&gt;/mosn-centos.tar.gz
-&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;http://&lt;span style=&#34;color:#000&#34;&gt;$address&lt;/span&gt;/mosn-macos.tar.gz
-&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_NAME&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;mosn-&lt;span style=&#34;color:#000&#34;&gt;$2&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# can be any value&lt;/span&gt;
-&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;SIDECAR&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;mosn
-
-make clean &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# clean the cache&lt;/span&gt;
-make docker.proxyv2 &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;SIDECAR&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$SIDECAR&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_VERSION&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_RELEASE_URL&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_CENTOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_CENTOS_RELEASE_URL&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_MACOS_RELEASE_URL&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_NAME&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_MACOS_RELEASE_NAME&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;7、编译完成以后，可以将镜像打上新的 Tag 并且上传（如个人测试 dockerhub 的地址），确保 istio 使用时可访问即可&lt;/p&gt;
-&lt;h1 id=&#34;单独更新-mosn-版本&#34;&gt;单独更新 MOSN 版本&lt;/h1&gt;
-&lt;p&gt;1、重新编译 MOSN 二进制&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; Project Path&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;
-make build &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# build mosn binary on linux&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、直接基于现有 MOSN 的 proxyv2 镜像更新二进制&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Dockerfile&#34; data-lang=&#34;Dockerfile&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt; mosnio/proxyv2:v1.0.0-1.10.6&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;COPY&lt;/span&gt; build/bundles/&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; VERSION&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/binary/mosn /usr/local/bin/mosn&lt;span style=&#34;color:#a40000&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker build --no-cache --rm -t &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;your&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; image tag&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3、将新镜像上传，确保 istio 使用时可访问即可&lt;/p&gt;
 &lt;h2 id=&#34;部署-istio-与-mosn&#34;&gt;部署 Istio 与 MOSN&lt;/h2&gt;
+&lt;p&gt;注意：Istio 1.10.6 不支持在 arm64 上运行 Kubernetes 的集群 。 &lt;a href=&#34;%5B(https://github.com/istio/istio/issues/32841)%5D&#34;&gt;Istio Issues&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;安装-kubectl-命令行工具&#34;&gt;安装 kubectl 命令行工具&lt;/h3&gt;
 &lt;p&gt;kubectl 是用于针对 Kubernetes 集群运行命令的命令行接口，安装参考 &lt;a href=&#34;https://kubernetes.io/docs/tasks/tools/install-kubectl&#34;&gt;kubectl doc&lt;/a&gt;。&lt;/p&gt;
 &lt;h3 id=&#34;安装-kubernetes-平台&#34;&gt;安装 Kubernetes 平台&lt;/h3&gt;
 &lt;p&gt;安装 Istio，首先需要根据实际需求选择安装平台，可参考 Istio 官方文档推荐的方式 &lt;a href=&#34;https://istio.io/latest/docs/setup/platform-setup/&#34;&gt;Platform Setup&lt;/a&gt;。
 后文中，我们假定选择的是&lt;code&gt;minikube&lt;/code&gt;的安装方式，方便进行介绍。&lt;/p&gt;
-&lt;h3 id=&#34;安装-istio使用-mosn-作为数据面&#34;&gt;安装 Istio，使用 MOSN 作为数据面&lt;/h3&gt;
+&lt;p&gt;安装minikube 流程：&lt;/p&gt;
+&lt;p&gt;1、根据本机环境选择下载地址 &lt;a href=&#34;https://minikube.sigs.k8s.io/docs/start/&#34;&gt;Minikube 官网&lt;/a&gt;,下面用的系统是&lt;code&gt;macOS x86&lt;/code&gt;系统。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+$ sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、启动 minikube&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ minikube start --memory&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;7851&lt;/span&gt; --cpus&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;4&lt;/span&gt; --image-mirror-country&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;cn&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注意：内存必须大于4GB，且镜像为&lt;code&gt;cn&lt;/code&gt;(国内)&lt;/p&gt;
+&lt;p&gt;3、安装成功后，查看Pod情况&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ minikube kubectl -- get pods -A 
+NAMESPACE      NAME                                    READY   STATUS    RESTARTS      AGE
+kube-system    coredns-64897985d-vw7b8                 1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;16h ago&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;   7d20h
+kube-system    etcd-minikube                           1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;16h ago&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;   7d20h
+kube-system    kube-apiserver-minikube                 1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;16h ago&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;   7d20h
+kube-system    kube-controller-manager-minikube        1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;16h ago&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;   7d20h
+kube-system    kube-proxy-cmjcq                        1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;16h ago&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;   7d20h
+kube-system    kube-scheduler-minikube                 1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;16h ago&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;   7d20h
+kube-system    storage-provisioner                     1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;5&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;16h ago&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;   7d20h 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;安装-istio使用-mosn-作为数据面&#34;&gt;安装 Istio，使用 MOSN 作为数据面&lt;/h3&gt;
 &lt;p&gt;1、下载对应的 Istio Release 版本，可以在 &lt;a href=&#34;https://github.com/istio/istio/releases/tag/1.10.6&#34;&gt;Istio release&lt;/a&gt; 页面下载与您操作系统匹配的压缩文件，或者使用官方提供的下载方式&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;1.10.6 &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# istio version&lt;/span&gt;
-&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$VERSION&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; curl -L https://istio.io/downloadIstio &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;|&lt;/span&gt; sh -
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、下载完成以后（或者解压完成），切换到对应的目录，同时可以设置对应的&lt;code&gt;istioctl&lt;/code&gt;命令行工具到环境变量，方便配置自定义 Istio 控制平面和数据平面配置参数。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; istio-&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_VERSION&lt;/span&gt;/
-&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;PATH&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$PATH&lt;/span&gt;:&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;$(&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;)&lt;/span&gt;/bin
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3、创建 istio 命名空间，并且设置 MOSN proxyv2 镜像为数据面镜像&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kubectl create namespace istio-system
-istioctl manifest apply --set .values.global.proxy.image&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; IMAGE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt; --set meshConfig.defaultConfig.binaryPath&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;/usr/local/bin/mosn&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;4、验证 Istio 相关 POD 服务是否部署成功&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kubectl get pod -n istio-system
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt; &lt;span style=&#34;color:#000&#34;&gt;VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;1.10.6 &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# istio version&lt;/span&gt;
+ &lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$VERSION&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; curl -L https://istio.io/downloadIstio &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;|&lt;/span&gt; sh -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、下载完成以后（或者解压完成），切换到对应的目录，同时可以设置对应的 &lt;code&gt;istioctl&lt;/code&gt; 命令行工具到环境变量，方便配置自定义 Istio 控制平面和数据平面配置参数。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ &lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; istio-&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_VERSION&lt;/span&gt;/
+$ &lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;PATH&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$PATH&lt;/span&gt;:&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;$(&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;)&lt;/span&gt;/bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3、执行默认安装 &lt;code&gt;istioctl install&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ istioctl install
 
+This will install the Istio 1.14.1 default profile with &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;Istio core&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;Istiod&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;Ingress gateways&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;]&lt;/span&gt; components into the cluster. Proceed? &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;y/N&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt; y
+✔ Istio core installed                                                                                                                                                                                                                                                        
+✔ Istiod installed                                                                                                                                                                                                                                                            
+✔ Ingress gateways installed                                                                                                                                                                                                                                                  
+✔ Installation &lt;span style=&#34;color:#204a87&#34;&gt;complete&lt;/span&gt;
+Making this installation the default &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; injection and validation.
+
+Thank you &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; installing Istio 1.14.  Please take a few minutes to tell us about your install/upgrade experience!  https://forms.gle/yEtCbt45FZ3VoDT5A
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;4、创建 istio 命名空间，并且设置 MOSN proxyv2 镜像为数据面镜像&lt;/p&gt;
+&lt;p&gt;下载 MOSN proxyv2 的镜像，并设置其为 Istio 的 proxy 镜像。
+&lt;code&gt;--set .values.global.proxy.image=${MOSN IMAGE}&lt;/code&gt;
+也可以通过手动去创建 proxy 镜像 （&lt;a href=&#34;../images&#34;&gt;MOSN 与 Istio 的 proxyv2 镜像 build 方法介绍&lt;/a&gt;）。
+以下将使用我们提供的镜像版本 &lt;code&gt;mosnio/proxyv2:v1.0.0-1.10.6&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl create namespace istio-system
+$ istioctl manifest apply --set .values.global.proxy.image&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; mosnio/proxyv2:v1.0.0-1.10.6 --set meshConfig.defaultConfig.binaryPath&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;/usr/local/bin/mosn&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注意：当你失败时，可以通过 &lt;code&gt;minikube ssh&lt;/code&gt; 进入虚机所构建的集群内部，并通过 &lt;code&gt;docker pull mosnio/proxyv2:v1.0.0-1.10.6 &lt;/code&gt; 来获取镜像&lt;/p&gt;
+&lt;p&gt;5、验证 Istio 相关 POD 服务是否部署成功&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl get pod -n istio-system
 NAME                                    READY   STATUS    RESTARTS   AGE
 istio-ingressgateway-6b7fb88874-rgmrj   1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          102s
 istiod-65c9767c55-vjppv                 1/1     Running   &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;0&lt;/span&gt;          109s
@@ -311,6 +288,74 @@ $ kubectl get pods              &lt;span style=&#34;color:#8f5902;font-style:ita
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ istioctl manifest generate &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;|&lt;/span&gt; kubectl delete -f -
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;确认 Istio 是否成功卸载：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl get namespace istio-system
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: MOSN 与 Istio 的 proxyv2 镜像 build 方法</title>
+      <link>https://mosn.io/docs/user-guide/start/images/</link>
+      <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/user-guide/start/images/</guid>
+      <description>
+        
+        
+        &lt;p&gt;本文的完整构建镜像方法均是基于 MacOS 和 Istio 1.10.6 版本进行的构建，在其他操作系统 Istio 版本上可能存在部分细节差异，需要进行调整。
+除了完整构建方式外，如果仅有 MOSN 代码发生变化，还可以使用 单独更新 MOSN 版本 的方式构建镜像。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;通常情况下，您不需要额外构建镜像，可直接用我们提供的镜像 &lt;code&gt;mosnio/proxyv2:${MOSN-VERSION}-${ISTIO_VERSION}&lt;/code&gt;，如&lt;code&gt;docker pull mosnio/proxyv2:v1.0.0-1.10.6&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;完整的镜像构建基于-macos-和-istio-1106&#34;&gt;完整的镜像构建（基于 MacOS 和 Istio 1.10.6）&lt;/h1&gt;
+&lt;p&gt;1、下载完整的 istio 源代码，并且切换到对应的版本&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git clone git@github.com:istio/istio.git
+&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; istio
+git checkout 1.10.6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、由于目前 Istio 默认会加载 wasm，我们需要将相关逻辑注释掉，再重新编译镜像，避免一些不必要的错误。详细的改动可见 &lt;a href=&#34;../istio/istio-diff&#34;&gt;istio-diff&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;3、编译 MOSN 二进制，MOSN 提供了镜像编译的方式可直接编译 linux 的二进制；同时由于在 MacOS 上构建的过程中，Istio 还会下载一个 MacOS 版本，因此还需要编译一个 MacOS 的二进制&lt;/p&gt;
+&lt;p&gt;4、将编译好的二进制，使用 tar 方式进行打包，并且打包路径需要是 &lt;code&gt;usr/local/bin&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; Project Path&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;
+mkdir -p usr/local/bin
+make build &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# build mosn binary on linux&lt;/span&gt;
+cp build/bundles/&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; VERSION&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/binary/mosn usr/local/bin
+tar -zcvf mosn.tar.gz usr/local/bin/mosn
+cp mosn.tar.gz mosn-centos.tar.gz &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# copy a renamed tar.gz file&lt;/span&gt;
+
+make build-local &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# build mosn binary on macos&lt;/span&gt;
+cp build/bundles/&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; VERSION&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/binary/mosn usr/local/bin
+tar -zcvf mosn-macos.tar.gz usr/local/bin/mosn
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;5、将生成的&lt;code&gt;mosn-macos.tar.gz&lt;/code&gt; &lt;code&gt;mosn-centos.tar.gz&lt;/code&gt; &lt;code&gt;mosn.tar.gz&lt;/code&gt; 上传到一个编译环境可访问的存储服务中，可用 Go 语言简单快速在本地环境搭建一个&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Go&#34; data-lang=&#34;Go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+&lt;span style=&#34;color:#000&#34;&gt;address&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;   &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;// an address can be reached when proxyv2 image build. for example, 0.0.0.0:8080
+&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;filespath&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;// where the .tar.gz files stored.
+&lt;/span&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ListenAndServe&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;address&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;FileServer&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Dir&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;filespath&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)))&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;6、指定参数，开始编译 proxyv2 镜像&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;address&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$1&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# your download service address&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$2&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# MOSN Version, can be any value.&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;http://&lt;span style=&#34;color:#000&#34;&gt;$address&lt;/span&gt;/mosn.tar.gz
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_CENTOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;http://&lt;span style=&#34;color:#000&#34;&gt;$address&lt;/span&gt;/mosn-centos.tar.gz
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;http://&lt;span style=&#34;color:#000&#34;&gt;$address&lt;/span&gt;/mosn-macos.tar.gz
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_NAME&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;mosn-&lt;span style=&#34;color:#000&#34;&gt;$2&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# can be any value&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;SIDECAR&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;mosn
+
+make clean &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# clean the cache&lt;/span&gt;
+make docker.proxyv2 &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;SIDECAR&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$SIDECAR&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_VERSION&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_VERSION&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_RELEASE_URL&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_CENTOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_CENTOS_RELEASE_URL&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_MACOS_RELEASE_URL&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;ISTIO_ENVOY_MACOS_RELEASE_NAME&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$ISTIO_ENVOY_MACOS_RELEASE_NAME&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;7、编译完成以后，可以将镜像打上新的 Tag 并且上传（如个人测试 dockerhub 的地址），确保 istio 使用时可访问即可&lt;/p&gt;
+&lt;h1 id=&#34;单独更新-mosn-版本&#34;&gt;单独更新 MOSN 版本&lt;/h1&gt;
+&lt;p&gt;1、重新编译 MOSN 二进制&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; Project Path&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;
+make build &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# build mosn binary on linux&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、直接基于现有 MOSN 的 proxyv2 镜像更新二进制&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Dockerfile&#34; data-lang=&#34;Dockerfile&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt; mosnio/proxyv2:v1.0.0-1.10.6&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#a40000&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;COPY&lt;/span&gt; build/bundles/&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; VERSION&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/binary/mosn /usr/local/bin/mosn&lt;span style=&#34;color:#a40000&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker build --no-cache --rm -t &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;your&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; image tag&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3、将新镜像上传，确保 istio 使用时可访问即可&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;istioctl manifest apply --set .values.global.proxy.image&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;MOSN&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt; IMAGE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt; --set meshConfig.defaultConfig.binaryPath&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;/usr/local/bin/mosn&amp;#34;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       </description>
     </item>
