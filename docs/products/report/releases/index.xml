@@ -14,6 +14,68 @@
     
     
     <item>
+      <title>Docs: MOSN v1.1.0 发布</title>
+      <link>https://mosn.io/docs/products/report/releases/v1.1.0/</link>
+      <pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/products/report/releases/v1.1.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v1.1.0&#34;&gt;MOSN v1.1.0&lt;/a&gt; 发布，以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v110&#34;&gt;v1.1.0&lt;/h2&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;TraceLog 支持 zipkin (#2014) &lt;a href=&#34;https://github.com/fibbery&#34;&gt;@fibbery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持云边互联 (#1640) &lt;a href=&#34;https://github.com/CodingSinger&#34;&gt;@CodingSinger&lt;/a&gt;，细节可以参考&lt;a href=&#34;https://mosn.io/blog/posts/mosn-tunnel/&#34;&gt;博客&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Trace 以 Driver 的形式支持插件化扩展，使用 Skywalking 作为跟踪实现 (#2047) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;xDS 支持 stream filter 解析扩展 (#2095) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;stream filter: ipaccess 扩展实现 xDS 解析逻辑 (#2095) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;MakeFile 添加打包 tar 命令 (#1968) &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;变更&#34;&gt;变更&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;调整连接读超时从 buffer.ConnReadTimeout 到 types.DefaultConnReadTimeout (#2051) &lt;a href=&#34;https://github.com/fibbery&#34;&gt;@fibbery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复文档错字 (#2056) (#2057) &lt;a href=&#34;https://github.com/threestoneliu&#34;&gt;@threestoneliu&lt;/a&gt; (#2070) &lt;a href=&#34;https://github.com/chenzhiguo&#34;&gt;@chenzhiguo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;更新 license-checker.yml 的配置文件 (#2071) &lt;a href=&#34;https://github.com/kezhenxu94&#34;&gt;@kezhenxu94&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增遍历 SubsetLB 的接口 (#2059) (#2061) &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;添加 tls.Conn 的 SetConfig 接口 (#2088) &lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;添加 xds-server 作为 MOSN 控制面的示例 (#2075) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 HTTP 请求解析失败时的错误日志 (#2085) &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt; (#2066) &lt;a href=&#34;https://github.com/fibbery&#34;&gt;@fibbery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;负载均衡在重试时跳过上一次选择的主机 (#2077) &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;访问日志支持打印 traceID，connectionID 和 UpstreamConnectionID  (#2107) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;重构 HostSet 的使用方式 (#2036) &lt;a href=&#34;https://github.com/dzdx&#34;&gt;@dzdx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;更改连接写数据调整为只支持同步写的模式 (#2087) &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;优化创建 subset 负载均衡的算法，降低内存占用 (#2010) &lt;a href=&#34;https://github.com/dzdx&#34;&gt;@dzdx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持可扩展的集群更新方式操作 (#2048) &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化多证书匹配逻辑：优先匹配 servername，全部 servername 匹配不上以后才按照 ALPN 进行匹配 (#2053) &lt;a href=&#34;https://github.com/MengJiapeng&#34;&gt;@MengJiapeng&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复 wasm 示例中的 latest 镜像版本为固定的版本（#2033）&lt;a href=&#34;https://github.com/antJack&#34;&gt;@antJack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;调整 MOSN 退出时日志关闭执行顺序，修复部分退出日志无法正确输出的问题 (#2034) &lt;a href=&#34;https://github.com/doujiang24&#34;&gt;@doujiang24&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 OriginalDst 匹配成功以后没有正确处理的问题 (#2058) &lt;a href=&#34;https://github.com/threestoneliu&#34;&gt;@threestoneliu&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复协议转换场景没有正确处理异常情况的问题，新增协议转换实现规范 (#2062) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 stream proxy 没有正确处理连接写超时/断开等异常事件 (#2080) &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复连接事件监听时机错误可能引发的 panic 问题 (#2082) &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;避免在事件监听连接之前发生关闭事件 (#2098) &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;HTTP1/HTTP2 协议在处理时在上下文中保存协议信息 (#2035) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@yidwang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 xDS 推送时可能存在的并发问题 (#2101) &lt;a href=&#34;https://github.com/yzj0911&#34;&gt;@yzj0911&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;找不到 upstream 地址变量时，不再返回空，返回 ValidNotFound (#2049) &lt;a href=&#34;https://github.com/songzhibin97&#34;&gt;@songzhibin97&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复健康检查不支持 xDS (#2084) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-huang&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修正判断上游地址方法 (#2093) &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: MOSN v0.26.0 发布</title>
       <link>https://mosn.io/docs/products/report/releases/v0.26.0/</link>
       <pubDate>Wed, 29 Dec 2021 00:00:00 +0000</pubDate>
