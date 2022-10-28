@@ -14,6 +14,35 @@
     
     
     <item>
+      <title>Docs: ListenerFilter</title>
+      <link>https://mosn.io/docs/products/configuration-overview/server/listener/listener-filter/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/products/configuration-overview/server/listener/listener-filter/</guid>
+      <description>
+        
+        
+        &lt;p&gt;本文描述的是 MOSN 的 ListenerFilter 配置。&lt;/p&gt;
+&lt;p&gt;ListenerFilter 主要用于 listener 透明代理配置。&lt;/p&gt;
+&lt;p&gt;目前 MOSN 一个 Listener 只支持一个 ListenerFilter。&lt;/p&gt;
+&lt;p&gt;ListenerFilter 的配置结构如下所示。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;fallback_to_local&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;type&#34;&gt;type&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;透明代理类型，当前版本下此处 type 需要与 listener 中的 use_original_dst 配置一致。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;fallback_to_local&#34;&gt;fallback_to_local&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;bool 类型，用于标记匹配本地监听的 ip 地址，&lt;code&gt;true&lt;/code&gt; 使用 127.0.0.1，&lt;code&gt;false&lt;/code&gt; 使用 0.0.0.0，当所有 listener 的 ip 都不匹配代理到的请求时将尝试使用监听本地 ip 的 listener 处理。&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: 快速开始</title>
       <link>https://mosn.io/docs/user-guide/start/proxy/</link>
       <pubDate>Fri, 25 Mar 2022 00:00:00 +0000</pubDate>
@@ -1418,12 +1447,14 @@ The Cloud-Native Network Proxy Platform.
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
   &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;retry_on&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
   &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;retry_timeout&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
-  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;num_retries&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;num_retries&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;status_codes&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:[]&lt;/span&gt;
 &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;retry_on&lt;/code&gt;，bool 类型，表示是否开启重试。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;retry_timeout&lt;/code&gt;，&lt;a href=&#34;../../custom#duration-string&#34;&gt;Duration String&lt;/a&gt;，表示每次重试的超时时间。当 &lt;code&gt;retry_timeout&lt;/code&gt; 大于 route 配置的 timeout 或者请求明确指定的 timeout 时，属于无效配置。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;num_retries&lt;/code&gt;，表示最大的重试次数。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;status_codes&lt;/code&gt;，重试状态码，配置后仅列表中的状态码会触发重试。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;例子&#34;&gt;例子&lt;/h2&gt;
 &lt;h3 id=&#34;默认匹配规则&#34;&gt;默认匹配规则&lt;/h3&gt;

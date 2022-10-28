@@ -15,6 +15,35 @@
     
     
     <item>
+      <title>Docs: ListenerFilter</title>
+      <link>https://mosn.io/docs/products/configuration-overview/server/listener/listener-filter/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/products/configuration-overview/server/listener/listener-filter/</guid>
+      <description>
+        
+        
+        &lt;p&gt;本文描述的是 MOSN 的 ListenerFilter 配置。&lt;/p&gt;
+&lt;p&gt;ListenerFilter 主要用于 listener 透明代理配置。&lt;/p&gt;
+&lt;p&gt;目前 MOSN 一个 Listener 只支持一个 ListenerFilter。&lt;/p&gt;
+&lt;p&gt;ListenerFilter 的配置结构如下所示。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;fallback_to_local&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;type&#34;&gt;type&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;透明代理类型，当前版本下此处 type 需要与 listener 中的 use_original_dst 配置一致。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;fallback_to_local&#34;&gt;fallback_to_local&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;bool 类型，用于标记匹配本地监听的 ip 地址，&lt;code&gt;true&lt;/code&gt; 使用 127.0.0.1，&lt;code&gt;false&lt;/code&gt; 使用 0.0.0.0，当所有 listener 的 ip 都不匹配代理到的请求时将尝试使用监听本地 ip 的 listener 处理。&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: FilterChain</title>
       <link>https://mosn.io/docs/products/configuration-overview/server/listener/filter-chain/</link>
       <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
