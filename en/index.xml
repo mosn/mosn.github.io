@@ -32,10 +32,6 @@
 &lt;li&gt;Support Proxy-Wasm v2 ABI (#2089) &lt;a href=&#34;https://github.com/lawrshen&#34;&gt;@lawrshen&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Support transparent proxy based on iptables tproxy (#2142) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;changes&#34;&gt;Changes&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Removes vendoring and updates to Go 1.18 (#2145) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@codefromthecrypt&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 &lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Remove MOSN&amp;rsquo;s extended context framework and use the variable mechanism instead. Migrate the variable mechanism and memory reuse framework to mosn.io/pkg (#2055) &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
