@@ -25,13 +25,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/en/docs/quick-start/istio/istio-diff/" />
 <meta property="article:published_time" content="2022-03-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-10-28T13:23:09+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2022-10-28T13:24:34+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="">
 <meta itemprop="description" content="bin/init.sh
 -WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR} -for plugin in stats metadata_exchange -do - FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&#34; - download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.wasm - FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&#34; - download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.compiled.wasm -done &#43;#WASM_RELEASE_DIR=${ISTIO_ENVOY_LINUX_RELEASE_DIR} &#43;#for plugin in stats metadata_exchange &#43;#do &#43;# FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm&#34; &#43;# download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.wasm &#43;# FILTER_WASM_URL=&#34;${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.compiled.wasm&#34; &#43;# download_wasm_if_necessary &#34;${FILTER_WASM_URL}&#34; &#34;${WASM_RELEASE_DIR}&#34;/&#34;${plugin//_/-}&#34;-filter.compiled.wasm &#43;#done bin/update_proxy.sh
 -WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm -printf &#34;Verifying %s is available\n&#34; &#34;$WASM_URL&#34; -until curl --output /dev/null --silent --head --fail &#34;$WASM_URL&#34;; do - printf &#39;.&#39; - sleep $SLEEP_TIME -done &#43;#WASM_URL=${ISTIO_ENVOY_BASE_URL}/${plugin}-${ISTIO_ENVOY_VERSION}.wasm &#43;#printf &#34;Verifying %s is available\n&#34; &#34;$WASM_URL&#34; &#43;#until curl --output /dev/null --silent --head --fail &#34;$WASM_URL&#34;; do &#43;# printf &#39;.">
 <meta itemprop="datePublished" content="2022-03-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-10-28T13:23:09+08:00" />
+<meta itemprop="dateModified" content="2022-10-28T13:24:34+08:00" />
 <meta itemprop="wordCount" content="160">
 
 
@@ -707,7 +707,7 @@ if (!doNotTrack) {
 </span></code></pre></div>
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">Last modified October 28, 2022: <a  href="https://github.com/mosn/mosn.io/commit/d0a16cf4acdbe560b508104ff5e85349c795e34f">release v1.2.0 (#215) (d0a16cf)</a>
+	<div class="text-muted mt-5 pt-3 border-top">Last modified October 28, 2022: <a  href="https://github.com/mosn/mosn.io/commit/73018dac76a976890645ad308951b59906f16824">added the envoy-go-extension module for go import. (#214) (73018da)</a>
 </div>
 </div>
 
