@@ -1994,6 +1994,44 @@ ECDHE-ECDSA-SM4-SM3
     </item>
     
     <item>
+      <title>Docs: MOSN v1.2.0 发布</title>
+      <link>https://mosn.io/docs/products/report/releases/v1.2.0/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/products/report/releases/v1.2.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v1.2.0&#34;&gt;MOSN v1.2.0&lt;/a&gt; 发布，以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v120&#34;&gt;v1.2.0&lt;/h2&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;支持配置 HTTP 重试状态码 (#2097) &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增 dev 容器构建配置与说明 (#2108) &lt;a href=&#34;https://github.com/keqingyuan&#34;&gt;@keqingyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持 connpool_binding GoAway (#2115) &lt;a href=&#34;https://github.com/EraserTime&#34;&gt;@EraserTime&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持配置 listener 默认读缓存大小 (#2133) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持 proxy-wasm v2 ABI (#2089) &lt;a href=&#34;https://github.com/lawrshen&#34;&gt;@lawrshen&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;支持基于 iptables tproxy 的透明代理 (#2142) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;变更&#34;&gt;变更&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;删除 vendoring 并升级 go 版本至 1.18 (#2145) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@codefromthecrypt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;删除 MOSN 扩展的 context 框架，使用变量机制代替。将 MOSN 中的变量机制(variable)和内存复用框架(buffer)迁移到 mosn.io/pkg 中 (#2055) &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;迁移 metrics 接口到 mosn.io/api 中 (#2124) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复部分日志参数缺失 (#2141) &lt;a href=&#34;https://github.com/lawrshen&#34;&gt;@lawrshen&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;通过 error 判断获取的 cookie 是否存在 (#2136) &lt;a href=&#34;https://github.com/greedying&#34;&gt;@greedying&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: MOSN v1.1.0 发布</title>
       <link>https://mosn.io/docs/products/report/releases/v1.1.0/</link>
       <pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate>

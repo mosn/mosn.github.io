@@ -14,6 +14,44 @@
     
     
     <item>
+      <title>Blog: Announcing MOSN v1.2.0</title>
+      <link>https://mosn.io/en/blog/releases/v1.2.0/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v1.2.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v1.2.0&#34;&gt;MOSN v1.2.0&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;v120&#34;&gt;v1.2.0&lt;/h2&gt;
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Support for configuring HTTP retry status codes (#2097) &lt;a href=&#34;https://github.com/dengqian&#34;&gt;@dengqian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add dev container build configuration and instructions (#2108) &lt;a href=&#34;https://github.com/keqingyuan&#34;&gt;@keqingyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support connpool_binding GoAway (#2115) &lt;a href=&#34;https://github.com/EraserTime&#34;&gt;@EraserTime&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support for configuring the listener defaultReadBufferSize (#2133) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support Proxy-Wasm v2 ABI (#2089) &lt;a href=&#34;https://github.com/lawrshen&#34;&gt;@lawrshen&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Support transparent proxy based on iptables tproxy (#2142) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;changes&#34;&gt;Changes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Removes vendoring and updates to Go 1.18 (#2145) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@codefromthecrypt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Remove MOSN&amp;rsquo;s extended context framework and use the variable mechanism instead. Migrate the variable mechanism and memory reuse framework to mosn.io/pkg (#2055) &lt;a href=&#34;https://github.com/nejisama&#34;&gt;@nejisama&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Migrating the metrics interface to mosn.io/api (#2124) &lt;a href=&#34;https://github.com/YIDWang&#34;&gt;@YIDWang&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix some missing log parameters (#2141) &lt;a href=&#34;https://github.com/lawrshen&#34;&gt;@lawrshen&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Determine if the obtained cookie exists by error (#2136) &lt;a href=&#34;https://github.com/greedying&#34;&gt;@greedying&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v1.1.0</title>
       <link>https://mosn.io/en/blog/releases/v1.1.0/</link>
       <pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate>
