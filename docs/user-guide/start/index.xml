@@ -146,7 +146,7 @@ The Cloud-Native Network Proxy Platform.
 后文中，我们假定选择的是&lt;code&gt;minikube&lt;/code&gt;的安装方式，方便进行介绍。&lt;/p&gt;
 &lt;p&gt;安装minikube 流程：&lt;/p&gt;
 &lt;p&gt;1、根据本机环境选择下载地址 &lt;a href=&#34;https://minikube.sigs.k8s.io/docs/start/&#34;&gt;Minikube 官网&lt;/a&gt;,下面用的系统是&lt;code&gt;macOS x86&lt;/code&gt;系统。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -LO https://storage.googleapis.com/minikube/releases/v1.22.0/minikube-darwin-amd64
 $ sudo install minikube-darwin-amd64 /usr/local/bin/minikube
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、启动 minikube&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ minikube start --memory&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;7851&lt;/span&gt; --cpus&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;4&lt;/span&gt; --image-mirror-country&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;cn&amp;#39;&lt;/span&gt;
@@ -178,14 +178,14 @@ This will install the Istio 1.14.1 default profile with &lt;span style=&#34;colo
 ✔ Installation &lt;span style=&#34;color:#204a87&#34;&gt;complete&lt;/span&gt;
 Making this installation the default &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; injection and validation.
 
-Thank you &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; installing Istio 1.14.  Please take a few minutes to tell us about your install/upgrade experience!  https://forms.gle/yEtCbt45FZ3VoDT5A
+Thank you &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;for&lt;/span&gt; installing Istio 1.10.  Please take a few minutes to tell us about your install/upgrade experience!  https://forms.gle/KjkrDnMPByq7akrYA
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;4、创建 istio 命名空间，并且设置 MOSN proxyv2 镜像为数据面镜像&lt;/p&gt;
 &lt;p&gt;下载 MOSN proxyv2 的镜像，并设置其为 Istio 的 proxy 镜像。
 &lt;code&gt;--set .values.global.proxy.image=${MOSN IMAGE}&lt;/code&gt;
 也可以通过手动去创建 proxy 镜像 （&lt;a href=&#34;../images&#34;&gt;MOSN 与 Istio 的 proxyv2 镜像 build 方法介绍&lt;/a&gt;）。
 以下将使用我们提供的镜像版本 &lt;code&gt;mosnio/proxyv2:v1.0.0-1.10.6&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl create namespace istio-system
-$ istioctl manifest apply --set .values.global.proxy.image&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; mosnio/proxyv2:v1.0.0-1.10.6 --set meshConfig.defaultConfig.binaryPath&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;/usr/local/bin/mosn&amp;#34;&lt;/span&gt;
+$ istioctl manifest apply --set .values.global.proxy.image&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;mosnio/proxyv2:v1.0.0-1.10.6 --set meshConfig.defaultConfig.binaryPath&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;/usr/local/bin/mosn&amp;#34;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注意：当你失败时，可以通过 &lt;code&gt;minikube ssh&lt;/code&gt; 进入虚机所构建的集群内部，并通过 &lt;code&gt;docker pull mosnio/proxyv2:v1.0.0-1.10.6 &lt;/code&gt; 来获取镜像&lt;/p&gt;
 &lt;p&gt;5、验证 Istio 相关 POD 服务是否部署成功&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl get pod -n istio-system
@@ -241,15 +241,13 @@ reviews-v3-dffc77d75-jd8cr        2/2     Running   &lt;span style=&#34;color:#0
 $ kubectl get gateway
 NAME               AGE
 bookinfo-gateway   6s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;设置 &lt;code&gt;GATEWAY_URL&lt;/code&gt; 参考&lt;a href=&#34;https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports&#34;&gt;文档&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ &lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;INGRESS_PORT&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;$(&lt;/span&gt;kubectl -n istio-system get service istio-ingressgateway -o &lt;span style=&#34;color:#000&#34;&gt;jsonpath&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#39;{.spec.ports[?(@.name==&amp;#34;http2&amp;#34;)].nodePort}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;)&lt;/span&gt;
-$ &lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;INGRESS_HOST&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;$(&lt;/span&gt;minikube ip&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;)&lt;/span&gt;
-$ &lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;GATEWAY_URL&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$INGRESS_HOST&lt;/span&gt;:&lt;span style=&#34;color:#000&#34;&gt;$INGRESS_PORT&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在后台运行ingress 网关，通过1234端口转发到80端口。参考&lt;a href=&#34;https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports&#34;&gt;文档&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kubectl port-forward -n istio-system --address 0.0.0.0 service/istio-ingressgateway 1234:80 &amp;gt;/dev/null 2&amp;gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;&amp;amp;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;验证 gateway 是否生效，输出 &lt;code&gt;200&lt;/code&gt; 表示成功。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -o /dev/null -s -w &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;%{http_code}\n&amp;#34;&lt;/span&gt;  http://&lt;span style=&#34;color:#000&#34;&gt;$GATEWAY_URL&lt;/span&gt;/productpage
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -o /dev/null -s -w &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;%{http_code}\n&amp;#34;&lt;/span&gt;  http://127.0.0.1:1234/productpage
 &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;200&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;观察页面情况&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;访问 &lt;code&gt;http://$GATEWAY_URL/productpage&lt;/code&gt; （注意： &lt;code&gt;$GATEWAY_URL&lt;/code&gt; 需要替换成你设置的地址），正常的话通过刷新会看到如下所示 &lt;code&gt;Bookinfo&lt;/code&gt; 的界面，其中 Book Reviews 有三个版本，刷新后依次会看到（可以查看 samples/bookinfo/platform/kube/bookinfo.yaml 中的配置发现为什么是这三个版本）版本一的界面。&lt;/p&gt;
+&lt;p&gt;访问 &lt;code&gt;http://$GATEWAY_URL/productpage&lt;/code&gt; （注意： &lt;code&gt;$GATEWAY_URL&lt;/code&gt; 需要替换成你设置的地址，如：127.0.0.1:1234），正常的话通过刷新会看到如下所示 &lt;code&gt;Bookinfo&lt;/code&gt; 的界面，其中 Book Reviews 有三个版本，刷新后依次会看到（可以查看 samples/bookinfo/platform/kube/bookinfo.yaml 中的配置发现为什么是这三个版本）版本一的界面。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;v1.png&#34; alt=&#34;版本一&#34;&gt;&lt;/p&gt;
 &lt;p&gt;版本二的界面。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;v2.png&#34; alt=&#34;版本二&#34;&gt;&lt;/p&gt;
@@ -274,10 +272,29 @@ $ &lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&
 &lt;p&gt;&lt;img src=&#34;login.png&#34; alt=&#34;登录&#34;&gt;&lt;/p&gt;
 &lt;p&gt;以其他身份登录，始终在 v1 版本。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;v1.png&#34; alt=&#34;版本一&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;验证-mosn-的故障注入功能&#34;&gt;验证 MOSN 的故障注入功能&lt;/h4&gt;
+&lt;p&gt;初始状态准备
+运行以下命令来初始化 Bookinfo 应用程序版本路由信息：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;经过上面的配置后，其请求链路如下所示：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;productpage → reviews:v2 → ratings (针对 jason 用户) productpage → reviews:v1 (其他用户)&lt;/strong&gt;&lt;/p&gt;
+&lt;h6 id=&#34;注入延时故障&#34;&gt;注入延时故障&lt;/h6&gt;
+&lt;p&gt;执行下面的命令将会为用户 jason 在 reviews:v2 和 ratings 服务之间注入一个 7 秒的延迟：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;访问 &lt;code&gt;http://$GATEWAY_URL/productpage&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;此时发现使用 jason 这个用户登录访问会有延时， Reviews 部分显示了错误消息：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Error fetching product reviews! Sorry, product reviews are currently unavailable for this book.&lt;/strong&gt;&lt;/p&gt;
+&lt;h6 id=&#34;注入-abort-故障&#34;&gt;注入 abort 故障&lt;/h6&gt;
+&lt;p&gt;执行下面的命令将会为用户 jason 访问 ratings 微服务时引入一个 HTTP abort：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;访问 &lt;code&gt;http://$GATEWAY_URL/productpage&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;此时发现使用 jason 这个用户登录访问时， 此时 Book Reviews 中会显示如下错误消息：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Ratings service is currently unavailable&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&#34;卸载-bookinfo&#34;&gt;卸载 Bookinfo&lt;/h3&gt;
 &lt;p&gt;可以使用下面的命令来完成应用的删除和清理工作：&lt;/p&gt;
 &lt;p&gt;删除路由规则，并销毁应用的 Pod。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sh samples/bookinfo/platform/kube/cleanup.sh
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ samples/bookinfo/platform/kube/cleanup.sh &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;lt;&amp;lt;EOF Y; EOF&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;确认 &lt;code&gt;Bookinfo&lt;/code&gt; 应用已经关停：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl get virtualservices   &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;#-- there should be no virtual services&lt;/span&gt;
 $ kubectl get destinationrules  &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;#-- there should be no destination rules&lt;/span&gt;

@@ -24,7 +24,7 @@
 " />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://mosn.io/docs/user-guide/start/istio/" />
-<meta property="og:updated_time" content="2022-10-28T17:36:47+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="og:updated_time" content="2022-11-13T10:10:22+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 作为 Istio 的数据平面">
 <meta itemprop="description" content="本文将介绍如何使用 MOSN 在 Istio 框架下搭建 Service Mesh 的开发环境，并验证 MOSN 的一些基础路由能力、负载均衡能力等。
 ">
@@ -1294,7 +1294,7 @@ if (!doNotTrack) {
 后文中，我们假定选择的是<code>minikube</code>的安装方式，方便进行介绍。</p>
 <p>安装minikube 流程：</p>
 <p>1、根据本机环境选择下载地址 <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube 官网</a>,下面用的系统是<code>macOS x86</code>系统。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -LO https://storage.googleapis.com/minikube/releases/v1.22.0/minikube-darwin-amd64
 $ sudo install minikube-darwin-amd64 /usr/local/bin/minikube
 </code></pre></div><p>2、启动 minikube</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ minikube start --memory<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">7851</span> --cpus<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">4</span> --image-mirror-country<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;cn&#39;</span>
@@ -1326,14 +1326,14 @@ This will install the Istio 1.14.1 default profile with <span style="color:#ce5c
 ✔ Installation <span style="color:#204a87">complete</span>
 Making this installation the default <span style="color:#204a87;font-weight:bold">for</span> injection and validation.
 
-Thank you <span style="color:#204a87;font-weight:bold">for</span> installing Istio 1.14.  Please take a few minutes to tell us about your install/upgrade experience!  https://forms.gle/yEtCbt45FZ3VoDT5A
+Thank you <span style="color:#204a87;font-weight:bold">for</span> installing Istio 1.10.  Please take a few minutes to tell us about your install/upgrade experience!  https://forms.gle/KjkrDnMPByq7akrYA
 </code></pre></div><p>4、创建 istio 命名空间，并且设置 MOSN proxyv2 镜像为数据面镜像</p>
 <p>下载 MOSN proxyv2 的镜像，并设置其为 Istio 的 proxy 镜像。
 <code>--set .values.global.proxy.image=${MOSN IMAGE}</code>
 也可以通过手动去创建 proxy 镜像 （<a href="../images">MOSN 与 Istio 的 proxyv2 镜像 build 方法介绍</a>）。
 以下将使用我们提供的镜像版本 <code>mosnio/proxyv2:v1.0.0-1.10.6</code></p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl create namespace istio-system
-$ istioctl manifest apply --set .values.global.proxy.image<span style="color:#ce5c00;font-weight:bold">=</span> mosnio/proxyv2:v1.0.0-1.10.6 --set meshConfig.defaultConfig.binaryPath<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;/usr/local/bin/mosn&#34;</span>
+$ istioctl manifest apply --set .values.global.proxy.image<span style="color:#ce5c00;font-weight:bold">=</span>mosnio/proxyv2:v1.0.0-1.10.6 --set meshConfig.defaultConfig.binaryPath<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;/usr/local/bin/mosn&#34;</span>
 </code></pre></div><p>注意：当你失败时，可以通过 <code>minikube ssh</code> 进入虚机所构建的集群内部，并通过 <code>docker pull mosnio/proxyv2:v1.0.0-1.10.6 </code> 来获取镜像</p>
 <p>5、验证 Istio 相关 POD 服务是否部署成功</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pod -n istio-system
@@ -1389,15 +1389,13 @@ reviews-v3-dffc77d75-jd8cr        2/2     Running   <span style="color:#0000cf;f
 $ kubectl get gateway
 NAME               AGE
 bookinfo-gateway   6s
-</code></pre></div><p>设置 <code>GATEWAY_URL</code> 参考<a href="https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports">文档</a></p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#204a87">export</span> <span style="color:#000">INGRESS_PORT</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87;font-weight:bold">$(</span>kubectl -n istio-system get service istio-ingressgateway -o <span style="color:#000">jsonpath</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#39;{.spec.ports[?(@.name==&#34;http2&#34;)].nodePort}&#39;</span><span style="color:#204a87;font-weight:bold">)</span>
-$ <span style="color:#204a87">export</span> <span style="color:#000">INGRESS_HOST</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#204a87;font-weight:bold">$(</span>minikube ip<span style="color:#204a87;font-weight:bold">)</span>
-$ <span style="color:#204a87">export</span> <span style="color:#000">GATEWAY_URL</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#000">$INGRESS_HOST</span>:<span style="color:#000">$INGRESS_PORT</span>
+</code></pre></div><p>在后台运行ingress 网关，通过1234端口转发到80端口。参考<a href="https://istio.io/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports">文档</a></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl port-forward -n istio-system --address 0.0.0.0 service/istio-ingressgateway 1234:80 &gt;/dev/null 2&gt;<span style="color:#000;font-weight:bold">&amp;</span><span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#000;font-weight:bold">&amp;</span>
 </code></pre></div><p>验证 gateway 是否生效，输出 <code>200</code> 表示成功。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -o /dev/null -s -w <span style="color:#4e9a06">&#34;%{http_code}\n&#34;</span>  http://<span style="color:#000">$GATEWAY_URL</span>/productpage
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -o /dev/null -s -w <span style="color:#4e9a06">&#34;%{http_code}\n&#34;</span>  http://127.0.0.1:1234/productpage
 <span style="color:#0000cf;font-weight:bold">200</span>
 </code></pre></div><p><strong>观察页面情况</strong></p>
-<p>访问 <code>http://$GATEWAY_URL/productpage</code> （注意： <code>$GATEWAY_URL</code> 需要替换成你设置的地址），正常的话通过刷新会看到如下所示 <code>Bookinfo</code> 的界面，其中 Book Reviews 有三个版本，刷新后依次会看到（可以查看 samples/bookinfo/platform/kube/bookinfo.yaml 中的配置发现为什么是这三个版本）版本一的界面。</p>
+<p>访问 <code>http://$GATEWAY_URL/productpage</code> （注意： <code>$GATEWAY_URL</code> 需要替换成你设置的地址，如：127.0.0.1:1234），正常的话通过刷新会看到如下所示 <code>Bookinfo</code> 的界面，其中 Book Reviews 有三个版本，刷新后依次会看到（可以查看 samples/bookinfo/platform/kube/bookinfo.yaml 中的配置发现为什么是这三个版本）版本一的界面。</p>
 <p><img src="v1.png" alt="版本一"></p>
 <p>版本二的界面。</p>
 <p><img src="v2.png" alt="版本二"></p>
@@ -1422,10 +1420,29 @@ $ <span style="color:#204a87">export</span> <span style="color:#000">GATEWAY_URL
 <p><img src="login.png" alt="登录"></p>
 <p>以其他身份登录，始终在 v1 版本。</p>
 <p><img src="v1.png" alt="版本一"></p>
+<h4 id="验证-mosn-的故障注入功能">验证 MOSN 的故障注入功能</h4>
+<p>初始状态准备
+运行以下命令来初始化 Bookinfo 应用程序版本路由信息：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
+</code></pre></div><p>经过上面的配置后，其请求链路如下所示：</p>
+<p><strong>productpage → reviews:v2 → ratings (针对 jason 用户) productpage → reviews:v1 (其他用户)</strong></p>
+<h6 id="注入延时故障">注入延时故障</h6>
+<p>执行下面的命令将会为用户 jason 在 reviews:v2 和 ratings 服务之间注入一个 7 秒的延迟：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
+</code></pre></div><p>访问 <code>http://$GATEWAY_URL/productpage</code></p>
+<p>此时发现使用 jason 这个用户登录访问会有延时， Reviews 部分显示了错误消息：</p>
+<p><strong>Error fetching product reviews! Sorry, product reviews are currently unavailable for this book.</strong></p>
+<h6 id="注入-abort-故障">注入 abort 故障</h6>
+<p>执行下面的命令将会为用户 jason 访问 ratings 微服务时引入一个 HTTP abort：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml
+</code></pre></div><p>访问 <code>http://$GATEWAY_URL/productpage</code></p>
+<p>此时发现使用 jason 这个用户登录访问时， 此时 Book Reviews 中会显示如下错误消息：</p>
+<p><strong>Ratings service is currently unavailable</strong></p>
 <h3 id="卸载-bookinfo">卸载 Bookinfo</h3>
 <p>可以使用下面的命令来完成应用的删除和清理工作：</p>
 <p>删除路由规则，并销毁应用的 Pod。</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sh samples/bookinfo/platform/kube/cleanup.sh
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ samples/bookinfo/platform/kube/cleanup.sh <span style="color:#4e9a06">&lt;&lt;EOF Y; EOF</span>
 </code></pre></div><p>确认 <code>Bookinfo</code> 应用已经关停：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get virtualservices   <span style="color:#8f5902;font-style:italic">#-- there should be no virtual services</span>
 $ kubectl get destinationrules  <span style="color:#8f5902;font-style:italic">#-- there should be no destination rules</span>
@@ -1606,7 +1623,7 @@ $ kubectl get pods              <span style="color:#8f5902;font-style:italic">#-
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年10月28日: <a  href="https://github.com/mosn/mosn.io/commit/d237414e4b67c92e59304053829ba6e4506267d8">docs: Changes to the v1.2.0 configuration (#217) (d237414)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2022年11月13日: <a  href="https://github.com/mosn/mosn.io/commit/63f6f04793d520db7d1372af1151cba14136ea06">doc: update mosn integration istio documentation (#218) (63f6f04)</a>
 </div>
 </div>
 
