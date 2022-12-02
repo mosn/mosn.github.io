@@ -14,6 +14,43 @@
     
     
     <item>
+      <title>Docs: MOSN v1.3.0 发布</title>
+      <link>https://mosn.io/docs/products/report/releases/v1.3.0/</link>
+      <pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/products/report/releases/v1.3.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v1.3.0&#34;&gt;MOSN v1.3.0&lt;/a&gt; 发布，以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v130&#34;&gt;v1.3.0&lt;/h2&gt;
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;迁移合并 Proxy-Wasm 的实现，并默认启用 wazero (#2172) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@Crypt Keeper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;优化解析 xDS 透明代理配置：增加对未识别地址的透传配置 (#2171) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;优化 CI 测试中 golangci 执行流程 (#2166) &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt; (#2167) &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;为 Proxy-Wasm 添加集成基准测试 (#2164) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@Crypt Keeper&lt;/a&gt; (#2169) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@Crypt Keeper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;升级 MOSN 支持的 Go 的最低版本至 1.17 (#2160) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@Crypt Keeper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;改正 README.md 中的一些问题 (#2161) &lt;a href=&#34;https://github.com/liaolinrong&#34;&gt;@liaolinrong&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新增基准测试 (#2173) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;subsetLoadBalancer 重用子集条目以优化分配/使用内存 (#2119) &lt;a href=&#34;https://github.com/dzdx&#34;&gt;@dzdx&lt;/a&gt; (#2188) &lt;a href=&#34;https://github.com/chuailiwu&#34;&gt;@liwu&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复 connpool_binging 在连接 upstream timeout 时出现的 panic 问题 (#2180) &lt;a href=&#34;https://github.com/EraserTime&#34;&gt;@EraserTime&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复 cluster LB 算法为 LB_ORIGINAL_DST 时 retryTime 是 0 的问题 (#2170) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复平滑升级失败 (#2129) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-Huang&lt;/a&gt; (#2193) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修改解析 xDS Listener 日志的方式 (#2182) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;修复示例代码打印错误 (#2190) &lt;a href=&#34;https://github.com/liaolinrong&#34;&gt;@liaolinrong&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: MOSN v1.2.0 发布</title>
       <link>https://mosn.io/docs/products/report/releases/v1.2.0/</link>
       <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>

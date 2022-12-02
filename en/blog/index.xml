@@ -48,6 +48,43 @@
     </item>
     
     <item>
+      <title>Blog: Announcing MOSN v1.3.0</title>
+      <link>https://mosn.io/en/blog/releases/v1.3.0/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v1.3.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v1.3.0&#34;&gt;MOSN v1.3.0&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;v130&#34;&gt;v1.3.0&lt;/h2&gt;
+&lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Moves to consolidated Proxy-Wasm implementation and enables wazero by default (#2172) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@Crypt Keeper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Optimized parsing xDS transparent proxy configuration: add pass-through configuration for unrecognized addresses (#2171) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Optimized the golangci execution flow in CI testing  (#2166) &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt; (#2167) &lt;a href=&#34;https://github.com/taoyuanyuan&#34;&gt;@taoyuanyuan&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add integrated benchmarks for Proxy-Wasm (#2164) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@Crypt Keeper&lt;/a&gt; (#2169) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@Crypt Keeper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Upgrade the minimum version of Go supported by MOSN to 1.17 (#2160) &lt;a href=&#34;https://github.com/codefromthecrypt&#34;&gt;@Crypt Keeper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix some problems in the README.md (#2161) &lt;a href=&#34;https://github.com/liaolinrong&#34;&gt;@liaolinrong&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add benchmark (#2173) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;subsetLoadBalancer reuse subset entry to optimze alloc/inuse memory (#2119) &lt;a href=&#34;https://github.com/dzdx&#34;&gt;@dzdx&lt;/a&gt; (#2188) &lt;a href=&#34;https://github.com/chuailiwu&#34;&gt;@liwu&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix a panic problem with connpool_binging when connecting to upstream timeout (#2180) &lt;a href=&#34;https://github.com/EraserTime&#34;&gt;@EraserTime&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix the problem that retryTime is 0 when cluster LB algorithm is LB_ORIGINAL_DST (#2170) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix smooth upgrade failed (#2129) &lt;a href=&#34;https://github.com/Bryce-huang&#34;&gt;@Bryce-Huang&lt;/a&gt; (#2193) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Modify the way xDS Listener logs are parsed (#2182) &lt;a href=&#34;https://github.com/3062&#34;&gt;@3062&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fix example print error (#2190) &lt;a href=&#34;https://github.com/liaolinrong&#34;&gt;@liaolinrong&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: Announcing MOSN v1.1.0</title>
       <link>https://mosn.io/en/blog/releases/v1.1.0/</link>
       <pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate>
