@@ -18,24 +18,24 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>MoE 系列 - 如何使用 Golang 扩展 Envoy [一] | MOSN</title><meta property="og:title" content="MoE 系列 - 如何使用 Golang 扩展 Envoy [一]" />
-<meta property="og:description" content="本文作为 MoE 系列第一篇，主要介绍用 Golang 扩展 Envoy 的极速开发体验" />
+<title>MoE 系列 [二] - Golang 扩展从 Envoy 接收配置 | MOSN</title><meta property="og:title" content="MoE 系列 [二] - Golang 扩展从 Envoy 接收配置" />
+<meta property="og:description" content="这次我们再通过一个示例，来体验 Golang 扩展的一个强大的特性：从 Envoy 接收配置。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mosn.io/blog/posts/moe-extend-envoy-using-golang-1/" />
-<meta property="article:published_time" content="2023-02-27T00:00:00+00:00" />
+<meta property="og:url" content="https://mosn.io/blog/posts/moe-extend-envoy-using-golang-2/" />
+<meta property="article:published_time" content="2023-03-09T00:00:00+00:00" />
 <meta property="article:modified_time" content="2023-03-09T11:02:46+08:00" /><meta property="og:site_name" content="MOSN" />
-<meta itemprop="name" content="MoE 系列 - 如何使用 Golang 扩展 Envoy [一]">
-<meta itemprop="description" content="本文作为 MoE 系列第一篇，主要介绍用 Golang 扩展 Envoy 的极速开发体验">
-<meta itemprop="datePublished" content="2023-02-27T00:00:00+00:00" />
+<meta itemprop="name" content="MoE 系列 [二] - Golang 扩展从 Envoy 接收配置">
+<meta itemprop="description" content="这次我们再通过一个示例，来体验 Golang 扩展的一个强大的特性：从 Envoy 接收配置。">
+<meta itemprop="datePublished" content="2023-03-09T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2023-03-09T11:02:46+08:00" />
-<meta itemprop="wordCount" content="276">
+<meta itemprop="wordCount" content="277">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MoE 系列 - 如何使用 Golang 扩展 Envoy [一]"/>
-<meta name="twitter:description" content="本文作为 MoE 系列第一篇，主要介绍用 Golang 扩展 Envoy 的极速开发体验"/>
+<meta name="twitter:title" content="MoE 系列 [二] - Golang 扩展从 Envoy 接收配置"/>
+<meta name="twitter:description" content="这次我们再通过一个示例，来体验 Golang 扩展的一个强大的特性：从 Envoy 接收配置。"/>
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -64,7 +64,7 @@ if (!doNotTrack) {
 
 
 
-    <title>MoE 系列 - 如何使用 Golang 扩展 Envoy [一] | MOSN</title>
+    <title>MoE 系列 [二] - Golang 扩展从 Envoy 接收配置 | MOSN</title>
   </head>
   <body class="td-page td-blog">
     <header>
@@ -264,13 +264,13 @@ if (!doNotTrack) {
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-2" href="/blog/posts/moe-extend-envoy-using-golang-2/">MoE 系列 [二] - Golang 扩展从 Envoy 接收配置</a>
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogpostsmoe-extend-envoy-using-golang-2" href="/blog/posts/moe-extend-envoy-using-golang-2/">MoE 系列 [二] - Golang 扩展从 Envoy 接收配置</a>
       
       
       
       
       
-      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogpostsmoe-extend-envoy-using-golang-1" href="/blog/posts/moe-extend-envoy-using-golang-1/">MoE 系列 - 如何使用 Golang 扩展 Envoy [一]</a>
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-1" href="/blog/posts/moe-extend-envoy-using-golang-1/">MoE 系列 - 如何使用 Golang 扩展 Envoy [一]</a>
       
       
       
@@ -499,8 +499,8 @@ if (!doNotTrack) {
 
 
 
-<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/posts/moe-extend-envoy-using-golang-1/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
-<a href="https://github.com/mosn/mosn.io/issues/new?title=MoE%20%e7%b3%bb%e5%88%97%20-%20%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8%20Golang%20%e6%89%a9%e5%b1%95%20Envoy%20[%e4%b8%80]" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/posts/moe-extend-envoy-using-golang-2/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MoE%20%e7%b3%bb%e5%88%97%20[%e4%ba%8c]%20-%20Golang%20%e6%89%a9%e5%b1%95%e4%bb%8e%20Envoy%20%e6%8e%a5%e6%94%b6%e9%85%8d%e7%bd%ae" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
 
 
 <a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
@@ -514,13 +514,15 @@ if (!doNotTrack) {
 
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#背景">背景</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#需求">需求</a></li>
-    <li><a href="#代码实现">代码实现</a></li>
-    <li><a href="#编译">编译</a></li>
-    <li><a href="#运行">运行</a></li>
-    <li><a href="#后续">后续</a></li>
+    <li><a href="#basic-auth">Basic Auth</a></li>
+    <li><a href="#获取配置">获取配置</a>
+      <ul>
+        <li><a href="#认证">认证</a></li>
+      </ul>
+    </li>
+    <li><a href="#配置">配置</a></li>
+    <li><a href="#测试">测试</a></li>
+    <li><a href="#总结">总结</a></li>
   </ul>
 </nav>
 
@@ -533,111 +535,105 @@ if (!doNotTrack) {
             </a>
             
 <div class="td-content">
-	<h1>MoE 系列 - 如何使用 Golang 扩展 Envoy [一]</h1>
-	<div class="lead">本文作为 MoE 系列第一篇，主要介绍用 Golang 扩展 Envoy 的极速开发体验</div>
+	<h1>MoE 系列 [二] - Golang 扩展从 Envoy 接收配置</h1>
+	<div class="lead">这次我们再通过一个示例，来体验 Golang 扩展的一个强大的特性：从 Envoy 接收配置。</div>
 	<div class="td-byline mb-4">
 		作者 <b><a href="https://github.com/doujiang24">doujiang24</a></b> |
-		<time datetime="2023-02-27" class="text-muted">2023年2月27日</time>
+		<time datetime="2023-03-09" class="text-muted">2023年3月9日</time>
 	</div>
-	<h2 id="背景">背景</h2>
-<p>MoE，MOSN on Envoy 是 MOSN 团队提出的技术架构，经过近两年的发展，在蚂蚁内部已经得到了很好的验证；并且去年我们也将底层的 Envoy Go 七层扩展贡献了 Envoy 官方，MOSN 也初步支持了使用 Envoy 作为网络底座的能力。</p>
-<p>准备写一系列的文章，逐一介绍这里面的技术，本文是开篇，重点介绍 MoE 中的基础技术，Envoy Go 扩展。</p>
-<h2 id="faq">FAQ</h2>
-<p>开始前，先回答几个基本的问题：</p>
-<ol>
-<li>
-<p>MoE 与 Envoy Go 扩展的区别</p>
-<p>MoE 是技术架构，Envoy Go 扩展是连接 MOSN 和 Envoy 的基础技术</p>
-</li>
-<li>
-<p>Envoy Go 扩展，与用 Go 来编译 Wasm 有什么区别</p>
-<p>Envoy Go 支持 Go 语言的所有特性，包括 Goroutine，Go Wasm 则只能使用少量的 Go 语言特性，尤其是没有 Goroutine 的支持</p>
-</li>
-<li>
-<p>Go 是静态链接到 Envoy 么？</p>
-<p>不是的，Go 扩展编译成为 so，Envoy 动态加载 so，不需要重新编译 Envoy</p>
-</li>
-<li>
-<p>Envoy Go 支持流式处理么？</p>
-<p>支持的。</p>
-<p>由于 Go 扩展提供的是底层的 API，非常的灵活，使用上相对会稍微复杂一些；如果只想简单的使用，可以使用 MOSN 的 filter，后面我们也会介绍。</p>
-</li>
-</ol>
-<h2 id="需求">需求</h2>
-<p>我们先实现一个小需求，来实际体会一下：</p>
-<p>对请求需要进行验签，大致是从 URI 上的某些参数，以及私钥计算一个 <code>token</code>，然后和 header 中的 <code>token</code> 进行对比，对不上就返回 403。</p>
-<p>很简单的需求，仅仅作为示例，主要是体验一下过程。</p>
-<h2 id="代码实现">代码实现</h2>
-<p>完整的代码可以看 <a href="https://github.com/doujiang24/envoy-go-filter-example/tree/master/example-1">envoy-go-filter-example</a> 这个仓库</p>
-<p>这里摘录最核心的两个函数：</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">secretKey</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#4e9a06">&#34;secret&#34;</span>
-
-<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">verify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">header</span> <span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequestHeaderMap</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#000">token</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">header</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;token&#34;</span><span style="color:#000;font-weight:bold">)</span>
-	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
-		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;missing token&#34;</span>
-	<span style="color:#000;font-weight:bold">}</span>
-
-	<span style="color:#000">path</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">header</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;:path&#34;</span><span style="color:#000;font-weight:bold">)</span>
-	<span style="color:#000">hash</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">md5</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Sum</span><span style="color:#000;font-weight:bold">([]</span><span style="color:#204a87">byte</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">path</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">secretKey</span><span style="color:#000;font-weight:bold">))</span>
-	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">hex</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">EncodeToString</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">hash</span><span style="color:#000;font-weight:bold">[:])</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#000">token</span> <span style="color:#000;font-weight:bold">{</span>
-		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;invalid token&#34;</span>
-	<span style="color:#000;font-weight:bold">}</span>
-	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;&#34;</span>
+	<p><a href="https://mosn.io/blog/posts/moe-extend-envoy-using-golang-1/">上一篇</a> 我们用一个简单的示例，体验了用 Golang 扩展 Envoy 的极速上手。</p>
+<p>这次我们再通过一个示例，来体验 Golang 扩展的一个强大的特性：从 Envoy 接收配置。</p>
+<h2 id="basic-auth">Basic Auth</h2>
+<p>我们还是从一个小示例来体验，这次我们实现标准的 basic auth 的认证，与上一次示例不同的是，这次认证的用户密码信息，需要从 Envoy 传给 Go，不能在 Go 代码中写死了。</p>
+<p>完整的代码可以看 <a href="https://github.com/doujiang24/envoy-go-filter-example/tree/master/example-basic-auth">example-basic-auth</a>，下面我们展开介绍一番。</p>
+<h2 id="获取配置">获取配置</h2>
+<p>为了更加灵活，在设计上，Envoy 传给 Go 的配置是 Protobuf 的 Any 类型，也就是说，配置内容对于 Envoy 是透明的，我们在 Go 侧注册一个解析器，来完成这个 Any 配置的解析。</p>
+<p>如下示例：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">init</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#8f5902;font-style:italic">// 注册 parser
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RegisterHttpFilterConfigParser</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">parser</span><span style="color:#000;font-weight:bold">{})</span>
 <span style="color:#000;font-weight:bold">}</span>
 
-<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">filter</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">DecodeHeaders</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">header</span> <span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequestHeaderMap</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">endStream</span> <span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StatusType</span> <span style="color:#000;font-weight:bold">{</span>
-	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">ok</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">msg</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">verify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">header</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
-		<span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">callbacks</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SendLocalReply</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">403</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">msg</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">map</span><span style="color:#000;font-weight:bold">[</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">]</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">{},</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;bad-request&#34;</span><span style="color:#000;font-weight:bold">)</span>
-        <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">LocalReply</span>
-    <span style="color:#000;font-weight:bold">}</span>
-	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Continue</span>
+<span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">p</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">parser</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Parse</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">any</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">anypb</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Any</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">interface</span><span style="color:#000;font-weight:bold">{}</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">configStruct</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">xds</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">TypedStruct</span><span style="color:#000;font-weight:bold">{}</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">any</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">UnmarshalTo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">configStruct</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">err</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#204a87;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87">panic</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">err</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000;font-weight:bold">}</span>
+
+	<span style="color:#000">v</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">configStruct</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Value</span>
+	<span style="color:#000">conf</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span><span style="color:#000">config</span><span style="color:#000;font-weight:bold">{}</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">username</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AsMap</span><span style="color:#000;font-weight:bold">()[</span><span style="color:#4e9a06">&#34;username&#34;</span><span style="color:#000;font-weight:bold">].(</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">conf</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">username</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">username</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">password</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">v</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AsMap</span><span style="color:#000;font-weight:bold">()[</span><span style="color:#4e9a06">&#34;password&#34;</span><span style="color:#000;font-weight:bold">].(</span><span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">);</span> <span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">conf</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">password</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">password</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000">conf</span>
 <span style="color:#000;font-weight:bold">}</span>
-</code></pre></div><p><code>DecodeHeaders</code> 是扩展 <code>filter</code> 必须实现的方法，我们就是在这个阶段对请求 <code>header</code> 进行校验。</p>
-<p><code>verfiy</code> 是校验函数，这里的 <code>RequestHeaderMap</code> 是 Go 扩展提供的 <code>interface</code>，我们可以通过它来读写 header，其他都是常见的 Go 代码写法。</p>
-<h2 id="编译">编译</h2>
-<p>编译很简单，与常见的 Go 编译一样，这里我们使用 Golang 官方的 docker 镜像来编译：</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker run --rm -v <span style="color:#4e9a06">`</span><span style="color:#204a87">pwd</span><span style="color:#4e9a06">`</span>:/go/src/go-filter -w /go/src/go-filter <span style="color:#4e9a06">\
-</span><span style="color:#4e9a06"></span>        -e <span style="color:#000">GOPROXY</span><span style="color:#ce5c00;font-weight:bold">=</span>https://goproxy.cn <span style="color:#4e9a06">\
-</span><span style="color:#4e9a06"></span>        golang:1.19 <span style="color:#4e9a06">\
-</span><span style="color:#4e9a06"></span>        go build -v -o libgolang.so -buildmode<span style="color:#ce5c00;font-weight:bold">=</span>c-shared .
-</code></pre></div><p>Go 编译还是很快的，只需要几秒钟，当前目录下，就会产生一个 libgolang.so 的文件。</p>
-<p>反观 Envoy 的编译速度，一次全量编译，动辄几十分钟，上小时的，这幸福感提升了不止一个档次。</p>
-<h2 id="运行">运行</h2>
-<p>我们可以使用 Envoy 官方提供的镜像来运行，如下示例：</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker run --rm -v <span style="color:#4e9a06">`</span><span style="color:#204a87">pwd</span><span style="color:#4e9a06">`</span>/envoy.yaml:/etc/envoy/envoy.yaml <span style="color:#4e9a06">\
-</span><span style="color:#4e9a06"></span>        -v <span style="color:#4e9a06">`</span><span style="color:#204a87">pwd</span><span style="color:#4e9a06">`</span>/libgolang.so:/etc/envoy/libgolang.so <span style="color:#4e9a06">\
-</span><span style="color:#4e9a06"></span>        -p 10000:10000 <span style="color:#4e9a06">\
-</span><span style="color:#4e9a06"></span>        envoyproxy/envoy:contrib-dev <span style="color:#4e9a06">\
-</span><span style="color:#4e9a06"></span>        envoy -c /etc/envoy/envoy.yaml
-</code></pre></div><p>只需要把上一步编译的 <code>libgolang.so</code> 和 <code>envoy.yaml</code> 挂载进去就可以了。</p>
-<p>值得一提的是，我们需要在 envoy.yaml 配置中启用 Go 扩展，具体是这段配置：</p>
+</code></pre></div><p>这里为了方便，Any 中的类型是 Envoy 定义的 TypedStruct 类型，这样我们可以直接使用现成的 Go pb 库。</p>
+<p>值得一提的是，这个配置解析，只有在首次加载的时候需要执行，后续在 Go 使用的是解析后的配置，所以，我们解析到一个 Go map 可以拥有更好的运行时性能。</p>
+<p>同时，由于 Envoy 的配置，也是有层级关系的，比如 http-filter, virtual host, router, virtual clusters 这四级，我们也支持这四个层级同时有配置，在 Go 侧来组织 merge。</p>
+<p>当然，这个只有在 Go 侧有复杂的 filter 组织逻辑的时候用得上，后面我们在 MOSN 的上层封装的时候，可以看到这种用法，这里暂时不做展开介绍。</p>
+<h3 id="认证">认证</h3>
+<p>具体的 Basic Auth 认证逻辑，我们可以参考 Go 标准 net/http 库中的 BasicAuth 实现。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">f</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">filter</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">verify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">header</span> <span style="color:#000">api</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RequestHeaderMap</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">bool</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">string</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">auth</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">header</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;authorization&#34;</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;no Authorization&#34;</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#000">username</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">password</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">ok</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">parseBasicAuth</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">auth</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">!</span><span style="color:#000">ok</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;invalid Authorization format&#34;</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">config</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">username</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">username</span> <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#000">f</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">config</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">password</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#000">password</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;&#34;</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;invalid username or password&#34;</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>这里面的 <code>parseBasicAuth</code> 就是从 net/http 库中的实现，是不是很方便呢。</p>
+<h2 id="配置">配置</h2>
+<p>简单起见，这次我们使用本地文件的配置方式。如下是关键的配置：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#204a87;font-weight:bold">http_filters</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">  </span>- <span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">envoy.filters.http.golang</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">typed_config</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">      </span><span style="color:#204a87;font-weight:bold">&#34;@type&#34;: </span><span style="color:#000">type.googleapis.com/envoy.extensions.filters.http.golang.v3alpha.Config</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">      </span><span style="color:#204a87;font-weight:bold">library_id</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">example</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">      </span><span style="color:#204a87;font-weight:bold">library_path</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">/etc/envoy/libgolang.so</span><span style="color:#f8f8f8;text-decoration:underline">
-</span><span style="color:#f8f8f8;text-decoration:underline">      </span><span style="color:#204a87;font-weight:bold">plugin_name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">example-1</span><span style="color:#f8f8f8;text-decoration:underline">
-</span></code></pre></div><p>跑起来之后，我们测试一下：</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl <span style="color:#4e9a06">&#39;http://localhost:10000/&#39;</span>
-missing token
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span><span style="color:#204a87;font-weight:bold">plugin_name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">basic-auth</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span><span style="color:#204a87;font-weight:bold">plugin_config</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">&#34;@type&#34;: </span><span style="color:#000">type.googleapis.com/xds.type.v3.TypedStruct</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">value</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#204a87;font-weight:bold">username</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;foo&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#204a87;font-weight:bold">password</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;bar&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></code></pre></div><p>这里我们配置了用户名密码：<code>foo:bar</code>。</p>
+<p>预告一下，下一篇我们会体验通过 Istio 来推送配置，体会一番动态更新配置的全流程。</p>
+<h2 id="测试">测试</h2>
+<p>编译，运行，跟上篇一样，我们还是使用 Envoy 官方提供的镜像即可。</p>
+<p>跑起来之后，我们测试一下：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl -s -I <span style="color:#4e9a06">&#39;http://localhost:10000/&#39;</span>
+HTTP/1.1 <span style="color:#0000cf;font-weight:bold">401</span> Unauthorized
 
-$ curl -s <span style="color:#4e9a06">&#39;http://localhost:10000/&#39;</span> -H <span style="color:#4e9a06">&#39;token: c64319d06364528120a9f96af62ea83d&#39;</span> -I
+<span style="color:#8f5902;font-style:italic"># invalid username:password</span>
+$ curl -s -I <span style="color:#4e9a06">&#39;http://localhost:10000/&#39;</span> -H <span style="color:#4e9a06">&#39;Authorization: basic invalid&#39;</span>
+HTTP/1.1 <span style="color:#0000cf;font-weight:bold">401</span> Unauthorized
+
+<span style="color:#8f5902;font-style:italic"># valid foo:bar</span>
+$ curl -s -I <span style="color:#4e9a06">&#39;http://localhost:10000/&#39;</span> -H <span style="color:#4e9a06">&#39;Authorization: basic Zm9vOmJhcg==&#39;</span>
 HTTP/1.1 <span style="color:#0000cf;font-weight:bold">200</span> OK
-</code></pre></div><p>符合期望，是不是很简单呢</p>
-<h2 id="后续">后续</h2>
-<p>什么？这个示例太简单？</p>
-<p>是的，这里主要是体验下开发流程，下篇我们再介绍更高级的玩法：</p>
-<p>Go 接受来自 Envoy 侧的配置，异步 Goroutine，以及与 Istio 配合的用法。</p>
+</code></pre></div><p>是不是很简单呢，一个标准的 basic-auth 扩展就完成了。</p>
+<h2 id="总结">总结</h2>
+<p>Envoy 是面向云原生的架构设计，提供了配置动态变更的机制，Go 扩展可以从 Envoy 接受配置，也就意味着 Go 扩展也可以很好的利用这套机制。</p>
+<p>Go 扩展的开发者，不需要关心配置的动态更新，只需要解析配置即可，非常的方便~</p>
+<p>下一篇我们会介绍，配合 Istio 来动态更新用户名密码，体验一番云原生的配置变更体验。</p>
+<p>后续还有更多 Golang 扩展的特性介绍，原理解析，以及，更上层的 MOSN 集成体验，欢迎持续关注。</p>
 
 	
 
 	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
   <li>
-    <a href="/blog/posts/mosn-optimize-build-subset/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+    <a href="/blog/posts/moe-extend-envoy-using-golang-1/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
   </li>
-    <a href="/blog/posts/moe-extend-envoy-using-golang-2/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+    <a  class="btn btn-primary  disabled">下一页 <span class="ml-1">→</span></a>
   </li>
 </ul>
 
