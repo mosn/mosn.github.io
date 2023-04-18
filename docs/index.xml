@@ -420,11 +420,13 @@ The Cloud-Native Network Proxy Platform.
 &lt;p&gt;MOSN 中通过 &lt;code&gt;cluster_manager&lt;/code&gt; 来管理转发的集群地址，通常与 &lt;a href=&#34;https://mosn.io/docs/configuration/server/router/#route&#34;&gt;Router&lt;/a&gt; 配合使用。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;&amp;quot;cluster_manager&amp;quot;:{
   &amp;quot;tls_context&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;cluster_pool_enable&amp;quot;: &amp;quot;&amp;quot;,
   &amp;quot;clusters_configs&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;clusters&amp;quot;:[]
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;tls_context&lt;/code&gt;，可选配置，用于描述 Cluster 全局共享的 TLS 配置，该配置项需要结合 clusters 配置中的 cluster_manager_tls 配置项一起使用，TLS 详细配置见 &lt;a href=&#34;https://mosn.io/docs/configuration/custom/#tls_context&#34;&gt;tls_context 文档&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cluster_pool_enable&lt;/code&gt;，可选配置，bool 类型，用于控制所有Cluster是否使用独占的连接池，为 true 则使用Cluster独占连接池，默认值为 false。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;clusters_configs&lt;/code&gt;，可选配置，字符串类型，用于设置 Cluster 列表从 clusters_configs 指定的文件中解析。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;clusters&lt;/code&gt;，用于描述每个 Cluster 所采用的负载均衡算法、类型等细节信息。&lt;/li&gt;
 &lt;/ul&gt;
@@ -453,7 +455,8 @@ The Cloud-Native Network Proxy Platform.
   &amp;quot;dns_lookup_family&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;dns_resolvers&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;dns_resolver_file&amp;quot;:&amp;quot;&amp;quot;,
-  &amp;quot;dns_resolver_port&amp;quot;:&amp;quot;&amp;quot;
+  &amp;quot;dns_resolver_port&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;cluster_pool_enable&amp;quot;:&amp;quot;&amp;quot;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;name&lt;/code&gt;，字符串。用作 Cluster 的唯一标识。&lt;/li&gt;
@@ -500,6 +503,7 @@ The Cloud-Native Network Proxy Platform.
 &lt;li&gt;&lt;code&gt;dns_resolvers&lt;/code&gt;，&lt;a href=&#34;#DnsResolverConfig&#34;&gt;DnsResolverConfig&lt;/a&gt; 类型，在群集类型是 STRICT_DNS，此值用于指定群集的 DNS 解析相关配置。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;dns_resolver_file&lt;/code&gt;，字符串类型，用于设置 DNS server 列表的文件路径，该值默认为使用 /etc/resolv.conf 配置的默认解析器，该配置项仅在 dns_resolvers 未配置时生效。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;dns_resolver_port&lt;/code&gt;，字符串类型，用于设置 DNS server 地址的 port，默认值为 53，该配置项仅在 dns_resolvers 未配置时生效。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cluster_pool_enable&lt;/code&gt;，bool 类型，用于控制当前Cluster是否使用独占的连接池，为 true 则使用独占连接池，默认值为 false。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;thresholds&#34;&gt;Thresholds&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-josn&#34; data-lang=&#34;josn&#34;&gt;{

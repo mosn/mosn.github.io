@@ -23,12 +23,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/products/configuration-overview/clustermanager/" />
 <meta property="article:published_time" content="2022-03-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-04-10T02:57:08-07:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2023-04-18T22:40:07+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="ClusterManager 配置">
 <meta itemprop="description" content="MOSN ClusterManager 配置说明。">
 <meta itemprop="datePublished" content="2022-03-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-04-10T02:57:08-07:00" />
-<meta itemprop="wordCount" content="394">
+<meta itemprop="dateModified" content="2023-04-18T22:40:07+08:00" />
+<meta itemprop="wordCount" content="407">
 
 
 
@@ -1274,11 +1274,13 @@ if (!doNotTrack) {
 <p>MOSN 中通过 <code>cluster_manager</code> 来管理转发的集群地址，通常与 <a href="https://mosn.io/docs/configuration/server/router/#route">Router</a> 配合使用。</p>
 <pre><code class="language-josn" data-lang="josn">&quot;cluster_manager&quot;:{
   &quot;tls_context&quot;:&quot;&quot;,
+  &quot;cluster_pool_enable&quot;: &quot;&quot;,
   &quot;clusters_configs&quot;:&quot;&quot;,
   &quot;clusters&quot;:[]
 }
 </code></pre><ul>
 <li><code>tls_context</code>，可选配置，用于描述 Cluster 全局共享的 TLS 配置，该配置项需要结合 clusters 配置中的 cluster_manager_tls 配置项一起使用，TLS 详细配置见 <a href="https://mosn.io/docs/configuration/custom/#tls_context">tls_context 文档</a>。</li>
+<li><code>cluster_pool_enable</code>，可选配置，bool 类型，用于控制所有Cluster是否使用独占的连接池，为 true 则使用Cluster独占连接池，默认值为 false。</li>
 <li><code>clusters_configs</code>，可选配置，字符串类型，用于设置 Cluster 列表从 clusters_configs 指定的文件中解析。</li>
 <li><code>clusters</code>，用于描述每个 Cluster 所采用的负载均衡算法、类型等细节信息。</li>
 </ul>
@@ -1307,7 +1309,8 @@ if (!doNotTrack) {
   &quot;dns_lookup_family&quot;:&quot;&quot;,
   &quot;dns_resolvers&quot;:&quot;&quot;,
   &quot;dns_resolver_file&quot;:&quot;&quot;,
-  &quot;dns_resolver_port&quot;:&quot;&quot;
+  &quot;dns_resolver_port&quot;:&quot;&quot;,
+  &quot;cluster_pool_enable&quot;:&quot;&quot;
 }
 </code></pre><ul>
 <li><code>name</code>，字符串。用作 Cluster 的唯一标识。</li>
@@ -1354,6 +1357,7 @@ if (!doNotTrack) {
 <li><code>dns_resolvers</code>，<a href="#DnsResolverConfig">DnsResolverConfig</a> 类型，在群集类型是 STRICT_DNS，此值用于指定群集的 DNS 解析相关配置。</li>
 <li><code>dns_resolver_file</code>，字符串类型，用于设置 DNS server 列表的文件路径，该值默认为使用 /etc/resolv.conf 配置的默认解析器，该配置项仅在 dns_resolvers 未配置时生效。</li>
 <li><code>dns_resolver_port</code>，字符串类型，用于设置 DNS server 地址的 port，默认值为 53，该配置项仅在 dns_resolvers 未配置时生效。</li>
+<li><code>cluster_pool_enable</code>，bool 类型，用于控制当前Cluster是否使用独占的连接池，为 true 则使用独占连接池，默认值为 false。</li>
 </ul>
 <h2 id="thresholds">Thresholds</h2>
 <pre><code class="language-josn" data-lang="josn">{
@@ -1454,7 +1458,7 @@ if (!doNotTrack) {
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2023年4月10日: <a  href="https://github.com/mosn/mosn.io/commit/9e2453e13f6f8426d5dc6d1d6a72f2096031e6f8">two more moe blogs. (#232) (9e2453e)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2023年4月18日: <a  href="https://github.com/mosn/mosn.io/commit/da365414acfcd497435a78298829ee5bae568e8d">docs: add cluster_pool_enable configuration (#233) (da36541)</a>
 </div>
 </div>
 
