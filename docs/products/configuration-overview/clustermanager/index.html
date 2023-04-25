@@ -23,12 +23,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/products/configuration-overview/clustermanager/" />
 <meta property="article:published_time" content="2022-03-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-04-25T19:35:42+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2023-04-25T22:20:24+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="ClusterManager 配置">
 <meta itemprop="description" content="MOSN ClusterManager 配置说明。">
 <meta itemprop="datePublished" content="2022-03-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-04-25T19:35:42+08:00" />
-<meta itemprop="wordCount" content="414">
+<meta itemprop="dateModified" content="2023-04-25T22:20:24+08:00" />
+<meta itemprop="wordCount" content="424">
 
 
 
@@ -1226,6 +1226,7 @@ if (!doNotTrack) {
     <li><a href="#lboridstconfig">LBOriDstConfig</a></li>
     <li><a href="#host">Host</a></li>
     <li><a href="#dnsresolverconfig">DnsResolverConfig</a></li>
+    <li><a href="#lbconfig">LbConfig</a></li>
   </ul>
 </nav>
 
@@ -1344,6 +1345,7 @@ if (!doNotTrack) {
 <li>LB_MAGLEV，一致性 hash 转发。</li>
 <li>LB_REQUEST_ROUNDROBIN，同一个请求粒度的轮训转发。</li>
 <li>LB_LEAST_CONNECTION，选择连接数最少的 host 转发。</li>
+<li>LB_PEAK_EWMA，基于延迟的负载均衡算法，通过记录主机的延迟，选择延迟较好并避免选择较差的主机</li>
 </ul>
 </li>
 <li><code>max_request_per_conn</code>，uint32 类型，暂未实现。</li>
@@ -1358,7 +1360,7 @@ if (!doNotTrack) {
 <li><code>hosts</code>，[]<a href="#Host">Host</a>  类型，用于配置 Cluster 中的机器列表。</li>
 <li><code>connect_timeout</code>，<a href="../custom#duration-string">Duration</a> 类型，连接到该群集中主机的超时时长，默认值为 3 秒。</li>
 <li><code>idle_timeout</code>，<a href="../custom#duration-string">Duration</a> 类型，用于设置 Cluster 中的连接空闲超时时间，若发生超时则会断开连接，中默认值为 0，表示不设置连接的空闲超时。</li>
-<li><code>lbconfig</code>，为负载均衡器提供的扩展配置，目前只有 LB_LEAST_REQUEST 类型的负载均衡器有使用。</li>
+<li><code>lbconfig</code>，<a href="#lbconfig">LbConfig</a>类型，为负载均衡器提供的扩展配置，目前只有 LB_LEAST_REQUEST/LB_LEAST_CONNECTION/LB_PEAK_EWMA 类型的负载均衡器有使用。</li>
 <li><code>dns_refresh_rate</code>，<a href="../custom#duration-string">Duration</a> 类型，在群集类型是 STRICT_DNS 时，用于设置 DNS 刷新频率，此值默认为 5 秒。</li>
 <li><code>respect_dns_ttl</code>，bool 类型，用于设置当 Cluster 类型为 STRICT_DNS 时，其域名对应的解析频率是否遵循 DNS 返回的 TTL。</li>
 <li><code>dns_lookup_family</code>，字符串类型，DNS IP 地址解析策略。 如果未指定此设置，则该值默认为 V4_ONLY。取值列表如下：
@@ -1470,10 +1472,19 @@ if (!doNotTrack) {
 <li><code>timeout</code>，int 类型，用于设置 DNS 更新超时时间，单位为秒。</li>
 <li><code>attempts</code>，int 类型，一次 DNS 请求中尝试查询的 DSN server 的次数。</li>
 </ul>
+<h2 id="lbconfig">LbConfig</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">&#34;choice_count&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#204a87;font-weight:bold">&#34;active_request_bias&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#4e9a06">&#34;&#34;</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><ul>
+<li><code>choice_count</code>，uint32类型，用来设置随机算法的随机选择次数，当配置了<code>lbconfig</code>时必填，且必须大于0</li>
+<li><code>active_request_bias</code>，float64类型，用来设置负载均衡算法对<code>active_request</code>和<code>connection_active</code>指标的偏好</li>
+</ul>
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2023年4月25日: <a  href="https://github.com/mosn/mosn.io/commit/c9ba16d7e8cd509590fde648a2127c1320b8e377">release v1.5.0 (#234) (c9ba16d)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2023年4月25日: <a  href="https://github.com/mosn/mosn.io/commit/6f5d14de8bf7e400a8743ed325d709df223018be">docs: add lbconfig and lbtype configuration (#235) (6f5d14d)</a>
 </div>
 </div>
 

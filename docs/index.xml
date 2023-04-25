@@ -478,6 +478,7 @@ The Cloud-Native Network Proxy Platform.
 &lt;li&gt;LB_MAGLEV，一致性 hash 转发。&lt;/li&gt;
 &lt;li&gt;LB_REQUEST_ROUNDROBIN，同一个请求粒度的轮训转发。&lt;/li&gt;
 &lt;li&gt;LB_LEAST_CONNECTION，选择连接数最少的 host 转发。&lt;/li&gt;
+&lt;li&gt;LB_PEAK_EWMA，基于延迟的负载均衡算法，通过记录主机的延迟，选择延迟较好并避免选择较差的主机&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;code&gt;max_request_per_conn&lt;/code&gt;，uint32 类型，暂未实现。&lt;/li&gt;
@@ -492,7 +493,7 @@ The Cloud-Native Network Proxy Platform.
 &lt;li&gt;&lt;code&gt;hosts&lt;/code&gt;，[]&lt;a href=&#34;#Host&#34;&gt;Host&lt;/a&gt;  类型，用于配置 Cluster 中的机器列表。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;connect_timeout&lt;/code&gt;，&lt;a href=&#34;../custom#duration-string&#34;&gt;Duration&lt;/a&gt; 类型，连接到该群集中主机的超时时长，默认值为 3 秒。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;idle_timeout&lt;/code&gt;，&lt;a href=&#34;../custom#duration-string&#34;&gt;Duration&lt;/a&gt; 类型，用于设置 Cluster 中的连接空闲超时时间，若发生超时则会断开连接，中默认值为 0，表示不设置连接的空闲超时。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;lbconfig&lt;/code&gt;，为负载均衡器提供的扩展配置，目前只有 LB_LEAST_REQUEST 类型的负载均衡器有使用。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lbconfig&lt;/code&gt;，&lt;a href=&#34;#lbconfig&#34;&gt;LbConfig&lt;/a&gt;类型，为负载均衡器提供的扩展配置，目前只有 LB_LEAST_REQUEST/LB_LEAST_CONNECTION/LB_PEAK_EWMA 类型的负载均衡器有使用。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;dns_refresh_rate&lt;/code&gt;，&lt;a href=&#34;../custom#duration-string&#34;&gt;Duration&lt;/a&gt; 类型，在群集类型是 STRICT_DNS 时，用于设置 DNS 刷新频率，此值默认为 5 秒。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;respect_dns_ttl&lt;/code&gt;，bool 类型，用于设置当 Cluster 类型为 STRICT_DNS 时，其域名对应的解析频率是否遵循 DNS 返回的 TTL。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;dns_lookup_family&lt;/code&gt;，字符串类型，DNS IP 地址解析策略。 如果未指定此设置，则该值默认为 V4_ONLY。取值列表如下：
@@ -603,6 +604,15 @@ The Cloud-Native Network Proxy Platform.
 &lt;li&gt;&lt;code&gt;ndots&lt;/code&gt;，int 类型，用于设置 DNS 查询域名是否将 search 中的列表依次追加到待查询域名末尾，如果该值大于待查询域名中的 “.” 数量，则将待查询域名末尾拼依次接 search 中设置的后缀，默认值为 0。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;timeout&lt;/code&gt;，int 类型，用于设置 DNS 更新超时时间，单位为秒。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;attempts&lt;/code&gt;，int 类型，一次 DNS 请求中尝试查询的 DSN server 的次数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;lbconfig&#34;&gt;LbConfig&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;choice_count&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt;
+  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;&amp;#34;active_request_bias&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;choice_count&lt;/code&gt;，uint32类型，用来设置随机算法的随机选择次数，当配置了&lt;code&gt;lbconfig&lt;/code&gt;时必填，且必须大于0&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;active_request_bias&lt;/code&gt;，float64类型，用来设置负载均衡算法对&lt;code&gt;active_request&lt;/code&gt;和&lt;code&gt;connection_active&lt;/code&gt;指标的偏好&lt;/li&gt;
 &lt;/ul&gt;
 
       </description>
