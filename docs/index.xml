@@ -477,6 +477,7 @@ The Cloud-Native Network Proxy Platform.
 &lt;li&gt;LB_LEAST_REQUEST，选择请求数最少的 host 转发。&lt;/li&gt;
 &lt;li&gt;LB_MAGLEV，一致性 hash 转发。&lt;/li&gt;
 &lt;li&gt;LB_REQUEST_ROUNDROBIN，同一个请求粒度的轮训转发。&lt;/li&gt;
+&lt;li&gt;LB_LEAST_CONNECTION，选择连接数最少的 host 转发。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;code&gt;max_request_per_conn&lt;/code&gt;，uint32 类型，暂未实现。&lt;/li&gt;
@@ -528,7 +529,8 @@ The Cloud-Native Network Proxy Platform.
   &amp;quot;healthy_threshold&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;unhealthy_threshold&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;service_name&amp;quot;:&amp;quot;&amp;quot;,
-  &amp;quot;check_config&amp;quot;:&amp;quot;&amp;quot;
+  &amp;quot;check_config&amp;quot;:&amp;quot;&amp;quot;,
+  &amp;quot;event_log_path&amp;quot;:&amp;quot;&amp;quot;,
   &amp;quot;common_callbacks&amp;quot;:&amp;quot;&amp;quot;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
@@ -539,7 +541,8 @@ The Cloud-Native Network Proxy Platform.
 &lt;li&gt;&lt;code&gt;healthy_threshold&lt;/code&gt;，uint32 类型，主机在标记为健康之前所需的连续健康检查次数，默认值为 1。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;unhealthy_threshold&lt;/code&gt;，uint32 类型，在主机被标记为不健康之前，需要进行连续不健康的健康检查次数，默认值为 1。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;service_name&lt;/code&gt;，字符串类型，暂未支持。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;check_config&lt;/code&gt;，map[string]interface{} 类型，用于健康检查的扩展配置，暂未使用。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;check_config&lt;/code&gt;，map[string]interface{} 类型，用于健康检查的扩展配置，当前支持 &amp;ldquo;http_check_config&amp;rdquo;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;event_log_path&lt;/code&gt;, 字符串类型，健康检查日志路径。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;common_callbacks&lt;/code&gt;，[]string 类型，用于设置对应 Cluster 健康检查时执行的 callback。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;lbsubsetconfig&#34;&gt;LBSubsetConfig&lt;/h2&gt;
@@ -3987,6 +3990,55 @@ ECDHE-ECDSA-SM4-SM3
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: MOSN v1.4.0 发布</title>
+      <link>https://mosn.io/docs/products/report/releases/v1.4.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/products/report/releases/v1.4.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v1.4.0&#34;&gt;MOSN v1.4.0&lt;/a&gt; 发布，以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v140&#34;&gt;v1.4.0&lt;/h2&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;支持记录 HTTP 健康检查日志 (#2096) @dengqian&lt;/li&gt;
+&lt;li&gt;新增最小连接负载均衡器 (#2184) @dengqian&lt;/li&gt;
+&lt;li&gt;新增 API: 强制断开并重新连接 ADS 服务 (#2183) @dengqian&lt;/li&gt;
+&lt;li&gt;支持 pprof debug server 配置 endpoint (#2202) @dengqian&lt;/li&gt;
+&lt;li&gt;集成 mosn.io/envoy-go-extension，参考&lt;a href=&#34;https://github.com/mosn/mosn/blob/master/examples/codes/envoy-go-extension/README_CN.md&#34;&gt;文档&lt;/a&gt; (#2200) @antJack (#2222) @3062&lt;/li&gt;
+&lt;li&gt;新增 API: 支持覆盖注册 Variable (mosn/pkg#72) @antJack&lt;/li&gt;
+&lt;li&gt;新增记录 mosn 处理时间的字段的变量 (#2235) @z2z23n0&lt;/li&gt;
+&lt;li&gt;支持将 cluster idle_timeout 设置为零以表示从不超时 (#2197) @antJack&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;import pprof 迁移至 pkg/mosn (#2216) @3062&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;减少 proxywasm 基准测试的日志记录 (#2189) @Crypt Keeper&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;增大 UDP DNS 解析缓冲区 (#2201) @dengqian&lt;/li&gt;
+&lt;li&gt;修复平滑升级时未继承 debug server 的问题 (#2204) @dengqian&lt;/li&gt;
+&lt;li&gt;修复平滑升级失败时，新 mosn 会删除 reconfig.sock 的问题 (#2205) @dengqian&lt;/li&gt;
+&lt;li&gt;修复 HTTP 健康检查 URL query string 未转译的问题 (#2207) @dengqian&lt;/li&gt;
+&lt;li&gt;修复 ReqRoundRobin 负载均衡器在索引超过 host 数量时，host 选择失败的问题 (#2209) @dengqian&lt;/li&gt;
+&lt;li&gt;修复 RDS 创建路由之后，已建连的连接无法找到路由的问题 (#2199) @dengqian (#2210) @3062&lt;/li&gt;
+&lt;li&gt;修复 Variable.Set 执行后会读取到旧缓存值的问题 (mosn/pkg#73) @antJack&lt;/li&gt;
+&lt;li&gt;修复 DefaultRoller 未设置时间导致 panic 的问题 (mosn/pkg#74) @dengqian&lt;/li&gt;
+&lt;li&gt;提前 metrics 初始化时间使其适用于 static config (#2221) @dengqian&lt;/li&gt;
+&lt;li&gt;修复多个 health checker 共用 rander 导致的并发问题 (#2228) @dengqian&lt;/li&gt;
+&lt;li&gt;设置 HTTP/1.1 作为发往上游的 HTTP 协议 (#2225) @dengqian&lt;/li&gt;
+&lt;li&gt;补全缺失的统计信息 (#2215) @3062&lt;/li&gt;
+&lt;/ul&gt;
 
       </description>
     </item>

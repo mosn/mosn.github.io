@@ -138,7 +138,7 @@ The Cloud-Native Network Proxy Platform.
 &lt;p&gt;下图是 Istio 整体框架下，MOSN 的工作示意图。&lt;/p&gt;
 &lt;div align=center&gt;&lt;img src=&#34;mosn-with-service-mesh.svg&#34; width = &#34;450&#34; height = &#34;400&#34; alt=&#34;MOSN 介绍&#34; /&gt;&lt;/div&gt;
 &lt;h2 id=&#34;部署-istio-与-mosn&#34;&gt;部署 Istio 与 MOSN&lt;/h2&gt;
-&lt;p&gt;注意：Istio 1.10.6 不支持在 arm64 上运行 Kubernetes 的集群 。 &lt;a href=&#34;%5B(https://github.com/istio/istio/issues/32841)%5D&#34;&gt;Istio Issues&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;注意：Istio 1.10.6 不支持在 arm64 上运行 Kubernetes 的集群 。 &lt;a href=&#34;https://github.com/istio/istio/issues/32841&#34;&gt;Istio Issues&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;安装-kubectl-命令行工具&#34;&gt;安装 kubectl 命令行工具&lt;/h3&gt;
 &lt;p&gt;kubectl 是用于针对 Kubernetes 集群运行命令的命令行接口，安装参考 &lt;a href=&#34;https://kubernetes.io/docs/tasks/tools/install-kubectl&#34;&gt;kubectl doc&lt;/a&gt;。&lt;/p&gt;
 &lt;h3 id=&#34;安装-kubernetes-平台&#34;&gt;安装 Kubernetes 平台&lt;/h3&gt;

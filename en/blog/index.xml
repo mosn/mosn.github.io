@@ -924,5 +924,54 @@ please see &lt;a href=&#34;https://github.com/mosn/mosn/blob/v0.26.0/reports/xpr
       </description>
     </item>
     
+    <item>
+      <title>Blog: Announcing MOSN v1.4.0</title>
+      <link>https://mosn.io/en/blog/releases/v1.4.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v1.4.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v1.4.0&#34;&gt;MOSN v1.4.0&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;v140&#34;&gt;v1.4.0&lt;/h2&gt;
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Support record HTTP health check log (#2096) @dengqian&lt;/li&gt;
+&lt;li&gt;Add least_connection load balancer (#2184) @dengqian&lt;/li&gt;
+&lt;li&gt;Add API to force reconnect and send ADS request (#2183) @dengqian&lt;/li&gt;
+&lt;li&gt;Support pprof debug server endpoint configure (#2202) @dengqian&lt;/li&gt;
+&lt;li&gt;Integrate with mosn.io/envoy-go-extension, consult &lt;a href=&#34;https://github.com/mosn/mosn/blob/master/examples/codes/envoy-go-extension/README_EN.md&#34;&gt;document&lt;/a&gt; (#2200) @antJack (#2222) @3062&lt;/li&gt;
+&lt;li&gt;Add API to support override registration (mosn/pkg#72) @antJack&lt;/li&gt;
+&lt;li&gt;Add a field in variables to record mosn processing time (#2235) @z2z23n0&lt;/li&gt;
+&lt;li&gt;Support setting cluster idle_timeout to zero to indicate never timeout (#2197) @antJack&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Move pprof import to pkg/mosn (#2216) @3062&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Reduce logging for proxywasm benchmarks (#2189) @Crypt Keeper&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Enlarge UDP DNS resolve buffer (#2201) @dengqian&lt;/li&gt;
+&lt;li&gt;Fix the debug server not inherited during smooth upgrade (#2204) @dengqian&lt;/li&gt;
+&lt;li&gt;Fix where new mosn would delete reconfig.sock when smooth upgrade failed (#2205) @dengqian&lt;/li&gt;
+&lt;li&gt;Fix HTTP health check URL with query string will be unescaped (#2207) @dengqian&lt;/li&gt;
+&lt;li&gt;Fix lb ReqRoundRobin fails to choose host when index exceeds hosts length (#2209) @dengqian&lt;/li&gt;
+&lt;li&gt;Fix the problem that after RDS creates a route, the established connection cannot find the route (#2199) @dengqian (#2210) @3062&lt;/li&gt;
+&lt;li&gt;Fix old cache values are read after the execution of Variable.Set (mosn/pkg#73) @antJack&lt;/li&gt;
+&lt;li&gt;Fix panic caused by DefaultRoller not setting time (mosn/pkg#74) @dengqian&lt;/li&gt;
+&lt;li&gt;Advance the timing of metrics initialization to make it work for static config (#2221) @dengqian&lt;/li&gt;
+&lt;li&gt;Fix a concurrency problem caused by multiple health checkers sharing rander (#2228) @dengqian&lt;/li&gt;
+&lt;li&gt;Set HTTP/1.1 as the HTTP protocol to be sent upstream (#2225) @dengqian&lt;/li&gt;
+&lt;li&gt;Completing the missing statistics (#2215) @3062&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
   </channel>
 </rss>

@@ -23,12 +23,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/docs/products/configuration-overview/clustermanager/" />
 <meta property="article:published_time" content="2022-03-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-04-18T22:40:07+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2023-04-25T19:25:17+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="ClusterManager 配置">
 <meta itemprop="description" content="MOSN ClusterManager 配置说明。">
 <meta itemprop="datePublished" content="2022-03-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-04-18T22:40:07+08:00" />
-<meta itemprop="wordCount" content="407">
+<meta itemprop="dateModified" content="2023-04-25T19:25:17+08:00" />
+<meta itemprop="wordCount" content="414">
 
 
 
@@ -762,6 +762,12 @@ if (!doNotTrack) {
       <a class="td-sidebar-link td-sidebar-link__page " id="m-docsproductsreportreleasesmosn-021-performance-report" href="/docs/products/report/releases/mosn-0.2.1-performance-report/">MOSN 0.2.1 性能报告</a>
       
       
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-docsproductsreportreleasesv140" href="/docs/products/report/releases/v1.4.0/">MOSN v1.4.0 发布</a>
+      
+      
     </li>
   </ul>
 </ul>
@@ -1331,6 +1337,7 @@ if (!doNotTrack) {
 <li>LB_LEAST_REQUEST，选择请求数最少的 host 转发。</li>
 <li>LB_MAGLEV，一致性 hash 转发。</li>
 <li>LB_REQUEST_ROUNDROBIN，同一个请求粒度的轮训转发。</li>
+<li>LB_LEAST_CONNECTION，选择连接数最少的 host 转发。</li>
 </ul>
 </li>
 <li><code>max_request_per_conn</code>，uint32 类型，暂未实现。</li>
@@ -1382,7 +1389,8 @@ if (!doNotTrack) {
   &quot;healthy_threshold&quot;:&quot;&quot;,
   &quot;unhealthy_threshold&quot;:&quot;&quot;,
   &quot;service_name&quot;:&quot;&quot;,
-  &quot;check_config&quot;:&quot;&quot;
+  &quot;check_config&quot;:&quot;&quot;,
+  &quot;event_log_path&quot;:&quot;&quot;,
   &quot;common_callbacks&quot;:&quot;&quot;
 }
 </code></pre><ul>
@@ -1393,7 +1401,8 @@ if (!doNotTrack) {
 <li><code>healthy_threshold</code>，uint32 类型，主机在标记为健康之前所需的连续健康检查次数，默认值为 1。</li>
 <li><code>unhealthy_threshold</code>，uint32 类型，在主机被标记为不健康之前，需要进行连续不健康的健康检查次数，默认值为 1。</li>
 <li><code>service_name</code>，字符串类型，暂未支持。</li>
-<li><code>check_config</code>，map[string]interface{} 类型，用于健康检查的扩展配置，暂未使用。</li>
+<li><code>check_config</code>，map[string]interface{} 类型，用于健康检查的扩展配置，当前支持 &ldquo;http_check_config&rdquo;。</li>
+<li><code>event_log_path</code>, 字符串类型，健康检查日志路径。</li>
 <li><code>common_callbacks</code>，[]string 类型，用于设置对应 Cluster 健康检查时执行的 callback。</li>
 </ul>
 <h2 id="lbsubsetconfig">LBSubsetConfig</h2>
@@ -1458,7 +1467,7 @@ if (!doNotTrack) {
 
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top">修改于 2023年4月18日: <a  href="https://github.com/mosn/mosn.io/commit/da365414acfcd497435a78298829ee5bae568e8d">docs: add cluster_pool_enable configuration (#233) (da36541)</a>
+	<div class="text-muted mt-5 pt-3 border-top">修改于 2023年4月25日: <a  href="https://github.com/mosn/mosn.io/commit/a77dcb5da93fee91f84e1d67b62fca689d9a1849">release 1.4.0 (#226) (a77dcb5)</a>
 </div>
 </div>
 
