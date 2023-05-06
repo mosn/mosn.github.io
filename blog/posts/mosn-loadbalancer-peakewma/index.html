@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.75.1" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>mosn基于延迟负载均衡算法 -- 走得更快，期待走得更稳 | MOSN</title><meta property="og:title" content="mosn基于延迟负载均衡算法 -- 走得更快，期待走得更稳" />
+<meta property="og:description" content="这篇文章主要是介绍mosn在v1.5.0中新引入的基于延迟的负载均衡算法" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/blog/posts/mosn-loadbalancer-peakewma/" />
+<meta property="article:published_time" content="2023-05-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-05-06T16:09:05+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta itemprop="name" content="mosn基于延迟负载均衡算法 -- 走得更快，期待走得更稳">
+<meta itemprop="description" content="这篇文章主要是介绍mosn在v1.5.0中新引入的基于延迟的负载均衡算法">
+<meta itemprop="datePublished" content="2023-05-05T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-05-06T16:09:05+08:00" />
+<meta itemprop="wordCount" content="79">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mosn基于延迟负载均衡算法 -- 走得更快，期待走得更稳"/>
+<meta name="twitter:description" content="这篇文章主要是介绍mosn在v1.5.0中新引入的基于延迟的负载均衡算法"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+    <title>mosn基于延迟负载均衡算法 -- 走得更快，期待走得更稳 | MOSN</title>
+  </head>
+  <body class="td-page td-blog">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
+        
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/mosn/mosn/" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>文档</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/blog/" ><span class="active">博客</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/community/" ><span>社区</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/faq/" ><span>FAQ</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/user-guide/start/tutorial/" ><span>教程</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/en/">English</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/en/">English</a>
+	
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">博客</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="blog">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blognews">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsmosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsannouncing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/posts/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">分享</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="blogposts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogpostsmosn-loadbalancer-peakewma" href="/blog/posts/mosn-loadbalancer-peakewma/">mosn基于延迟负载均衡算法 -- 走得更快，期待走得更稳</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-5" href="/blog/posts/moe-extend-envoy-using-golang-5/">MoE 系列 [五] - Envoy Go 扩展之内存安全</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-4" href="/blog/posts/moe-extend-envoy-using-golang-4/">MoE 系列 [四] - Go 扩展的异步模式</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-3" href="/blog/posts/moe-extend-envoy-using-golang-3/">MoE 系列 [三] - 使用 Istio 动态更新 Go 扩展配置</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-2" href="/blog/posts/moe-extend-envoy-using-golang-2/">MoE 系列 [二] - Golang 扩展从 Envoy 接收配置</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-1" href="/blog/posts/moe-extend-envoy-using-golang-1/">MoE 系列 - 如何使用 Golang 扩展 Envoy [一]</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-optimize-build-subset" href="/blog/posts/mosn-optimize-build-subset/">构建 subset 优化</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-holmes-design" href="/blog/posts/mosn-holmes-design/">Holmes 原理浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-tunnel" href="/blog/posts/mosn-tunnel/">MOSN 反向通道详解</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-sidecarset-hotupgrade" href="/blog/posts/mosn-sidecarset-hotupgrade/">利用 SidecarSet 实现 MOSN 容器原地热升级</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostshow-use-dynamic-metadata" href="/blog/posts/how-use-dynamic-metadata/">MOSN 路由框架详解</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-wasm-framework" href="/blog/posts/mosn-wasm-framework/">WebAssembly 在 MOSN 中的实践 - 基础框架篇</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsskywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmulti-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsudpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsnginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/code/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">源码解析</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blogcode">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-overview" href="/blog/code/mosn-overview/">MOSN 源码解析 - 总览</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/posts/mosn-loadbalancer-peakewma/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=mosn%e5%9f%ba%e4%ba%8e%e5%bb%b6%e8%bf%9f%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1%e7%ae%97%e6%b3%95%20--%20%e8%b5%b0%e5%be%97%e6%9b%b4%e5%bf%ab%ef%bc%8c%e6%9c%9f%e5%be%85%e8%b5%b0%e5%be%97%e6%9b%b4%e7%a8%b3" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+
+
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a>
+      <ul>
+        <li><a href="#什么是负载均衡">什么是负载均衡</a></li>
+      </ul>
+    </li>
+    <li><a href="#走得更快">走得更快</a>
+      <ul>
+        <li><a href="#延迟来自哪里">延迟来自哪里</a></li>
+        <li><a href="#如何减少延迟">如何减少延迟</a></li>
+        <li><a href="#性能问题是局部的">性能问题是局部的</a></li>
+        <li><a href="#peakewma">PeakEWMA</a></li>
+        <li><a href="#p2cpower-of-two-choice">P2C（Power of Two Choice）</a></li>
+        <li><a href="#模拟流量验证">模拟流量验证</a></li>
+      </ul>
+    </li>
+    <li><a href="#期待走得更稳">期待走得更稳</a>
+      <ul>
+        <li><a href="#快速失败的挑战">快速失败的挑战</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/blog/posts/index.xml" target="_blank">
+              RSS <i class="fa fa-rss ml-2 "></i>
+            </a>
+            
+<div class="td-content">
+	<h1>mosn基于延迟负载均衡算法 -- 走得更快，期待走得更稳</h1>
+	<div class="lead">这篇文章主要是介绍mosn在v1.5.0中新引入的基于延迟的负载均衡算法</div>
+	<div class="td-byline mb-4">
+		作者 <b><a href="https://github.com/jizhuozhi">jizhuozhi</a></b> |
+		<time datetime="2023-05-05" class="text-muted">2023年5月5日</time>
+	</div>
+	<h2 id="前言">前言</h2>
+<p>这篇文章主要是介绍mosn在v1.5.0中新引入的基于延迟的负载均衡算法（<a href="https://github.com/mosn/mosn/pull/2253">#2253</a>）。首先会对分布式系统中延迟出现的原因进行剖析，之后介绍mosn都通过哪些方法来降低延迟，最后构建来与生产环境性能分布相近的测试用例来对算法进行验证。</p>
+<p>在开始聊基于延迟的负载均衡算法之前，先介绍下什么是负载均衡</p>
+<h3 id="什么是负载均衡">什么是负载均衡</h3>
+<p>Wikipedia中 <a href="https://en.wikipedia.org/wiki/Load_balancing_(computing)"><strong>Load Balancing (Computing)</strong></a> 词条是这样介绍负载均衡的：</p>
+<blockquote>
+<p>负载均衡是将一组任务分配到一组资源（计算单元）上的过程，目的是使它们的整体处理更有效率。负载均衡可以优化响应时间，避免负载不均匀导致一些计算节点过载而其他计算节点处于空闲状态</p>
+</blockquote>
+<p>负载均衡在大型分布式系统中是关键的组成部分。负载均衡解决了分布式系统中最重要的两个问题：可伸缩性（scalability）和韧性（resilience）。</p>
+<ul>
+<li>
+<p><strong>可伸缩性</strong>：应用程序部署在多个相同的副本中。当计算资源不足时可以通过部署额外的副本来增加计算资源，而当计算资源大量冗余时可以通过减少副本来节省成本。通过负载均衡可以将请求负载分布到不同的副本中。</p>
+</li>
+<li>
+<p><strong>韧性</strong>：分布式系统的故障是部分的。应用程序通过冗余副本的方式，保证在部分组件故障时仍能正常地提供服务。负载均衡通过感知节点的故障，调整流量的分配，将流量更多的分配到那些能够正常提供服务的节点上。</p>
+</li>
+</ul>
+<h2 id="走得更快">走得更快</h2>
+<p>负载均衡使得现代软件系统具备了可扩展性和韧性。但在分布式系统中还存在不容忽视的问题：<strong>延迟</strong>。</p>
+<h3 id="延迟来自哪里">延迟来自哪里</h3>
+<p>现代软件系统通常是多层级结构大型分布式系统，即使是只服务单个终端用户的请求，它背后也有可能经过了上百次的数据访问，这种情况在微服务架构中更是尤为普遍。</p>
+<figure><img src="./microservice.jpg" style="width:100%" alt="Microservice Pattern"/><figcaption align = "center">微服务架构（引用自<a href="https://www.manning.com/books/microservices-patterns">Microservices Pattern</a>）</figcaption></figure>
+<p>单台性能稳定的服务器中延迟通常由以下几个方面造成：</p>
+<ul>
+<li>计算任务本身的复杂度</li>
+<li>内容的传输过程中的延迟</li>
+<li>请求排队等待的延迟</li>
+<li>后台任务活动所导的资源竞争</li>
+</ul>
+<p>这些服务器之间的延迟将会叠加，任何显著的延迟增加都会影响终端用户的体验。此外，任何来自单个节点的延迟峰值也会直接影响到终端用户体验。最后，越来越多地使用公有云部署应用程序，进一步加剧了响应时间的不可预测性，因为在这些环境中存在共享资源（CPU、内存和IO）的争用，应用程序机几乎不可避免地遇到性能影响，并且这种影响是随时发生的。</p>
+<h3 id="如何减少延迟">如何减少延迟</h3>
+<p>有研究表明，在大型互联网应用中，延迟往往具有长尾特点，P999比中位数高出几个数量级。如果在应用架构的每层都能够减少这些尾部延迟，那么对终端用户整体的尾部延迟将会显著降低。</p>
+<p><img src="./long-tail.png" alt="Long Tail"></p>
+<p>在服务网格中，所有接收和发送的流量都会经过边车代理，通过边车代理可以轻松地控制网格的流量，而无需对服务进行任何修改。如果边车代理在对应用层流量进行转发时，总是通过负载均衡时选择响应时间较短的服务器，那么将会显著降低对终端用户的尾部延迟。</p>
+<p>基于此，我们准备开始为mosn引入基于延迟的负载均衡算法，并进行适当调整来保证能够在大多数使用场景下显著减少延迟。</p>
+<h3 id="性能问题是局部的">性能问题是局部的</h3>
+<p>前面提到了，每个节点的性能受到多种因素的影响，这些影响因素是动态的，难以准确预测每个节点的性能，因此我们无法精确地选择最好的节点，但是可以避免较差的节点。</p>
+<p>在云环境中，服务器的性能常常是难以预测的，但是我们可以通过对大量的数据进行分析，发现服务器性能的分布大多数情况下是符合正态分布的。因此，尽管有一部分的服务器在性能方面表现比较差，它们的数量通常都是少数的（3sigma），而绝大部分服务器节点的表现是正常的。</p>
+<p><img src="./normal-distribution.png" alt="Normal Distribution"></p>
+<p>除了服务器之间的差异，还存在由基础设施导致的动态延迟，这种延迟可能是由于网络拥塞、故障或不断增长的流量所导致。这种延迟通常具有持续性和局部性。持续性则表示延迟会长时间存在，不会在短时间内消失；而局部性指的是延迟往往只出现在某些特定服务器上，而不会在全局发生。</p>
+<h3 id="peakewma">PeakEWMA</h3>
+<p>面对这些问题，我们使用PeakEWMA（Peak Exponentially Weighted Moving Average）计算响应时间指标，并根据这个指标来对节点进行负载均衡。</p>
+<p>EWMA是一种动态权重调整算法，各数值的加权影响力随时间而指数式衰退，越近期的数据加权影响力越重，但较旧的数据也给予一定的加权值。</p>
+<p><img src="./decay.png" alt="Decay"></p>
+<p>它以相对较高的权重考虑了最近响应时间的影响，因此更具有针对性和时效性。加权的程度以常数 𝛼 决定， 𝛼 数值介于 0 至 1，它用来控制数据加权影响力衰退的速率。</p>
+<p><img src="./formula.png" alt="Formula"></p>
+<p>作为一种统计学指标，EWMA的计算过程不需要大量的采样点以及时间窗口的设定，有效地避免了计算资源的浪费，更适合在mosn这样的边车代理中使用。</p>
+<p>由于响应时间是历史指标，当服务器出现性能问题导致长时间未返回时，负载均衡算法会错误地认为这台服务器仍是最优的，而不断地向其发送请求而导致长尾延迟增高。我们使用活跃连接数作为实时变化的指标对响应时间进行加权，表示等待所有活跃的连接都返回所需要的最大时间。</p>
+<h3 id="p2cpower-of-two-choice">P2C（Power of Two Choice）</h3>
+<p>在大规模集群中，如果使用遍历所有服务器选择最好的服务器的方法，虽然可以找到最轻负载的服务器来处理请求，但这种方法通常需要大量的计算资源和时间，因此无法处理大规模的请求。因此，我们使用P2C（Power of Two Choice）来选择最优节点。相比之下，P2C算法可以在常数时间内选择两个服务器进行比较，并选择其中负载更轻的服务器来处理请求。P2C基于概率分配，即不直接基于权重分配，而是根据每个服务器优于其他服务器的概率值来决定请求的分配。</p>
+<p>此外，在多个负载均衡器的情况下，不同负载均衡器可能会有不同的节点视图，这可能导致某些负载均衡器选择的最优节点总是最差的节点。这是因为负载均衡器选择最优节点时基于自己的视图信息，而节点视图随着时间的变化可能会发生变化，因此不同的负载均衡器选择的最优节点也可能不同。P2C算法通过对随机选择的两个节点进行比较，可以使节点间的负载均衡更加均匀，即使节点视图发生变化，也能提供稳定的负载均衡效果。</p>
+<blockquote>
+<p><em>在mosn的v1.5.0版本中，只有节点权重相同时会使用P2C，当权重不同时会使用EDF进行加权选择。后续会提供可配置的选项。</em></p>
+</blockquote>
+<h3 id="模拟流量验证">模拟流量验证</h3>
+<p>我们构建了与生产环境性能分布相近的测试用例来对算法进行验证。</p>
+<p>首先我们使用正态分布生成了10台服务器的基准性能，其中数学期望为50ms，标准差为10ms。接下来，我们将这些基准性能作为数学期望，并以标准差为5ms的正态分布随机生成了请求延迟，以模拟真实世界的情况。此外，我们还在其中一台服务器注入了概率为0.1的故障，故障发生时会产生1000ms的延迟，以测试系统的容错性。</p>
+<p>为了模拟请求倾斜时请求排队等待的延迟，我们限制了每台服务器的最大并发数为8，当同时处理的最大请求数超过了最大并发数时，将会排队等待。这样能够更加真实地模拟出系统的运行情况。</p>
+<p>最后，我们使用了Round Robin、Least Request和PeakEWMA三种算法，分别以16并发同时发送请求，得到的P99如下</p>
+<p><img src="./p99.png" alt="P99"></p>
+<p>Round Robin算法虽然平衡，但是始终会选择到注入了故障的服务器，导致P99始终在1000ms上下波动；Least Request算法虽然避开了故障服务器，但是其P99值依然表现出较大的波动。</p>
+<p>与此相比，PeakEWMA算法在保持稳定的同时，P99值始终低于Round Robin和Least Request算法。这恰当地体现了mosn在性能优化方面的成功，mosn确实做到了走得更快。</p>
+<h2 id="期待走得更稳">期待走得更稳</h2>
+<p>虽然mosn在服务网格中解决了让应用跑得更快的问题，但是分布式系统中的故障却时刻存在。我们期望通过mosn的负载均衡算法，可以让我们的服务走得更稳。</p>
+<h3 id="快速失败的挑战">快速失败的挑战</h3>
+<p>根据经验，故障时的响应时间往往远远小于正常值，比如网络分区导致的连接超时，而没有实际处理请求。我们称这种错误时响应时间远远小于正常值的情况为快速失败。</p>
+<p>在服务器出现快速失败时，从负载均衡的角度看，就会错误地认为该服务器是最优的选择。尽管可以通过断路器来避免向该服务器发送长期请求，但断路器本身也是一种快速失败，错误的视图依然会传播。此外，断路器的阈值设置也存在挑战。此外，断路器需要足够的错误样本才能触发，而我们期望尽可能避免错误的发生。</p>
+<p>因此，我们在后续版本中将会对负载均衡算法进行调整，让负载均衡算法能够感知错误的发生，并在触发断路器前就避免将请求转发到故障的服务器中。</p>
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a href="/blog/posts/moe-extend-envoy-using-golang-5/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+  </li>
+    <a  class="btn btn-primary  disabled">下一页 <span class="ml-1">→</span></a>
+  </li>
+</ul>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-12 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://twitter.com/MosnProxy">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Mailing list" aria-label="Mailing list">
+    <a class="text-white" target="_blank" href="https://groups.google.com/d/forum/mosn-dev">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/mosn/mosn">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+        <div style="position: absolute; top: -57px;" class="text-center container-fluid">
+          <div>
+            <img src="https://github.com/mosn/mosn.io/raw/master/assets/img/dingtalk.jpg?raw=true" width="80">
+          </div>
+          <div style="font-size: 8px;" class="text-white">
+            <p> 欢迎钉钉扫码 </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2023 The MOSN Authors 保留所有权利</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>
