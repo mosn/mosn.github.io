@@ -14,6 +14,44 @@
     
     
     <item>
+      <title>Blog: MoE 系列[七] - Envoy Go 扩展之沙箱安全</title>
+      <link>https://mosn.io/blog/posts/moe-extend-envoy-using-golang-7/</link>
+      <pubDate>Sun, 07 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/posts/moe-extend-envoy-using-golang-7/</guid>
+      <description>
+        
+        
+        &lt;p&gt;前两篇介绍了内存安全和并发安全，今天来到了安全性的最后一篇，沙箱安全，也是相对来说，最简单的一篇。&lt;/p&gt;
+&lt;h2 id=&#34;沙箱安全&#34;&gt;沙箱安全&lt;/h2&gt;
+&lt;p&gt;所谓的沙箱安全，是为了保护 Envoy，这个宿主程序的安全，也就是说，扩展的 Go 代码运行在一个沙箱环境中，即使 Go 代码跑飞了，也不会把 Envoy 搞挂。&lt;/p&gt;
+&lt;p&gt;具体到一个场景，也就是当我们使用 Golang 来扩展 Envoy 的时候，不用担心自己的 Go 代码写的不好，而把整个 Envoy 进程搞挂了。&lt;/p&gt;
+&lt;p&gt;那么目前 Envoy Go 扩展的沙箱安全做到了什么程度呢？&lt;/p&gt;
+&lt;p&gt;简单来说，目前只做到了比较浅层次的沙箱安全，不过，也是实用性比较高的一层。&lt;/p&gt;
+&lt;p&gt;严格来说，Envoy Go 扩展加载的是可执行的机器指令，是直接交给 cpu 来运行的，并不像 Wasm 或者 Lua 一样由虚拟机来解释执行，所以，理论上来说，也没办法做到绝对的沙箱安全。&lt;/p&gt;
+&lt;h2 id=&#34;实现机制&#34;&gt;实现机制&lt;/h2&gt;
+&lt;p&gt;目前实现的沙箱安全机制，依赖的是 Go runtime 的 &lt;code&gt;recover&lt;/code&gt; 机制。&lt;/p&gt;
+&lt;p&gt;具体来说，Go 扩展底层框架会自动的，或者（代码里显示启动的协程）依赖人工显示的，通过 &lt;code&gt;defer&lt;/code&gt; 注入我们的恢复机制，所以，当 Go 代码发生了奔溃的时候，则会执行我们注入的恢复策略，此时的处理策略是，使用 &lt;code&gt;500&lt;/code&gt; 错误码结束当前请求，而不会影响其他请求的执行。&lt;/p&gt;
+&lt;p&gt;但是这里有一个不太完美的点，有一些异常是 &lt;code&gt;recover&lt;/code&gt; 也不能恢复的，比如这几个：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Concurrent map writes
+Out of memory
+Stack memory exhaustion
+Attempting to launch a nil function as a goroutine
+All goroutines are asleep - deadlock
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;好在这几个异常，都是不太容易出现的，唯一一个值得担心的是 &lt;code&gt;Concurrent map writes&lt;/code&gt;，不熟悉 Go 的话，还是比较容易踩这个坑的。&lt;/p&gt;
+&lt;p&gt;所以，在写 Go 扩展的时候，我们建议还是小心一些，写得不好的话，还是有可能会把 Envoy 搞挂的。&lt;/p&gt;
+&lt;p&gt;当然，这个也不是一个很高的要求，毕竟这是 Gopher 写 Go 代码的很常见的基本要求。&lt;/p&gt;
+&lt;p&gt;好在大多常见的异常，都是可以 &lt;code&gt;recover&lt;/code&gt; 恢复的，这也就是为什么现在的机制，还是比较有实用性。&lt;/p&gt;
+&lt;h2 id=&#34;未来&#34;&gt;未来&lt;/h2&gt;
+&lt;p&gt;那么，对于 &lt;code&gt;recover&lt;/code&gt; 恢复不了的，也是有解决的思路：&lt;/p&gt;
+&lt;p&gt;比如 &lt;code&gt;recover&lt;/code&gt; 恢复不了 &lt;code&gt;Concurrent map writes&lt;/code&gt;，是因为 runtime 认为 &lt;code&gt;map&lt;/code&gt; 已经被写坏了，不可逆了。&lt;/p&gt;
+&lt;p&gt;那如果我们放弃整个 &lt;code&gt;runtime&lt;/code&gt;，重新加载 so 来重建 &lt;code&gt;runtime&lt;/code&gt; 呢？那影响面也会小很多，至少 Envoy 还是安全的，不过实现起来还是比较的麻烦。&lt;/p&gt;
+&lt;p&gt;眼下比较浅的安全机制，也足够解决大多数的问题了，嗯。&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Blog: mosn基于延迟负载均衡算法 -- 走得更快，期待走得更稳</title>
       <link>https://mosn.io/blog/posts/mosn-loadbalancer-peakewma/</link>
       <pubDate>Fri, 05 May 2023 00:00:00 +0000</pubDate>
@@ -90,6 +128,69 @@
 &lt;p&gt;根据经验，故障时的响应时间往往远远小于正常值，比如网络分区导致的连接超时，而没有实际处理请求。我们称这种错误时响应时间远远小于正常值的情况为快速失败。&lt;/p&gt;
 &lt;p&gt;在服务器出现快速失败时，从负载均衡的角度看，就会错误地认为该服务器是最优的选择。尽管可以通过断路器来避免向该服务器发送长期请求，但断路器本身也是一种快速失败，错误的视图依然会传播。此外，断路器的阈值设置也存在挑战。此外，断路器需要足够的错误样本才能触发，而我们期望尽可能避免错误的发生。&lt;/p&gt;
 &lt;p&gt;因此，我们在后续版本中将会对负载均衡算法进行调整，让负载均衡算法能够感知错误的发生，并在触发断路器前就避免将请求转发到故障的服务器中。&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Blog: MoE 系列[六] - Envoy Go 扩展之并发安全</title>
+      <link>https://mosn.io/blog/posts/moe-extend-envoy-using-golang-6/</link>
+      <pubDate>Sun, 16 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/blog/posts/moe-extend-envoy-using-golang-6/</guid>
+      <description>
+        
+        
+        &lt;p&gt;前一篇介绍了 Envoy Go 扩展的内存安全，相对来说，还是比较好理解的，主要是 Envoy C++ 和 Go GC 都有自己一套的内存对象的生命周期管理。&lt;/p&gt;
+&lt;p&gt;这篇聊的并发安全，则是专注在并发场景下的内存安全，相对来说会复杂一些。&lt;/p&gt;
+&lt;h2 id=&#34;并发的原因&#34;&gt;并发的原因&lt;/h2&gt;
+&lt;p&gt;首先，为什么会有并发呢？&lt;/p&gt;
+&lt;p&gt;本质上因为 Go 有自己的抢占式的协程调度，这是 Go 比较重的部分，也是与 Lua 这类嵌入式语言区别很大的点。&lt;/p&gt;
+&lt;p&gt;细节的话，这里就不展开了，感兴趣的可以看这篇 &lt;a href=&#34;https://uncledou.site/2022/go-cgo-c-to-go/&#34;&gt;cgo 实现机制 - 从 c 调用 go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这里简单交代一下的，因为 c 调用 go，入口的 Go 函数的运行环境是，Goroutine 运行在 Envoy worker 线程上，但是这个时候，如果发生了网络调用这种可能导致 Goroutine 挂起的，则会导致 Envoy worker 线程被挂起。&lt;/p&gt;
+&lt;p&gt;所以，解决思路就是像 &lt;a href=&#34;https://uncledou.site/2023/moe-extend-envoy-using-golang-4/&#34;&gt;Go 扩展的异步模式&lt;/a&gt; 中的示例一样，新起一个 Goroutine，它会运行在普通的 go 线程上。&lt;/p&gt;
+&lt;p&gt;那么此时，对于同一个请求，则会同时有 Envoy worker 线程和 Go 线程，两个线程并发在处理这个请求，这个就是并发的来源。&lt;/p&gt;
+&lt;p&gt;但是，我们并不希望用户操心这些细节，而是在底层提供并发安全的 API，把复杂度留在 Envoy Go 扩展的底层实现里。&lt;/p&gt;
+&lt;h2 id=&#34;并发安全的实现&#34;&gt;并发安全的实现&lt;/h2&gt;
+&lt;p&gt;接下来，我们就针对 Goroutine 运行在普通的 Go 线程上，这个并发场景，来聊一聊如何实现并发安全的。&lt;/p&gt;
+&lt;p&gt;对于 Goroutine 运行在 Envoy 线程上，因为并不存在并发冲突，这里不做介绍。&lt;/p&gt;
+&lt;h3 id=&#34;写-header-操作&#34;&gt;写 header 操作&lt;/h3&gt;
+&lt;p&gt;我们先聊一个简单的，比如在 Go 里面通过 &lt;code&gt;header.Set&lt;/code&gt; 写一个请求头。&lt;/p&gt;
+&lt;p&gt;核心思路是，是通过 &lt;code&gt;dispatcher.post&lt;/code&gt;，将写操作当做一个事件派发给 Envoy worker 线程来执行，这样就避免了并发冲突。&lt;/p&gt;
+&lt;h3 id=&#34;读-header-操作&#34;&gt;读 header 操作&lt;/h3&gt;
+&lt;p&gt;读 header 则要复杂不少，因为写不需要返回值，可以异步执行，读就不行了，必须得到返回值。&lt;/p&gt;
+&lt;p&gt;为此，我们根据 Envoy 流式的处理套路，设计了一个类似于所有权的机制。&lt;/p&gt;
+&lt;p&gt;Envoy 的流式处理，可以看这篇 &lt;a href=&#34;https://uncledou.site/2022/envoy-filter-status/&#34;&gt;搞懂 http filter 状态码&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;简单来说，我们可以这么理解，当进入 &lt;code&gt;decodeHeaders&lt;/code&gt; 的时候，header 所有权就交给 Envoy Go 的 c++ 侧了，然后，当通过 cgo 进入 Go 之后，我们会通过一个简单的状态机，标记所有权在 Go 了。&lt;/p&gt;
+&lt;p&gt;通过这套设计/约定，就可以安全的读取 header 了，本质上，还是属于规避并发冲突。&lt;/p&gt;
+&lt;p&gt;为什么不通过锁来解决呢？因为 Envoy 并没有对于 header 的锁机制，c++ 侧完全不会有并发冲突。&lt;/p&gt;
+&lt;h3 id=&#34;读写-data-操作&#34;&gt;读写 data 操作&lt;/h3&gt;
+&lt;p&gt;有了这套所有权机制，data 操作就要简单很多了。&lt;/p&gt;
+&lt;p&gt;因为 header 只有一份，并发冲突域很大，需要考虑 Go 代码与 c++ 侧的其他 filter 的竞争。&lt;/p&gt;
+&lt;p&gt;data 则是流式处理，我们在 c++ 侧设计了两个 buffer 对象，一个用于接受 filter manager 的流式数据，一个用于缓存交给 Go 侧的数据。&lt;/p&gt;
+&lt;p&gt;这样的话，交给 Go 来处理的数据，Go 代码拥有完整的所有权，不需要考虑 Go 代码与 C++ 侧其他 filter 的竞争，可以安全的读写，也没有并发冲突。&lt;/p&gt;
+&lt;h3 id=&#34;请求生命周期&#34;&gt;请求生命周期&lt;/h3&gt;
+&lt;p&gt;另外一个很大的并发冲突，则关乎请求的生命周期，比如 Envoy 随时都有可能提前销毁请求，此时 Goroutine 还在 go thread 上继续执行，并且随时可能读写请求数据。&lt;/p&gt;
+&lt;p&gt;处理的思路是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;并没有有效的办法，能够立即 kill goroutine，所以，我们允许 goroutine 可能在请求被销毁之后继续执行&lt;/li&gt;
+&lt;li&gt;但是，goroutine 如果读写请求数据，goroutine 会被终止，panic + recover（recover 细节我们下一篇会介绍）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;那么，我们要做的就是，所有的 API 都检查当前操作的请求是否合法，这里有两个关键：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;每请求有一个内存对象，这个对象只会由 Go 来销毁，并不会在请求结束时，被 Envoy 销毁，但是这个内存对象中保存了一个 weakPtr，可以获取 C++ filter 的状态。&lt;/p&gt;
+&lt;p&gt;通过这个机制，Go 可以安全的获取 C++ 侧的 filter，判断请求是否还在。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;同时，我们还会在 &lt;code&gt;onDestroy&lt;/code&gt;，也就是 C++ filter 被销毁的 hook 点；以及 Go thread 读写请求数据，这两个位置都加锁处理，以解决这两个之间的并发冲突。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;最后&#34;&gt;最后&lt;/h2&gt;
+&lt;p&gt;对于并发冲突，其实最简单的就是，通过加锁来竞争所有权，但是 Envoy 在这块的底层设计并没有锁，因为它根本不需要锁。&lt;/p&gt;
+&lt;p&gt;所以，基于 Envoy 的处理模型，我们设计了一套类似所有权的机制，来避免并发冲突。&lt;/p&gt;
+&lt;p&gt;所有权的概念也受到了 Rust 的启发，只是两者工作的层次不一样，Rust 是更底层的语言层面，可以作用于语言层面，我们这里则是更上层的概念，特定于 Envoy 的处理模型，也只能作用于这一个小场景。&lt;/p&gt;
+&lt;p&gt;但是某种程度上，解决的问题，以及其中部分思想是一样的。&lt;/p&gt;
 
       </description>
     </item>
