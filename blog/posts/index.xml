@@ -631,7 +631,7 @@ HTTP/1.1 &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;200&lt;/span
 &lt;p&gt;编译很简单，与常见的 Go 编译一样，这里我们使用 Golang 官方的 docker 镜像来编译：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker run --rm -v &lt;span style=&#34;color:#4e9a06&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;`&lt;/span&gt;:/go/src/go-filter -w /go/src/go-filter &lt;span style=&#34;color:#4e9a06&#34;&gt;\
 &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;        -e &lt;span style=&#34;color:#000&#34;&gt;GOPROXY&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;https://goproxy.cn &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;        golang:1.19 &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;        golang:1.19.8 &lt;span style=&#34;color:#4e9a06&#34;&gt;\
 &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;        go build -v -o libgolang.so -buildmode&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;c-shared .
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Go 编译还是很快的，只需要几秒钟，当前目录下，就会产生一个 libgolang.so 的文件。&lt;/p&gt;
 &lt;p&gt;反观 Envoy 的编译速度，一次全量编译，动辄几十分钟，上小时的，这幸福感提升了不止一个档次。&lt;/p&gt;
@@ -640,7 +640,7 @@ HTTP/1.1 &lt;span style=&#34;color:#0000cf;font-weight:bold&#34;&gt;200&lt;/span
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker run --rm -v &lt;span style=&#34;color:#4e9a06&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;`&lt;/span&gt;/envoy.yaml:/etc/envoy/envoy.yaml &lt;span style=&#34;color:#4e9a06&#34;&gt;\
 &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;        -v &lt;span style=&#34;color:#4e9a06&#34;&gt;`&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;`&lt;/span&gt;/libgolang.so:/etc/envoy/libgolang.so &lt;span style=&#34;color:#4e9a06&#34;&gt;\
 &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;        -p 10000:10000 &lt;span style=&#34;color:#4e9a06&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;        envoyproxy/envoy:contrib-dev &lt;span style=&#34;color:#4e9a06&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;        envoyproxy/envoy:contrib-v1.26-latest &lt;span style=&#34;color:#4e9a06&#34;&gt;\
 &lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&lt;/span&gt;        envoy -c /etc/envoy/envoy.yaml
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;只需要把上一步编译的 &lt;code&gt;libgolang.so&lt;/code&gt; 和 &lt;code&gt;envoy.yaml&lt;/code&gt; 挂载进去就可以了。&lt;/p&gt;
 &lt;p&gt;值得一提的是，我们需要在 envoy.yaml 配置中启用 Go 扩展，具体是这段配置：&lt;/p&gt;
