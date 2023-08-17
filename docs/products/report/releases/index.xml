@@ -1799,5 +1799,53 @@
       </description>
     </item>
     
+    <item>
+      <title>Docs: MOSN v1.6.0 发布</title>
+      <link>https://mosn.io/docs/products/report/releases/v1.6.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/docs/products/report/releases/v1.6.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;我们很高兴的宣布 &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v1.6.0&#34;&gt;MOSN v1.6.0&lt;/a&gt; 发布，以下是该版本的变更日志。&lt;/p&gt;
+&lt;h2 id=&#34;v160&#34;&gt;v1.6.0&lt;/h2&gt;
+&lt;h3 id=&#34;新功能&#34;&gt;新功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;PeakEWMA 支持配置 activeRequestBias (#2301) @jizhuozhi&lt;/li&gt;
+&lt;li&gt;gRPC filter 支持 UDS (#2309) @wenxuwan&lt;/li&gt;
+&lt;li&gt;支持初始化热升级时 config 继承函数 (#2241) @dengqian&lt;/li&gt;
+&lt;li&gt;允许自定义 proxy defaultRouteHandlerName (#2308) @fibbery&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;变更&#34;&gt;变更&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;示例 http-sample README 增加配置文件链接 (#2226) @mimani68&lt;/li&gt;
+&lt;li&gt;将 wazero 更新到 1.2.1 (#2254) @codefromthecrypt&lt;/li&gt;
+&lt;li&gt;更新依赖 (#2230) (#2233) (#2247) (#2302) (#2326) (#2332) (#2333) @dependabot&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;重构&#34;&gt;重构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;重构调试日志内容，打印 data 移至 tracef 中 (#2316) @antJack&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;优化&#34;&gt;优化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;EWMA 优化新添加的主机的默认值 (#2301) @jizhuozhi&lt;/li&gt;
+&lt;li&gt;PeakEwma LB 不再统计错误响应 (#2323) @jizhuozhi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-修复&#34;&gt;Bug 修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复 edfScheduler 在动态负载算法中错误地将权重固定为1 (#2306) @jizhuozhi&lt;/li&gt;
+&lt;li&gt;修复 cluster hosts 顺序改变导致的 LB 行为不稳定 (#2258) @dengqian&lt;/li&gt;
+&lt;li&gt;修复 NilMetrics 缺少 EWMA() 方法导致的 panic (#2310) @antJack (#2312) @jizhuozhi&lt;/li&gt;
+&lt;li&gt;修复 xDS 更新时，cluster hosts 为空导致的 panic (#2314) @dengqian&lt;/li&gt;
+&lt;li&gt;修复 MOSN 异常退出时 UDS 套接字文件未删除导致重启失败 (#2318) @wenxuwan&lt;/li&gt;
+&lt;li&gt;修复 xDS 状态码未转换错误。修复未处理 istio inbound IPv6 地址错误 (#2144) @kkrrsq&lt;/li&gt;
+&lt;li&gt;修复非热升级优雅退出时 Listener 未直接关闭导致新建连接报错 (#2234) @hui-cha&lt;/li&gt;
+&lt;li&gt;修复 goimports lint 错误 (#2313) @spacewander&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
   </channel>
 </rss>

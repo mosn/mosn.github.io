@@ -1025,5 +1025,53 @@ please see &lt;a href=&#34;https://github.com/mosn/mosn/blob/v0.26.0/reports/xpr
       </description>
     </item>
     
+    <item>
+      <title>Blog: Announcing MOSN v1.6.0</title>
+      <link>https://mosn.io/en/blog/releases/v1.6.0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mosn.io/en/blog/releases/v1.6.0/</guid>
+      <description>
+        
+        
+        &lt;p&gt;We are happy to announce the release of &lt;a href=&#34;https://github.com/mosn/mosn/releases/tag/v1.6.0&#34;&gt;MOSN v1.6.0&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;v160&#34;&gt;v1.6.0&lt;/h2&gt;
+&lt;h3 id=&#34;new-features&#34;&gt;New Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;PeakEWMA supports configuring activeRequestBias (#2301) @jizhuozhi&lt;/li&gt;
+&lt;li&gt;gRPC filter supports UDS (#2309) @wenxuwan&lt;/li&gt;
+&lt;li&gt;Support init inherit old mosn config function (#2241) @dengqian&lt;/li&gt;
+&lt;li&gt;Allow custom proxy defaultRouteHandlerName (#2308) @fibbery&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;changes&#34;&gt;Changes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Example http-sample README adding configuration file link (#2226) @mimani68&lt;/li&gt;
+&lt;li&gt;Update wazero to 1.2.1 (#2254) @codefromthecrypt&lt;/li&gt;
+&lt;li&gt;Update dependencies (#2230) (#2233) (#2247) (#2302) (#2326) (#2332) (#2333) @dependabot&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;refactoring&#34;&gt;Refactoring&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Refactor debug log content, move data into tracef (#2316) @antJack&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;optimization&#34;&gt;Optimization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Optimize the default EWMA of newly added hosts (#2301) @jizhuozhi&lt;/li&gt;
+&lt;li&gt;PeakEwma LB no longer counts error responses (#2323) @jizhuozhi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug-fixes&#34;&gt;Bug fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix edfScheduler incorrectly fixing weight to 1 in dynamic load algorithm (#2306) @jizhuozhi&lt;/li&gt;
+&lt;li&gt;Fix unstable LB behavior caused by changing the order of cluster hosts (#2258) @dengqian&lt;/li&gt;
+&lt;li&gt;Fix panic caused by missing EWMA() method in NilMetrics (#2310) @antJack (#2312) @jizhuozhi&lt;/li&gt;
+&lt;li&gt;Fix panic caused by empty cluster hosts when xDS is updated (#2314) @dengqian&lt;/li&gt;
+&lt;li&gt;Fix reboot failure due to undeleted UDS socket file when MOSN exits abnormally (#2318) @wenxuwan&lt;/li&gt;
+&lt;li&gt;Fix xDS status code not converted error. Fix unhandled istio inbound IPv6 address error (#2144) @kkrrsq&lt;/li&gt;
+&lt;li&gt;Fix new connection error when Listener does not close directly during graceful exit of non-hot upgrade (#2234) @hui-cha&lt;/li&gt;
+&lt;li&gt;Fix goimports lint error (#2313) @spacewander&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
   </channel>
 </rss>
