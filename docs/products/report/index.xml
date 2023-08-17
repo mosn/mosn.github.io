@@ -40,7 +40,13 @@
 &lt;ul&gt;
 &lt;li&gt;在准备一个版本发布期间，停止代码往 master 分支的合并&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;二整理-release-notes&#34;&gt;二、整理 Release notes&lt;/h3&gt;
+&lt;h3 id=&#34;二更新依赖&#34;&gt;二、更新依赖&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;发布 mosn/api，版本与即将发布的 mosn 相同&lt;/li&gt;
+&lt;li&gt;更新 mosn/pkg 的 mosn/api 版本至最新，然后发布 mosn/pkg&lt;/li&gt;
+&lt;li&gt;更新 mosn 的 api、pkg 至最新&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;三整理-release-notes&#34;&gt;三、整理 Release notes&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;基于 Github 的 PullRequest 记录，整理本次发布的内容与上一个版本之间的差异，需要注意仅统计目标分支是 master 且正常合并的 PullRequest&lt;/li&gt;
 &lt;li&gt;首先整理完原始信息以后，进行提炼和总结
@@ -53,7 +59,7 @@
 &lt;li&gt;提炼后的完整 Release notes 记录格式可以参考 &lt;a href=&#34;https://github.com/mosn/mosn/blob/master/CHANGELOG_ZH.md&#34;&gt;CHANGELOG&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;提炼后的 Release notes 需要有英文版本的记录&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;三测试报告&#34;&gt;三、测试报告&lt;/h3&gt;
+&lt;h3 id=&#34;四测试报告&#34;&gt;四、测试报告&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;所有的改动点都需要有对应的测试记录，测试方式可以有多种，包括但不限于
 &lt;ul&gt;
@@ -68,7 +74,7 @@
 &lt;/li&gt;
 &lt;li&gt;测试完成以后，产出测试报告，说明对应的功能点使用哪种测试方式测试与测试的结果&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;四版本发布&#34;&gt;四、版本发布&lt;/h3&gt;
+&lt;h3 id=&#34;五版本发布&#34;&gt;五、版本发布&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;版本发布 PullRequest&lt;/p&gt;
