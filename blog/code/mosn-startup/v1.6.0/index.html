@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.75.1" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>MOSN 源码解析 - 启动流程 | MOSN</title><meta property="og:title" content="MOSN 源码解析 - 启动流程" />
+<meta property="og:description" content="MOSN 源码解析基于v1.6.0版本" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/blog/code/mosn-startup/v1.6.0/" />
+<meta property="article:published_time" content="2023-12-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-12-25T16:27:26+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta itemprop="name" content="MOSN 源码解析 - 启动流程">
+<meta itemprop="description" content="MOSN 源码解析基于v1.6.0版本">
+<meta itemprop="datePublished" content="2023-12-17T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-12-25T16:27:26+08:00" />
+<meta itemprop="wordCount" content="820">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MOSN 源码解析 - 启动流程"/>
+<meta name="twitter:description" content="MOSN 源码解析基于v1.6.0版本"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+    <title>MOSN 源码解析 - 启动流程 | MOSN</title>
+  </head>
+  <body class="td-page td-blog">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
+        
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/mosn/mosn/" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>文档</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/blog/" ><span class="active">博客</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/community/" ><span>社区</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/faq/" ><span>FAQ</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/user-guide/start/tutorial/" ><span>教程</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/en/">English</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/en/">English</a>
+	
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">博客</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="blog">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blognews">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsmosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsannouncing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/posts/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">分享</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blogposts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-7" href="/blog/posts/moe-extend-envoy-using-golang-7/">MoE 系列[七] - Envoy Go 扩展之沙箱安全</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-loadbalancer-peakewma" href="/blog/posts/mosn-loadbalancer-peakewma/">mosn基于延迟负载均衡算法 -- 走得更快，期待走得更稳</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-6" href="/blog/posts/moe-extend-envoy-using-golang-6/">MoE 系列[六] - Envoy Go 扩展之并发安全</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-5" href="/blog/posts/moe-extend-envoy-using-golang-5/">MoE 系列 [五] - Envoy Go 扩展之内存安全</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-4" href="/blog/posts/moe-extend-envoy-using-golang-4/">MoE 系列 [四] - Go 扩展的异步模式</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-3" href="/blog/posts/moe-extend-envoy-using-golang-3/">MoE 系列 [三] - 使用 Istio 动态更新 Go 扩展配置</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-2" href="/blog/posts/moe-extend-envoy-using-golang-2/">MoE 系列 [二] - Golang 扩展从 Envoy 接收配置</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-1" href="/blog/posts/moe-extend-envoy-using-golang-1/">MoE 系列 - 如何使用 Golang 扩展 Envoy [一]</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-optimize-build-subset" href="/blog/posts/mosn-optimize-build-subset/">构建 subset 优化</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-holmes-design" href="/blog/posts/mosn-holmes-design/">Holmes 原理浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-tunnel" href="/blog/posts/mosn-tunnel/">MOSN 反向通道详解</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-sidecarset-hotupgrade" href="/blog/posts/mosn-sidecarset-hotupgrade/">利用 SidecarSet 实现 MOSN 容器原地热升级</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostshow-use-dynamic-metadata" href="/blog/posts/how-use-dynamic-metadata/">MOSN 路由框架详解</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-wasm-framework" href="/blog/posts/mosn-wasm-framework/">WebAssembly 在 MOSN 中的实践 - 基础框架篇</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsskywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmulti-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsudpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsnginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/code/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">源码解析</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="blogcode">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-overview" href="/blog/code/mosn-overview/">MOSN 源码解析 - 总览</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/code/mosn-startup/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">MOSN 源码解析 - 启动流程</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="blogcodemosn-startup">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startupv040" href="/blog/code/mosn-startup/v0.4.0/">MOSN 源码解析 - 启动流程（v0.4.0）</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogcodemosn-startupv160" href="/blog/code/mosn-startup/v1.6.0/">MOSN 源码解析 - 启动流程</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/code/mosn-startup/v1.6.0/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=MOSN%20%e6%ba%90%e7%a0%81%e8%a7%a3%e6%9e%90%20-%20%e5%90%af%e5%8a%a8%e6%b5%81%e7%a8%8b" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+
+
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#mosn-启动入口">MOSN 启动入口</a></li>
+    <li><a href="#场景管理器">场景管理器</a>
+      <ul>
+        <li><a href="#application">Application</a></li>
+        <li><a href="#阶段小结">阶段小结</a></li>
+      </ul>
+    </li>
+    <li><a href="#详细分析">详细分析</a>
+      <ul>
+        <li><a href="#场景管理器的启动">场景管理器的启动</a></li>
+        <li><a href="#启动逻辑详解">启动逻辑详解</a></li>
+        <li><a href="#paramsparsed-阶段">ParamsParsed 阶段</a></li>
+        <li><a href="#initstage阶段">InitStage阶段</a></li>
+        <li><a href="#prestartstage阶段">PreStartStage阶段</a></li>
+        <li><a href="#startstage阶段">StartStage阶段</a></li>
+        <li><a href="#afterstopstage阶段">AfterStopStage阶段</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/blog/code/mosn-startup/index.xml" target="_blank">
+              RSS <i class="fa fa-rss ml-2 "></i>
+            </a>
+            
+<div class="td-content">
+	<h1>MOSN 源码解析 - 启动流程</h1>
+	<div class="lead">MOSN 源码解析基于v1.6.0版本</div>
+	<div class="td-byline mb-4">
+		作者 <b><a href="https://github.com/wang55www">wp500</a></b> |
+		<time datetime="2023-12-17" class="text-muted">2023年12月17日</time>
+	</div>
+	<p>本文基于 MOSN V1.6.0版本的源码基础上进行整理。该版本对比之前 V0.4.0 版本启动逻辑有比较大的变化。其中比较明显的差异是该版本新增了 StageManager 结构，该结构对 MOSN 的生命周期进行封装并加以维护，使得 MOSN 从启动到停止过程中每个逻辑更易于维护和扩展。</p>
+<h2 id="mosn-启动入口">MOSN 启动入口</h2>
+<p>MOSN 利用 cli 组件 （github.com/urfave/cli）来实现命令行的控制。制动之后默认执行 cmdStart 命令，之后就进入下面的启动逻辑。</p>
+<p>在 control.go 文件中 <em>cmdStart.Action</em> 方法是整个 MOSN 启动的入口方法。首先调用 <em>NewMosn()</em> 这个方法只是返回了一个空的 <em>Mosn</em> 对象，该对象代表着 <em>Mosn</em> 应用，该对象定义如下：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">Mosn</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">isFromUpgrade</span>  <span style="color:#204a87;font-weight:bold">bool</span> <span style="color:#8f5902;font-style:italic">// hot upgrade from old MOSN
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">Upgrade</span>        <span style="color:#000">UpgradeData</span>
+	<span style="color:#000">Clustermanager</span> <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ClusterManager</span>
+	<span style="color:#000">RouterManager</span>  <span style="color:#000">types</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RouterManager</span>
+	<span style="color:#000">Config</span>         <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MOSNConfig</span>
+	<span style="color:#8f5902;font-style:italic">// internal data
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">servers</span>   <span style="color:#000;font-weight:bold">[]</span><span style="color:#000">server</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Server</span>
+	<span style="color:#000">xdsClient</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">istio</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ADSClient</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h2 id="场景管理器">场景管理器</h2>
+<p>下面的逻辑中创建了一个叫 StageManager（场景管理器）的对象，这个对象是用来管理 MOSN 的生命周期，后面的逻辑都是围绕着这个对象来编码的，定义如下：</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// stagemanagr/stage_manager.go
+</span><span style="color:#8f5902;font-style:italic">// StageManager is used to controls service life stages.
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">StageManager</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">lock</span>                    <span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Mutex</span>
+	<span style="color:#000">state</span>                   <span style="color:#000">State</span>
+	<span style="color:#000">exitCode</span>                <span style="color:#204a87;font-weight:bold">int</span>
+	<span style="color:#000">stopAction</span>              <span style="color:#000">StopAction</span>
+	<span style="color:#000">data</span>                    <span style="color:#000">Data</span>  <span style="color:#8f5902;font-style:italic">//保存了app不同生命周期阶段所使用的数据
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">app</span>                     <span style="color:#000">Application</span> <span style="color:#8f5902;font-style:italic">// Application interface app其实就是MOSN
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">wg</span>                      <span style="color:#000">sync</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WaitGroup</span>
+    <span style="color:#8f5902;font-style:italic">//以下是不同生命周期对应的处理函数 -- start
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">paramsStages</span>            <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">cli</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">)</span>  <span style="color:#8f5902;font-style:italic">//参数准备阶段
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">initStages</span>              <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MOSNConfig</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">//初始化场景
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">preStartStages</span>          <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Application</span><span style="color:#000;font-weight:bold">)</span>  <span style="color:#8f5902;font-style:italic">//启动之前
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">startupStages</span>           <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Application</span><span style="color:#000;font-weight:bold">)</span>  <span style="color:#8f5902;font-style:italic">//启动
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">afterStartStages</span>        <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Application</span><span style="color:#000;font-weight:bold">)</span>  <span style="color:#8f5902;font-style:italic">//启动之后
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">beforeStopStages</span>        <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">StopAction</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">Application</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#8f5902;font-style:italic">//停止之前
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">gracefulStopStages</span>      <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Application</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span>  <span style="color:#8f5902;font-style:italic">//优雅停止
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">afterStopStages</span>         <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Application</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">//停止之后处理
+</span><span style="color:#8f5902;font-style:italic"></span>    <span style="color:#8f5902;font-style:italic">//生命周期阶段 --- end  
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">onStateChangedCallbacks</span> <span style="color:#000;font-weight:bold">[]</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">State</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000">upgradeHandler</span>          <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#8f5902;font-style:italic">// old server: send listener/config/old connections to new server
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">newServerC</span>              <span style="color:#204a87;font-weight:bold">chan</span> <span style="color:#204a87;font-weight:bold">bool</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#8f5902;font-style:italic">// Data contains objects used in stages
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">Data</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#8f5902;font-style:italic">// ctx contains the start parameters
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">ctx</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">cli</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span>
+	<span style="color:#8f5902;font-style:italic">// config path represents the config file path,
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// will create basic config from it and if auto config dump is set,
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// new config data will write into this path
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">configPath</span> <span style="color:#204a87;font-weight:bold">string</span>
+	<span style="color:#8f5902;font-style:italic">// basic config, created after parameters parsed stage
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">config</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MOSNConfig</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+
+</code></pre></div><p>上面代码增加了注释，可以看到 stageManager 的生命周期包含 参数准备、初始化、启动之前处理、启动、启动之后处理、停止之前处理、优雅停止、停止之后处理等几个阶段。每个阶段对应的是一个函数的数组，也就是说每个阶段的处理可以有多个处理函数。</p>
+<p>这里可以好好的看一下 stage_manager.go 的源码，里面定义了11种场景的状态和2种额外的场景 （stage_manager.go 原文件头部有大块的注释里把场景的含义描述的比较清楚），那么当状态发生变化的时候，就会调用上文提到的场景管理器维护的回调函数。</p>
+<h3 id="application">Application</h3>
+<p>同时还定义了一个 Application 的接口，是对一个应用进行抽象，其中之前说的 <em>Mosn</em> 对象就是 Application 的一个实现。 Application 被 stageManager 所管理，Application 本身定义了生命周期 （ application 不同的生命周期，会触发 stage 场景的切换），周期包括：初始化，启动，停止。那么 stageManager 根据这些周期的变化，同时回调切换场景的函数。</p>
+<h3 id="阶段小结">阶段小结</h3>
+<p>到这里先不着急往下看启动逻辑，我们先总结一下目前掌握的内容及背后的设计思路，这样后面梳理逻辑会变得很轻松。
+<img src="objectRel.png" alt="关联关系图.png"><br />
+如上图所示，Application 应用（其实就是 <em>Mosn</em> 本身）包含若干方法：初始化、启动、停止。这些方法调用后让应用进入不同的生命周期，同时场景管理器 （StageManager）维护的场景状态也对应发生改变，应用生命周期与场景二者是有关联关系的。</p>
+<p>那么先不看源码只凭借猜测，到底是应用的生命周期发生变化后触发场景改变状态；还是先触发场景改变状态进而触发应用改变生命周期呢？我的猜测是这样，因为上文提到场景管理器（StageManager）用来管理应用的生命周期，StageManager 结构体中也包含 Application 对象。那么很大的可能是先由场景管理来触发状态改变，再触发应用对应的方法来改变生命周期。</p>
+<p>其实因为场景的状态有11个粒度要比应用的生命周期粒度更细，从这点上来看也只可能场景状态（细粒度）切换同时调用应用的方法切换生命周期（粗粒度），而反之行不通（粗粒度的一方无法识别什么时候调用细粒度一方）。</p>
+<p>既然我猜测是 StageManager 场景来控制切换，那么肯定有对应的方法提供场景切换。这个时候我们再来看代码，发现确实存在这样的方法来证明我的猜测。下面是切换场景的方法：<br /><img src="methods.png" alt="代码方法.png"></p>
+<h2 id="详细分析">详细分析</h2>
+<h3 id="场景管理器的启动">场景管理器的启动</h3>
+<p>我们继续看一下 stage_manager.go 的 <em>Run()</em> 方法，可以清楚的看到场景管理器的启动逻辑，就是调用了不同子阶段，每个阶段都会有切换状态的逻辑，在方法的最后逻辑可以看到，启动之后设置场景状态为 Running。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// Run until the application is started
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">stm</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">StageManager</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">Run</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#8f5902;font-style:italic">// 1: parser params
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">runParamsParsedStage</span><span style="color:#000;font-weight:bold">()</span>
+	<span style="color:#8f5902;font-style:italic">// 2: init
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">runInitStage</span><span style="color:#000;font-weight:bold">()</span>
+	<span style="color:#8f5902;font-style:italic">// 3: pre start
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">runPreStartStage</span><span style="color:#000;font-weight:bold">()</span>
+	<span style="color:#8f5902;font-style:italic">// 4: run
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">runStartStage</span><span style="color:#000;font-weight:bold">()</span>
+	<span style="color:#8f5902;font-style:italic">// 5: after start
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">runAfterStartStage</span><span style="color:#000;font-weight:bold">()</span>
+
+	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetState</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Running</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>可以看到这个 <em>Run()</em> 方法执行了参数解析、初始化、启动前处理、启动、启动后处理等方法。我猜测每个方法一定是执行前文说的每个阶段对应的回调函数数组。找其中一个方法看一下逻辑，果然如我猜测一样。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">stm</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">StageManager</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">runParamsParsedStage</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">st</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Now</span><span style="color:#000;font-weight:bold">()</span>
+    <span style="color:#8f5902;font-style:italic">//设置场景状态
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetState</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ParamsParsed</span><span style="color:#000;font-weight:bold">)</span> 
+    <span style="color:#8f5902;font-style:italic">//果然和猜测一样，遍历回调函数的数组并调用
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#204a87;font-weight:bold">for</span> <span style="color:#000">_</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">f</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#204a87;font-weight:bold">range</span> <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">paramsStages</span> <span style="color:#000;font-weight:bold">{</span>
+		<span style="color:#000">f</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">ctx</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#000;font-weight:bold">}</span>
+	<span style="color:#8f5902;font-style:italic">// after all registered stages are completed
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">config</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">configmanager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Load</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">configPath</span><span style="color:#000;font-weight:bold">)</span>
+
+	<span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StartLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Infof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;parameters parsed stage cost: %v&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Since</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">st</span><span style="color:#000;font-weight:bold">))</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>可以说 <em>Run()</em> 方法作用就是场景管理器 stageManager 来启动应用 Application，那这个 <em>Run()</em> 方法在什么地方被调用呢？梳理一下代码，调用链路是：<code>control.go cmdStart.Action(就是前面提到的程序启动的入口)-&gt;stm.RunAll()-&gt;stm.Run()</code>。这样从上文提到 MOSN 命令行启动到这个 Run() 方法就串起来了。</p>
+<p>其中还有一个比较重要的方法是 <em>stm.RunAll()</em> ，该方法是场景管理器中完整的场景都会执行一遍： <em>Run</em> 是启动，之后 <em>WaitFinish</em> 就等待 server 停止，最后是 <em>Stop</em> 场景。每个过程都会调用若干场景切换。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// run all stages
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">stm</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">StageManager</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000">RunAll</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#8f5902;font-style:italic">// start to work
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Run</span><span style="color:#000;font-weight:bold">()</span>
+	<span style="color:#8f5902;font-style:italic">// wait server finished
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">WaitFinish</span><span style="color:#000;font-weight:bold">()</span>
+	<span style="color:#8f5902;font-style:italic">// stop working
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Stop</span><span style="color:#000;font-weight:bold">()</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h3 id="启动逻辑详解">启动逻辑详解</h3>
+<p>好了现在我们回到最开始的 control.go <em>cmdStart.Action</em> 逻辑。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#0000cf;font-weight:bold">159</span>         <span style="color:#000">Action</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">cli</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Context</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#204a87;font-weight:bold">error</span> <span style="color:#000;font-weight:bold">{</span>
+	            <span style="color:#8f5902;font-style:italic">// 创建Application
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">160</span>             <span style="color:#000">app</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">mosn</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">NewMosn</span><span style="color:#000;font-weight:bold">()</span>
+                <span style="color:#8f5902;font-style:italic">// 创建stagemanager场景管理器
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">161</span>             <span style="color:#000">stm</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">stagemanager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitStageManager</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;config&#34;</span><span style="color:#000;font-weight:bold">),</span> <span style="color:#000">app</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">162</span>             <span style="color:#8f5902;font-style:italic">// if needs featuregate init in parameter stage or init stage
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">163</span>             <span style="color:#8f5902;font-style:italic">// append a new stage and called featuregate.ExecuteInitFunc(keys...)
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">164</span>             <span style="color:#8f5902;font-style:italic">// parameter parsed registered
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">165</span>             <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AppendParamsParsedStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">ExtensionsRegister</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">166</span>             <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AppendParamsParsedStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">DefaultParamsParsed</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">167</span>             <span style="color:#8f5902;font-style:italic">// initial registered
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">168</span>             <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AppendInitStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">cfg</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MOSNConfig</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+<span style="color:#0000cf;font-weight:bold">169</span>                 <span style="color:#000">drainTime</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Int</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;drain-time-s&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">170</span>                 <span style="color:#000">server</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetDrainTime</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Duration</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">drainTime</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">time</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Second</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">171</span>                 <span style="color:#8f5902;font-style:italic">// istio parameters
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">172</span>                 <span style="color:#000">serviceCluster</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;service-cluster&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">173</span>                 <span style="color:#000">serviceNode</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;service-node&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">174</span>                 <span style="color:#000">serviceType</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;service-type&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">175</span>                 <span style="color:#000">serviceMeta</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StringSlice</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;service-meta&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">176</span>                 <span style="color:#000">metaLabels</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StringSlice</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;service-lables&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">177</span>                 <span style="color:#000">clusterDomain</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;cluster-domain&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">178</span>                 <span style="color:#000">podName</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;pod-name&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">179</span>                 <span style="color:#000">podNamespace</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;pod-namespace&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">180</span>                 <span style="color:#000">podIp</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">c</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">String</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;pod-ip&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">181</span>
+<span style="color:#0000cf;font-weight:bold">182</span>                 <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">serviceNode</span> <span style="color:#ce5c00;font-weight:bold">!=</span> <span style="color:#4e9a06">&#34;&#34;</span> <span style="color:#000;font-weight:bold">{</span>
+<span style="color:#0000cf;font-weight:bold">183</span>                     <span style="color:#000">istio1106</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitXdsInfo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">cfg</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">serviceCluster</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">serviceNode</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">serviceMeta</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">metaLabels</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">184</span>                 <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+<span style="color:#0000cf;font-weight:bold">185</span>                     <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000">istio1106</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">IsApplicationNodeType</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">serviceType</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+<span style="color:#0000cf;font-weight:bold">186</span>                         <span style="color:#000">sn</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">podName</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;.&#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">podNamespace</span>
+<span style="color:#0000cf;font-weight:bold">187</span>                         <span style="color:#000">serviceNode</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">serviceType</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;~&#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">podIp</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;~&#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">sn</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;~&#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#000">clusterDomain</span>
+<span style="color:#0000cf;font-weight:bold">188</span>                         <span style="color:#000">istio1106</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitXdsInfo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">cfg</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">serviceCluster</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">serviceNode</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">serviceMeta</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">metaLabels</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">189</span>                     <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">{</span>
+<span style="color:#0000cf;font-weight:bold">190</span>                         <span style="color:#000">log</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StartLogger</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Infof</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;[mosn] [start] xds service type is not router/sidecar, use config only&#34;</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">191</span>                         <span style="color:#000">istio1106</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">InitXdsInfo</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">cfg</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">nil</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">192</span>                     <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#0000cf;font-weight:bold">193</span>                 <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#0000cf;font-weight:bold">194</span>             <span style="color:#000;font-weight:bold">})</span>
+<span style="color:#0000cf;font-weight:bold">195</span>             <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AppendInitStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">mosn</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultInitStage</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">196</span>             <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AppendInitStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">func</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">_</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MOSNConfig</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+<span style="color:#0000cf;font-weight:bold">197</span>                 <span style="color:#8f5902;font-style:italic">// set version and go version
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">198</span>                 <span style="color:#000">metrics</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetVersion</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Version</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">199</span>                 <span style="color:#000">metrics</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetGoVersion</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">runtime</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Version</span><span style="color:#000;font-weight:bold">())</span>
+<span style="color:#0000cf;font-weight:bold">200</span>                 <span style="color:#000">admin</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">SetVersion</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">Version</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">201</span>             <span style="color:#000;font-weight:bold">})</span>
+<span style="color:#0000cf;font-weight:bold">202</span>             <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AppendInitStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Register</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">203</span>             <span style="color:#8f5902;font-style:italic">// pre-startup
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">204</span>             <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AppendPreStartStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">mosn</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultPreStartStage</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">// called finally stage by default
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">205</span>             <span style="color:#8f5902;font-style:italic">// startup
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">206</span>             <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AppendStartStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">mosn</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">DefaultStartStage</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">207</span>             <span style="color:#8f5902;font-style:italic">// after-stop
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">208</span>             <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">AppendAfterStopStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">holmes</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Stop</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#0000cf;font-weight:bold">209</span>             <span style="color:#8f5902;font-style:italic">// execute all stages
+</span><span style="color:#8f5902;font-style:italic"></span>                <span style="color:#8f5902;font-style:italic">//执行所有场景
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#0000cf;font-weight:bold">210</span>             <span style="color:#000">stm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">RunAll</span><span style="color:#000;font-weight:bold">()</span>
+<span style="color:#0000cf;font-weight:bold">211</span>             <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#204a87;font-weight:bold">nil</span>
+<span style="color:#0000cf;font-weight:bold">212</span>  <span style="color:#000;font-weight:bold">},</span>
+</code></pre></div><ul>
+<li>（line160）创建应用 <em>mosn.NewMosn</em> ,</li>
+<li>（line161）创建场景管理器 <em>stagemanager.InitStageManager(c, c.String(&ldquo;config&rdquo;), app)</em></li>
+<li>（line210）启动场景管理器 <em>stm.RunAll()</em> ，触发执行启动、等待停止、停止。</li>
+<li>而中间（第165行到第208行）的一堆逻辑其实就是在设置 StageManager（场景管理器），为每个状态设置了对应的回调函数，后面启动过程中调用场景切换的时候其实就是调用这里设置的回调函数。</li>
+</ul>
+<h3 id="paramsparsed-阶段">ParamsParsed 阶段</h3>
+<p><strong>(stm *StageManager) AppendParamsParsedStage(f func(*cli.Context))</strong></p>
+<p>这个阶段是整个生命周期的第一个阶段，如果需要有需要通过命令行参数来初始化的工作，可以在这个阶段完成。这个阶段注册了两个函数 <em>ExtensionsRegister</em> 和 <em>DefaultParamsParsed</em> 这两个函数作用如下：</p>
+<ul>
+<li><em>ExtensionsRegister</em> ：主要用来初始化一些扩展的组件。这块我理解 MOSN 在落地的时候会根据具体场景来接入一些特定的组件。这些组件如果需要初始化，可以在这个方法里初始化。为什么要在这个函数里初始化呢？一个是函数的参数是 cli.Context 命令行的封装，可以方便获取命令行参数来初始化组件，另外这个函数执行也是整个生命周期最开始执行，如果需要 MOSN 启动首先初始化的组件可以在这里来实现。而 v1.6.0 版本里该函数主要用来初始化一些链路追踪的配置，以及网络协议编解码的设置。这里就不展开分析了。</li>
+<li><em>DefaultParamsParsed</em> ：这里就是 MOSN 默认的在命令解析阶段进行初始化的内容一般不用修改。目前作用是用来设置日志级别及从命令行里解析各种开关。</li>
+</ul>
+<h3 id="initstage阶段">InitStage阶段</h3>
+<p><strong>(stm *StageManager) AppendInitStage(f func(*v2.MOSNConfig)) *StageManager</strong></p>
+<p>这个是第二个阶段，这个阶段也是用来初始化，只不过初始化的来源是通过 MOSN 的配置文件。</p>
+<ul>
+<li>（line168-194）这部分主要是从 Config 配置文件中获取运行环境的相关元数据，用这些数据来初始化 xds 客户端。xds 客户端使用xds协议与控制面组件进行交互。（ xds 是 Istio 标准的协议）</li>
+<li>（line195）调用了 MOSN 的默认初始化，这部分逻辑非常的多。里面又细分很多步骤。这里我对每个方法都加上了注释，见下面代码段。</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">DefaultInitStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span> <span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">v2</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">MOSNConfig</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">InitDefaultPath</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">//初始化mosn需要的相关运行时的目录,比如：日志，存储mosn进程ID的文件等
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">InitDebugServe</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span>   <span style="color:#8f5902;font-style:italic">//启动mosn的debug信息查看服务，可以查看pprof信息
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">InitializePidFile</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span>  <span style="color:#8f5902;font-style:italic">//初始化mosn pid持久化的文件
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">InitializeTracing</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span>   <span style="color:#8f5902;font-style:italic">//初始化mosn 链路追踪的组件，根据配置文件中链路相关的配置。在之前的分析ParamParsed阶段会维护一些mosn支持的链路追踪的驱动列表，然后在这个阶段里会选择一个具体的组件作为链路追踪的实现。
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">InitializePlugin</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">//这个阶段是初始化一下插件，不过看了实现其实就是初始化log配置
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">InitializeWasm</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#8f5902;font-style:italic">//初始化web assembly 环境
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">InitializeThirdPartCodec</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">c</span><span style="color:#000;font-weight:bold">)</span>  <span style="color:#8f5902;font-style:italic">//初始化第三方的编解码的配置，这块我也不太理解，需要后面继续研究一下。个人感觉是加载动态代码，目前支持wasm和goPlugin
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><ul>
+<li>（line196-201）这部分比较简单，AppendInitStage 这部分就是初始化 metrics 初始化统计的组件</li>
+<li>接下来（line202）stm.AppendInitStage(holmes.Register) 这句初始化一个蚂蚁开源的可观测性组件 holmes。<a href="https://github.com/mosn/holmes">参考：holmes</a></li>
+</ul>
+<h3 id="prestartstage阶段">PreStartStage阶段</h3>
+<p><strong>func (stm *StageManager) AppendPreStartStage(f func(Application)) *StageManager</strong></p>
+<p>这个阶段逻辑并不复杂，主要是启动 xds 客户端。</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// Default Pre-start Stage wrappers
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">DefaultPreStartStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">mosn</span> <span style="color:#000">stagemanager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Application</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">m</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">mosn</span><span style="color:#000;font-weight:bold">.(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">Mosn</span><span style="color:#000;font-weight:bold">)</span>
+
+	<span style="color:#8f5902;font-style:italic">// start xds client
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">_</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000">m</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">StartXdsClient</span><span style="color:#000;font-weight:bold">()</span>
+	<span style="color:#000">featuregate</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">FinallyInitFunc</span><span style="color:#000;font-weight:bold">()</span>  <span style="color:#8f5902;font-style:italic">//初始化配置中指定的Feature
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">m</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">HandleExtendConfig</span><span style="color:#000;font-weight:bold">()</span>  <span style="color:#8f5902;font-style:italic">//将配置中扩展配置信息转换成对象
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h3 id="startstage阶段">StartStage阶段</h3>
+<p><strong>func (stm *StageManager) AppendStartStage(f func(Application)) *StageManager</strong></p>
+<ul>
+<li>（line206） <em>stm.AppendStartStage(mosn.DefaultStartStage)</em> 这个阶段启动了 MOSN 的管理服务，通过配置文件进行启动。</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8f5902;font-style:italic">// Default Start Stage wrappers
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">func</span> <span style="color:#000">DefaultStartStage</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">mosn</span> <span style="color:#000">stagemanager</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Application</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+	<span style="color:#000">m</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">mosn</span><span style="color:#000;font-weight:bold">.(</span><span style="color:#ce5c00;font-weight:bold">*</span><span style="color:#000">Mosn</span><span style="color:#000;font-weight:bold">)</span>
+	<span style="color:#8f5902;font-style:italic">// register admin server
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#8f5902;font-style:italic">// admin server should register after all prepares action ready
+</span><span style="color:#8f5902;font-style:italic"></span>	<span style="color:#000">srv</span> <span style="color:#ce5c00;font-weight:bold">:=</span> <span style="color:#000">admin</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Server</span><span style="color:#000;font-weight:bold">{}</span>
+	<span style="color:#000">srv</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Start</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">m</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Config</span><span style="color:#000;font-weight:bold">)</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><h3 id="afterstopstage阶段">AfterStopStage阶段</h3>
+<p><strong>func (stm *StageManager) AppendAfterStopStage(f func(Application)) *StageManager</strong></p>
+<ul>
+<li>（line208） <em>stm.AppendAfterStopStage(holmes.Stop)</em> 这个阶段是在 MOSN 服务关闭后调用，这里就直接调用 holmes.Stop 关闭 holmes 组件。</li>
+</ul>
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a  class="btn btn-primary  disabled"><span class="mr-1">←</span> 上一页</a>
+  </li>
+    <a href="/blog/code/mosn-startup/v0.4.0/" class="btn btn-primary ">下一页 <span class="ml-1">→</span></a>
+  </li>
+</ul>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-12 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://twitter.com/MosnProxy">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Mailing list" aria-label="Mailing list">
+    <a class="text-white" target="_blank" href="https://groups.google.com/d/forum/mosn-dev">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/mosn/mosn">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+        <div style="position: absolute; top: -57px;" class="text-center container-fluid">
+          <div>
+            <img src="https://github.com/mosn/mosn.io/raw/master/assets/img/dingtalk.jpg?raw=true" width="80">
+          </div>
+          <div style="font-size: 8px;" class="text-white">
+            <p> 欢迎钉钉扫码 </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2023 The MOSN Authors 保留所有权利</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>

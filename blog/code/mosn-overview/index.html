@@ -23,12 +23,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/code/mosn-overview/" />
 <meta property="article:published_time" content="2020-05-08T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-12-25T14:18:37+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2023-12-25T16:27:26+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 源码解析 - 总览">
 <meta itemprop="description" content="MOSN 源码解析文章总览。">
 <meta itemprop="datePublished" content="2020-05-08T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-12-25T14:18:37+08:00" />
-<meta itemprop="wordCount" content="124">
+<meta itemprop="dateModified" content="2023-12-25T16:27:26+08:00" />
+<meta itemprop="wordCount" content="127">
 
 
 
@@ -454,8 +454,37 @@ if (!doNotTrack) {
       
       
       
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/code/mosn-startup/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">MOSN 源码解析 - 启动流程</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blogcodemosn-startup">
       
-      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startup" href="/blog/code/mosn-startup/">MOSN 源码解析 - 启动流程</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startupv040" href="/blog/code/mosn-startup/v0.4.0/">MOSN 源码解析 - 启动流程（v0.4.0）</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startupv160" href="/blog/code/mosn-startup/v1.6.0/">MOSN 源码解析 - 启动流程</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
       
       
       
@@ -567,7 +596,7 @@ if (!doNotTrack) {
 <p>在2020年伊始，MOSN 团队在社区发起了 MOSN 源码解析系列活动，本次活动旨在增强社区对 MOSN 的认知，促进开源社区的交流，是大家学习和使用 MOSN，与 MOSN 的核心开发者直接交流的一个良好契机。</p>
 <p>经过十几位社区同学的参与，目前十四篇文章都已经完成，本文将做一个整体介绍，方便大家更好的了解 MOSN。查看原文解析系列文章请访问： <a href="https://mosn.io/blog/code/">https://mosn.io/blog/code/</a>。</p>
 <h2 id="模块能力">模块能力</h2>
-<p>首先是 MOSN 的 <a href="../mosn-startup/">启动流程</a>，通过这篇文章，你可以了解 MOSN 的启动过程，包括配置解析，日志初始化，Xds 初始化，各子模块启动，AdminApi 初始化等能力，也介绍了普通启动和热升级启动的区别，对 MOSN 的平滑升级能力有一个初步的了解。</p>
+<p>首先是 MOSN 的 <a href="../mosn-startup/v1.6.0/">启动流程</a>，通过这篇文章，你可以了解 MOSN 的启动过程，包括配置解析，日志初始化，Xds 初始化，各子模块启动。另外通过 <a href="../mosn-startup/v0.4.0/">启动流程（v0.4.0）</a> 这篇文章针对 AdminApi 初始化等过程做了分析，同时也介绍了普通启动和热升级启动的区别，对 MOSN 的平滑升级能力有一个初步的了解。</p>
 <p><a href="../mosn-router/">路由</a> 这个章节，你可以了解路由的配置解析，运行方式和动态路由等能力。</p>
 <p>在 <a href="../mosn-tls/">TLS</a> 你可以了解 MOSN 怎样集成 Go Runtime 的 TLS 能力，并在此基础上我们进行了那些能力的加强，比如明文密文自动识别能力，SDS 能力支持，对 TLS 握手进行自定义校验的扩展能力等。</p>
 <p><a href="../../posts/multi-protocol-deep-dive/">多协议机制</a> 是 MOSN 比较重要的一部分，你可以了解多协议机制产生的背景与实践痛点，一些常见的协议扩展思路初探，SOFABolt 协议接入实践，以及 MOSN 多协议机制设计解读。通过阅读本文，你可以很容易的实现一个自己的协议了。</p>
