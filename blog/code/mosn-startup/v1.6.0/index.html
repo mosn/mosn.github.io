@@ -23,11 +23,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mosn.io/blog/code/mosn-startup/v1.6.0/" />
 <meta property="article:published_time" content="2023-12-17T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-12-25T16:27:26+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta property="article:modified_time" content="2023-12-26T11:05:04+08:00" /><meta property="og:site_name" content="MOSN" />
 <meta itemprop="name" content="MOSN 源码解析 - 启动流程">
 <meta itemprop="description" content="MOSN 源码解析基于v1.6.0版本">
 <meta itemprop="datePublished" content="2023-12-17T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-12-25T16:27:26+08:00" />
+<meta itemprop="dateModified" content="2023-12-26T11:05:04+08:00" />
 <meta itemprop="wordCount" content="820">
 
 
@@ -617,7 +617,7 @@ if (!doNotTrack) {
 	</div>
 	<p>本文基于 MOSN V1.6.0版本的源码基础上进行整理。该版本对比之前 V0.4.0 版本启动逻辑有比较大的变化。其中比较明显的差异是该版本新增了 StageManager 结构，该结构对 MOSN 的生命周期进行封装并加以维护，使得 MOSN 从启动到停止过程中每个逻辑更易于维护和扩展。</p>
 <h2 id="mosn-启动入口">MOSN 启动入口</h2>
-<p>MOSN 利用 cli 组件 （github.com/urfave/cli）来实现命令行的控制。制动之后默认执行 cmdStart 命令，之后就进入下面的启动逻辑。</p>
+<p>MOSN 利用 cli 组件 （github.com/urfave/cli）来实现命令行的控制。启动之后默认执行 cmdStart 命令，之后就进入下面的启动逻辑。</p>
 <p>在 control.go 文件中 <em>cmdStart.Action</em> 方法是整个 MOSN 启动的入口方法。首先调用 <em>NewMosn()</em> 这个方法只是返回了一个空的 <em>Mosn</em> 对象，该对象代表着 <em>Mosn</em> 应用，该对象定义如下：</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#204a87;font-weight:bold">type</span> <span style="color:#000">Mosn</span> <span style="color:#204a87;font-weight:bold">struct</span> <span style="color:#000;font-weight:bold">{</span>
 	<span style="color:#000">isFromUpgrade</span>  <span style="color:#204a87;font-weight:bold">bool</span> <span style="color:#8f5902;font-style:italic">// hot upgrade from old MOSN

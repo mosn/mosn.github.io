@@ -500,7 +500,7 @@ m.reconfigure.Close()
         
         &lt;p&gt;本文基于 MOSN V1.6.0版本的源码基础上进行整理。该版本对比之前 V0.4.0 版本启动逻辑有比较大的变化。其中比较明显的差异是该版本新增了 StageManager 结构，该结构对 MOSN 的生命周期进行封装并加以维护，使得 MOSN 从启动到停止过程中每个逻辑更易于维护和扩展。&lt;/p&gt;
 &lt;h2 id=&#34;mosn-启动入口&#34;&gt;MOSN 启动入口&lt;/h2&gt;
-&lt;p&gt;MOSN 利用 cli 组件 （github.com/urfave/cli）来实现命令行的控制。制动之后默认执行 cmdStart 命令，之后就进入下面的启动逻辑。&lt;/p&gt;
+&lt;p&gt;MOSN 利用 cli 组件 （github.com/urfave/cli）来实现命令行的控制。启动之后默认执行 cmdStart 命令，之后就进入下面的启动逻辑。&lt;/p&gt;
 &lt;p&gt;在 control.go 文件中 &lt;em&gt;cmdStart.Action&lt;/em&gt; 方法是整个 MOSN 启动的入口方法。首先调用 &lt;em&gt;NewMosn()&lt;/em&gt; 这个方法只是返回了一个空的 &lt;em&gt;Mosn&lt;/em&gt; 对象，该对象代表着 &lt;em&gt;Mosn&lt;/em&gt; 应用，该对象定义如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;Mosn&lt;/span&gt; &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
 	&lt;span style=&#34;color:#000&#34;&gt;isFromUpgrade&lt;/span&gt;  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;bool&lt;/span&gt; &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;// hot upgrade from old MOSN
