@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.75.1" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>以一次 RPC 请求为例探索 MOSN的 工作流程 | MOSN</title><meta property="og:title" content="以一次 RPC 请求为例探索 MOSN的 工作流程" />
+<meta property="og:description" content="本文以工作中非常常见的一个思路为出发点，详细描述了 MOSN 内部网络转发的详细流程，可以帮助小伙伴加深对 MOSN 的理解。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mosn.io/blog/posts/mosn_workflow/" />
+<meta property="article:published_time" content="2024-03-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-03-11T17:46:26+08:00" /><meta property="og:site_name" content="MOSN" />
+<meta itemprop="name" content="以一次 RPC 请求为例探索 MOSN的 工作流程">
+<meta itemprop="description" content="本文以工作中非常常见的一个思路为出发点，详细描述了 MOSN 内部网络转发的详细流程，可以帮助小伙伴加深对 MOSN 的理解。">
+<meta itemprop="datePublished" content="2024-03-11T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2024-03-11T17:46:26+08:00" />
+<meta itemprop="wordCount" content="825">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="以一次 RPC 请求为例探索 MOSN的 工作流程"/>
+<meta name="twitter:description" content="本文以工作中非常常见的一个思路为出发点，详细描述了 MOSN 内部网络转发的详细流程，可以帮助小伙伴加深对 MOSN 的理解。"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-93485976-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+<link rel="preload" href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" as="style">
+<link href="/scss/main.min.9cec847bc1ee9ab691799d701ee687d347251e2f54aa5296c06b28d7ff934652.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+
+
+
+    <title>以一次 RPC 请求为例探索 MOSN的 工作流程 | MOSN</title>
+  </head>
+  <body class="td-page td-blog">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.77 104.1"><defs><linearGradient id="未命名的渐变_32" x1="105.22" y1="49.86" x2="45.89" y2="82.52" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><title>MOSN logo</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><polygon points="273.9 79.91 273.88 49.09 242.34 49.11 242.34 36.9 273.78 36.9 273.75 27.74 231.28 27.76 231.3 58.59 262.85 58.56 262.85 70.77 231.34 70.77 231.37 79.91 273.9 79.91" style="fill:#fff"/><path d="M175.76 79.91h46.59v-52h-46.56zm11-43.1h24.5V70.94h-24.5z" style="fill:#fff"/><path d="M329.77 79.91v-51.74h-46.56V79.91h11v-41h24.5v41z" style="fill:#fff"/><polygon points="165.54 79.82 165.46 27.61 155.21 27.69 140.1 42.55 125 27.7 114.66 27.7 114.75 79.91 124.39 79.82 124.3 40.29 140.1 55.84 155.91 40.29 155.91 79.91 165.54 79.82" style="fill:#fff"/><polygon points="53.57 57.41 90.27 36.16 89.77 80.29 53.09 100.37 53.57 57.41" style="fill:url(#未命名的渐变_32)"/><path d="M92.42 32.59a1 1 0 00-1 0L51.13 55.47a2 2 0 00-1 1.75v45.85a1 1 0 00.52.89 1 1 0 00.52.14 1 1 0 00.51-.14L91.93 80.78a2 2 0 001-1.74V33.49A1 1 0 0092.42 32.59zM84.79 46V75.49L58.54 90.6V60.91z" style="fill:#fff"/><path d="M85.09 22 47.48.27a2 2 0 00-2 0L1 25.94a2 2 0 00-1 1.74V79a2 2 0 001 1.73L37.77 102a1 1 0 00.52.14 1 1 0 00.52-.14 1 1 0 00.52-.89V93.48a1.6 1.6.0 00-.79-1.38L9.33 75.24a.76.76.0 01-.39-.66V32.13a.77.77.0 01.39-.67L46.09 10.24a.76.76.0 01.77.0l30 17.32a1.61 1.61.0 001.59.0l6.64-3.78a1 1 0 00.52-.9A1 1 0 0085.09 22z" style="fill:#fff"/></g></g></svg></span>
+        
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/mosn/mosn/" target="_blank" ><span>GitHub</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>文档</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/blog/" ><span class="active">博客</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/community/" ><span>社区</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/faq/" ><span>FAQ</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/user-guide/start/tutorial/" ><span>教程</span></a>
+			</li>
+			
+			
+			
+			<li class="nav-item dropdown d-none d-lg-block">
+				
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/en/">English</a>
+	
+</div>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+<input type="search" class="form-control td-search-input" placeholder="&#xf002 搜索本站" aria-label="搜索本站" autocomplete="off">
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    
+    <div class="nav-item dropdown d-block d-lg-none">
+      
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	中文
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="/en/">English</a>
+	
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">博客</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="blog">
+      
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/news/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">新闻</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blognews">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsmosn-channel-1" href="/blog/news/mosn-channel-1/">直播预告：MOSN 的多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blognewsannouncing-mosn-communtiy" href="/blog/news/announcing-mosn-communtiy/">MOSN 社区成立</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/posts/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">分享</a>
+  </li>
+  <ul>
+    <li class="collapse show" id="blogposts">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page  active" id="m-blogpostsmosn_workflow" href="/blog/posts/mosn_workflow/">以一次 RPC 请求为例探索 MOSN 的工作流程</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-7" href="/blog/posts/moe-extend-envoy-using-golang-7/">MoE 系列[七] - Envoy Go 扩展之沙箱安全</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-loadbalancer-peakewma" href="/blog/posts/mosn-loadbalancer-peakewma/">mosn基于延迟负载均衡算法 -- 走得更快，期待走得更稳</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-6" href="/blog/posts/moe-extend-envoy-using-golang-6/">MoE 系列[六] - Envoy Go 扩展之并发安全</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-5" href="/blog/posts/moe-extend-envoy-using-golang-5/">MoE 系列 [五] - Envoy Go 扩展之内存安全</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-4" href="/blog/posts/moe-extend-envoy-using-golang-4/">MoE 系列 [四] - Go 扩展的异步模式</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-3" href="/blog/posts/moe-extend-envoy-using-golang-3/">MoE 系列 [三] - 使用 Istio 动态更新 Go 扩展配置</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-2" href="/blog/posts/moe-extend-envoy-using-golang-2/">MoE 系列 [二] - Golang 扩展从 Envoy 接收配置</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmoe-extend-envoy-using-golang-1" href="/blog/posts/moe-extend-envoy-using-golang-1/">MoE 系列 - 如何使用 Golang 扩展 Envoy [一]</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-optimize-build-subset" href="/blog/posts/mosn-optimize-build-subset/">构建 subset 优化</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-holmes-design" href="/blog/posts/mosn-holmes-design/">Holmes 原理浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-tunnel" href="/blog/posts/mosn-tunnel/">MOSN 反向通道详解</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-sidecarset-hotupgrade" href="/blog/posts/mosn-sidecarset-hotupgrade/">利用 SidecarSet 实现 MOSN 容器原地热升级</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostshow-use-dynamic-metadata" href="/blog/posts/how-use-dynamic-metadata/">MOSN 路由框架详解</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-wasm-framework" href="/blog/posts/mosn-wasm-framework/">WebAssembly 在 MOSN 中的实践 - 基础框架篇</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-integrate" href="/blog/posts/mosn-dubbo-integrate/">在 MOSN 中玩转 dubbo-go</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-dubbo-go-hessian2" href="/blog/posts/mosn-dubbo-go-hessian2/">记一次在 MOSN 对 Dubbo、dubbo-go-hessian2 的性能优化</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsskywalking-support" href="/blog/posts/skywalking-support/">MOSN 支持使用 SkyWalking 进行分布式追踪</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-extensions" href="/blog/posts/mosn-extensions/">MOSN 的扩展机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmulti-protocol-deep-dive" href="/blog/posts/multi-protocol-deep-dive/">MOSN 多协议机制解析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsudpa-follow-up" href="/blog/posts/udpa-follow-up/">UDPA 最新进展深度介绍</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsmosn-source-code-brief" href="/blog/posts/mosn-source-code-brief/">MOSN 源码浅析</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogpostsnginx-envoy-mosn-hot-upgrade" href="/blog/posts/nginx-envoy-mosn-hot-upgrade/">Nginx vs Envoy vs MOSN 平滑升级原理解析</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/code/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">源码解析</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blogcode">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-overview" href="/blog/code/mosn-overview/">MOSN 源码解析 - 总览</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-tls" href="/blog/code/mosn-tls/">MOSN 源码解析 - TLS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-router" href="/blog/code/mosn-router/">MOSN 源码解析 - 路由</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-connection-pool" href="/blog/code/mosn-connection-pool/">MOSN 源码分析 - 连接池</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-http" href="/blog/code/mosn-http/">MOSN 源码解析 - HTTP 系能力</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-log" href="/blog/code/mosn-log/">MOSN 源码解析 - log 系统</a>
+      
+      
+      
+      
+
+
+
+
+
+
+<ul class="td-sidebar-nav__section pr-md-3">
+  <li class="td-sidebar-nav__section-title">
+    <a  href="/blog/code/mosn-startup/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">MOSN 源码解析 - 启动流程</a>
+  </li>
+  <ul>
+    <li class="collapse " id="blogcodemosn-startup">
+      
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startupv040" href="/blog/code/mosn-startup/v0.4.0/">MOSN 源码解析 - 启动流程（v0.4.0）</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-startupv160" href="/blog/code/mosn-startup/v1.6.0/">MOSN 源码解析 - 启动流程</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-eventloop" href="/blog/code/mosn-eventloop/">MOSN 源码解析 - 协程模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-shm" href="/blog/code/mosn-shm/">MOSN 源码解析 - 共享内存模型</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-variable" href="/blog/code/mosn-variable/">MOSN 源码解析 - 变量机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-buffer" href="/blog/code/mosn-buffer/">MOSN 源码解析 - 内存复用机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-plugin" href="/blog/code/mosn-plugin/">MOSN 源码解析 - plugin 机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-xds" href="/blog/code/mosn-xds/">MOSN 源码解析 - xDS</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-filters" href="/blog/code/mosn-filters/">MOSN 源码解析 - filter扩展机制</a>
+      
+      
+      
+      
+      
+      <a class="td-sidebar-link td-sidebar-link__page " id="m-blogcodemosn-reconfig-mechanism" href="/blog/code/mosn-reconfig-mechanism/">MOSN 源码解析 - reconfig 机制</a>
+      
+      
+    </li>
+  </ul>
+</ul>
+
+      
+      
+    </li>
+  </ul>
+</ul>
+
+  </nav>
+</div>
+
+
+
+
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            
+
+
+
+
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+
+
+
+
+<a href="https://github.com/mosn/mosn.io/edit/master/content/zh/blog/posts/mosn_workflow/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑本页</a>
+<a href="https://github.com/mosn/mosn.io/issues/new?title=%e4%bb%a5%e4%b8%80%e6%ac%a1%20RPC%20%e8%af%b7%e6%b1%82%e4%b8%ba%e4%be%8b%e6%8e%a2%e7%b4%a2%20MOSN%e7%9a%84%20%e5%b7%a5%e4%bd%9c%e6%b5%81%e7%a8%8b" target="_blank"><i class="fab fa-github fa-fw"></i> 创建文档 issue</a>
+
+
+<a href="https://github.com/mosn/mosn/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> 创建项目 issue</a>
+
+</div>
+
+
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-前言">1. 前言</a></li>
+    <li><a href="#2-rpc-场景下-mosn-的工作机制">2. RPC 场景下 MOSN 的工作机制</a></li>
+    <li><a href="#3-全局视野下的-mosn-工作流程">3. 全局视野下的 MOSN 工作流程</a>
+      <ul>
+        <li><a href="#31-建立连接">3.1 建立连接</a></li>
+        <li><a href="#32-protocol-处理">3.2 Protocol 处理</a></li>
+        <li><a href="#33-proxy-层处理">3.3 Proxy 层处理</a></li>
+        <li><a href="#34-准备将响应写回客户端">3.4 准备将响应写回客户端</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-总结">4. 总结</a></li>
+  </ul>
+</nav>
+
+
+
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="https://mosn.io/blog/posts/index.xml" target="_blank">
+              RSS <i class="fa fa-rss ml-2 "></i>
+            </a>
+            
+<div class="td-content">
+	<h1>以一次 RPC 请求为例探索 MOSN的 工作流程</h1>
+	<div class="lead">本文以工作中非常常见的一个思路为出发点，详细描述了 MOSN 内部网络转发的详细流程，可以帮助小伙伴加深对 MOSN 的理解。</div>
+	<div class="td-byline mb-4">
+		作者 <b><a href="https://github.com/wangchengming666">wangchengming666</a></b> |
+		<time datetime="2024-03-11" class="text-muted">2024年3月11日</time>
+	</div>
+	<h2 id="1-前言">1. 前言</h2>
+<p>MOSN（Modular Open Smart Network）是一款主要使用 Go 语言开发的云原生网络代理平台，由蚂蚁集团开源并经过双11大促几十万容器的生产级验证。
+MOSN 为服务提供多协议、模块化、智能化、安全的代理能力，融合了大量云原生通用组件，同时也可以集成 Envoy 作为网络库，具备高性能、易扩展的特点。MOSN 可以和 Istio 集成构建 Service Mesh，也可以作为独立的四、七层负载均衡，API Gateway、云原生 Ingress 等使用。</p>
+<p>MOSN 作为数据面，整体 NET/IO、Protocol、Stream、Proxy 四个层次组成，其中</p>
+<ul>
+<li>NET/IO 用于底层的字节流传输</li>
+<li>Protocol 用于协议的 decode/encode</li>
+<li>Stream 用于封装请求和响应，在一个 conn 上做连接复用</li>
+<li>Proxy 做 downstream 和 upstream 之间 stream 的转发</li>
+</ul>
+<p>那么 MOSN 是如何工作的呢？下图展示的是使用 Sidecar 方式部署运行 MOSN 的示意图，您可以在配置文件中设置 MOSN 的上游和下游协议，协议可以在 HTTP、HTTP2.0、以及SOFA RPC 等中选择。
+<img src="img.png" alt="img.png">
+以上内容来自官网 <a href="https://mosn.io/">https://mosn.io/</a></p>
+<h2 id="2-rpc-场景下-mosn-的工作机制">2. RPC 场景下 MOSN 的工作机制</h2>
+<p>RPC 场景下 MOSN 的工作机制示意图如下
+<img src="img_1.png" alt="img_1.png"></p>
+<p>我们简单理解一下上面这张图的意义：</p>
+<ol>
+<li>Server 端 MOSN 会将自身 ingress 的协议端口写入到注册中心</li>
+<li>Client 端 MOSN 会从注册中心订阅地址列表，第一次订阅也会返回全量地址列表，端口号是 Server 端 ingress 绑定的端口号</li>
+<li>注册中心会实时推送地址列表变更到 Client 端（全量）</li>
+<li>Client 端发起rpc 调用时，请求会被 SDK 打到本地 Client 端 MOSN 的 egress 端口上</li>
+<li>Client 端 MOSN 将 RPC 请求通过网络转发，将流量通过负载均衡转发到某一台 Server 端 MOSN 的 ingress 端口处理</li>
+<li>最终到了 Server 端 ingress listener，会转发给本地 Server 应用</li>
+<li>最终会根据原来的 TCP 链路返回</li>
+</ol>
+<h2 id="3-全局视野下的-mosn-工作流程">3. 全局视野下的 MOSN 工作流程</h2>
+<p><img src="img_2.png" alt="img_2.png"></p>
+<p>为了方便大家理解，我将以上时序图内容进行拆分，我们一一攻破。</p>
+<h3 id="31-建立连接">3.1 建立连接</h3>
+<p>MOSN 在启动期间，会暴露本地 egress 端口接收 Client 的请求。MOSN 会开启 2 个协程，分别死循环去对 TCP 进行读取和写处理。MOSN 会通过读协程获取到请求字节流，进入 MOSN 的协议层处理。</p>
+<pre><code>// 代码路径 mosn.io/mosn/pkg/network/connection.go
+func (c *connection) Start(lctx context.Context) {
+	// udp downstream connection do not use read/write loop
+	if c.network == &quot;udp&quot; &amp;&amp; c.rawConnection.RemoteAddr() == nil {
+		return
+	}
+	c.startOnce.Do(func() {
+    // UseNetpollMode = false
+		if UseNetpollMode {
+			c.attachEventLoop(lctx)
+		} else {
+      // 启动读/写循环
+			c.startRWLoop(lctx)
+		}
+	})
+}
+
+func (c *connection) startRWLoop(lctx context.Context) {
+  // 标记读循环已经启动
+	c.internalLoopStarted = true
+
+	utils.GoWithRecover(func() {
+    // 开始读操作
+		c.startReadLoop()
+	}, func(r interface{}) {
+		c.Close(api.NoFlush, api.LocalClose)
+	})
+  // 省略。。。
+}
+</code></pre><h3 id="32-protocol-处理">3.2 Protocol 处理</h3>
+<p>Protocol 作为多协议引擎层，对数据包进行检测，并使用对应协议做 decode/encode 处理。MOSN 会循环解码，一旦收到完整的报文就会创建与其关联的 xstream，用于保持 tcp 连接用于后续响应。</p>
+<pre><code>// 代码路径 mosn.io/mosn/pkg/stream/xprotocol/conn.go
+func (sc *streamConn) Dispatch(buf types.IoBuffer) {
+	// decode frames
+	for {
+		// 协议 decode，比如 dubbo、bolt 协议等
+		frame, err := sc.protocol.Decode(streamCtx, buf)
+
+		if frame != nil {
+      // 创建和请求 frame 关联的 xstream，用于保持 tcp 连接用于后续响应
+			sc.handleFrame(streamCtx, xframe)
+		}
+	}
+}
+
+func (sc *streamConn) handleFrame(ctx context.Context, frame api.XFrame) {
+	switch frame.GetStreamType() {
+	case api.Request:
+    // 创建和请求 frame 关联的 xstream，用于保持 tcp 连接用于后续响应，之后进入 proxy 层
+		sc.handleRequest(ctx, frame, false)
+	}
+}
+
+func (sc *streamConn) handleRequest(ctx context.Context, frame api.XFrame, oneway bool) {
+	// 创建和请求 frame 关联的 xstream
+	serverStream := sc.newServerStream(ctx, frame)
+  // 进入 proxy 层并创建 downstream
+	serverStream.receiver = sc.serverCallbacks.NewStreamDetect(serverStream.ctx, sender, span)
+	serverStream.receiver.OnReceive(serverStream.ctx, frame.GetHeader(), frame.GetData(), nil)
+}
+</code></pre><h3 id="33-proxy-层处理">3.3 Proxy 层处理</h3>
+<p>proxy 层负责 filter 请求/响应链、路由匹配、负载均衡最终将请求转发到集群的某台机器上。</p>
+<h4 id="331-downstream-部分">3.3.1 downStream 部分</h4>
+<pre><code>// 代码路径 mosn.io/mosn/pkg/proxy/downstream.go
+func (s *downStream) OnReceive(ctx context.Context, headers types.HeaderMap, data types.IoBuffer, trailers types.HeaderMap) {
+	s.downstreamReqHeaders = headers
+  // filter 请求/响应链、路由匹配、负载均衡
+  phase = s.receive(s.context, id, phase)
+}
+
+func (s *downStream) receive(ctx context.Context, id uint32, phase types.Phase) types.Phase {
+	for i := 0; i &lt;= int(types.End-types.InitPhase); i++ {
+		s.phase = phase
+
+		switch phase {
+
+		// downstream filter 相关逻辑
+		case types.DownFilter:
+			s.printPhaseInfo(phase, id)
+			s.tracks.StartTrack(track.StreamFilterBeforeRoute)
+
+			s.streamFilterChain.RunReceiverFilter(s.context, api.BeforeRoute,
+				s.downstreamReqHeaders, s.downstreamReqDataBuf, s.downstreamReqTrailers, s.receiverFilterStatusHandler)
+			s.tracks.EndTrack(track.StreamFilterBeforeRoute)
+
+			if p, err := s.processError(id); err != nil {
+				return p
+			}
+			phase++
+
+		// route 相关逻辑
+		case types.MatchRoute:
+			s.printPhaseInfo(phase, id)
+
+			s.tracks.StartTrack(track.MatchRoute)
+			s.matchRoute()
+			s.tracks.EndTrack(track.MatchRoute)
+
+			if p, err := s.processError(id); err != nil {
+				return p
+			}
+			phase++
+			
+		// 在集群中选择一个机器、包含cluster和loadblance
+		case types.ChooseHost:
+			s.printPhaseInfo(phase, id)
+
+			s.tracks.StartTrack(track.LoadBalanceChooseHost)
+      // 这里很重要，在选中一个机器之后，这里upstreamRequest对象有两个作用
+      // 1. 这里通过持有downstream保持着对客户端app的tcp引用，用来接收请求
+      // 2. 转发服务端tcp引用，转发客户端app请求以及响应服务端response时的通知
+			s.chooseHost(s.downstreamReqDataBuf == nil &amp;&amp; s.downstreamReqTrailers == nil)
+			s.tracks.EndTrack(track.LoadBalanceChooseHost)
+
+			if p, err := s.processError(id); err != nil {
+				return p
+			}
+			phase++
+		}
+	}
+}
+</code></pre><h4 id="332-upstream-部分">3.3.2 upStream 部分</h4>
+<p>至此已经选中一台服务端的机器，开始准备转发。</p>
+<pre><code>// 代码路径 mosn.io/mosn/pkg/proxy/upstream.go
+func (r *upstreamRequest) appendHeaders(endStream bool) {
+
+	if r.downStream.oneway {
+		_, streamSender, failReason = r.connPool.NewStream(r.downStream.context, nil)
+	} else {
+    // 会使用 ChooseHost 中选中的机器 host 创建 sender，xstream 是客户端的流对象
+		_, streamSender, failReason = r.connPool.NewStream(r.downStream.context, r)
+	}
+}
+</code></pre><p>接下来会到达 conn.go 的 handleFrame 的 handleResponse 方法，此时 handleResponse 方法继续调用 downStream 的 receiveData 方法接收数据。</p>
+<pre><code>//代码路径 mosn.io/mosn/pkg/stream/xprotocol/conn.go
+func (sc *streamConn) handleFrame(ctx context.Context, frame api.XFrame) {
+	switch frame.GetStreamType() {
+	case api.Response:
+    // 调用 downStream 的 receiveData 方法接收数据
+    // 因为 mosn 在转发之前修改了请求id，因此会重新 encode 请求
+		sc.handleResponse(ctx, frame)
+	}
+}
+</code></pre><p>一旦准备好转发就会通过 upstreamRequest 选择的下游主机直接发送 write 请求，请求的协程此时会被阻塞。</p>
+<pre><code>// 代码路径 mosn.io/mosn/pkg/stream/xprotocol/stream.go
+func (s *xStream) endStream() {
+	defer func() {
+		if s.direction == stream.ServerStream {
+			s.DestroyStream()
+		}
+	}()
+
+	if log.Proxy.GetLogLevel() &gt;= log.DEBUG {
+		log.Proxy.Debugf(s.ctx, &quot;[stream] [xprotocol] connection %d endStream, direction = %d, requestId = %v&quot;, s.sc.netConn.ID(), s.direction, s.id)
+	}
+
+	if s.frame != nil {
+		// replace requestID
+		s.frame.SetRequestId(s.id)
+    // 因为 mosn 在转发之前修改了请求 id，因此会重新 encode 请求
+		buf, err := s.sc.protocol.Encode(s.ctx, s.frame)
+		if err != nil {
+			log.Proxy.Errorf(s.ctx, &quot;[stream] [xprotocol] encode error:%s, requestId = %v&quot;, err.Error(), s.id)
+			s.ResetStream(types.StreamLocalReset)
+			return
+		}
+
+		tracks := track.TrackBufferByContext(s.ctx).Tracks
+
+		tracks.StartTrack(track.NetworkDataWrite)
+    // 一旦准备好转发就会通过upstreamRequest选择的下游主机直接发送 write 请求，请求的协程此时会被阻塞
+		err = s.sc.netConn.Write(buf)
+		tracks.EndTrack(track.NetworkDataWrite)
+		}
+	}
+}
+</code></pre><h3 id="34-准备将响应写回客户端">3.4 准备将响应写回客户端</h3>
+<p>接下来客户端 xstream 将通过读协程接收响应的字节流，proxy.go 的 OnData 方法作为 proxy 层的数据接收点。</p>
+<pre><code>// 代码位置 mosn.io/mosn/pkg/proxy/proxy.go
+func (p *proxy) OnData(buf buffer.IoBuffer) api.FilterStatus {
+  // 这里会做两件事
+  // 1. 调用 protocol 层进行decode
+  // 2. 完成后通知upstreamRequest对象，唤醒downstream阻塞的协程
+	p.serverStreamConn.Dispatch(buf)
+
+	return api.Stop
+}
+
+// 代码位置 mosn.io/mosn/pkg/proxy/upstream.go
+func (r *upstreamRequest) OnReceive(ctx context.Context, headers types.HeaderMap, data types.IoBuffer, trailers types.HeaderMap) {
+  // 结束当前stream
+	r.endStream()
+
+  // 唤醒
+	r.downStream.sendNotify()
+}
+</code></pre><p>downstream 被唤醒处理收到的响应，重新替换回正确的请求ID，并调用 protocol 层重新编码成字节流写回客户端，最后销毁请求相关的资源，流程执行完毕。</p>
+<pre><code>// 比如我的 demo 是 dubbo 协议
+func encodeFrame(ctx context.Context, frame *Frame) (types.IoBuffer, error) {
+
+	// 1. fast-path, use existed raw data
+	if frame.rawData != nil {
+		// 1.1 replace requestId
+		binary.BigEndian.PutUint64(frame.rawData[IdIdx:], frame.Id)
+
+		// hack: increase the buffer count to avoid premature recycle
+		frame.data.Count(1)
+		return frame.data, nil
+	}
+
+	// alloc encode buffer
+	frameLen := int(HeaderLen + frame.DataLen)
+	buf := buffer.GetIoBuffer(frameLen)
+	// encode header
+	buf.WriteByte(frame.Magic[0])
+	buf.WriteByte(frame.Magic[1])
+	buf.WriteByte(frame.Flag)
+	buf.WriteByte(frame.Status)
+	buf.WriteUint64(frame.Id)
+	buf.WriteUint32(frame.DataLen)
+	// encode payload
+	buf.Write(frame.payload)
+	return buf, nil
+}
+</code></pre><h2 id="4-总结">4. 总结</h2>
+<p>本文以工作中非常常见的一个思路为出发点，详细描述了 MOSN 内部网络转发的详细流程，可以帮助小伙伴加深对 MOSN 的理解。MOSN 是一款非常优秀的开源产品，
+MOSN 支持多种网络协议（如HTTP/2, gRPC, Dubbo等）并且能够很容易地增加对新协议的支持；MOSN 提供了丰富的流量治理功能，例如限流、熔断、重试、
+负载均衡等；MOSN 在性能方面进行了大量优化，比如内存零拷贝、自适应缓冲区、连接池、协程池等，这些都有助于提升其在高并发环境下的表现。除此之外
+MOSN 在连接管理方面，MOSN 设计了多协议连接池；在内存管理方面，MOSN 在 sync.Pool 之上封装了一层资源对的注册管理模块，可以方便的扩展各种类型的
+对象进行复用和管理。总的来说，MOSN 的设计体现了可扩展性、高性能、安全性、以及对现代云环境的适应性等多方面的考虑。对于开发者来说，深入研究MOSN的
+代码和架构，无疑可以学到很多关于高性能网络编程和云原生技术的知识。</p>
+<ul>
+<li>MOSN 官网：<a href="https://mosn.io/">https://mosn.io/</a></li>
+<li>MOSN Github：<a href="https://github.com/mosn/mosn">https://github.com/mosn/mosn</a></li>
+</ul>
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a href="/blog/posts/moe-extend-envoy-using-golang-7/" class="btn btn-primary "><span class="mr-1">←</span> 上一页</a>
+  </li>
+    <a  class="btn btn-primary  disabled">下一页 <span class="ml-1">→</span></a>
+  </li>
+</ul>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-12 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Twitter" aria-label="Twitter">
+    <a class="text-white" target="_blank" href="https://twitter.com/MosnProxy">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Mailing list" aria-label="Mailing list">
+    <a class="text-white" target="_blank" href="https://groups.google.com/d/forum/mosn-dev">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" href="https://github.com/mosn/mosn">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+        <div style="position: absolute; top: -57px;" class="text-center container-fluid">
+          <div>
+            <img src="https://github.com/mosn/mosn.io/raw/master/assets/img/dingtalk.jpg?raw=true" width="80">
+          </div>
+          <div style="font-size: 8px;" class="text-white">
+            <p> 欢迎钉钉扫码 </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2024 The MOSN Authors 保留所有权利</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/main.min.21281e9f475a7abc8504cb5fc1cfef4ff8be93a8376f50451d83c27ea0aeab14.js" integrity="sha256-ISgen0daeryFBMtfwc/vT/i&#43;k6g3b1BFHYPCfqCuqxQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+  </body>
+</html>
